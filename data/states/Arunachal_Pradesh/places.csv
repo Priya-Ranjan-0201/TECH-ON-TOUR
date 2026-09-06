@@ -1,17 +1,16 @@
 place_name,state_ut,district,city_or_town,nearest_major_city,category
 "Gompa Buddhist Temple - Itanagar, Arunachal Pradesh, India",Arunachal Pradesh,Papum Pare,Naharlagun,Guwahati,Religious
 State Museum,Arunachal Pradesh,Papum Pare,Naharlagun,Guwahati,Cultural
-"Taktsang Gompa, Tawang - Bumla Road, Tawang",Arunachal Pradesh,Tawang,Tawang,Tezpur,Religious
+"Taktsang Gompa, Tawang - Bumla Road, Tawang",Arunachal Pradesh,Tawang,Tawang,Religious
 Tawang Monastery (Galden Namgey Lhatse),Arunachal Pradesh,Tawang,Tawang,Tezpur,Monastery
-"Bomdila Buddhist Monastery - Bomdila, West Kameng District, Arunachal Pradesh, India",Arunachal Pradesh,West Kameng,Tawang,Tezpur,Religious
+"Bomdila Buddhist Monastery - Bomdila, West Kameng District, Arunachal Pradesh, India",Arunachal Pradesh,West Kameng,Bomdila,Tezpur,Religious
 Buddha Park,Arunachal Pradesh,West Kameng,Tawang,Tezpur,Recreation
-Mandala Associates,Arunachal Pradesh,West Kameng,Bomdila,Tezpur,Religious
 Namdapha National Park,Arunachal Pradesh,Changlang,Miao,Dibrugarh,Mountain
 Anini,Arunachal Pradesh,Dibang Valley,Anini,Roing,Mountain
 Pasighat,Arunachal Pradesh,East Siang,Pasighat,Dibrugarh,Mountain
 Roing,Arunachal Pradesh,Lower Dibang Valley,Roing,Tinsukia,Trek
 Ziro Valley Cultural Landscape,Arunachal Pradesh,Lower Subansiri,Ziro,Itanagar,Culture
-Mechuka,Arunachal Pradesh,Shi Yomi,Mechuka,Aalo,Valley
+Mechuka Valley,Arunachal Pradesh,Shi Yomi,Mechuka,Aalo,Valley
 Bhalukpong,Arunachal Pradesh,West Kameng,Bhalukpong,Tezpur,Mountain
 Bomdila,Arunachal Pradesh,West Kameng,Bomdila,Tezpur,Trek
 Dirang,Arunachal Pradesh,West Kameng,Dirang,Tezpur,Trek
@@ -30,35 +29,94 @@ Gorichen Peak,Arunachal Pradesh,Tawang,Tawang,Tezpur,Hill Station
 Itanagar Wildlife Sanctuary,Arunachal Pradesh,Itanagar,Itanagar,Itanagar,Wildlife
 Ganga Lake,Arunachal Pradesh,Itanagar,Itanagar,Itanagar,Lake
 Naharlagun,Arunachal Pradesh,Itanagar,Itanagar,Itanagar,Heritage
-Thembang Village,Arunachal Pradesh,West Kameng,Tawang,Tezpur,Heritage
+Thembang Village,Arunachal Pradesh,West Kameng,Thembang,Tezpur,Heritage
 Sela Lake,Arunachal Pradesh,Tawang,Tawang,Tezpur,Lake
-Nuranang Falls,Arunachal Pradesh,Tawang,Tawang,Tezpur,Waterfall
+Nuranang Falls,Arunachal Pradesh,Tawang,Jang,Tezpur,Waterfall
 Shakti Falls,Arunachal Pradesh,Tawang,Tawang,Tezpur,Waterfall
-Jang,Arunachal Pradesh,Tawang,Tawang,Tezpur,Hill Station
-Lumla,Arunachal Pradesh,Tawang,Tawang,Tezpur,Hill Station
-Menchuka Valley,Arunachal Pradesh,Shi-Yomi,Shi-Yomi,Shi-Yomi,Hill Station
-Eaglenest Wildlife Sanctuary,Arunachal Pradesh,West Kameng,Tawang,Tezpur,Wildlife
-Seppa,Arunachal Pradesh,East Kameng,East Kameng,East Kameng,Heritage
+Jang,Arunachal Pradesh,Tawang,Jang,Tezpur,Hill Station
+Lumla,Arunachal Pradesh,Tawang,Lumla,Tezpur,Hill Station
+Eaglenest Wildlife Sanctuary,Arunachal Pradesh,West Kameng,Seppa,Tezpur,Wildlife
+Seppa,Arunachal Pradesh,East Kameng,Seppa,Tezpur,Heritage
 Daying Ering Wildlife Sanctuary,Arunachal Pradesh,East Siang,Pasighat,Dibrugarh,Wildlife
 Sela Tunnel,Arunachal Pradesh,Tawang,Tawang,Tezpur,Heritage
 P.T. Tso Lake,Arunachal Pradesh,Tawang,Tawang,Tezpur,Lake
 Tawang War Memorial,Arunachal Pradesh,Tawang,Tawang,Tezpur,Museum
-Sangestar Tso,Arunachal Pradesh,Tawang,Tawang,Tezpur,Lake
-Mouling National Park,Arunachal Pradesh,Upper Siang,Upper Siang,Upper Siang,Wildlife
-Apatani Cultural Landscape,Arunachal Pradesh,Ziro,Ziro,Ziro,Heritage
-Daporijo,Arunachal Pradesh,Upper Subansiri,Upper Subansiri,Upper Subansiri,Heritage
+Mouling National Park,Arunachal Pradesh,Upper Siang,Yingkiong,Dibrugarh,Wildlife
+Apatani Cultural Landscape,Arunachal Pradesh,Lower Subansiri,Ziro,Itanagar,Heritage
+Daporijo,Arunachal Pradesh,Upper Subansiri,Daporijo,Itanagar,Heritage
 Jawaharlal Nehru Museum,Arunachal Pradesh,Itanagar,Itanagar,Itanagar,Museum
-Yingkiong,Arunachal Pradesh,Upper Siang,Upper Siang,Upper Siang,Heritage
+Yingkiong,Arunachal Pradesh,Upper Siang,Yingkiong,Dibrugarh,Heritage
 Mehao Wildlife Sanctuary,Arunachal Pradesh,Lower Dibang Valley,Roing,Tinsukia,Wildlife
-Namsai,Arunachal Pradesh,Namsai,Namsai,Namsai,Heritage
-Chongkham,Arunachal Pradesh,Namsai,Namsai,Namsai,Heritage
-Changlang,Arunachal Pradesh,Changlang,Miao,Dibrugarh,Hill Station
+Namsai,Arunachal Pradesh,Namsai,Namsai,Dibrugarh,Heritage
+Chongkham,Arunachal Pradesh,Namsai,Chongkham,Dibrugarh,Heritage
+Changlang,Arunachal Pradesh,Changlang,Changlang,Dibrugarh,Hill Station
 Miao,Arunachal Pradesh,Changlang,Miao,Dibrugarh,Heritage
-Seijosa,Arunachal Pradesh,East Kameng,East Kameng,East Kameng,Heritage
-Mandala Top,Arunachal Pradesh,West Kameng,Tawang,Tezpur,Hill Station
-Jaswant Garh War Memorial,Arunachal Pradesh,Tawang,Tawang,Tezpur,Fort
-PT Tso,Arunachal Pradesh,Tawang,Tawang,Tezpur,Lake
+Seijosa,Arunachal Pradesh,East Kameng,Seijosa,Tezpur,Heritage
+Mandala Top,Arunachal Pradesh,West Kameng,Dirang,Tezpur,Hill Station
+Jaswant Garh War Memorial,Arunachal Pradesh,Tawang,Tawang,Tezpur,Memorial
 Ziro,Arunachal Pradesh,Lower Subansiri,Ziro,Itanagar,Hill Station
-Talle Valley,Arunachal Pradesh,Ziro,Ziro,Ziro,Hill Station
-Samten Yangchag Monastery,Arunachal Pradesh,Shi-Yomi,Shi-Yomi,Shi-Yomi,Monastery
-Tawang Monastery,Arunachal Pradesh,Tawang,Tawang,Tezpur,Religious
+Talle Valley,Arunachal Pradesh,Lower Subansiri,Ziro,Itanagar,Hill Station
+Samten Yangchag Monastery,Arunachal Pradesh,Shi Yomi,Mechuka,Aalo,Monastery
+
+Dirang Hot Water Spring,Arunachal Pradesh,West Kameng,Dirang,Tezpur,Natural Spring
+Dirang Dzong,Arunachal Pradesh,West Kameng,Dirang,Tezpur,Heritage
+Kalachakra Gompa,Arunachal Pradesh,West Kameng,Dirang,Tezpur,Monastery
+National Research Centre on Yak,Arunachal Pradesh,West Kameng,Dirang,Tezpur,Cultural
+Tippi Orchid Centre,Arunachal Pradesh,West Kameng,Tippi,Tezpur,Nature
+Tippi River Valley,Arunachal Pradesh,West Kameng,Tippi,Tezpur,Valley
+Ramalingam,Arunachal Pradesh,West Kameng,Bomdila,Tezpur,Valley
+Chakku,Arunachal Pradesh,West Kameng,Bomdila,Tezpur,Mountain
+Mago Village,Arunachal Pradesh,Tawang,Mago,Tezpur,Heritage
+Mago Waterfalls,Arunachal Pradesh,Tawang,Mago,Tezpur,Waterfall
+Banggachang Lake,Arunachal Pradesh,Tawang,Tawang,Tezpur,Lake
+Nyukmadung War Memorial and Heritage Museum,Arunachal Pradesh,Tawang,Nyukmadung,Tezpur,Museum
+Bomdila War Memorial,Arunachal Pradesh,West Kameng,Bomdila,Tezpur,Memorial
+Zemithang Valley,Arunachal Pradesh,Tawang,Zemithang,Tezpur,Valley
+Gorsam Chorten,Arunachal Pradesh,Tawang,Zemithang,Tezpur,Monastery
+Lumla Gompa,Arunachal Pradesh,Tawang,Lumla,Tezpur,Monastery
+Siyom River,Arunachal Pradesh,Shi Yomi,Mechuka,Aalo,Valley
+Siyom Hanging Bridge,Arunachal Pradesh,West Siang,Aalo,Pasighat,Heritage
+Bagra Village,Arunachal Pradesh,West Siang,Aalo,Pasighat,Cultural
+Patum Bridge,Arunachal Pradesh,West Siang,Aalo,Pasighat,Heritage
+Donyi Polo Temple Aalo,Arunachal Pradesh,West Siang,Aalo,Pasighat,Religious
+Kamki Hydroelectric Dam,Arunachal Pradesh,West Siang,Aalo,Pasighat,Dam
+Palin,Arunachal Pradesh,Kurung Kumey,Palin,Itanagar,Hill Station
+Nyapin,Arunachal Pradesh,Kurung Kumey,Nyapin,Itanagar,Hill Station
+Sangram,Arunachal Pradesh,Kurung Kumey,Sangram,Itanagar,Valley
+Koloriang,Arunachal Pradesh,Kurung Kumey,Koloriang,Itanagar,Hill Station
+Taliha,Arunachal Pradesh,Upper Subansiri,Taliha,Itanagar,Valley
+Siyum,Arunachal Pradesh,Upper Subansiri,Siyum,Itanagar,Valley
+Nacho,Arunachal Pradesh,Upper Subansiri,Nacho,Itanagar,Mountain
+Taksing,Arunachal Pradesh,Upper Subansiri,Taksing,Itanagar,Mountain
+Tuting,Arunachal Pradesh,Upper Siang,Tuting,Dibrugarh,Valley
+Jengging,Arunachal Pradesh,Upper Siang,Jengging,Dibrugarh,Valley
+Mariang,Arunachal Pradesh,East Siang,Mariang,Dibrugarh,Valley
+Kibithoo,Arunachal Pradesh,Anjaw,Kibithoo,Tezu,Mountain
+Dong Valley,Arunachal Pradesh,Anjaw,Dong,Tezu,Valley
+Walong,Arunachal Pradesh,Anjaw,Walong,Tezu,Valley
+Dong Viewpoint,Arunachal Pradesh,Anjaw,Dong,Tezu,Viewpoint
+Dong Krong,Arunachal Pradesh,Anjaw,Dong,Tezu,Natural Spring
+Kibithoo Village,Arunachal Pradesh,Anjaw,Kibithoo,Tezu,Heritage
+Hawai,Arunachal Pradesh,Anjaw,Hawai,Tezu,Mountain
+Hayuliang,Arunachal Pradesh,Anjaw,Hayuliang,Tezu,Valley
+Kanziranga Viewpoint,Arunachal Pradesh,Anjaw,Kibithoo,Tezu,Viewpoint
+Malinithan Archaeological Site,Arunachal Pradesh,Lower Siang,Likabali,Pasighat,Heritage
+Bhismaknagar Fort,Arunachal Pradesh,Lower Dibang Valley,Rukmininagar,Tinsukia,Archaeological
+Vijaynagar,Arunachal Pradesh,Changlang,Vijaynagar,Dibrugarh,Heritage
+Nakshaprabhat,Arunachal Pradesh,Lower Dibang Valley,Rukmininagar,Tinsukia,Archaeological
+Pangsau Pass,Arunachal Pradesh,Changlang,Nampong,Dibrugarh,Mountain Pass
+Nampong,Arunachal Pradesh,Changlang,Nampong,Dibrugarh,Heritage
+Jairampur World War II Cemetery,Arunachal Pradesh,Changlang,Jairampur,Dibrugarh,Heritage
+Nampong Namchik Tea Garden,Arunachal Pradesh,Changlang,Nampong,Dibrugarh,Tea Garden
+Lazu Village,Arunachal Pradesh,Tirap,Lazu,Dibrugarh,Heritage
+Khonsa Museum,Arunachal Pradesh,Tirap,Khonsa,Dibrugarh,Museum
+Hukanjuri,Arunachal Pradesh,Tirap,Hukanjuri,Dibrugarh,Mountain
+Deomali,Arunachal Pradesh,Tirap,Deomali,Dibrugarh,Hill Station
+Parshuram Kund Forest Trail,Arunachal Pradesh,Lohit,Tezu,Dibrugarh,Trek
+Tezu Botanical Garden,Arunachal Pradesh,Lohit,Tezu,Dibrugarh,Nature
+Glow Lake,Arunachal Pradesh,Lower Dibang Valley,Roing,Tinsukia,Lake
+Sally Lake,Arunachal Pradesh,Lower Dibang Valley,Roing,Tinsukia,Lake
+Hunli,Arunachal Pradesh,Lower Dibang Valley,Hunli,Tinsukia,Hill Station
+Mishmi Hills,Arunachal Pradesh,Lower Dibang Valley,Roing,Tinsukia,Mountain
+Mayodia Forest Trail,Arunachal Pradesh,Lower Dibang Valley,Roing,Tinsukia,Trek
+Kibithoo War Memorial,Arunachal Pradesh,Anjaw,Kibithoo,Tezu,Memorial
