@@ -1,34 +1,141 @@
 place_name,state_ut,district,city_or_town,nearest_major_city,category
-Bangladesh Plains View Point,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Recreation
-Eco Park,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Recreation
-Mawkdok Dympep Valley View Point,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Nature
-Mawsmai Nongthymmai Eco Park,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Recreation
+Bangladesh Plains View Point,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Viewpoint
+Eco Park,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Nature
+Mawkdok Dympep Valley View Point,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Viewpoint
+Mawsmai Nongthymmai Eco Park,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Nature
 Mot I pun / Palong Park,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Recreation
-Thangkharang Park,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Recreation
-View Point Of Cherrapunjee,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Nature
-Double Decker Living Root Bridge (Jingkieng Nongriat),Meghalaya,East Khasi Hills,Nongriat (near Cherrapunji),Shillong,Nature
+Thangkharang Park,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Nature
+View Point Of Cherrapunjee,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Viewpoint
+Double Decker Living Root Bridge (Jingkieng Nongriat),Meghalaya,East Khasi Hills,Nongriat,Shillong,Nature
 Mawlyngbna,Meghalaya,East Khasi Hills,Mawsynram,Shillong,Village
 Mawlynnong Village (God's Own Garden),Meghalaya,East Khasi Hills,Mawlynnong,Shillong,Culture
-Mawphlang Sacred Grove,Meghalaya,East Khasi Hills,Mawphlang,Shillong,Village
-Nohkalikai Falls Cherrapunji,Meghalaya,East Khasi Hills,Sohra (Cherrapunji),Shillong,Nature
-Umling Scenic Highland Rest Stop,Meghalaya,Ri-Bhoi,Umling,Nongpoh,Nature
-Jakrem,Meghalaya,South West Khasi Hills,Mawkyrwat,Shillong,Valley
+Mawphlang Sacred Grove,Meghalaya,East Khasi Hills,Mawphlang,Shillong,Nature
+Nohkalikai Falls Cherrapunji,Meghalaya,East Khasi Hills,Sohra,Shillong,Waterfall
+Umling Scenic Highland Rest Stop,Meghalaya,Ri-Bhoi,Umling,Nongpoh,Viewpoint
+Jakrem,Meghalaya,South West Khasi Hills,Mawkyrwat,Shillong,Hot Spring
 Krang Suri Waterfalls,Meghalaya,West Jaintia Hills,Amlarem,Jowai,Waterfall
-Umngot River Dawki & Shnongpdeng,Meghalaya,West Jaintia Hills,Dawki,Shillong,Nature
-Shillong,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Hill Station
-Mawsynram,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Heritage
-Seven Sisters Falls,Meghalaya,Cherrapunji,Cherrapunji,Cherrapunji,Waterfall
-Mawsmai Cave,Meghalaya,Cherrapunji,Cherrapunji,Cherrapunji,Cave
-Dawki,Meghalaya,West Jaintia Hills,Amlarem,Jowai,Riverfront
-Laitlum Canyon,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Heritage
-Elephant Falls,Meghalaya,Shillong,Shillong,Shillong,Waterfall
-Balpakram National Park,Meghalaya,South Garo Hills,South Garo Hills,South Garo Hills,Wildlife
-Nokrek National Park,Meghalaya,Garo Hills,Garo Hills,Garo Hills,Wildlife
-Jowai,Meghalaya,West Jaintia Hills,Amlarem,Jowai,Heritage
-Krang Suri Falls,Meghalaya,West Jaintia Hills,Amlarem,Jowai,Waterfall
-Nongpoh,Meghalaya,Ri-Bhoi,Umling,Nongpoh,Lake
-Ward's Lake,Meghalaya,Shillong,Shillong,Shillong,Lake
-Arwah Cave,Meghalaya,Cherrapunji,Cherrapunji,Cherrapunji,Cave
-Wei Sawdong Falls,Meghalaya,East Khasi Hills,Cherrapunji,Shillong,Waterfall
-Umiam Lake,Meghalaya,Ri-Bhoi,Umling,Nongpoh,Lake
-Nartiang Monoliths,Meghalaya,West Jaintia Hills,Amlarem,Jowai,Heritage
+Umngot River Dawki & Shnongpdeng,Meghalaya,West Jaintia Hills,Dawki,Shillong,Riverfront
+Shillong,Meghalaya,East Khasi Hills,Shillong,Shillong,Hill Station
+Mawsynram,Meghalaya,East Khasi Hills,Mawsynram,Shillong,Nature
+Seven Sisters Falls,Meghalaya,East Khasi Hills,Sohra,Shillong,Waterfall
+Mawsmai Cave,Meghalaya,East Khasi Hills,Sohra,Shillong,Cave
+Dawki,Meghalaya,West Jaintia Hills,Dawki,Jowai,Riverfront
+Laitlum Canyon,Meghalaya,East Khasi Hills,Smit,Shillong,Viewpoint
+Elephant Falls,Meghalaya,East Khasi Hills,Shillong,Shillong,Waterfall
+Balpakram National Park,Meghalaya,South Garo Hills,Baghmara,Tura,Wildlife
+Nokrek National Park,Meghalaya,West Garo Hills,Tura,Tura,Wildlife
+Jowai,Meghalaya,West Jaintia Hills,Jowai,Jowai,Hill Town
+Nongpoh,Meghalaya,Ri-Bhoi,Nongpoh,Nongpoh,Hill Town
+Ward's Lake,Meghalaya,East Khasi Hills,Shillong,Shillong,Lake
+Arwah Cave,Meghalaya,East Khasi Hills,Sohra,Shillong,Cave
+Wei Sawdong Falls,Meghalaya,East Khasi Hills,Sohra,Shillong,Waterfall
+Umiam Lake,Meghalaya,Ri-Bhoi,Umiam,Shillong,Lake
+Nartiang Monoliths,Meghalaya,West Jaintia Hills,Nartiang,Jowai,Heritage
+Sohra Plateau,Meghalaya,East Khasi Hills,Sohra,Shillong,Landscape
+Dainthlen Falls,Meghalaya,East Khasi Hills,Sohra,Shillong,Waterfall
+Kynrem Falls,Meghalaya,East Khasi Hills,Sohra,Shillong,Waterfall
+Wah Kaba Falls,Meghalaya,East Khasi Hills,Sohra,Shillong,Waterfall
+Lyngksiar Falls,Meghalaya,East Khasi Hills,Sohra,Shillong,Waterfall
+Mawsaw Falls,Meghalaya,East Khasi Hills,Sohra,Shillong,Waterfall
+Nongriat Village,Meghalaya,East Khasi Hills,Nongriat,Shillong,Village
+Nongthymmai Village,Meghalaya,East Khasi Hills,Sohra,Shillong,Village
+Mawmluh Cave,Meghalaya,East Khasi Hills,Sohra,Shillong,Cave
+Krem Phyllut,Meghalaya,East Khasi Hills,Sohra,Shillong,Cave
+Krem Mawmluh,Meghalaya,East Khasi Hills,Sohra,Shillong,Cave
+Mawjymbuin Cave,Meghalaya,East Khasi Hills,Mawsynram,Shillong,Cave
+Phlangwanbroi,Meghalaya,East Khasi Hills,Mawsynram,Shillong,Nature
+Khreng Khreng Waterfall,Meghalaya,East Khasi Hills,Mawsynram,Shillong,Waterfall
+Nongkhnum Island,Meghalaya,West Khasi Hills,Nongstoin,Shillong,Island
+Weinia Falls,Meghalaya,West Khasi Hills,Nongstoin,Shillong,Waterfall
+Nongstoin,Meghalaya,West Khasi Hills,Nongstoin,Shillong,Hill Town
+Mawthadraishan Peak,Meghalaya,West Khasi Hills,Mawthadraishan,Shillong,Mountain
+Nongkhum Island,Meghalaya,West Khasi Hills,Nongstoin,Shillong,Nature
+Mawphanlur,Meghalaya,West Khasi Hills,Mawphanlur,Shillong,Lake
+Mawthadraishan Village,Meghalaya,West Khasi Hills,Mawthadraishan,Shillong,Village
+Nongsteng Island,Meghalaya,West Khasi Hills,Nongstoin,Shillong,Island
+Krangsuri Falls Viewpoint,Meghalaya,West Jaintia Hills,Amlarem,Jowai,Viewpoint
+Phe Phe Falls,Meghalaya,West Jaintia Hills,Nartiang,Jowai,Waterfall
+Tyrshi Falls,Meghalaya,West Jaintia Hills,Jowai,Jowai,Waterfall
+Ialong Park,Meghalaya,West Jaintia Hills,Jowai,Jowai,Nature
+Ialong Sacred Grove,Meghalaya,West Jaintia Hills,Jowai,Jowai,Nature
+Syntu Ksiar,Meghalaya,West Jaintia Hills,Jowai,Jowai,Riverfront
+Thadlaskein Lake,Meghalaya,West Jaintia Hills,Mowkaiaw,Jowai,Lake
+Nartiang Durga Temple,Meghalaya,West Jaintia Hills,Nartiang,Jowai,Heritage
+Jaintia Royal Palace Ruins,Meghalaya,West Jaintia Hills,Nartiang,Jowai,Heritage
+Megalithic Bridge of Thlumuwi,Meghalaya,West Jaintia Hills,Jowai,Jowai,Heritage
+Dawki Suspension Bridge,Meghalaya,West Jaintia Hills,Dawki,Jowai,Bridge
+Shnongpdeng Village,Meghalaya,West Jaintia Hills,Shnongpdeng,Jowai,Village
+Mawryngkhang Bamboo Trek,Meghalaya,East Khasi Hills,Wahkhen,Shillong,Trekking
+Wahken Bamboo Village,Meghalaya,East Khasi Hills,Wahkhen,Shillong,Village
+Mawlyngbna Adventure Village,Meghalaya,East Khasi Hills,Mawlyngbna,Shillong,Adventure
+Mawphu Waterfall,Meghalaya,East Khasi Hills,Mawphu,Shillong,Waterfall
+Kongthong Village,Meghalaya,East Khasi Hills,Kongthong,Shillong,Culture
+Smit Village,Meghalaya,East Khasi Hills,Smit,Shillong,Culture
+Khasi Heritage Village,Meghalaya,East Khasi Hills,Mawphlang,Shillong,Culture
+Laitkynsew Village,Meghalaya,East Khasi Hills,Laitkynsew,Shillong,Village
+Mawsynram Sacred Forest,Meghalaya,East Khasi Hills,Mawsynram,Shillong,Nature
+Nongjrong View Point,Meghalaya,East Khasi Hills,Nongjrong,Shillong,Viewpoint
+Mawryngkhang Viewpoint,Meghalaya,East Khasi Hills,Wahkhen,Shillong,Viewpoint
+Mawlamuh Cave,Meghalaya,East Khasi Hills,Mawsynram,Shillong,Cave
+Ramakrishna Mission Sohra,Meghalaya,East Khasi Hills,Sohra,Shillong,Culture
+Don Bosco Centre for Indigenous Cultures,Meghalaya,East Khasi Hills,Shillong,Shillong,Museum
+Shillong Peak,Meghalaya,East Khasi Hills,Shillong,Shillong,Viewpoint
+Laitkor Peak,Meghalaya,East Khasi Hills,Shillong,Shillong,Viewpoint
+Sweet Falls,Meghalaya,East Khasi Hills,Shillong,Shillong,Waterfall
+Crinoline Falls,Meghalaya,East Khasi Hills,Shillong,Shillong,Waterfall
+Lady Hydari Park,Meghalaya,East Khasi Hills,Shillong,Shillong,Park
+Phan Nonglait Park,Meghalaya,East Khasi Hills,Shillong,Shillong,Park
+All Saints Cathedral,Meghalaya,East Khasi Hills,Shillong,Shillong,Heritage
+Cathedral of Mary Help of Christians,Meghalaya,East Khasi Hills,Shillong,Shillong,Heritage
+Laitumkhrah,Meghalaya,East Khasi Hills,Shillong,Shillong,Culture
+Mawblei Viewpoint,Meghalaya,East Khasi Hills,Shillong,Shillong,Viewpoint
+Umiam Mawphlang Road Viewpoints,Meghalaya,East Khasi Hills,Mawphlang,Shillong,Viewpoint
+Mawphlang Dam,Meghalaya,East Khasi Hills,Mawphlang,Shillong,Lake
+Lum Sohpet Byneng,Meghalaya,Ri-Bhoi,Nongpoh,Shillong,Mountain
+Umiam Viewpoint,Meghalaya,Ri-Bhoi,Umiam,Shillong,Viewpoint
+Lailad Village,Meghalaya,Ri-Bhoi,Umsning,Shillong,Village
+Nongkhnum Island Viewpoint,Meghalaya,West Khasi Hills,Nongstoin,Shillong,Viewpoint
+Ranikor,Meghalaya,South West Khasi Hills,Ranikor,Shillong,Riverfront
+Nonghyllam Wildlife Sanctuary,Meghalaya,South West Khasi Hills,Ranikor,Shillong,Wildlife
+Mawthadraishan Wildlife Area,Meghalaya,West Khasi Hills,Mawthadraishan,Shillong,Wildlife
+Nongjrong Sunrise Viewpoint,Meghalaya,East Khasi Hills,Nongjrong,Shillong,Viewpoint
+Mawkdok Dympep Adventure Activities,Meghalaya,East Khasi Hills,Mawkdok,Shillong,Adventure
+Ramakrishna Mission Museum Sohra,Meghalaya,East Khasi Hills,Sohra,Shillong,Museum
+Balpakram Canyon,Meghalaya,South Garo Hills,Baghmara,Tura,Nature
+Balpakram Siju Road,Meghalaya,South Garo Hills,Baghmara,Tura,Landscape
+Siju Cave,Meghalaya,South Garo Hills,Siju,Tura,Cave
+Siju Wildlife Sanctuary,Meghalaya,South Garo Hills,Siju,Tura,Wildlife
+Nengkhong Waterfall,Meghalaya,South Garo Hills,Baghmara,Tura,Waterfall
+Nengkong Waterfall,Meghalaya,South Garo Hills,Baghmara,Tura,Waterfall
+Emangre Village,Meghalaya,West Garo Hills,Emangre,Tura,Village
+Pelga Falls,Meghalaya,West Garo Hills,Tura,Tura,Waterfall
+Rongbang Dar Waterfall,Meghalaya,West Garo Hills,Tura,Tura,Waterfall
+Tura Peak,Meghalaya,West Garo Hills,Tura,Tura,Mountain
+Tura View Point,Meghalaya,West Garo Hills,Tura,Tura,Viewpoint
+Nokrek Biosphere Reserve,Meghalaya,West Garo Hills,Tura,Tura,Wildlife
+Balpakram Forest Trail,Meghalaya,South Garo Hills,Baghmara,Tura,Wildlife
+Siju Bird Sanctuary,Meghalaya,South Garo Hills,Siju,Tura,Wildlife
+Naphak Lake,Meghalaya,South Garo Hills,Baghmara,Tura,Lake
+Rongdong Falls,Meghalaya,East Garo Hills,Williamnagar,Tura,Waterfall
+Williamnagar,Meghalaya,East Garo Hills,Williamnagar,Tura,Hill Town
+Nongchram Wildlife Sanctuary,Meghalaya,East Garo Hills,Williamnagar,Tura,Wildlife
+Wadokgre,Meghalaya,East Garo Hills,Williamnagar,Tura,Village
+Nengkong Village,Meghalaya,South Garo Hills,Nengkong,Tura,Village
+Rongrenggre,Meghalaya,East Garo Hills,Rongrenggre,Tura,Village
+Simsang River,Meghalaya,East Garo Hills,Williamnagar,Tura,Riverfront
+Nokrek Peak,Meghalaya,West Garo Hills,Nokrek,Tura,Mountain
+Chibragre,Meghalaya,West Garo Hills,Tura,Tura,Riverfront
+Wangala Village,Meghalaya,West Garo Hills,Tura,Tura,Culture
+Dikshit Village,Meghalaya,West Garo Hills,Tura,Tura,Culture
+Mawsmai Village,Meghalaya,East Khasi Hills,Sohra,Shillong,Village
+Mawkdok Valley,Meghalaya,East Khasi Hills,Mawkdok,Shillong,Valley
+Laitkynsew Viewpoint,Meghalaya,East Khasi Hills,Laitkynsew,Shillong,Viewpoint
+Mawlynnong Bamboo Bridge,Meghalaya,East Khasi Hills,Mawlynnong,Shillong,Nature
+Riwai Village,Meghalaya,East Khasi Hills,Mawlynnong,Shillong,Village
+Riwai Living Root Bridge,Meghalaya,East Khasi Hills,Riwai,Shillong,Nature
+Niriang Falls,Meghalaya,West Jaintia Hills,Jowai,Jowai,Waterfall
+Krangsuri Adventure Area,Meghalaya,West Jaintia Hills,Amlarem,Jowai,Adventure
+Myrliem Village,Meghalaya,East Khasi Hills,Myrliem,Shillong,Village
+Mawjrong Village,Meghalaya,East Khasi Hills,Mawjrong,Shillong,Village
+Laitmawsiang Village,Meghalaya,East Khasi Hills,Laitmawsiang,Shillong,Village
+Sohiong Village,Meghalaya,East Khasi Hills,Sohiong,Shillong,Village
