@@ -1,104 +1,84 @@
-place_name,state_ut,district,city_or_town,nearest_major_city,category
-Tikarpada Wildlife Sanctuary & Satkosia Gorge,Odisha,Angul,Tikarpada,Angul,Wildlife & Nature
-Harishankar Temple,Odisha,Balangir,Khaprakhol,Balangir,Religious & Natural Wonders
-Debrigarh Wildlife Sanctuary,Odisha,Bargarh,Burla,Sambalpur,Wildlife & Nature
-Akhandalamani Temple Aradi,Odisha,Bhadrak,Aradi,Bhadrak,Religious & Spiritual
-Barabati Kataka Fort,Odisha,Cuttack,Cuttack,Cuttack,Forts & Palaces
-Deojhar Waterfall (Narasinghpur),Odisha,Cuttack,Narasinghpur,Cuttack,Water Bodies & Waterfalls
-Dhabaleswar Temple & Suspension Bridge,Odisha,Cuttack,Cuttack,Cuttack,Religious & Spiritual
-Lalitagiri Buddhist Archaeological Site,Odisha,Cuttack,Lalitagiri,Cuttack,Heritage & Historical Sites
-Netaji Birth Place Museum (Janakinath Bhawan),Odisha,Cuttack,Cuttack,Cuttack,Museums & Culture
-"Odisha State Maritime Museum, Cuttack",Odisha,Cuttack,Cuttack,Cuttack,Museums & Culture
-Sapua Project Dam (Hindol),Odisha,Dhenkanal,Hindol,Dhenkanal,Water Bodies & Waterfalls
-Gandahati Waterfall Ecological Park,Odisha,Gajapati,Parlakhemundi,Berhampur,Water Bodies & Waterfalls
-Khasada Waterfall (Chandragiri Little Tibet),Odisha,Gajapati,Kamalapur,Berhampur,Water Bodies & Waterfalls
-Padmasambhava Maha Vihara (Jiranga Monastery),Odisha,Gajapati,Chandragiri,Berhampur,Religious & Spiritual
-Aryapalli Marine Beach,Odisha,Ganjam,Aryapalli,Berhampur,Beaches & Coastal
-Gopalpur Sea Beach,Odisha,Ganjam,Gopalpur,Berhampur,Beaches & Coastal
-Maa Tara Tarini Temple,Odisha,Ganjam,Purushottampur,Berhampur,Religious & Spiritual
-Potagada Fort (Star Fort),Odisha,Ganjam,Ganjam,Berhampur,Forts & Palaces
-Marine Aquarium & Regional Centre Paradeep,Odisha,Jagatsinghpur,Paradeep,Cuttack,Museums & Culture
-Ratnagiri Buddhist Monastery,Odisha,Jajpur,Ratnagiri,Cuttack,Heritage & Historical Sites
-Dokrichanchara Waterfall & Cave,Odisha,Kalahandi,Dharamgarh,Bhawanipatna,Water Bodies & Waterfalls
-Hill View Park & Lovers Point Daringbadi,Odisha,Kandhamal,Daringbadi,Berhampur,Viewpoints & Landscapes
-Putudi Waterfall,Odisha,Kandhamal,Phulbani,Phulbani,Water Bodies & Waterfalls
-Sanaghagara Waterfall,Odisha,Kendujhar,Kendujhar,Keonjhar,Water Bodies & Waterfalls
-Ananta Vasudeva Temple,Odisha,Khordha,Bhubaneswar,Bhubaneswar,Heritage & Historical Sites
-Chausathi Yogini Temple Hirapur,Odisha,Khordha,Hirapur,Bhubaneswar,Heritage & Historical Sites
-Ekamra Kanan Botanical Gardens,Odisha,Khordha,Bhubaneswar,Bhubaneswar,Parks & Gardens
-Odisha State Museum,Odisha,Khordha,Bhubaneswar,Bhubaneswar,Museums & Culture
-Pathani Samanta Planetarium,Odisha,Khordha,Bhubaneswar,Bhubaneswar,Museums & Culture
-Regional Museum of Natural History,Odisha,Khordha,Bhubaneswar,Bhubaneswar,Museums & Culture
-Regional Science Centre Bhubaneswar,Odisha,Khordha,Bhubaneswar,Bhubaneswar,Museums & Culture
-Sisupalgarh Fort Ruins,Odisha,Khordha,Bhubaneswar,Bhubaneswar,Heritage & Historical Sites
-Bhaskareswara Temple,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Religious
-Biju Patnaik Park,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Recreation
-Devi Padahara Pond (debii paadhraa pusskrinnii),Odisha,Khurda,Bhubaneswar,Bhubaneswar,Cultural
-Dhauli Hills in Odisha,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Cultural
-Dhauli Shanti Stupa,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Religious
-Khanduali Temple,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Religious
-Nalbana Bird Sanctuary (Chilika Lake),Odisha,Khurda,Nalaban,Bhubaneswar,Wildlife & Nature
-Nandankanan Zoological Park,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Wildlife
-Nicco Park,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Recreation
-Odisha Tour Places,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Cultural
-Parsurameswara Temple,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Religious
-Rani Gumpha,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Cultural
-Shree Bramheswara Temple,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Religious
-"Shree Mukteswara Temple, Bhubaneswar",Odisha,Khurda,Bhubaneswar,Bhubaneswar,Religious
-Sri Ram Temple,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Religious
-State Tribal Museum,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Cultural
-Udayagiri and Khandagiri Caves,Odisha,Khurda,Bhubaneswar,Bhubaneswar,Cultural
-Khiching Museum & Kichakeshwari Temple,Odisha,Mayurbhanj,Khiching,Baripada,Heritage & Historical Sites
-Nilamadhab Temple Kantilo,Odisha,Nayagarh,Kantilo,Bhubaneswar,Religious & Spiritual
-Similijhar Waterfall,Odisha,Nayagarh,Nayagarh,Bhubaneswar,Water Bodies & Waterfalls
-Digabareni Pillar,Odisha,Puri,Puri,Bhubaneswar,Cultural
-Maa Baliharachandi Temple,Odisha,Puri,Puri,Bhubaneswar,Religious
-Mahatma Gandhi Park,Odisha,Puri,Puri,Bhubaneswar,Recreation
-Niladri Beach,Odisha,Puri,Puri,Bhubaneswar,Nature
-"Sakshi Gopal Temple , Puri",Odisha,Puri,Puri,Bhubaneswar,Religious
-"Shree Gundicha Temple, Puri",Odisha,Puri,Puri,Bhubaneswar,Religious
-Shree Jagannatha Temple Puri,Odisha,Puri,Puri,Bhubaneswar,Religious
-Shri Markandeswara Swamy Temple,Odisha,Puri,Puri,Bhubaneswar,Religious
-"Shri Vimala Shakti Peetha Temple, Puri",Odisha,Puri,Puri,Bhubaneswar,Religious
-Sudarshan Crafts Museum Puri,Odisha,Puri,Puri,Puri,Museums & Culture
-Sunara Gouranga Temple,Odisha,Puri,Puri,Bhubaneswar,Religious
-Ghanteswari Temple Chipilama,Odisha,Sambalpur,Chipilama,Sambalpur,Religious & Spiritual
-Maa Samaleswari Temple,Odisha,Sambalpur,Sambalpur,Sambalpur,Religious & Spiritual
-Satkosia Gorge,Odisha,Angul,Tikarpada,Cuttack,Mountain
-Chandipur Beach (Vanishing Sea),Odisha,Balasore,Chandipur,Balasore,Beach
-Barabati Fort Cuttack,Odisha,Cuttack,Cuttack,Cuttack,Fort
-Jirang Monastery,Odisha,Gajapati,Chandragiri,Brahmapur,Village
-Gopalpur-on-Sea,Odisha,Ganjam,Gopalpur,Brahmapur,Beach
-Maa Tara Tarini Hilltop Temple,Odisha,Ganjam,Purushottampur,Brahmapur,Temple
-Taptapani Hot Springs,Odisha,Ganjam,Digapahandi,Brahmapur,Trek
-Lalitgiri,Odisha,Jajpur,Olasuni,Cuttack,Trek
-Daringbadi,Odisha,Kandhamal,Daringbadi,Brahmapur,Trek
-Bhitarkanika Mangroves,Odisha,Kendrapara,Rajnagar,Cuttack,Mountain
-Keonjhar,Odisha,Kendujhar,Keonjhar,Rourkela,Trek
-Lingaraj Temple Bhubaneswar,Odisha,Khordha,Bhubaneswar,Bhubaneswar,Temple
-Mangalajodi,Odisha,Khordha,Tangi,Bhubaneswar,Mountain
-Nandankanan Zoological Park & Botanical Garden,Odisha,Khordha,Bhubaneswar,Bhubaneswar,Wildlife
-Deomali Peak,Odisha,Koraput,Pottangi,Koraput,Trek
-Koraput Valley,Odisha,Koraput,Koraput,Visakhapatnam,Valley
-Similipal National Park,Odisha,Mayurbhanj,Baripada,Balasore,Mountain
-Astaranga & Ramachandi Beaches,Odisha,Puri,Konark,Puri,Beach
-Chilika Lake & Nalabana Bird Sanctuary,Odisha,Puri,Satapada,Bhubaneswar,Nature
-Jagannath Temple Puri,Odisha,Puri,Puri,Bhubaneswar,Temple
-Konark Sun Temple (Black Pagoda),Odisha,Puri,Konark,Puri,Heritage
-Raghurajpur Heritage Craft Village,Odisha,Puri,Chandanpur,Puri,Village
-Hirakud Dam Sambalpur,Odisha,Sambalpur,Burla,Sambalpur,Nature
-Hirakud Reservoir,Odisha,Sambalpur,Burla,Sambalpur,Mountain
-Khandadhar Waterfall Sundargarh,Odisha,Sundargarh,Rourkela,Rourkela,Waterfall
-Puri,Odisha,Puri,Puri,Bhubaneswar,Beach
-Udayagiri Caves,Odisha,Bhubaneswar,Bhubaneswar,Bhubaneswar,Cave
-Bhitarkanika National Park,Odisha,Kendrapara,Rajnagar,Cuttack,Wildlife
-Gopalpur Beach,Odisha,Ganjam,Aryapalli,Berhampur,Beach
-Udayagiri Buddhist Complex,Odisha,Jajpur,Ratnagiri,Cuttack,Buddhist Heritage
-Barehipani Falls,Odisha,Mayurbhanj,Khiching,Baripada,Waterfall
-Joranda Falls,Odisha,Mayurbhanj,Khiching,Baripada,Waterfall
-Baramunda,Odisha,Bhubaneswar,Bhubaneswar,Bhubaneswar,Heritage
-Mukteshwar Temple,Odisha,Bhubaneswar,Bhubaneswar,Bhubaneswar,Temple
-Rajarani Temple,Odisha,Bhubaneswar,Bhubaneswar,Bhubaneswar,Temple
-Puri Beach,Odisha,Puri,Puri,Bhubaneswar,Beach
-Chandrabhaga Beach,Odisha,Puri,Puri,Bhubaneswar,Beach
-Satapada,Odisha,Chilika,Chilika,Chilika,Heritage
+Bagda-Dublagadi Beach,Odisha,Balasore,Dublagadi,Balasore,Beaches & Coastal
+Talasari Beach,Odisha,Balasore,Talasari,Balasore,Beaches & Coastal
+Kasafal Beach,Odisha,Balasore,Kasafal,Balasore,Beaches & Coastal
+Balaramgadi Beach,Odisha,Balasore,Balaramgadi,Balasore,Beaches & Coastal
+Kuldiha Wildlife Sanctuary,Odisha,Balasore,Nilagiri,Balasore,Wildlife & Nature
+Panchalingeswar Temple,Odisha,Balasore,Panchalingeswar,Balasore,Religious & Natural Wonders
+Nilagiri Palace,Odisha,Balasore,Nilagiri,Balasore,Forts & Palaces
+Kuanria Reservoir,Odisha,Nayagarh,Daspalla,Nayagarh,Water Bodies & Waterfalls
+Atri Hot Spring,Odisha,Nayagarh,Atri,Bhubaneswar,Water Bodies & Waterfalls
+Barmul Nature Camp,Odisha,Nayagarh,Barmul,Bhubaneswar,Wildlife & Nature
+Odagaon Raghunath Temple,Odisha,Nayagarh,Odagaon,Nayagarh,Religious & Spiritual
+Deulajhari Hot Spring,Odisha,Angul,Athmallik,Angul,Water Bodies & Waterfalls
+Maa Hingula Temple,Odisha,Angul,Talcher,Angul,Religious & Spiritual
+Gopinathpur Waterfall,Odisha,Angul,Athmallik,Angul,Water Bodies & Waterfalls
+Pradhanpat Waterfall,Odisha,Deogarh,Deogarh,Deogarh,Water Bodies & Waterfalls
+Kurudkut Waterfall,Odisha,Deogarh,Deogarh,Deogarh,Water Bodies & Waterfalls
+Gohira Dam,Odisha,Deogarh,Deogarh,Deogarh,Water Bodies & Waterfalls
+Gundichaghagi Waterfall,Odisha,Keonjhar,Keonjhar,Keonjhar,Water Bodies & Waterfalls
+Badaghagara Waterfall,Odisha,Keonjhar,Keonjhar,Keonjhar,Water Bodies & Waterfalls
+Gonasika,Odisha,Keonjhar,Gonasika,Keonjhar,Religious & Natural Wonders
+Murga Mahadev Temple,Odisha,Keonjhar,Joda,Keonjhar,Religious & Natural Wonders
+Handibhanga Waterfall,Odisha,Keonjhar,Telkhandkoei,Keonjhar,Water Bodies & Waterfalls
+Ghatagaon Tarini Temple,Odisha,Keonjhar,Ghatagaon,Keonjhar,Religious & Spiritual
+Bhimkund Waterfall,Odisha,Mayurbhanj,Bhimkund,Baripada,Water Bodies & Waterfalls
+Devkund Waterfall,Odisha,Mayurbhanj,Devkund,Baripada,Water Bodies & Waterfalls
+Uski Waterfall,Odisha,Mayurbhanj,Similipal,Baripada,Water Bodies & Waterfalls
+Similipal Nature Camp,Odisha,Mayurbhanj,Similipal,Baripada,Wildlife & Nature
+Khiching Palace Ruins,Odisha,Mayurbhanj,Khiching,Baripada,Heritage & Historical Sites
+Mahendragiri Hills,Odisha,Gajapati,Mahendragiri,Berhampur,Mountains & Trekking
+Taptapani Tribal Village,Odisha,Ganjam,Taptapani,Berhampur,Tribal & Cultural
+Tampara Lake,Odisha,Ganjam,Chhatrapur,Berhampur,Water Bodies & Waterfalls
+Aryapalli Turtle Nesting Beach,Odisha,Ganjam,Aryapalli,Berhampur,Wildlife & Nature
+Narayani Temple,Odisha,Ganjam,Narayani,Berhampur,Religious & Spiritual
+Ansupa Lake,Odisha,Cuttack,Banki,Cuttack,Water Bodies & Waterfalls
+Narayani Temple Naraj,Odisha,Cuttack,Naraj,Cuttack,Religious & Spiritual
+Mahanadi Barrage Riverside,Odisha,Cuttack,Cuttack,Cuttack,Water Bodies & Waterfalls
+Deras Dam,Odisha,Khordha,Chandaka,Bhubaneswar,Water Bodies & Waterfalls
+Jhumka Dam,Odisha,Khordha,Chandaka,Bhubaneswar,Water Bodies & Waterfalls
+Kanjia Lake,Odisha,Khordha,Nandankanan,Bhubaneswar,Water Bodies & Waterfalls
+Barunei Hills,Odisha,Khordha,Khordha,Bhubaneswar,Mountains & Trekking
+Astaranga Fishing Village,Odisha,Puri,Astaranga,Puri,Tribal & Cultural
+Beleshwar Beach,Odisha,Puri,Balighai,Puri,Beaches & Coastal
+Ramachandi River Mouth,Odisha,Puri,Konark,Puri,Beaches & Coastal
+Kuruma Buddhist Site,Odisha,Puri,Konark,Puri,Heritage & Historical Sites
+Chandrabhaga Fishing Village,Odisha,Puri,Konark,Puri,Tribal & Cultural
+Pentha Beach,Odisha,Kendrapara,Rajnagar,Cuttack,Beaches & Coastal
+Satabhaya Coastal Village,Odisha,Kendrapara,Rajnagar,Cuttack,Heritage & Historical Sites
+Gahirmatha Marine Sanctuary,Odisha,Kendrapara,Rajnagar,Cuttack,Wildlife & Nature
+Bhitarkanika Creek Eco Trail,Odisha,Kendrapara,Rajnagar,Cuttack,Wildlife & Nature
+Hukitola Island,Odisha,Kendrapara,Jambu Island,Cuttack,Islands & Coastal
+Langudi Hills Buddhist Site,Odisha,Jajpur,Langudi,Cuttack,Heritage & Historical Sites
+Olasuni Hill Temple,Odisha,Jajpur,Olasuni,Cuttack,Religious & Spiritual
+Nandapur Heritage Village,Odisha,Koraput,Nandapur,Koraput,Heritage & Historical Sites
+Gupteswar Cave Temple,Odisha,Koraput,Gupteswar,Koraput,Caves & Natural Wonders
+Duduma Waterfall,Odisha,Koraput,Machkund,Koraput,Water Bodies & Waterfalls
+Gulmi Waterfall,Odisha,Koraput,Gulmi,Koraput,Water Bodies & Waterfalls
+Deomali Tribal Villages,Odisha,Koraput,Pottangi,Koraput,Tribal & Cultural
+Onukadelli Tribal Market,Odisha,Koraput,Onukadelli,Koraput,Tribal & Cultural
+Chattikona Tribal Market,Odisha,Rayagada,Chattikona,Rayagada,Tribal & Cultural
+Minajhola,Odisha,Rayagada,Minajhola,Rayagada,Religious & Natural Wonders
+Paikapada Shiva Temple,Odisha,Rayagada,Paikapada,Rayagada,Religious & Spiritual
+Hanging Bridge Muniguda,Odisha,Rayagada,Muniguda,Rayagada,Viewpoints & Landscapes
+Gudahandi Hills,Odisha,Kalahandi,Gudahandi,Bhawanipatna,Heritage & Historical Sites
+Gudahandi Rock Art Caves,Odisha,Kalahandi,Gudahandi,Bhawanipatna,Caves & Natural Wonders
+Phurlijharan Waterfall,Odisha,Kalahandi,Bhawanipatna,Bhawanipatna,Water Bodies & Waterfalls
+Karlapat Wildlife Sanctuary,Odisha,Kalahandi,Karlapat,Bhawanipatna,Wildlife & Nature
+Rabandhara Waterfall,Odisha,Kalahandi,Bhawanipatna,Bhawanipatna,Water Bodies & Waterfalls
+Ranipur-Jharial,Odisha,Balangir,Ranipur-Jharial,Balangir,Heritage & Historical Sites
+Patnagarh Palace,Odisha,Balangir,Patnagarh,Balangir,Forts & Palaces
+Jogisarda,Odisha,Balangir,Balangir,Balangir,Heritage & Historical Sites
+Hirakud Wildlife Island,Odisha,Sambalpur,Hirakud,Sambalpur,Wildlife & Nature
+Cattle Island,Odisha,Sambalpur,Hirakud,Sambalpur,Islands & Coastal
+Huma Leaning Temple,Odisha,Sambalpur,Huma,Sambalpur,Religious & Spiritual
+Ghoghar Waterfall,Odisha,Sundargarh,Bonai,Rourkela,Water Bodies & Waterfalls
+Darjeeng Riverside,Odisha,Sundargarh,Bonai,Rourkela,Viewpoints & Landscapes
+Tensa Valley,Odisha,Sundargarh,Tensa,Rourkela,Mountains & Trekking
+Ludu Waterfall,Odisha,Kandhamal,Daringbadi,Berhampur,Water Bodies & Waterfalls
+Dadubaba Waterfall,Odisha,Kandhamal,Daringbadi,Berhampur,Water Bodies & Waterfalls
+Belghar Nature Camp,Odisha,Kandhamal,Belghar,Phulbani,Wildlife & Nature
+Kotagarh Wildlife Sanctuary,Odisha,Kandhamal,Kotagarh,Phulbani,Wildlife & Nature
+Phulbani Nature Trails,Odisha,Kandhamal,Phulbani,Phulbani,Mountains & Trekking
+Baisipalli Wildlife Sanctuary,Odisha,Nayagarh,Daspalla,Nayagarh,Wildlife & Nature
+Gania Nature Trails,Odisha,Nayagarh,Gania,Nayagarh,Mountains & Trekking
+Khandapada Palace,Odisha,Nayagarh,Khandapada,Nayagarh,Forts & Palaces
