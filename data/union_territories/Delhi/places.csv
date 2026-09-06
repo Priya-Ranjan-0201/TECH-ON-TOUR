@@ -1,202 +1,207 @@
 place_name,state_ut,district,city_or_town,nearest_major_city,category
-Bharat Darshan Park,Delhi,New Delhi,New Delhi,New Delhi,Recreation
 Charkha Museum,Delhi,New Delhi,New Delhi,New Delhi,Cultural
-Dargah Nizamuddin Aulia,Delhi,New Delhi,New Delhi,New Delhi,Religious
 Darya Khan's Tomb,Delhi,New Delhi,New Delhi,New Delhi,Cultural
-Deer Park,Delhi,New Delhi,New Delhi,New Delhi,Recreation
-Gurudwara Sis Ganj Sahib,Delhi,New Delhi,New Delhi,New Delhi,Religious
-Hauz Khas Fort,Delhi,New Delhi,New Delhi,New Delhi,Heritage
-Humayun's Tomb,Delhi,New Delhi,New Delhi,New Delhi,Cultural
+Deer Park,Delhi,New Delhi,Hauz Khas,New Delhi,Recreation
+Gurudwara Sis Ganj Sahib,Delhi,New Delhi,Old Delhi,New Delhi,Religious
+Hauz Khas Fort,Delhi,New Delhi,Hauz Khas,New Delhi,Heritage
 India Africa Friendship Rose Garden,Delhi,New Delhi,New Delhi,New Delhi,Recreation
-India Gate,Delhi,New Delhi,New Delhi,New Delhi,Heritage
 Indian War Memorial Museum,Delhi,New Delhi,New Delhi,New Delhi,Cultural
-"Indira Gandhi Memorial Museum, Delhi",Delhi,New Delhi,New Delhi,New Delhi,Cultural
-Indraprastha Park,Delhi,New Delhi,New Delhi,New Delhi,Recreation
-"Iron Pillar, Delhi",Delhi,New Delhi,New Delhi,New Delhi,Heritage
-"Isa Khan's Tomb, Delhi",Delhi,New Delhi,New Delhi,New Delhi,Cultural
-Jantar Mantar,Delhi,New Delhi,New Delhi,New Delhi,Nature
-Millennium Park,Delhi,New Delhi,New Delhi,New Delhi,Recreation
-Mumtaz Mahal,Delhi,New Delhi,New Delhi,New Delhi,Cultural
-Nehru Park,Delhi,New Delhi,New Delhi,New Delhi,Recreation
-Purana Quila,Delhi,New Delhi,New Delhi,New Delhi,Heritage
-Qudsia Bagh,Delhi,New Delhi,New Delhi,New Delhi,Recreation
-Rajon Ki Baoli,Delhi,New Delhi,New Delhi,New Delhi,Heritage
-Ram Yantra,Delhi,New Delhi,New Delhi,New Delhi,Heritage
-Red Fort,Delhi,New Delhi,New Delhi,New Delhi,Heritage
-"Safdarjung Tomb, Delhi",Delhi,New Delhi,New Delhi,New Delhi,Heritage
-"Satpula, Delhi",Delhi,New Delhi,New Delhi,New Delhi,Cultural
-Shankar's International Dolls Museum,Delhi,New Delhi,New Delhi,New Delhi,Cultural
+Indraprastha Park,Delhi,New Delhi,Sarai Kale Khan,New Delhi,Recreation
+Isa Khan's Tomb,Delhi,New Delhi,Nizamuddin,New Delhi,Heritage
+Mumtaz Mahal,Delhi,New Delhi,Old Delhi,New Delhi,Heritage
+Nehru Park,Delhi,New Delhi,Chanakyapuri,New Delhi,Recreation
+Ram Yantra,Delhi,New Delhi,Jantar Mantar,New Delhi,Heritage
+Satpula,Delhi,New Delhi,Khirki,New Delhi,Heritage
 Shanti Stupa New Delhi,Delhi,New Delhi,New Delhi,New Delhi,Religious
-Shri Kalka Ji Temple,Delhi,New Delhi,New Delhi,New Delhi,Religious
-Shri Laxmi Narayan Temple (Birla Mandir),Delhi,New Delhi,New Delhi,New Delhi,Religious
-Sulabh International Museum Of Toilets,Delhi,New Delhi,New Delhi,New Delhi,Cultural
-The Garden of Five Senses,Delhi,New Delhi,New Delhi,New Delhi,Recreation
-Tomb of Iltutmish,Delhi,New Delhi,New Delhi,New Delhi,Cultural
-Tughlakabad Fort Delhi,Delhi,New Delhi,New Delhi,New Delhi,Heritage
-"Zafar Mahal, Delhi",Delhi,New Delhi,New Delhi,New Delhi,Cultural
+Shri Kalka Ji Temple,Delhi,New Delhi,Kalkaji,New Delhi,Religious
+Shri Laxmi Narayan Temple (Birla Mandir),Delhi,New Delhi,Mandir Marg,New Delhi,Religious
+Sulabh International Museum Of Toilets,Delhi,New Delhi,Mahavir Enclave,New Delhi,Cultural
+Tomb of Iltutmish,Delhi,New Delhi,Mehrauli,New Delhi,Heritage
+Tughlakabad Fort Delhi,Delhi,New Delhi,Tughlaqabad,New Delhi,Heritage
+Zafar Mahal Delhi,Delhi,New Delhi,Mehrauli,New Delhi,Cultural
 Ballimaran & Gali Qasim Jan (Mirza Ghalib Haveli),Delhi,Central Delhi,Old Delhi,Delhi,Heritage
 Bhuli Bhatiyari Ka Mahal Central Ridge,Delhi,Central Delhi,Karol Bagh,Delhi,Heritage
 Central Baptist Church Chandni Chowk (1814),Delhi,Central Delhi,Chandni Chowk,Delhi,Heritage
 Chandni Chowk,Delhi,Central Delhi,Old Delhi,Old Delhi,Market
-"Dariba Kalan, Kinari Bazaar & Paranthe Wali Gali",Delhi,Central Delhi,Chandni Chowk,Delhi,Culture
-Diwan-i-Am (Hall of Public Audience) Red Fort,Delhi,Central Delhi,Old Delhi,Delhi,Heritage
-Diwan-i-Khas (Hall of Private Audience) Red Fort,Delhi,Central Delhi,Old Delhi,Delhi,Heritage
+Dariba Kalan Kinari Bazaar & Paranthe Wali Gali,Delhi,Central Delhi,Chandni Chowk,Delhi,Culture
+Diwan-i-Am Red Fort,Delhi,Central Delhi,Old Delhi,Delhi,Heritage
+Diwan-i-Khas Red Fort,Delhi,Central Delhi,Old Delhi,Delhi,Heritage
 Fatehpuri Masjid & Historic Spice Courtyard,Delhi,Central Delhi,Chandni Chowk,Delhi,Heritage
 Firoz Shah Kotla Citadel & Ashokan Pillar of Topra,Delhi,Central Delhi,ITO,Delhi,Heritage
 Gauri Shankar Mandir Chandni Chowk,Delhi,Central Delhi,Chandni Chowk,Delhi,Temple
-Gurudwara Sis Ganj Sahib Chandni Chowk,Delhi,Central Delhi,Chandni Chowk,Delhi,Pilgrimage
 Hayat Bakhsh Bagh & Sawan-Bhadon Pavilions Red Fort,Delhi,Central Delhi,Old Delhi,Delhi,Garden
-"Historic Gates of Shahjahanabad (Kashmere, Ajmeri, Delhi & Turkman)",Delhi,Central Delhi,Old Delhi,Delhi,Heritage
+Historic Gates of Shahjahanabad,Delhi,Central Delhi,Old Delhi,Delhi,Heritage
 Jama Masjid Delhi,Delhi,Central Delhi,Chandni Chowk,Old Delhi,Spiritual
 Jami Masjid of Firozabad & Circular Baoli,Delhi,Central Delhi,ITO,Delhi,Heritage
-Jhandewalan Mandir (Maa Aadi Shakti Shrine),Delhi,Central Delhi,Karol Bagh,Delhi,Temple
-Khari Baoli (Asia's Largest Wholesale Spice Market),Delhi,Central Delhi,Old Delhi,Delhi,Market
-Moti Masjid (Pearl Mosque) Red Fort,Delhi,Central Delhi,Old Delhi,Delhi,Heritage
+Jhandewalan Mandir,Delhi,Central Delhi,Karol Bagh,Delhi,Temple
+Khari Baoli,Delhi,Central Delhi,Old Delhi,Delhi,Market
+Moti Masjid Red Fort,Delhi,Central Delhi,Old Delhi,Delhi,Heritage
 National Children's Museum & National Bal Bhavan,Delhi,Central Delhi,Kotla Road,Delhi,Museum
 National Gandhi Museum & Library Raj Ghat,Delhi,Central Delhi,Raj Ghat,Delhi,Museum
 National Science Centre Delhi,Delhi,Central Delhi,Pragati Maidan,Delhi,Museum
 National Zoological Park Delhi,Delhi,Central Delhi,Mathura Road,New Delhi,Wildlife
-Naubat Khana & Chatta Chowk Covered Bazaar Red Fort,Delhi,Central Delhi,Old Delhi,Delhi,Heritage
-Purana Qila (Old Fort),Delhi,Central Delhi,Mathura Road,New Delhi,Fort
-Raj Ghat (Mahatma Gandhi Memorial),Delhi,Central Delhi,Ring Road,New Delhi,Monument
+Naubat Khana & Chatta Chowk Red Fort,Delhi,Central Delhi,Old Delhi,Delhi,Heritage
+Raj Ghat,Delhi,Central Delhi,Ring Road,New Delhi,Monument
 Rang Mahal & Mumtaz Mahal Red Fort,Delhi,Central Delhi,Old Delhi,Delhi,Heritage
-Red Fort (Lal Qila),Delhi,Central Delhi,Netaji Subhash Marg,Old Delhi,Fort
-Salimgarh Fort,Delhi,Central Delhi,Old Delhi,Old Delhi,Fort
-Shankar's International Dolls Museum ITO,Delhi,Central Delhi,ITO,Delhi,Museum
+Salimgarh Fort,Delhi,Central Delhi,Old Delhi,Delhi,Fort
 Shri Digambar Jain Lal Mandir & Birds Charitable Hospital,Delhi,Central Delhi,Chandni Chowk,Delhi,Temple
 Town Hall of Old Delhi & Victoria Square,Delhi,Central Delhi,Chandni Chowk,Delhi,Heritage
-EOD Adventure Park Sanjay Lake (Zip-Line & Boating),Delhi,East Delhi,Mayur Vihar,Delhi,Amusement
-Sanjay Lake & Boating Park Mayur Vihar,Delhi,East Delhi,Mayur Vihar,Delhi,Water Body
+EOD Adventure Park Sanjay Lake,Delhi,East Delhi,Mayur Vihar,Delhi,Amusement
+Sanjay Lake & Boating Park,Delhi,East Delhi,Mayur Vihar,Delhi,Water Body
 Swaminarayan Akshardham Temple Delhi,Delhi,East Delhi,Pandav Nagar,New Delhi,Temple
-Agrasen ki Baoli,Delhi,New Delhi,Hailey Road,New Delhi,Heritage
-Amrit Udyan (Mughal Gardens Pavilion),Delhi,New Delhi,President's Estate,New Delhi,Garden
+Agrasen Ki Baoli,Delhi,New Delhi,Hailey Road,New Delhi,Heritage
+Amrit Udyan,Delhi,New Delhi,President's Estate,New Delhi,Garden
 Bara Gumbad & Mohammad Shah Tomb,Delhi,New Delhi,Lodhi Garden,New Delhi,Monument
-Birla Mandir (Laxminarayan Temple Mandir Marg),Delhi,New Delhi,Mandir Marg,Delhi,Temple
+Birla Mandir Laxminarayan Temple,Delhi,New Delhi,Mandir Marg,Delhi,Temple
 Buddha Jayanti Park Southern Ridge,Delhi,New Delhi,Vandemataram Marg,Delhi,Garden
 Cathedral Church of the Redemption,Delhi,New Delhi,Church Road,New Delhi,Heritage
-Connaught Place (Rajiv Chowk),Delhi,New Delhi,Connaught Place,New Delhi,Market
-Delhi Golf Club (Historic 18-Hole Course with Lodi Tombs),Delhi,New Delhi,Dr Zakir Hussain Marg,Delhi,Sports
+Connaught Place Rajiv Chowk,Delhi,New Delhi,Connaught Place,New Delhi,Market
+Delhi Golf Club Historic Course,Delhi,New Delhi,Dr Zakir Hussain Marg,Delhi,Sports
 Delhi Metro Museum Patel Chowk,Delhi,New Delhi,Patel Chowk,Delhi,Museum
-Gandhi Smriti Museum (Birla House),Delhi,New Delhi,Tees January Marg,New Delhi,Museum
-Gurudwara Rakab Ganj Sahib (Guru Tegh Bahadur Cremation Site),Delhi,New Delhi,New Delhi,Delhi,Pilgrimage
+Gandhi Smriti Museum Birla House,Delhi,New Delhi,Tees January Marg,New Delhi,Museum
+Gurudwara Rakab Ganj Sahib,Delhi,New Delhi,New Delhi,Delhi,Pilgrimage
 Gurudwara Sri Bangla Sahib,Delhi,New Delhi,Connaught Place,New Delhi,Spiritual
 India Gate & National War Memorial,Delhi,New Delhi,Rajpath,New Delhi,Monument
-Indira Gandhi Memorial Museum,Delhi,New Delhi,1 Safdarjung Road,New Delhi,Museum
-Jantar Mantar Delhi,Delhi,New Delhi,Parliament Street,New Delhi,Heritage
+Indira Gandhi Memorial Museum,Delhi,New Delhi,Safdarjung Road,New Delhi,Museum
+Jantar Mantar,Delhi,New Delhi,Parliament Street,New Delhi,Heritage
 Lodhi Garden,Delhi,New Delhi,Lodhi Road,New Delhi,Nature
 Mahipalpur Hunting Lodge of Firoz Shah Tughlaq,Delhi,New Delhi,Mahipalpur,Delhi,Heritage
-Malcha Mahal (Sultanate Hunting Lodge) Central Ridge,Delhi,New Delhi,Chanakyapuri,Delhi,Heritage
-National Crafts Museum & Hastkala Academy Pragati Maidan,Delhi,New Delhi,Pragati Maidan,Delhi,Museum
-National Gallery of Modern Art (NGMA Jaipur House),Delhi,New Delhi,India Gate,Delhi,Museum
+Malcha Mahal Central Ridge,Delhi,New Delhi,Chanakyapuri,Delhi,Heritage
+National Crafts Museum & Hastkala Academy,Delhi,New Delhi,Pragati Maidan,Delhi,Museum
+National Gallery of Modern Art,Delhi,New Delhi,India Gate,Delhi,Museum
 National Museum New Delhi,Delhi,New Delhi,Janpath,New Delhi,Museum
-National Museum of Natural History (FICCI / MoEFCC),Delhi,New Delhi,Barakhamba,Delhi,Museum
-National Philatelic Museum Dak Bhawan,Delhi,New Delhi,Sansad Marg,Delhi,Museum
+National Museum of Natural History,Delhi,New Delhi,Barakhamba,Delhi,Museum
+National Philatelic Museum,Delhi,New Delhi,Sansad Marg,Delhi,Museum
 National Rail Museum New Delhi,Delhi,New Delhi,Chanakyapuri,New Delhi,Museum
 Nehru Park Chanakyapuri,Delhi,New Delhi,Chanakyapuri,New Delhi,Nature
-Pracheen Hanuman Mandir Connaught Place (Pandava Era),Delhi,New Delhi,Connaught Place,Delhi,Temple
-Pradhanmantri Sangrahalaya & Nehru Planetarium (Teen Murti),Delhi,New Delhi,Teen Murti,Delhi,Museum
+Pracheen Hanuman Mandir Connaught Place,Delhi,New Delhi,Connaught Place,Delhi,Temple
+Pradhanmantri Sangrahalaya & Nehru Planetarium,Delhi,New Delhi,Teen Murti,Delhi,Museum
 Qila-i-Kuhna Mosque Purana Qila,Delhi,New Delhi,New Delhi,Delhi,Heritage
 Rashtrapati Bhavan,Delhi,New Delhi,Raisina Hill,New Delhi,Heritage
 Safdarjung Tomb,Delhi,New Delhi,Jor Bagh,New Delhi,Monument
-Samvidhan Sadan (Old Parliament House),Delhi,New Delhi,Sansad Marg,New Delhi,Heritage
-Sher Mandal (Humayun's Astronomical Library Observatory),Delhi,New Delhi,New Delhi,Delhi,Heritage
-Sher Shah Suri Gate (Lal Darwaza) & Khair-ul-Manazil,Delhi,New Delhi,New Delhi,Delhi,Heritage
+Samvidhan Sadan Old Parliament House,Delhi,New Delhi,Sansad Marg,New Delhi,Heritage
+Sher Mandal Purana Qila,Delhi,New Delhi,New Delhi,Delhi,Heritage
+Sher Shah Suri Gate & Khair-ul-Manazil,Delhi,New Delhi,New Delhi,Delhi,Heritage
 Sikandar Lodi Tomb,Delhi,New Delhi,Lodhi Garden,New Delhi,Monument
 Supreme Court Museum of India,Delhi,New Delhi,Tilak Marg,Delhi,Museum
 Coronation Memorial Delhi,Delhi,North Delhi,Burari,Delhi,Monument
-Dara Shikoh Library Building Kashmere Gate,Delhi,North Delhi,Kashmere Gate,Delhi,Heritage
-Dr. B.R. Ambedkar National Memorial 26 Alipur Road,Delhi,North Delhi,Civil Lines,Delhi,Museum
+Dara Shikoh Library Building,Delhi,North Delhi,Kashmere Gate,Delhi,Heritage
+Dr B R Ambedkar National Memorial,Delhi,North Delhi,Civil Lines,Delhi,Museum
 Flagstaff Tower Northern Ridge,Delhi,North Delhi,Civil Lines,Delhi,Heritage
-Gurudwara Majnu Ka Tilla (Yamuna Riverbank Shrine),Delhi,North Delhi,Civil Lines,Delhi,Pilgrimage
+Gurudwara Majnu Ka Tilla,Delhi,North Delhi,Civil Lines,Delhi,Pilgrimage
 Kamla Nehru Ridge Forest & Biodiversity Trails,Delhi,North Delhi,Civil Lines,Delhi,Wildlife
-Mutiny Memorial (Ajitgarh) Northern Ridge,Delhi,North Delhi,Civil Lines,Delhi,Heritage
-Qudsia Bagh & 18th-Century Baradari,Delhi,North Delhi,Civil Lines,Delhi,Garden
-Roshanara Garden & Tomb of Roshanara Begum,Delhi,North Delhi,Shakti Nagar,Delhi,Garden
-St. James' Church (Skinner's Church),Delhi,North Delhi,Kashmere Gate,Delhi,Heritage
-"Wazirabad Mosque, Tomb & Firoz Shah's Bridge",Delhi,North Delhi,Wazirabad,Delhi,Heritage
+Mutiny Memorial Ajitgarh,Delhi,North Delhi,Civil Lines,Delhi,Heritage
+Qudsia Bagh,Delhi,North Delhi,Civil Lines,Delhi,Garden
+Roshanara Garden & Tomb,Delhi,North Delhi,Shakti Nagar,Delhi,Garden
+St James Church Skinners Church,Delhi,North Delhi,Kashmere Gate,Delhi,Heritage
+Wazirabad Mosque Tomb & Firoz Shah Bridge,Delhi,North Delhi,Wazirabad,Delhi,Heritage
 Yamuna Biodiversity Park Wazirabad,Delhi,North Delhi,Wazirabad,Delhi,Wildlife
 Adventure Island & Metro Walk Rohini,Delhi,North West Delhi,Rohini,Delhi,Amusement
-Bawana Zail Historic Fortress Delhi,Delhi,North West Delhi,Bawana,Delhi,Heritage
-Dilli Haat Pitampura & Janakpuri Cultural Bazaars,Delhi,North West Delhi,Pitampura,Delhi,Market
-Guru Tegh Bahadur Memorial Singhu Border GT Karnal Road,Delhi,North West Delhi,Singhu,Delhi,Monument
-Shalimar Garden & Sheesh Mahal (Aurangzeb's Coronation Site),Delhi,North West Delhi,Shalimar Bagh,Delhi,Heritage
-Adham Khan's Tomb (Bhool Bhulaiya Mehrauli),Delhi,South Delhi,Mehrauli,Delhi,Heritage
+Bawana Zail Historic Fortress,Delhi,North West Delhi,Bawana,Delhi,Heritage
+Dilli Haat Pitampura,Delhi,North West Delhi,Pitampura,Delhi,Market
+Guru Tegh Bahadur Memorial Singhu Border,Delhi,North West Delhi,Singhu,Delhi,Monument
+Shalimar Garden & Sheesh Mahal,Delhi,North West Delhi,Shalimar Bagh,Delhi,Heritage
+Adham Khan's Tomb,Delhi,South Delhi,Mehrauli,Delhi,Heritage
 Alai Darwaza & Alai Minar Qutub Complex,Delhi,South Delhi,Mehrauli,Delhi,Heritage
 Anangtal Baoli & Ancient Tomar Reservoir,Delhi,South Delhi,Mehrauli,Delhi,Heritage
-Asola Bhatti Wildlife Sanctuary & Surajkund Slopes,Delhi,South Delhi,Asola,Delhi,Wildlife
-Bade Khan & Chhote Khan Tombs Kotla Mubarakpur,Delhi,South Delhi,Kotla Mubarakpur,Delhi,Heritage
-Balban's Tomb & Dar-ul-Aman Ruins Mehrauli,Delhi,South Delhi,Mehrauli,Delhi,Heritage
+Asola Bhatti Wildlife Sanctuary,Delhi,South Delhi,Asola,Delhi,Wildlife
+Bade Khan & Chhote Khan Tombs,Delhi,South Delhi,Kotla Mubarakpur,Delhi,Heritage
+Balban's Tomb & Dar-ul-Aman Ruins,Delhi,South Delhi,Mehrauli,Delhi,Heritage
 Begumpur Mosque,Delhi,South Delhi,Begumpur,New Delhi,Heritage
 Bijay Mandal Palace Ruins & Hazar Sutan Citadel,Delhi,South Delhi,Begumpur,Delhi,Heritage
-Chor Minar (Tower of Severed Heads),Delhi,South Delhi,Hauz Khas,Delhi,Heritage
-Dargah Hazrat Qutbuddin Bakhtiyar Kaki Mehrauli,Delhi,South Delhi,Mehrauli,Delhi,Pilgrimage
-Dilli Haat INA (Crafts & Pan-India Food Bazaar),Delhi,South Delhi,INA,Delhi,Market
-Dr. B.R. Ambedkar Central Park,Delhi,South Delhi,Malviya Nagar,New Delhi,Nature
+Chor Minar,Delhi,South Delhi,Hauz Khas,Delhi,Heritage
+Dargah Hazrat Qutbuddin Bakhtiyar Kaki,Delhi,South Delhi,Mehrauli,Delhi,Pilgrimage
+Dilli Haat INA,Delhi,South Delhi,INA,Delhi,Market
+Dr B R Ambedkar Central Park,Delhi,South Delhi,Malviya Nagar,New Delhi,Nature
 Firoz Shah Tughlaq Madrasa & Assembly Hall,Delhi,South Delhi,Hauz Khas,Delhi,Heritage
-Gandhak Ki Baoli (Sultanate Sulphur Stepwell Mehrauli),Delhi,South Delhi,Mehrauli,Delhi,Heritage
+Gandhak Ki Baoli,Delhi,South Delhi,Mehrauli,Delhi,Heritage
 Garden of Five Senses,Delhi,South Delhi,Said-ul-Azaib,New Delhi,Garden
 Green Park & Deer Park,Delhi,South Delhi,Hauz Khas,New Delhi,Nature
-Hauz Khas Fort and Lake,Delhi,South Delhi,Hauz Khas,New Delhi,Heritage
-Jahanpanah City Forest Chirag Delhi,Delhi,South Delhi,Greater Kailash,Delhi,Garden
-Jahaz Mahal & Hauz-i-Shamsi Mehrauli,Delhi,South Delhi,Mehrauli,Delhi,Heritage
-Jamali Kamali Mosque & Tomb Mehrauli,Delhi,South Delhi,Mehrauli,Delhi,Heritage
-Khirki Mosque (Four-Quadrant Latticed Mosque),Delhi,South Delhi,Khirki,Delhi,Heritage
+Jahanpanah City Forest,Delhi,South Delhi,Chirag Delhi,Delhi,Garden
+Jahaz Mahal & Hauz-i-Shamsi,Delhi,South Delhi,Mehrauli,Delhi,Heritage
+Jamali Kamali Mosque & Tomb,Delhi,South Delhi,Mehrauli,Delhi,Heritage
+Khirki Mosque,Delhi,South Delhi,Khirki,Delhi,Heritage
 Mehrauli Archaeological Park,Delhi,South Delhi,Mehrauli,New Delhi,Heritage
-Moth Ki Masjid (Mosque from a Single Grain of Moth Seed),Delhi,South Delhi,Uday Park,Delhi,Heritage
-Mughal Jharna & Water Cascade Mehrauli,Delhi,South Delhi,Mehrauli,Delhi,Heritage
-Munda Gumbad & Nili Mosque Hauz Khas,Delhi,South Delhi,Hauz Khas,Delhi,Heritage
-Qila Rai Pithora Fort Ramparts & Statues,Delhi,South Delhi,Malviya Nagar,Delhi,Heritage
+Moth Ki Masjid,Delhi,South Delhi,Uday Park,Delhi,Heritage
+Mughal Jharna & Water Cascade,Delhi,South Delhi,Mehrauli,Delhi,Heritage
+Munda Gumbad & Nili Mosque,Delhi,South Delhi,Hauz Khas,Delhi,Heritage
+Qila Rai Pithora Fort Ramparts,Delhi,South Delhi,Malviya Nagar,Delhi,Heritage
 Qutub Minar,Delhi,South Delhi,Mehrauli,New Delhi,Monument
-Quwwat-ul-Islam Mosque & Iron Pillar of Delhi,Delhi,South Delhi,Mehrauli,Delhi,Heritage
-Rajon Ki Baoli (Mughal-Era Stepwell Mehrauli),Delhi,South Delhi,Mehrauli,Delhi,Heritage
-Satpula Dam-Weir (Seven Bridges Sluice),Delhi,South Delhi,Khirki,Delhi,Heritage
-Shahpur Jat Historic Urban Village & Boutiques,Delhi,South Delhi,Shahpur Jat,Delhi,Culture
-Shri Adya Katyayani Shaktipeeth Mandir (Chhatarpur Mandir),Delhi,South Delhi,Chhatarpur,New Delhi,Temple
+Quwwat-ul-Islam Mosque & Iron Pillar,Delhi,South Delhi,Mehrauli,Delhi,Heritage
+Rajon Ki Baoli,Delhi,South Delhi,Mehrauli,Delhi,Heritage
+Shahpur Jat Historic Urban Village,Delhi,South Delhi,Shahpur Jat,Delhi,Culture
+Shri Adya Katyayani Shaktipeeth Mandir,Delhi,South Delhi,Chhatarpur,New Delhi,Temple
 Shrine of Hazrat Nasiruddin Mahmud Chirag-i-Dilli,Delhi,South Delhi,Chirag Delhi,Delhi,Pilgrimage
-Siri Fort Citadel Walls & Archaeological Bastions,Delhi,South Delhi,Siri Fort,Delhi,Heritage
-Tibet House Museum Lodhi Road,Delhi,South Delhi,Lodhi Road,Delhi,Museum
-Tilpath Valley Biodiversity Park Sainik Farm,Delhi,South Delhi,Sainik Farm,Delhi,Wildlife
-Tomb of Bahlol Lodi & Lal Gumbad Chirag Delhi,Delhi,South Delhi,Chirag Delhi,Delhi,Heritage
-Tomb of Firoz Shah Tughlaq Hauz Khas,Delhi,South Delhi,Hauz Khas,Delhi,Heritage
+Siri Fort Citadel Walls,Delhi,South Delhi,Siri Fort,Delhi,Heritage
+Tibet House Museum,Delhi,South Delhi,Lodhi Road,Delhi,Museum
+Tilpath Valley Biodiversity Park,Delhi,South Delhi,Sainik Farm,Delhi,Wildlife
+Tomb of Bahlol Lodi & Lal Gumbad,Delhi,South Delhi,Chirag Delhi,Delhi,Heritage
+Tomb of Firoz Shah Tughlaq,Delhi,South Delhi,Hauz Khas,Delhi,Heritage
 Tomb of Iltutmish & Alauddin Khalji's Madrasa,Delhi,South Delhi,Mehrauli,Delhi,Heritage
 Tomb of Muhammad Quli Khan & Metcalfe's Dilkusha,Delhi,South Delhi,Mehrauli,Delhi,Heritage
 Tughlaqabad Fort,Delhi,South Delhi,Tughlaqabad,New Delhi,Fort
 Zafar Mahal & Moti Masjid Mehrauli,Delhi,South Delhi,Mehrauli,Delhi,Heritage
 Adilabad Fort & Citadel of Muhammad bin Tughlaq,Delhi,South East Delhi,Tughlaqabad,Delhi,Heritage
 Arab Ki Sarai & Grand Gateway Nizamuddin,Delhi,South East Delhi,Nizamuddin,Delhi,Heritage
-Ashokan Rock Edict at Bahapur (East of Kailash),Delhi,South East Delhi,East of Kailash,Delhi,Heritage
-Badarpur Sarai Historic Three Gateways,Delhi,South East Delhi,Badarpur,Delhi,Heritage
-Chausath Khamba (64-Pillared White Marble Pavilion),Delhi,South East Delhi,Nizamuddin Basti,Delhi,Heritage
+Ashokan Rock Edict at Bahapur,Delhi,South East Delhi,East of Kailash,Delhi,Heritage
+Badarpur Sarai Historic Gateways,Delhi,South East Delhi,Badarpur,Delhi,Heritage
+Chausath Khamba,Delhi,South East Delhi,Nizamuddin Basti,Delhi,Heritage
 Hazrat Nizamuddin Auliya Dargah,Delhi,South East Delhi,Nizamuddin West,New Delhi,Spiritual
-Humayun's Tomb Delhi,Delhi,South East Delhi,Nizamuddin East,New Delhi,Monument
-Isa Khan Niyazi's Octagonal Tomb & Mosque Complex,Delhi,South East Delhi,Nizamuddin,Delhi,Heritage
-ISKCON Temple New Delhi (Glory of India Vedic Centre),Delhi,South East Delhi,East of Kailash,New Delhi,Temple
+Humayun's Tomb,Delhi,South East Delhi,Nizamuddin East,New Delhi,Monument
+Isa Khan Niyazi's Tomb & Mosque Complex,Delhi,South East Delhi,Nizamuddin,Delhi,Heritage
+ISKCON Temple New Delhi,Delhi,South East Delhi,East of Kailash,New Delhi,Temple
 Kalindi Kunj & Yamuna Riverfront Park,Delhi,South East Delhi,Okhla,Delhi,Garden
 Kalkaji District Park & Lotus Pond,Delhi,South East Delhi,Kalkaji,Delhi,Garden
-Lotus Temple (Bahá'í House of Worship),Delhi,South East Delhi,Kalkaji,New Delhi,Spiritual
+Lotus Temple,Delhi,South East Delhi,Kalkaji,New Delhi,Spiritual
 Mausoleum of Ghiyasuddin Tughlaq & Causeway,Delhi,South East Delhi,Tughlaqabad,Delhi,Heritage
-Millennium Park (Indraprastha Park) Ring Road,Delhi,South East Delhi,Sarai Kale Khan,Delhi,Garden
 Nehru Place IT Market,Delhi,South East Delhi,Nehru Place,New Delhi,Market
 Okhla Bird Sanctuary,Delhi,South East Delhi,Okhla,New Delhi,Wildlife
-Shri Kalkaji Mandir (Ancient Kali Temple of Delhi),Delhi,South East Delhi,Kalkaji,Delhi,Temple
 Sunder Nursery Heritage Park,Delhi,South East Delhi,Nizamuddin,Delhi,Nature
-"Surviving Kos Minars of Delhi (Badarpur, Mathura Road & Kureni)",Delhi,South East Delhi,Badarpur,Delhi,Heritage
-Tomb of Abdur Rahim Khan-i-Khana Nizamuddin,Delhi,South East Delhi,Nizamuddin,Delhi,Heritage
+Surviving Kos Minars of Delhi,Delhi,South East Delhi,Badarpur,Delhi,Heritage
+Tomb of Abdur Rahim Khan-i-Khana,Delhi,South East Delhi,Nizamuddin,Delhi,Heritage
 Waste to Wonder Theme Park,Delhi,South East Delhi,Sarai Kale Khan,Delhi,Monument
-Air Force Museum Palam (Vintage Aircraft & War Memorial),Delhi,South West Delhi,Palam,Delhi,Museum
+Air Force Museum Palam,Delhi,South West Delhi,Palam,Delhi,Museum
 Aravalli Biodiversity Park Vasant Kunj,Delhi,South West Delhi,Vasant Kunj,Delhi,Wildlife
-Indian Mountaineering Foundation (IMF Climbing Wall Moti Bagh),Delhi,South West Delhi,Moti Bagh,Delhi,Sports
+Indian Mountaineering Foundation,Delhi,South West Delhi,Moti Bagh,Delhi,Sports
 Mehram Nagar Katra & Walled Caravanserai,Delhi,South West Delhi,Delhi Cantt,Delhi,Heritage
-Neela Hauz Biodiversity Park & Constructed Wetland,Delhi,South West Delhi,Vasant Kunj,Delhi,Wildlife
-Sanjay Van South Delhi Forest Trails,Delhi,South West Delhi,Mehrauli,Delhi,Wildlife
-Sulabh International Museum of Toilets Mahavir Enclave,Delhi,South West Delhi,Mahavir Enclave,Delhi,Museum
+Neela Hauz Biodiversity Park,Delhi,South West Delhi,Vasant Kunj,Delhi,Wildlife
+Sanjay Van Forest Trails,Delhi,South West Delhi,Mehrauli,Delhi,Wildlife
+Sulabh International Museum of Toilets,Delhi,South West Delhi,Mahavir Enclave,Delhi,Museum
 Vasant Vihar Park,Delhi,South West Delhi,Vasant Vihar,New Delhi,Nature
 Bharat Darshan Park Punjabi Bagh,Delhi,West Delhi,Punjabi Bagh,Delhi,Garden
-Hashtsal Minar (Shah Jahan's Hunting Minaret 1634),Delhi,West Delhi,Uttam Nagar,Delhi,Heritage
+Hashtsal Minar,Delhi,West Delhi,Uttam Nagar,Delhi,Heritage
 Rajouri Garden Delhi,Delhi,West Delhi,Rajouri Garden,Delhi,Market
 Tagore Garden Delhi,Delhi,West Delhi,Tagore Garden,Delhi,Nature
 India Habitat Centre,Delhi,Delhi,Delhi,Delhi,Heritage
 Akshardham Metro Tourist Area,Delhi,Delhi,Delhi,Delhi,Temple
-Bahai Lotus Temple,Delhi,Delhi,Delhi,Delhi,Temple
 Waste to Wonder Park,Delhi,Central Delhi,New Delhi,Delhi,Park
 Gurudwara Bangla Sahib,Delhi,New Delhi,New Delhi,Delhi,Religious Heritage
+Gyarah Murti,Delhi,New Delhi,Teen Murti,New Delhi,Monument
+Shanti Van,Delhi,New Delhi,Raj Ghat,New Delhi,Monument
+Shakti Sthal,Delhi,New Delhi,Raj Ghat,New Delhi,Monument
+Vijay Ghat,Delhi,New Delhi,Raj Ghat,New Delhi,Monument
+Veer Bhumi,Delhi,New Delhi,Raj Ghat,New Delhi,Monument
+Kisan Ghat,Delhi,New Delhi,Raj Ghat,New Delhi,Monument
+Lal Bangla,Delhi,New Delhi,Kaka Nagar,New Delhi,Heritage
+Moti Gate of Sher Shah Suri,Delhi,New Delhi,Kaka Nagar,New Delhi,Heritage
+Khair-ul-Manzil,Delhi,New Delhi,Kaka Nagar,New Delhi,Heritage
+Nila Gumbad,Delhi,South East Delhi,Nizamuddin,New Delhi,Heritage
+Afsah-wala Mosque,Delhi,South East Delhi,Nizamuddin,New Delhi,Heritage
+Afsah-wala Tomb,Delhi,South East Delhi,Nizamuddin,New Delhi,Heritage
+Shamsi Talab,Delhi,South Delhi,Mehrauli,Delhi,Heritage
+Mosque of Darwesh Shah,Delhi,South Delhi,Khel Gaon,Delhi,Heritage
+Tomb of Sayyid Yasin,Delhi,South East Delhi,Nizamuddin,Delhi,Heritage
+Sarai of Azimganj,Delhi,South East Delhi,National Zoological Park,Delhi,Heritage
+Gumti of Shaikh Ali,Delhi,South Delhi,Defence Colony,Delhi,Heritage
+Kharbuje Ka Gumbad,Delhi,South Delhi,Panchsheel Park,Delhi,Heritage
+Bijri Khan's Tomb,Delhi,South West Delhi,R K Puram,Delhi,Heritage
+Bara Lao Ka Gumbad,Delhi,South West Delhi,Vasant Vihar,Delhi,Heritage
+Phutta Gumbad,Delhi,South East Delhi,J N Stadium,Delhi,Heritage
+Sarai of Basant,Delhi,South Delhi,Basant Range,Delhi,Heritage
+Haji Langa's Tomb,Delhi,South Delhi,R K Puram,Delhi,Heritage
+Tomb of Sheikh Usman Saiyah,Delhi,South Delhi,Khirki,Delhi,Heritage
+Chauburji Mosque,Delhi,North Delhi,Kamla Nehru Ridge,Delhi,Heritage
+Northern Guard House Kamla Nehru Ridge,Delhi,North Delhi,Civil Lines,Delhi,Heritage
+Southern Guard House Kamla Nehru Ridge,Delhi,North Delhi,Civil Lines,Delhi,Heritage
+Mazar of Shaikh Mohammad Ibrahim Zauq,Delhi,Central Delhi,Paharganj,Delhi,Heritage
+National Police Memorial,Delhi,New Delhi,Chanakyapuri,New Delhi,Museum
