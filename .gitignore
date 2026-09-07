@@ -1,4 +1,7 @@
+# Bytecode and cache
+__pycache__/
+*.py[cod]
 
+# Migration archives
+scripts/archive/
 data_full/
-
-scripts/
