@@ -355,7 +355,7 @@ Kelve Fort,Maharashtra,Palghar,Palghar,Mumbai,Fort
 Shirgaon Fort,Maharashtra,Palghar,Palghar,Mumbai,Fort
 Tarapur Fort,Maharashtra,Palghar,Palghar,Mumbai,Fort
 Dahanu Fort,Maharashtra,Palghar,Palghar,Mumbai,Fort
-Rajgad Border Fort Landscape,Maharashtra,Raigad,Alibag,Mumbai,Fort
+Torna Fort (Prachandagad - First Fort Captured by Shivaji Maharaj),Maharashtra,Raigad,Alibag,Mumbai,Fort
 Murud Janjira Fort,Maharashtra,Raigad,Alibag,Mumbai,Fort
 Kolaba Fort,Maharashtra,Raigad,Alibag,Mumbai,Fort
 Revdanda Fort,Maharashtra,Raigad,Alibag,Mumbai,Fort
@@ -858,7 +858,7 @@ Verul,Maharashtra,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Chhatrapat
 Khuldabad,Maharashtra,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Heritage
 Deogiri Village,Maharashtra,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Heritage
 Ajanta View Point,Maharashtra,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Nature
-Ajanta Visitor Landscape,Maharashtra,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Nature
+Ajanta Caves Viewpoint (Panoramic Horseshoe Gorge),Maharashtra,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Viewpoint
 Ellora Sculpture Complex,Maharashtra,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Heritage
 Chini Mahal,Maharashtra,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Nature
 Soneri Mahal Gardens,Maharashtra,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Chhatrapati Sambhajinagar,Nature
@@ -901,7 +901,7 @@ Govind Bagh,Maharashtra,Nanded,Nanded,Nanded,Heritage
 Sahastrakund Viewpoint,Maharashtra,Nanded,Nanded,Nanded,Nature
 Kinwat Forest,Maharashtra,Nanded,Nanded,Nanded,Nature
 Unkeshwar Hot Springs,Maharashtra,Nanded,Nanded,Nanded,Nature
-Kinwat Tribal Landscape,Maharashtra,Nanded,Nanded,Nanded,Nature
+Sahasrakund Waterfall (Penganga River),Maharashtra,Nanded,Nanded,Nanded,Waterfall
 Naldurg Waterfall,Maharashtra,Dharashiv,Dharashiv,Solapur,Waterfall
 Naldurg Heritage Town,Maharashtra,Dharashiv,Dharashiv,Solapur,Heritage
 Paranda Heritage Town,Maharashtra,Dharashiv,Dharashiv,Solapur,Heritage
@@ -911,7 +911,7 @@ Ter Jain Heritage,Maharashtra,Dharashiv,Dharashiv,Solapur,Heritage
 Terna Dam,Maharashtra,Dharashiv,Dharashiv,Solapur,Nature
 Terna Reservoir,Maharashtra,Dharashiv,Dharashiv,Solapur,Lake
 Yedshi Forest,Maharashtra,Dharashiv,Dharashiv,Solapur,Nature
-Tuljapur Ghat Landscape,Maharashtra,Dharashiv,Dharashiv,Solapur,Nature
+Tuljapur Bhavani Temple (Revered Shakti Shrine),Maharashtra,Dharashiv,Dharashiv,Solapur,Temple
 Pathri,Maharashtra,Parbhani,Parbhani,Nanded,Heritage
 Purna Railway Heritage,Maharashtra,Parbhani,Parbhani,Nanded,Heritage
 Dudhna River,Maharashtra,Parbhani,Parbhani,Nanded,Nature
@@ -1027,7 +1027,7 @@ Tarkarli Beach,Maharashtra,Sindhudurg,Oros,Goa,Beach
 Tarkarli Backwaters,Maharashtra,Sindhudurg,Oros,Goa,Nature
 Devbag Beach,Maharashtra,Sindhudurg,Oros,Goa,Beach
 Devbag Sangam,Maharashtra,Sindhudurg,Oros,Goa,Nature
-Tsushima-style Marine Landscape,Maharashtra,Sindhudurg,Oros,Goa,Nature
+Sindhudurg Fort (Historic Sea Fortress of Malvan),Maharashtra,Sindhudurg,Oros,Goa,Fort
 Rock Garden Malvan,Maharashtra,Sindhudurg,Oros,Goa,Nature
 Malvan Rock Garden,Maharashtra,Sindhudurg,Oros,Goa,Nature
 Chivla Beach,Maharashtra,Sindhudurg,Oros,Goa,Beach
@@ -1179,7 +1179,7 @@ Suryakund,Maharashtra,Nandurbar,Nandurbar,Surat,Nature
 Lotus Lake Toranmal,Maharashtra,Nandurbar,Nandurbar,Surat,Lake
 Aawashabari Viewpoint,Maharashtra,Nandurbar,Nandurbar,Surat,Nature
 Shahada Heritage Town,Maharashtra,Nandurbar,Nandurbar,Surat,Heritage
-Akkalkuwa Tribal Landscape,Maharashtra,Nandurbar,Nandurbar,Surat,Nature
+Toranmal Hill Station & Sita Khai Viewpoint,Maharashtra,Nandurbar,Nandurbar,Surat,Hill
 Tapi River,Maharashtra,Nandurbar,Nandurbar,Surat,Nature
 Dhadgaon Hills,Maharashtra,Nandurbar,Nandurbar,Surat,Nature
 Narmada Valley,Maharashtra,Nandurbar,Nandurbar,Surat,Nature
@@ -1266,7 +1266,7 @@ Kurkheda Forest,Maharashtra,Gadchiroli,Gadchiroli,Nagpur,Nature
 Aheri Palace,Maharashtra,Gadchiroli,Gadchiroli,Nagpur,Heritage
 Perimili Forest,Maharashtra,Gadchiroli,Gadchiroli,Nagpur,Nature
 Gadchiroli Tribal Villages,Maharashtra,Gadchiroli,Gadchiroli,Nagpur,Nature
-Madia Gond Cultural Landscape,Maharashtra,Gadchiroli,Gadchiroli,Nagpur,Nature
+Markanda Mahadev Temple (Khajuraho of Vidarbha),Maharashtra,Gadchiroli,Gadchiroli,Nagpur,Temple
 Navegaon National Park,Maharashtra,Gondia,Gondia,Nagpur,Wildlife
 Navegaon Lake,Maharashtra,Gondia,Gondia,Nagpur,Lake
 Navegaon Bird Sanctuary,Maharashtra,Gondia,Gondia,Nagpur,Wildlife
@@ -1309,7 +1309,7 @@ Ramtek Lake,Maharashtra,Nagpur,Nagpur,Nagpur,Lake
 Khindsi Lake,Maharashtra,Nagpur,Nagpur,Nagpur,Lake
 Umred Forest,Maharashtra,Nagpur,Nagpur,Nagpur,Nature
 Waki Woods,Maharashtra,Nagpur,Nagpur,Nagpur,Nature
-Pench Jungle Landscape,Maharashtra,Nagpur,Nagpur,Nagpur,Nature
+Pench National Park (Mowgli Land Tiger Reserve),Maharashtra,Nagpur,Nagpur,Nagpur,Wildlife
 Sevagram Ashram,Maharashtra,Wardha,Wardha,Nagpur,Heritage
 Gandhi Ashram Sevagram,Maharashtra,Wardha,Wardha,Nagpur,Heritage
 Magan Sangrahalaya,Maharashtra,Wardha,Wardha,Nagpur,Museum
@@ -1350,103 +1350,103 @@ Basmat Temple Belt,Maharashtra,Hingoli,Hingoli,Nanded,Temple
 Kanergaon Temple Belt,Maharashtra,Hingoli,Hingoli,Nanded,Temple
 Kelwa Fort Border Route,Maharashtra,Thane,Thane,Mumbai,Fort
 Parashar Cave Border Hills,Maharashtra,Kolhapur,Kolhapur,Kolhapur,Cave
-Kenjalgad Border Landscape,Maharashtra,Pune,Pune,Pune,Fort
+Kenjalgad Fort (Ghera Khelanja Hilltop),Maharashtra,Pune,Pune,Pune,Fort
 Bhawanipatna Temple Belt,Maharashtra,Solapur,Solapur,Solapur,Temple
 Malshiras Temple Belt,Maharashtra,Solapur,Solapur,Solapur,Temple
 Shirud Temple Belt,Maharashtra,Dhule,Dhule,Nashik,Temple
 Erandol Temple Belt,Maharashtra,Jalgaon,Jalgaon,Nashik,Temple
 Bhadravati Temple Belt,Maharashtra,Chandrapur,Chandrapur,Nagpur,Temple
 Armori Temple Belt,Maharashtra,Gadchiroli,Gadchiroli,Nagpur,Temple
-Washim Border Landscape,Maharashtra,Akola,Akola,Amravati,Nature
-Walgaon Rural Landscape,Maharashtra,Amravati,Amravati,Amravati,Nature
+Pohradevi Temple (Banjara Kashi Pilgrimage),Maharashtra,Akola,Akola,Amravati,Temple
+Walgaon,Maharashtra,Amravati,Amravati,Amravati,Nature
 Malkapur Heritage Area,Maharashtra,Buldhana,Buldhana,Akola,Heritage
 Chikhli Heritage Area,Maharashtra,Buldhana,Buldhana,Akola,Heritage
 Khamgaon Heritage Area,Maharashtra,Buldhana,Buldhana,Akola,Heritage
-Jayakwadi Border Landscape,Maharashtra,Buldhana,Buldhana,Akola,Nature
-Arni Border Landscape,Maharashtra,Washim,Washim,Akola,Nature
+Jayakwadi Border,Maharashtra,Buldhana,Buldhana,Akola,Nature
+Arni Border,Maharashtra,Washim,Washim,Akola,Nature
 Washim Rural Heritage,Maharashtra,Washim,Washim,Akola,Heritage
 Wani Heritage Area,Maharashtra,Yavatmal,Yavatmal,Nagpur,Heritage
 Ghatanji Heritage Area,Maharashtra,Yavatmal,Yavatmal,Nagpur,Heritage
 Kinwat Border Forest,Maharashtra,Yavatmal,Yavatmal,Nagpur,Nature
-Adilabad Border Landscape,Maharashtra,Yavatmal,Yavatmal,Nagpur,Nature
-Majalgaon Wildlife Landscape,Maharashtra,Beed,Beed,Chhatrapati Sambhajinagar,Nature
+Adilabad Border,Maharashtra,Yavatmal,Yavatmal,Nagpur,Nature
+Majalgaon Wildlife,Maharashtra,Beed,Beed,Chhatrapati Sambhajinagar,Nature
 Ambad Heritage Area,Maharashtra,Jalna,Jalna,Chhatrapati Sambhajinagar,Heritage
 Partur Heritage Area,Maharashtra,Jalna,Jalna,Chhatrapati Sambhajinagar,Heritage
 Jayakwadi Border Wetlands,Maharashtra,Jalna,Jalna,Chhatrapati Sambhajinagar,Nature
 Renapur Heritage Area,Maharashtra,Latur,Latur,Latur,Heritage
-Chakur Rural Landscape,Maharashtra,Latur,Latur,Latur,Nature
-Udgir Wildlife Landscape,Maharashtra,Latur,Latur,Latur,Nature
-Kinwat Wildlife Landscape,Maharashtra,Nanded,Nanded,Nanded,Wildlife
+Chakur,Maharashtra,Latur,Latur,Latur,Nature
+Udgir Wildlife,Maharashtra,Latur,Latur,Latur,Nature
+Kinwat Wildlife,Maharashtra,Nanded,Nanded,Nanded,Wildlife
 Deglur Heritage Area,Maharashtra,Nanded,Nanded,Nanded,Heritage
-Umri Rural Landscape,Maharashtra,Nanded,Nanded,Nanded,Nature
+Umri,Maharashtra,Nanded,Nanded,Nanded,Nature
 Shiradhon Heritage Area,Maharashtra,Dharashiv,Dharashiv,Solapur,Heritage
-Lohara Rural Landscape,Maharashtra,Dharashiv,Dharashiv,Solapur,Nature
+Lohara,Maharashtra,Dharashiv,Dharashiv,Solapur,Nature
 Sonpeth Heritage Area,Maharashtra,Parbhani,Parbhani,Nanded,Heritage
-Manwath Rural Landscape,Maharashtra,Parbhani,Parbhani,Nanded,Nature
+Manwath,Maharashtra,Parbhani,Parbhani,Nanded,Nature
 Palam Heritage Area,Maharashtra,Parbhani,Parbhani,Nanded,Heritage
-Purna Wildlife Landscape,Maharashtra,Parbhani,Parbhani,Nanded,Nature
-Parbhani Agricultural Landscape,Maharashtra,Parbhani,Parbhani,Nanded,Nature
+Purna Wildlife,Maharashtra,Parbhani,Parbhani,Nanded,Nature
+Parbhani Agricultural,Maharashtra,Parbhani,Parbhani,Nanded,Nature
 Yeldari Border Reservoir,Maharashtra,Hingoli,Hingoli,Nanded,Lake
-Isapur Dam Border Landscape,Maharashtra,Hingoli,Hingoli,Nanded,Nature
+Isapur Dam Border,Maharashtra,Hingoli,Hingoli,Nanded,Nature
 Kalamnuri Heritage Area,Maharashtra,Hingoli,Hingoli,Nanded,Heritage
-Sengaon Rural Landscape,Maharashtra,Hingoli,Hingoli,Nanded,Nature
+Sengaon,Maharashtra,Hingoli,Hingoli,Nanded,Nature
 Andheri Heritage Area,Maharashtra,Mumbai Suburban,Mumbai,Mumbai,Heritage
-Harishchandragad Border Landscape,Maharashtra,Raigad,Alibag,Mumbai,Nature
-Devgad Border Landscape,Maharashtra,Ratnagiri,Ratnagiri,Kolhapur,Nature
-Kelwa Border Landscape,Maharashtra,Thane,Thane,Mumbai,Nature
+Harishchandragad Border,Maharashtra,Raigad,Alibag,Mumbai,Nature
+Devgad Border,Maharashtra,Ratnagiri,Ratnagiri,Kolhapur,Nature
+Kelwa Border,Maharashtra,Thane,Thane,Mumbai,Nature
 Jawhar Border Hills,Maharashtra,Thane,Thane,Mumbai,Nature
 Kanheri Border Forest,Maharashtra,Thane,Thane,Mumbai,Nature
 Tawade Hotel Heritage Area,Maharashtra,Kolhapur,Kolhapur,Kolhapur,Heritage
-Sajjangad Border Landscape,Maharashtra,Kolhapur,Kolhapur,Kolhapur,Nature
+Sajjangad Border,Maharashtra,Kolhapur,Kolhapur,Kolhapur,Nature
 Naneghat Border Route,Maharashtra,Pune,Pune,Pune,Nature
-Malshej Border Landscape,Maharashtra,Pune,Pune,Pune,Nature
+Malshej Border,Maharashtra,Pune,Pune,Pune,Nature
 Pratapgad Border Forest,Maharashtra,Sangli,Sangli,Kolhapur,Nature
 Kundal Heritage Area,Maharashtra,Sangli,Sangli,Kolhapur,Heritage
 Bhilawadi Heritage Area,Maharashtra,Sangli,Sangli,Kolhapur,Heritage
-Walwa Rural Landscape,Maharashtra,Sangli,Sangli,Kolhapur,Nature
-Jat Dryland Landscape,Maharashtra,Sangli,Sangli,Kolhapur,Nature
-Krishna River Landscape,Maharashtra,Sangli,Sangli,Kolhapur,Nature
-Kaalsubai Border Landscape,Maharashtra,Satara,Satara,Pune,Nature
-Mohol Rural Landscape,Maharashtra,Solapur,Solapur,Solapur,Nature
-Bori River Landscape,Maharashtra,Solapur,Solapur,Solapur,Nature
+Walwa,Maharashtra,Sangli,Sangli,Kolhapur,Nature
+Jat Dryland,Maharashtra,Sangli,Sangli,Kolhapur,Nature
+Krishna,Maharashtra,Sangli,Sangli,Kolhapur,Nature
+Kaalsubai Border,Maharashtra,Satara,Satara,Pune,Nature
+Mohol,Maharashtra,Solapur,Solapur,Solapur,Nature
+Bori,Maharashtra,Solapur,Solapur,Solapur,Nature
 Akluj Heritage Area,Maharashtra,Solapur,Solapur,Solapur,Heritage
-Tapi River Landscape,Maharashtra,Dhule,Dhule,Nashik,Nature
-Shindkheda Rural Landscape,Maharashtra,Dhule,Dhule,Nashik,Nature
+Tapi,Maharashtra,Dhule,Dhule,Nashik,Nature
+Shindkheda,Maharashtra,Dhule,Dhule,Nashik,Nature
 Deopur Heritage Area,Maharashtra,Dhule,Dhule,Nashik,Heritage
-Shirpur Rural Landscape,Maharashtra,Dhule,Dhule,Nashik,Nature
+Shirpur,Maharashtra,Dhule,Dhule,Nashik,Nature
 Nimgul Heritage Area,Maharashtra,Dhule,Dhule,Nashik,Heritage
-Ajanta Border Landscape,Maharashtra,Jalgaon,Jalgaon,Nashik,Heritage
-Toranmal Border Landscape,Maharashtra,Jalgaon,Jalgaon,Nashik,Nature
+Ajanta Border,Maharashtra,Jalgaon,Jalgaon,Nashik,Heritage
+Toranmal Border,Maharashtra,Jalgaon,Jalgaon,Nashik,Nature
 Bhusawal Heritage Area,Maharashtra,Jalgaon,Jalgaon,Nashik,Heritage
 Ukai Border Reservoir,Maharashtra,Nandurbar,Nandurbar,Surat,Lake
-Sardar Sarovar Border Landscape,Maharashtra,Nandurbar,Nandurbar,Surat,Nature
-Aner Dam Border Landscape,Maharashtra,Nandurbar,Nandurbar,Surat,Nature
+Sardar Sarovar Border,Maharashtra,Nandurbar,Nandurbar,Surat,Nature
+Aner Dam Border,Maharashtra,Nandurbar,Nandurbar,Surat,Nature
 Shoolpaneshwar Border Forest,Maharashtra,Nandurbar,Nandurbar,Surat,Nature
 Navapur Heritage Area,Maharashtra,Nandurbar,Nandurbar,Surat,Heritage
 Deolali Heritage Area,Maharashtra,Nashik,Nashik,Nashik,Heritage
 Harishchandragad Border Hills,Maharashtra,Nashik,Nashik,Nashik,Nature
-Bhandardara Border Landscape,Maharashtra,Nashik,Nashik,Nashik,Lake
-Kalsubai Wildlife Landscape,Maharashtra,Ahilyanagar,Ahilyanagar,Pune,Nature
-Indira Sagar Border Landscape,Maharashtra,Bhandara,Bhandara,Nagpur,Nature
-Adyal Rural Landscape,Maharashtra,Bhandara,Bhandara,Nagpur,Nature
+Bhandardara Border,Maharashtra,Nashik,Nashik,Nashik,Lake
+Kalsubai Wildlife,Maharashtra,Ahilyanagar,Ahilyanagar,Pune,Nature
+Indira Sagar Border,Maharashtra,Bhandara,Bhandara,Nagpur,Nature
+Adyal,Maharashtra,Bhandara,Bhandara,Nagpur,Nature
 Navegaon Border Forest,Maharashtra,Chandrapur,Chandrapur,Nagpur,Nature
-Tipeshwar Border Landscape,Maharashtra,Chandrapur,Chandrapur,Nagpur,Nature
+Tipeshwar Border,Maharashtra,Chandrapur,Chandrapur,Nagpur,Nature
 Ghughus Heritage Area,Maharashtra,Chandrapur,Chandrapur,Nagpur,Heritage
-Anandwan Border Landscape,Maharashtra,Chandrapur,Chandrapur,Nagpur,Nature
+Anandwan Border,Maharashtra,Chandrapur,Chandrapur,Nagpur,Nature
 Tipeshwar Border Forest,Maharashtra,Gadchiroli,Gadchiroli,Nagpur,Nature
 Sironcha Heritage Area,Maharashtra,Gadchiroli,Gadchiroli,Nagpur,Heritage
 Ashti Heritage Area,Maharashtra,Gadchiroli,Gadchiroli,Nagpur,Heritage
-Pratapgarh Wildlife Landscape,Maharashtra,Gondia,Gondia,Nagpur,Nature
+Pratapgarh Wildlife,Maharashtra,Gondia,Gondia,Nagpur,Nature
 Balaghat Border Forest,Maharashtra,Gondia,Gondia,Nagpur,Nature
-Amgaon Rural Landscape,Maharashtra,Gondia,Gondia,Nagpur,Nature
-Wainganga Border Landscape,Maharashtra,Gondia,Gondia,Nagpur,Nature
+Amgaon,Maharashtra,Gondia,Gondia,Nagpur,Nature
+Wainganga Border,Maharashtra,Gondia,Gondia,Nagpur,Nature
 Empress Mall Heritage Area,Maharashtra,Nagpur,Nagpur,Nagpur,Heritage
 Hinganghat Heritage Area,Maharashtra,Wardha,Wardha,Nagpur,Heritage
-Arvi Rural Landscape,Maharashtra,Wardha,Wardha,Nagpur,Nature
+Arvi,Maharashtra,Wardha,Wardha,Nagpur,Nature
 Pulgaon Heritage Area,Maharashtra,Wardha,Wardha,Nagpur,Heritage
-Ashti Rural Landscape,Maharashtra,Wardha,Wardha,Nagpur,Nature
+Ashti,Maharashtra,Wardha,Wardha,Nagpur,Nature
 Karanja Ghadge Heritage Area,Maharashtra,Wardha,Wardha,Nagpur,Heritage
-Paunar Rural Landscape,Maharashtra,Wardha,Wardha,Nagpur,Nature
+Paunar,Maharashtra,Wardha,Wardha,Nagpur,Nature
 Ganapatipule Temple,Maharashtra,Ratnagiri,Ganapatipule,Ratnagiri,Temple
 Gateway of India Mumbai Harbor,Maharashtra,Mumbai City,Mumbai,Mumbai,Monument
 Chhatrapati Shivaji Maharaj Terminus UNESCO,Maharashtra,Mumbai City,Mumbai,Mumbai,Heritage

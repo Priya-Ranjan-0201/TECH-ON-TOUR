@@ -37,7 +37,7 @@ Mount Saramati (Saramati Peak) - Nagaland's Highest Summit,Nagaland,Kiphire,Than
 Ningthsalong Stone Monolith & Ancient Sangtam Houses,Nagaland,Kiphire,Sangphure,Kiphire,Heritage
 Pungro Town & Saramati Adventure Foothills,Nagaland,Kiphire,Pungro,Kiphire,Adventure
 Salomi Natural Limestone Caves & Likimro Tunnels,Nagaland,Kiphire,Salomi,Kiphire,Cave
-Seyochung Town & Sangtam Cultural Landscape,Nagaland,Kiphire,Seyochung,Kiphire,Culture
+Mount Saramati (Highest Peak in Nagaland 3841m),Nagaland,Kiphire,Seyochung,Kiphire,Mountain
 Sukhayap Rock Cliff & Bamboo Ladder Trail,Nagaland,Kiphire,Kiphire,Kiphire,Adventure
 Thanamir Village & Apple Orchards,Nagaland,Kiphire,Thanamir,Kiphire,Agri-Tourism
 Wawade Waterfall & Forest Cascade Kiphire,Nagaland,Kiphire,Kiphire,Kiphire,Water Body
@@ -68,7 +68,7 @@ Viswema Village & Dzüko Valley Trailhead,Nagaland,Kohima,Viswema,Kohima,Adventu
 World War II Museum Kisama,Nagaland,Kohima,Kisama,Kohima,Museum
 Dikhu River Gorges (Shendang/Bhopong),Nagaland,Longleng,Shendang,Mokokchung,Nature
 Hukphang Village & Customary Sacred Forests,Nagaland,Longleng,Hukphang,Mokokchung,Nature
-Longleng Town & Phom Cultural Landscape,Nagaland,Longleng,Longleng,Mokokchung,Culture
+Shendhang Heritage Village (Ancient Phom Morung),Nagaland,Longleng,Longleng,Mokokchung,Heritage
 Nyakching & Lingtak Ridge Trekking Trails,Nagaland,Longleng,Nyakching,Mokokchung,Mountain
 Tamlu Village & Dikhu River Ridge,Nagaland,Longleng,Tamlu,Mokokchung,Heritage
 Yachem Heritage Village & Kheang Log Drums,Nagaland,Longleng,Yachem,Mokokchung,Village
@@ -211,8 +211,8 @@ Phek,Nagaland,Phek,Chizami,Kohima,Heritage
 Longwa Village,Nagaland,Mon,Aboi,Mon,Heritage
 Kachari Ruins,Nagaland,Dimapur,Dimapur,Dimapur,Heritage
 Avakhung Indo-Myanmar Border Post & Trade Corridor,Nagaland,Meluri,Avakhung,Kohima,Border
-Niuland Foothill Orchards & Rural Countryside,Nagaland,Niuland,Niuland,Dimapur,Agri-Tourism
-Zuheshe Lake & Countryside Greens,Nagaland,Niuland,Zuheshe,Dimapur,Nature
+Inavi Model Village & Sericulture Farms,Nagaland,Niuland,Niuland,Dimapur,Rural Tourism
+Ghotovi Eco Lake & Migratory Birds Sanctuary,Nagaland,Niuland,Zuheshe,Dimapur,Lake
 Eco Lake Angling,Nagaland,Chumoukedima,Chumoukedima,Dimapur,Lake
 Agri Expo Centre,Nagaland,Chumoukedima,Chumoukedima,Dimapur,Park
 Molvom Pineapple Festival Area,Nagaland,Chumoukedima,Chumoukedima,Dimapur,Nature
@@ -372,7 +372,7 @@ Fusen Kei,Nagaland,Mokokchung,Mokokchung,Jorhat,Cave
 Fusen Kei Caves,Nagaland,Mokokchung,Mokokchung,Jorhat,Cave
 Langpangkong Caves,Nagaland,Mokokchung,Mokokchung,Jorhat,Cave
 Mongzu Ki Caves,Nagaland,Mokokchung,Mokokchung,Jorhat,Cave
-Ao Traditional Village Landscapes,Nagaland,Mokokchung,Mokokchung,Jorhat,Culture
+Ungma Heritage Village (Oldest & Largest Ao Village),Nagaland,Mokokchung,Mokokchung,Jorhat,Village
 Just a Venue,Nagaland,Mokokchung,Mokokchung,Jorhat,Culture
 The Woods,Nagaland,Mokokchung,Mokokchung,Jorhat,Culture
 Longlangba Stone Bridge,Nagaland,Mokokchung,Mokokchung,Jorhat,Nature
@@ -445,7 +445,7 @@ Singphan Wildlife Sanctuary,Nagaland,Mon,Mon,Dibrugarh,Nature
 Lavi Lake,Nagaland,Niuland,Niuland,Dimapur,Lake
 Hevishe Village Museum,Nagaland,Niuland,Niuland,Dimapur,Culture
 Lavi Lake Fishing Area,Nagaland,Niuland,Niuland,Dimapur,Lake
-Niuland Village Landscapes,Nagaland,Niuland,Niuland,Dimapur,Culture
+Niuland Tea Estates & Khaghaboto Viewpoint,Nagaland,Niuland,Niuland,Dimapur,Viewpoint
 Akito Village,Nagaland,Niuland,Niuland,Dimapur,Culture
 Hevishe Village,Nagaland,Niuland,Niuland,Dimapur,Culture
 Khaghaboto Village,Nagaland,Niuland,Niuland,Dimapur,Culture
@@ -481,8 +481,8 @@ Pangsha Village,Nagaland,Noklak,Noklak,Tuensang,Culture
 Wui Village,Nagaland,Noklak,Noklak,Tuensang,Culture
 Bao Yam Shing Waterfall,Nagaland,Noklak,Noklak,Tuensang,Waterfall
 King Chilli Growing Areas,Nagaland,Peren,Peren,Dimapur,Culture
-Kuki Cultural Village Landscapes,Nagaland,Peren,Peren,Dimapur,Culture
-Zeliang Traditional Village Landscapes,Nagaland,Peren,Peren,Dimapur,Culture
+Benreu Traditional Village (300-Year-Old Morungs),Nagaland,Peren,Peren,Dimapur,Village
+Dzükou Valley Southern Access Ridge,Nagaland,Peren,Peren,Dimapur,Valley
 Puilwa Village Caves,Nagaland,Peren,Peren,Dimapur,Cave
 Duilumreu Mini Hydro Project,Nagaland,Peren,Peren,Dimapur,Lake
 "Duilumreu, Poilwa",Nagaland,Peren,Peren,Dimapur,Lake
@@ -492,7 +492,7 @@ Mt. Paona,Nagaland,Peren,Peren,Dimapur,Hill
 Ntangki National Park,Nagaland,Peren,Peren,Dimapur,Park
 Benreu Forest,Nagaland,Peren,Peren,Dimapur,Nature
 Nzauna Forest,Nagaland,Peren,Peren,Dimapur,Nature
-Peren Forest Landscape,Nagaland,Peren,Peren,Dimapur,Nature
+Ntangki National Park (Hoolock Gibbon Sanctuary),Nagaland,Peren,Peren,Dimapur,Wildlife
 Tening Forest,Nagaland,Peren,Peren,Dimapur,Nature
 Tening Hills,Nagaland,Peren,Peren,Dimapur,Nature
 "DC Park, Peren Town",Nagaland,Peren,Peren,Dimapur,Park
@@ -575,7 +575,7 @@ Tsonglaknyi Festival Grounds,Nagaland,Shamator,Shamator,Tuensang,Culture
 Yimkhiung Cultural Villages,Nagaland,Shamator,Shamator,Tuensang,Culture
 Changdong Forest,Nagaland,Shamator,Shamator,Tuensang,Nature
 Shamator Hills,Nagaland,Shamator,Shamator,Tuensang,Nature
-Zungki River Forest Landscape,Nagaland,Shamator,Shamator,Tuensang,Nature
+Mimi Cave Systems & Bat Colonies,Nagaland,Shamator,Shamator,Tuensang,Cave
 Tizu–Zungki Confluence,Nagaland,Shamator,Shamator,Tuensang,Nature
 Shamator Hill Viewpoints,Nagaland,Shamator,Shamator,Tuensang,Hill
 Zungki River Trekking Areas,Nagaland,Shamator,Shamator,Tuensang,Nature
@@ -589,17 +589,17 @@ Tsurangto,Nagaland,Shamator,Shamator,Tuensang,Culture
 Yanthang Village,Nagaland,Shamator,Shamator,Tuensang,Culture
 "Village Springs and Water Points, Shamator",Nagaland,Shamator,Shamator,Tuensang,Culture
 Zungki River Picnic Areas,Nagaland,Shamator,Shamator,Tuensang,Nature
-Rengma Agricultural Landscapes,Nagaland,Tseminyu,Tseminyu,Kohima,Culture
+Rengma Agricultural,Nagaland,Tseminyu,Tseminyu,Kohima,Culture
 Sendenyu Terrace Fields,Nagaland,Tseminyu,Tseminyu,Kohima,Culture
 Sendenyu Biodiversity Base Camp,Nagaland,Tseminyu,Tseminyu,Kohima,Nature
 "Sendenyu Biodiversity Center, New Sendenyu",Nagaland,Tseminyu,Tseminyu,Kohima,Nature
 Sendenyu Community Biodiversity & Wildlife Reserve,Nagaland,Tseminyu,Tseminyu,Kohima,Nature
 Ngada Festival Grounds,Nagaland,Tseminyu,Tseminyu,Kohima,Culture
 Rengma Cultural Village Areas,Nagaland,Tseminyu,Tseminyu,Kohima,Culture
-Sendenyu Traditional Village Landscape,Nagaland,Tseminyu,Tseminyu,Kohima,Culture
+Sendenyu Traditional,Nagaland,Tseminyu,Tseminyu,Kohima,Culture
 Sendenyu Community Forest,Nagaland,Tseminyu,Tseminyu,Kohima,Nature
 Sendenyu Sacred Groves,Nagaland,Tseminyu,Tseminyu,Kohima,Nature
-Tseminyu Forest Landscape,Nagaland,Tseminyu,Tseminyu,Kohima,Nature
+Tseminyu,Nagaland,Tseminyu,Tseminyu,Kohima,Nature
 Nsonji–Sendenyu Centenary Memorial Park,Nagaland,Tseminyu,Tseminyu,Kohima,Park
 Sendenyu Centenary Memorial,Nagaland,Tseminyu,Tseminyu,Kohima,Nature
 Khinrun (Governor's View Point),Nagaland,Tseminyu,Tseminyu,Kohima,Hill
@@ -652,7 +652,7 @@ Longkhim Waterfalls,Nagaland,Tuensang,Tuensang,Mokokchung,Waterfall
 Tsadang Waterfall,Nagaland,Tuensang,Tuensang,Mokokchung,Waterfall
 Baghty Passion Fruit Valley,Nagaland,Wokha,Wokha,Kohima,Nature
 Doyang Valley Orchards,Nagaland,Wokha,Wokha,Kohima,Nature
-Pangti Village Agricultural Landscape,Nagaland,Wokha,Wokha,Kohima,Culture
+Pangti Village Agricultural,Nagaland,Wokha,Wokha,Kohima,Culture
 Longsa Historic Monolith,Nagaland,Wokha,Wokha,Kohima,Nature
 Vankhosung Baptist Church,Nagaland,Wokha,Wokha,Kohima,Nature
 Vankhosung Historic Site,Nagaland,Wokha,Wokha,Kohima,Nature
@@ -695,7 +695,7 @@ Satoi Blyth's Tragopan Habitat,Nagaland,Zunheboto,Zunheboto,Mokokchung,Nature
 Satoi Rhododendron Forest,Nagaland,Zunheboto,Zunheboto,Mokokchung,Nature
 Sumi Baptist Church,Nagaland,Zunheboto,Zunheboto,Mokokchung,Nature
 Zunheboto Town Church,Nagaland,Zunheboto,Zunheboto,Mokokchung,Nature
-Sumi Traditional Village Landscapes,Nagaland,Zunheboto,Zunheboto,Mokokchung,Culture
+Sumi Traditional,Nagaland,Zunheboto,Zunheboto,Mokokchung,Culture
 Tuluni Festival Grounds,Nagaland,Zunheboto,Zunheboto,Mokokchung,Culture
 Aizuto Forest,Nagaland,Zunheboto,Zunheboto,Mokokchung,Nature
 Ghosu Forest,Nagaland,Zunheboto,Zunheboto,Mokokchung,Nature
