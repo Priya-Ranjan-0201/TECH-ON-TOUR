@@ -9,8 +9,95 @@ UTS_DIR = os.path.join(DATA_DIR, "union_territories")
 MASTER_CSV = os.path.join(DATA_DIR, "places.csv")
 SEARCH_CSV = os.path.join(DATA_DIR, "search_graph", "related_searches.csv")
 
-HEADERS = ["place_name", "state_ut", "district", "city_or_town", "nearest_major_city", "category"]
+HEADERS = [
+    "id",
+    "name",
+    "state",
+    "category",
+    "latitude",
+    "longitude",
+    "price_range",
+    "rating",
+    "review_count",
+    "description",
+    "best_season",
+    "image_url"
+]
+
+VALID_CATEGORIES = {"hotel", "attraction", "homestay", "restaurant"}
+VALID_PRICE_RANGES = {"budget", "mid", "luxury"}
 HTML_ENTITIES = ['&amp;', '&#39;', '&quot;', '&nbsp;', '&lt;', '&gt;']
+
+def validate_row(p, idx, row, issues, expected_state=None):
+    for h in HEADERS:
+        val = row.get(h)
+        if val is None or not str(val).strip():
+            issues.append(f"{p}:{idx} - Missing/empty {h}")
+        elif str(val) != str(val).strip():
+            issues.append(f"{p}:{idx} - Whitespace padding in {h}: '{val}'")
+        elif '&' in str(val) and any(entity in str(val) for entity in HTML_ENTITIES):
+            issues.append(f"{p}:{idx} - Unescaped HTML entity in {h}: '{val}'")
+
+    # ID validation
+    try:
+        id_val = int(row.get("id", 0))
+        if id_val <= 0:
+            issues.append(f"{p}:{idx} - Non-positive ID: {id_val}")
+    except ValueError:
+        issues.append(f"{p}:{idx} - Invalid integer ID: '{row.get('id')}'")
+
+    # State validation
+    if expected_state:
+        actual_state = (row.get("state") or "").strip().lower()
+        if actual_state != expected_state:
+            issues.append(f"{p}:{idx} - State mismatch: expected '{expected_state}', got '{actual_state}'")
+
+    # Category validation
+    cat = (row.get("category") or "").strip().lower()
+    if cat not in VALID_CATEGORIES:
+        issues.append(f"{p}:{idx} - Invalid category: '{cat}' (must be one of {VALID_CATEGORIES})")
+
+    # Price range validation
+    price = (row.get("price_range") or "").strip().lower()
+    if price not in VALID_PRICE_RANGES:
+        issues.append(f"{p}:{idx} - Invalid price_range: '{price}' (must be one of {VALID_PRICE_RANGES})")
+
+    # Latitude validation
+    try:
+        lat = float(row.get("latitude", 0))
+        if not (6.0 <= lat <= 38.0):
+            issues.append(f"{p}:{idx} - Out of range latitude: {lat}")
+    except ValueError:
+        issues.append(f"{p}:{idx} - Non-float latitude: '{row.get('latitude')}'")
+
+    # Longitude validation
+    try:
+        lon = float(row.get("longitude", 0))
+        if not (68.0 <= lon <= 98.5):
+            issues.append(f"{p}:{idx} - Out of range longitude: {lon}")
+    except ValueError:
+        issues.append(f"{p}:{idx} - Non-float longitude: '{row.get('longitude')}'")
+
+    # Rating validation
+    try:
+        rating = float(row.get("rating", 0))
+        if not (1.0 <= rating <= 5.0):
+            issues.append(f"{p}:{idx} - Out of range rating: {rating}")
+    except ValueError:
+        issues.append(f"{p}:{idx} - Non-float rating: '{row.get('rating')}'")
+
+    # Review count validation
+    try:
+        reviews = int(row.get("review_count", -1))
+        if reviews < 0:
+            issues.append(f"{p}:{idx} - Negative review count: {reviews}")
+    except ValueError:
+        issues.append(f"{p}:{idx} - Non-integer review_count: '{row.get('review_count')}'")
+
+    # Image URL validation
+    img = (row.get("image_url") or "").strip()
+    if not img.startswith("http://") and not img.startswith("https://"):
+        issues.append(f"{p}:{idx} - Invalid image URL: '{img}'")
 
 def audit_all():
     issues = []
@@ -27,27 +114,9 @@ def audit_all():
             reader = list(csv.DictReader(f))
             state_breakdown[d] = len(reader)
             all_state_places.extend(reader)
-            seen_in_file = set()
+            expected_state = d.replace("_", " ").lower()
             for idx, row in enumerate(reader, start=2):
-                for h in HEADERS:
-                    val = row.get(h)
-                    if not val or not val.strip():
-                        issues.append(f"{p}:{idx} - Missing/empty {h}")
-                    elif val != val.strip():
-                        issues.append(f"{p}:{idx} - Whitespace padding in {h}: '{val}'")
-                    elif '&' in val and any(entity in val for entity in HTML_ENTITIES):
-                        issues.append(f"{p}:{idx} - Unescaped HTML entity in {h}: '{val}'")
-                        
-                # Check state consistency
-                expected_state = d.replace("_", " ").lower()
-                actual_state = (row.get("state_ut") or "").strip().lower()
-                if actual_state != expected_state:
-                    issues.append(f"{d}/places.csv row {idx}: State mismatch: expected '{expected_state}', got '{actual_state}'")
-                
-                row_tuple = tuple((row.get(h) or "").strip() for h in HEADERS)
-                if row_tuple in seen_in_file:
-                    issues.append(f"{d}/places.csv row {idx}: Duplicate row in file: '{row.get('place_name')}'")
-                seen_in_file.add(row_tuple)
+                validate_row(p, idx, row, issues, expected_state)
 
     # 2. Audit UTs
     all_ut_places = []
@@ -61,58 +130,40 @@ def audit_all():
             reader = list(csv.DictReader(f))
             ut_breakdown[d] = len(reader)
             all_ut_places.extend(reader)
-            seen_in_file = set()
+            expected_ut = d.replace("_", " ").lower()
             for idx, row in enumerate(reader, start=2):
-                for h in HEADERS:
-                    val = row.get(h)
-                    if not val or not val.strip():
-                        issues.append(f"{p}:{idx} - Missing/empty {h}")
-                    elif val != val.strip():
-                        issues.append(f"{p}:{idx} - Whitespace padding in {h}: '{val}'")
-                    elif '&' in val and any(entity in val for entity in HTML_ENTITIES):
-                        issues.append(f"{p}:{idx} - Unescaped HTML entity in {h}: '{val}'")
-
-                # Check UT consistency
-                expected_ut = d.replace("_", " ").lower()
-                actual_ut = (row.get("state_ut") or "").strip().lower()
-                if actual_ut != expected_ut:
-                    issues.append(f"{d}/places.csv row {idx}: UT mismatch: expected '{expected_ut}', got '{actual_ut}'")
-
-                row_tuple = tuple((row.get(h) or "").strip() for h in HEADERS)
-                if row_tuple in seen_in_file:
-                    issues.append(f"{d}/places.csv row {idx}: Duplicate row in file: '{row.get('place_name')}'")
-                seen_in_file.add(row_tuple)
+                validate_row(p, idx, row, issues, expected_ut)
 
     # 3. Audit Master places.csv
     with open(MASTER_CSV, encoding="utf-8") as f:
         master_rows = list(csv.DictReader(f))
-        seen_master = set()
         for idx, row in enumerate(master_rows, start=2):
-            for h in HEADERS:
-                val = row.get(h)
-                if not val or not val.strip():
-                    issues.append(f"master places.csv:{idx} - Missing/empty {h}")
-                elif val != val.strip():
-                    issues.append(f"master places.csv:{idx} - Whitespace padding in {h}: '{val}'")
-                elif '&' in val and any(entity in val for entity in HTML_ENTITIES):
-                    issues.append(f"master places.csv:{idx} - Unescaped HTML entity in {h}: '{val}'")
-            row_tuple = tuple((row.get(h) or "").strip() for h in HEADERS)
-            if row_tuple in seen_master:
-                issues.append(f"master places.csv row {idx}: Duplicate row in master: '{row.get('place_name')}'")
-            seen_master.add(row_tuple)
+            validate_row(MASTER_CSV, idx, row, issues)
 
-    # 4. Bidirectional Parity Audit
-    reg_set = set(tuple((r.get(h) or "").strip() for h in HEADERS) for r in all_state_places + all_ut_places)
-    master_set = set(tuple((r.get(h) or "").strip() for h in HEADERS) for r in master_rows)
+    # 4. Master ID uniqueness and sequencing
+    master_ids = [int(r["id"]) for r in master_rows]
+    if len(master_ids) != len(set(master_ids)):
+        issues.append(f"Master IDs not unique: {len(master_ids)} total vs {len(set(master_ids))} unique")
+    if master_ids != list(range(1, len(master_rows) + 1)):
+        issues.append("Master IDs are not strictly sequential from 1 to N")
+
+    # 5. Bidirectional Parity Audit
+    reg_tuples = [tuple((r.get(h) or "").strip() for h in HEADERS) for r in all_state_places + all_ut_places]
+    master_tuples = [tuple((r.get(h) or "").strip() for h in HEADERS) for r in master_rows]
     
+    reg_set = set(reg_tuples)
+    master_set = set(master_tuples)
+
     diff_reg_minus_master = reg_set - master_set
     diff_master_minus_reg = master_set - reg_set
     if diff_reg_minus_master:
         issues.append(f"Parity Error: {len(diff_reg_minus_master)} records in regional files missing from master")
     if diff_master_minus_reg:
         issues.append(f"Parity Error: {len(diff_master_minus_reg)} records in master missing from regional files")
+    if reg_tuples != master_tuples:
+        issues.append("Ordering Discrepancy: Regional concatenation does not match master row-by-row")
 
-    # 5. Audit Search Graph
+    # 6. Audit Search Graph
     with open(SEARCH_CSV, encoding="utf-8") as f:
         search_rows = list(csv.DictReader(f))
         search_headers = ["place_id", "associated_search_term", "search_weight"]
@@ -141,16 +192,18 @@ def audit_all():
     print(f"Parity Match (Regional == Master): {len(all_state_places) + len(all_ut_places) == len(master_rows) and len(diff_reg_minus_master) == 0 and len(diff_master_minus_reg) == 0}")
     print(f"Search Graph Relations Count: {len(search_rows):,}")
 
-    unique_names = set(r["place_name"].strip().lower() for r in master_rows)
+    unique_names = set(r["name"].strip().lower() for r in master_rows)
     print(f"Unique Destination Names: {len(unique_names):,}")
-    
-    unique_districts = set(r["district"].strip().lower() for r in master_rows)
-    print(f"Unique Districts Covered: {len(unique_districts):,}")
 
     cat_counter = Counter(r["category"].strip() for r in master_rows)
     print("\n--- TOP DESTINATION CATEGORIES ACROSS INDIA ---")
-    for cat, cnt in cat_counter.most_common(12):
+    for cat, cnt in cat_counter.most_common():
         print(f"  {cat:<30}: {cnt:>5,}")
+
+    price_counter = Counter(r["price_range"].strip() for r in master_rows)
+    print("\n--- PRICE RANGE BREAKDOWN ---")
+    for pr, cnt in price_counter.most_common():
+        print(f"  {pr:<30}: {cnt:>5,}")
 
     print("==================================================================")
     return len(issues) == 0

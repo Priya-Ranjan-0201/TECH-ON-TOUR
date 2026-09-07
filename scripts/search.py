@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
 Interactive Search & Exploration CLI for Tech On Tour.
-Query 12,293+ verified Indian tourist destinations across 737 districts.
+Query 12,293+ verified destinations across India using the normalized schema.
 
 Usage examples:
-    python scripts/search.py --state Bihar --district Patna
-    python scripts/search.py --category Waterfall --limit 10
+    python scripts/search.py --state Bihar --category attraction
+    python scripts/search.py --price-range budget --min-rating 4.5 --limit 10
     python scripts/search.py --query "fort" --state Rajasthan
-    python scripts/search.py --state Kerala --stats
+    python scripts/search.py --category hotel --limit 5
 """
 
 import os
@@ -28,22 +28,29 @@ def load_destinations():
     with open(MASTER_CSV, "r", encoding="utf-8") as f:
         return list(csv.DictReader(f))
 
-def search_places(records, state=None, district=None, category=None, query=None):
+def search_places(records, state=None, category=None, price_range=None, min_rating=None, best_season=None, query=None):
     results = []
     for r in records:
-        if state and r["state_ut"].strip().lower() != state.strip().lower():
+        if state and r["state"].strip().lower() != state.strip().lower():
             continue
-        if district and district.strip().lower() not in r["district"].strip().lower():
+        if category and category.strip().lower() != r["category"].strip().lower():
             continue
-        if category and category.strip().lower() not in r["category"].strip().lower():
+        if price_range and price_range.strip().lower() != r["price_range"].strip().lower():
+            continue
+        if min_rating is not None:
+            try:
+                if float(r["rating"]) < float(min_rating):
+                    continue
+            except ValueError:
+                continue
+        if best_season and best_season.strip().lower() not in r["best_season"].strip().lower():
             continue
         if query:
             q = query.strip().lower()
             match = (
-                q in r["place_name"].lower() or
-                q in r["city_or_town"].lower() or
-                q in r["district"].lower() or
-                q in r["category"].lower()
+                q in r["name"].lower() or
+                q in r["description"].lower() or
+                q in r["state"].lower()
             )
             if not match:
                 continue
@@ -59,51 +66,56 @@ if sys.stdout.encoding != 'utf-8':
 
 def print_stats(results):
     total = len(results)
-    print(f"\n{'='*55}")
+    print(f"\n{'='*60}")
     print(f"  [DATA] EXPLORATION STATISTICS (Total Matches: {total:,})")
-    print(f"{'='*55}")
+    print(f"{'='*60}")
     
     # State distribution
-    states = Counter(r["state_ut"] for r in results)
+    states = Counter(r["state"] for r in results)
     print("\n--- States / UTs Breakdown ---")
-    for st, cnt in states.most_common(10):
+    for st, cnt in states.most_common(8):
         print(f"  {st:<30}: {cnt:>5,} destinations")
         
-    # District distribution
-    districts = Counter(f"{r['district']} ({r['state_ut']})" for r in results)
-    print("\n--- Top Districts ---")
-    for dist, cnt in districts.most_common(8):
-        print(f"  {dist:<35}: {cnt:>5,} destinations")
-
     # Category distribution
     categories = Counter(r["category"] for r in results)
     print("\n--- Category Breakdown ---")
-    for cat, cnt in categories.most_common(10):
+    for cat, cnt in categories.most_common():
         print(f"  {cat:<30}: {cnt:>5,} destinations")
-    print(f"{'='*55}\n")
+
+    # Price range distribution
+    prices = Counter(r["price_range"] for r in results)
+    print("\n--- Price Range Breakdown ---")
+    for pr, cnt in prices.most_common():
+        print(f"  {pr:<30}: {cnt:>5,} destinations")
+    print(f"{'='*60}\n")
 
 def print_table(results, limit=20):
     to_show = results[:limit]
     print(f"\nShowing {len(to_show)} of {len(results):,} destinations:")
-    print("-" * 95)
-    print(f"{'#':<4} {'Destination Name':<38} {'State/UT':<16} {'District':<16} {'Category':<15}")
-    print("-" * 95)
-    for idx, r in enumerate(to_show, 1):
-        name = (r["place_name"][:35] + "..") if len(r["place_name"]) > 37 else r["place_name"]
-        st = (r["state_ut"][:14] + "..") if len(r["state_ut"]) > 16 else r["state_ut"]
-        dist = (r["district"][:14] + "..") if len(r["district"]) > 16 else r["district"]
-        cat = (r["category"][:13] + "..") if len(r["category"]) > 15 else r["category"]
-        print(f"{idx:<4} {name:<38} {st:<16} {dist:<16} {cat:<15}")
-    print("-" * 95)
+    print("-" * 105)
+    print(f"{'ID':<6} {'Destination Name':<34} {'State/UT':<16} {'Category':<12} {'Price':<8} {'Rating':<7} {'Season':<10}")
+    print("-" * 105)
+    for r in to_show:
+        p_id = r["id"]
+        name = (r["name"][:31] + "..") if len(r["name"]) > 33 else r["name"]
+        st = (r["state"][:14] + "..") if len(r["state"]) > 16 else r["state"]
+        cat = r["category"]
+        price = r["price_range"]
+        rating = r["rating"]
+        season = r["best_season"]
+        print(f"{p_id:<6} {name:<34} {st:<16} {cat:<12} {price:<8} {rating:<7} {season:<10}")
+    print("-" * 105)
     if len(results) > limit:
         print(f"... and {len(results) - limit:,} more destinations. Use --limit to show more or refine filters.")
 
 def main():
     parser = argparse.ArgumentParser(description="Search and explore Tech On Tour destinations across India.")
     parser.add_argument("--state", "-s", help="Filter by State or Union Territory name")
-    parser.add_argument("--district", "-d", help="Filter by District name")
-    parser.add_argument("--category", "-c", help="Filter by Category (e.g. Waterfall, Fort, Temple, Lake)")
-    parser.add_argument("--query", "-q", help="Free-text search keyword across name, town, district, or category")
+    parser.add_argument("--category", "-c", choices=["attraction", "hotel", "homestay", "restaurant"], help="Filter by Category")
+    parser.add_argument("--price-range", "-p", choices=["budget", "mid", "luxury"], help="Filter by Price Range")
+    parser.add_argument("--min-rating", "-r", type=float, help="Filter by minimum rating (e.g. 4.5)")
+    parser.add_argument("--best-season", help="Filter by best season (e.g. Oct-Feb)")
+    parser.add_argument("--query", "-q", help="Free-text search keyword across name, description, and state")
     parser.add_argument("--limit", "-l", type=int, default=20, help="Maximum records to display (default: 20)")
     parser.add_argument("--stats", action="store_true", help="Display summary statistics and breakdown")
     parser.add_argument("--json", action="store_true", help="Output results as JSON")
@@ -114,8 +126,10 @@ def main():
     results = search_places(
         records,
         state=args.state,
-        district=args.district,
         category=args.category,
+        price_range=args.price_range,
+        min_rating=args.min_rating,
+        best_season=args.best_season,
         query=args.query
     )
 

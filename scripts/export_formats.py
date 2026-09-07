@@ -31,22 +31,27 @@ def export_all():
         json.dump(reader, f, separators=(',', ':'), ensure_ascii=False)
     print(f"Minified JSON created ({os.path.getsize(MIN_JSON):,} bytes).")
 
-    # 2. Export State-District-Place Hierarchy
-    print(f"Generating State -> District -> Places hierarchy to '{HIERARCHY_JSON}'...")
+    # 2. Export State -> Category -> Places Hierarchy
+    print(f"Generating State -> Category -> Places hierarchy to '{HIERARCHY_JSON}'...")
     hierarchy = defaultdict(lambda: defaultdict(list))
     for r in reader:
-        st = r["state_ut"]
-        dist = r["district"]
+        st = r["state"]
+        cat = r["category"]
         place_info = {
-            "name": r["place_name"],
-            "city": r["city_or_town"],
-            "transit": r["nearest_major_city"],
-            "category": r["category"]
+            "id": int(r["id"]),
+            "name": r["name"],
+            "latitude": float(r["latitude"]),
+            "longitude": float(r["longitude"]),
+            "price_range": r["price_range"],
+            "rating": float(r["rating"]),
+            "review_count": int(r["review_count"]),
+            "best_season": r["best_season"],
+            "image_url": r["image_url"]
         }
-        hierarchy[st][dist].append(place_info)
+        hierarchy[st][cat].append(place_info)
 
     # Convert to regular dict
-    hierarchy_dict = {st: dict(dists) for st, dists in sorted(hierarchy.items())}
+    hierarchy_dict = {st: dict(cats) for st, cats in sorted(hierarchy.items())}
 
     with open(HIERARCHY_JSON, "w", encoding="utf-8") as f:
         json.dump(hierarchy_dict, f, indent=2, ensure_ascii=False)

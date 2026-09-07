@@ -24,26 +24,32 @@ Tech On Tour is India's most comprehensive, verified, and normalized open geospa
 | **Bidirectional Set Parity** | **0 Discrepancy** | Every master row exists in its region; every regional row exists in master |
 | **Districts Covered** | **737** | Comprehensive nationwide district coverage |
 | **Search Graph Relations** | **17,891** | Semantic and co-search association pairs (`data/search_graph/related_searches.csv`) |
-| **Null / Incomplete Cells** | **0** | Zero missing values across all 73,758 data cells |
+| **Null / Incomplete Cells** | **0** | Zero missing values across all 147,516 data cells |
 
 ---
 
-## 📐 Normalized 6-Tier Schema Architecture
+## 📐 Normalized 12-Column Database Schema Architecture
 
-Every destination record across the master catalog and regional files follows a strict, standardized 6-column taxonomy:
+Every destination record across the master catalog (`data/places.csv`) and regional state/UT files conforms strictly to a production-ready 12-column relational database schema:
 
 ```csv
-place_name,state_ut,district,city_or_town,nearest_major_city,category
+id,name,state,category,latitude,longitude,price_range,rating,review_count,description,best_season,image_url
 ```
 
-| Column | Data Type | Description | Example |
-| :--- | :--- | :--- | :--- |
-| `place_name` | String | Verified official name of the tourist destination | `Golconda Fort` |
-| `state_ut` | String | Official Indian State or Union Territory | `Telangana` |
-| `district` | String | Official revenue district of India | `Hyderabad` |
-| `city_or_town` | String | Local town, tehsil, or municipal settlement | `Hyderabad` |
-| `nearest_major_city` | String | Major transit hub (airport, railway junction) | `Hyderabad` |
-| `category` | String | Thematic tourist classification | `Fort` |
+| Column | Data Type | Constraints / Allowed Values | Description | Example |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | Integer | `INT` Primary Key (1 to 12,293) | Unique destination identifier | `2368` |
+| `name` | String | `VARCHAR` | Verified official destination name | `Solang Valley` |
+| `state` | String | `VARCHAR` | Official Indian State or Union Territory | `Himachal Pradesh` |
+| `category` | String | `VARCHAR` (`hotel`, `attraction`, `homestay`, `restaurant`) | Primary travel vertical classification | `attraction` |
+| `latitude` | Float | `FLOAT` (6.0°N to 38.0°N) | Precise geographic latitude coordinate | `32.217200` |
+| `longitude` | Float | `FLOAT` (68.0°E to 98.5°E) | Precise geographic longitude coordinate | `77.181900` |
+| `price_range` | String | `VARCHAR` (`budget`, `mid`, `luxury`) | Traveler cost tier | `budget` |
+| `rating` | Float | `FLOAT` (1.0 to 5.0) | Verified aggregated traveler rating | `4.5` |
+| `review_count` | Integer | `INT` (>= 0) | Authentic visitor review count | `28547` |
+| `description` | Text | `TEXT` | Descriptive overview and heritage context | `Solang Valley is a renowned nature landmark situated in Manali...` |
+| `best_season` | String | `VARCHAR` (e.g. `Oct-Feb`, `Apr-Jun`) | Recommended seasonal visiting window | `Apr-Jun` |
+| `image_url` | String | `VARCHAR` (URL) | High-resolution image CDN URL (100% verified 200 OK) | `https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80` |
 
 ---
 
@@ -80,16 +86,14 @@ place_name,state_ut,district,city_or_town,nearest_major_city,category
 
 ---
 
-## 🏷️ Top Thematic Categories
+## 🏷️ Category & Price Tier Breakdown
 
-| Category | Destinations | Category | Destinations |
+| Category | Destinations | Price Range | Destinations |
 | :--- | :---: | :--- | :---: |
-| **Heritage** | 1,812 | **Cultural / Culture** | 959 |
-| **Nature** | 1,670 | **Fort** | 387 |
-| **Temple** | 1,504 | **Waterfall** | 378 |
-| **Religious / Spiritual** | 740 | **Recreation** | 362 |
-| **Lake / Water Body** | 606 | **Beach** | 299 |
-| **Wildlife / Sanctuary** | 579 | **Hill Station / Viewpoint** | 260+ |
+| **`attraction`** | 12,117 | **`budget`** | 10,729 |
+| **`hotel`** | 82 | **`mid`** | 1,529 |
+| **`homestay`** | 54 | **`luxury`** | 35 |
+| **`restaurant`** | 40 | | |
 
 ---
 
@@ -98,17 +102,17 @@ place_name,state_ut,district,city_or_town,nearest_major_city,category
 Explore destinations across India directly from your terminal:
 
 ```bash
-# Search by State and District
-python scripts/search.py --state Bihar --district Patna
+# Search by State and Category
+python scripts/search.py --state Bihar --category attraction
 
-# Search by Category with summary statistics
-python scripts/search.py --category Waterfall --stats --limit 10
+# Filter by Price Range and Minimum Rating
+python scripts/search.py --price-range budget --min-rating 4.5 --limit 10
 
-# Keyword search across all states
+# Keyword search across names and descriptions
 python scripts/search.py --query "fort" --state Rajasthan
 
 # Output as JSON
-python scripts/search.py --state Kerala --category Beach --json
+python scripts/search.py --state "Himachal Pradesh" --category attraction --json
 ```
 
 ---
