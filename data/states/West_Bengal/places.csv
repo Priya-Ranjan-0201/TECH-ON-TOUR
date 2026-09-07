@@ -438,9 +438,9 @@ Purulia Pumped Storage Project (Upper & Lower Dams),West Bengal,Purulia,Baghmund
 Telkupi Submerged Temples Panchet Dam Purulia,West Bengal,Purulia,Raghunathpur,Asansol,Heritage
 Turga Dam & Lake Ajodhya Hills,West Bengal,Purulia,Baghmundi,Purulia,Nature
 Achipur Chinese Temple & Horseshoe Grave,West Bengal,South 24 Parganas,Budge Budge,Kolkata,Heritage
-Bakkhali Beach & Fraserganj Windmills,South 24 Parganas,South 24 Parganas,Namkhana,Kolkata,Beach
+Bakkhali Beach & Fraserganj Windmills,West Bengal,South 24 Parganas,Namkhana,Kolkata,Beach
 Bawali Rajbari & Heritage Homestead,West Bengal,South 24 Parganas,Nodakhali,Kolkata,Heritage
-Bhagabatpur Crocodile Project Sundarbans,South 24 Parganas,South 24 Parganas,Namkhana,Kolkata,Wildlife
+Bhagabatpur Crocodile Project Sundarbans,West Bengal,South 24 Parganas,Namkhana,Kolkata,Wildlife
 Burirdabri Watch Tower & Mudwalk Sundarbans,West Bengal,South 24 Parganas,Hingalganj,Kolkata,Wildlife
 Chintamoni Kar Bird Sanctuary (Narendrapur),West Bengal,South 24 Parganas,Narendrapur,Kolkata,Wildlife
 Diamond Harbour & Portuguese Fort Ruins,West Bengal,South 24 Parganas,Diamond Harbour,Kolkata,Heritage
@@ -449,7 +449,7 @@ Falta Riverside & Historic British Refuge Hub,West Bengal,South 24 Parganas,Falt
 Gosaba (Sir Daniel Hamilton Estate & Beacon),West Bengal,South 24 Parganas,Gosaba,Kolkata,Heritage
 Haliday Island Wildlife Sanctuary Sundarbans,West Bengal,South 24 Parganas,Gosaba,Kolkata,Wildlife
 Henry's Island,West Bengal,South 24 Parganas,Bakkhali,Kolkata,Island
-Jharkhali Eco-Tourism Hub & Tiger Centre,South 24 Parganas,South 24 Parganas,Basanti,Kolkata,Wildlife
+Jharkhali Eco-Tourism Hub & Tiger Centre,West Bengal,South 24 Parganas,Basanti,Kolkata,Wildlife
 Lothian Island Wildlife Sanctuary Sundarbans,West Bengal,South 24 Parganas,Namkhana,Kolkata,Wildlife
 Netidhopani Temple Ruins & Watchtower,West Bengal,South 24 Parganas,Gosaba,Kolkata,Heritage
 Pakhiralay Village & Sundarbans Launch Ghat,West Bengal,South 24 Parganas,Gosaba,Kolkata,Nature
@@ -475,3 +475,41 @@ Jalpesh Temple,West Bengal,Jalpaiguri,Chalsa,Malbazar,Temple
 Ghoom Monastery (Samten Choeling),West Bengal,Darjeeling,Darjeeling,Siliguri,Religious
 "Indian Museum, Kolkata",West Bengal,Kolkata,Kolkata,Kolkata,Museum
 Jorasanko Thakurbari,West Bengal,Kolkata,Kolkata,Kolkata,Heritage
+Tiger Hill Sunrise Kanchenjunga,West Bengal,Darjeeling,Darjeeling,Siliguri,Viewpoint
+Darjeeling Himalayan Railway Toy Train,West Bengal,Darjeeling,Darjeeling,Siliguri,Heritage
+Padmaja Naidu Himalayan Zoo (Red Panda),West Bengal,Darjeeling,Darjeeling,Siliguri,Wildlife
+Himalayan Mountaineering Institute (HMI),West Bengal,Darjeeling,Darjeeling,Siliguri,Museum
+Japanese Peace Pagoda Darjeeling,West Bengal,Darjeeling,Darjeeling,Siliguri,Buddhist Heritage
+Sandakphu Peak (Highest in West Bengal),West Bengal,Darjeeling,Singalila,Siliguri,Mountain
+Deolo Hill Kalimpong Peak,West Bengal,Kalimpong,Kalimpong,Siliguri,Viewpoint
+Morgan House Colonial Heritage,West Bengal,Kalimpong,Kalimpong,Siliguri,Heritage
+Lava & Rishop Pine Villages,West Bengal,Kalimpong,Lava,Siliguri,Village
+Neora Valley National Park Wilderness,West Bengal,Kalimpong,Lava,Siliguri,Wildlife
+Jaldapara National Park One-Horned Rhino,West Bengal,Alipurduar,Madarihat,Siliguri,Wildlife
+Gorumara National Park Floodplain Safari,West Bengal,Jalpaiguri,Lataguri,Siliguri,Wildlife
+Buxa Tiger Reserve & Historic Fort,West Bengal,Alipurduar,Buxa,Siliguri,Wildlife
+Cooch Behar Rajbari (Victor Jubilee Palace),West Bengal,Cooch Behar,Cooch Behar,Siliguri,Palace
+Mirik Sumendu Lake & Cardamom Groves,West Bengal,Darjeeling,Mirik,Siliguri,Lake
+Victoria Memorial Hall Kolkata,West Bengal,Kolkata,Kolkata,Kolkata,Monument
+Howrah Bridge (Rabindra Setu),West Bengal,Kolkata,Kolkata,Kolkata,Heritage
+Dakshineswar Kali Temple Ganges,West Bengal,Kolkata,Kolkata,Kolkata,Religious
+Belur Math Ramakrishna Mission HQ,West Bengal,Howrah,Belur,Kolkata,Religious
+Indian Museum Kolkata (Oldest in Asia),West Bengal,Kolkata,Kolkata,Kolkata,Museum
+Marble Palace Mansion & Art Gallery,West Bengal,Kolkata,Kolkata,Kolkata,Heritage
+Princep Ghat James Princep Monument,West Bengal,Kolkata,Kolkata,Kolkata,Riverfront
+Jorasanko Thakur Bari Tagore Ancestral,West Bengal,Kolkata,Kolkata,Kolkata,Museum
+Sundarbans National Park UNESCO Mangrove,West Bengal,South 24 Parganas,Gosaba,Kolkata,Wildlife
+Sajnekhali Watchtower Sundarbans,West Bengal,South 24 Parganas,Sajnekhali,Kolkata,Wildlife
+Shantiniketan Visva-Bharati UNESCO,West Bengal,Birbhum,Bolpur,Kolkata,Cultural
+Tarapith Maa Tara Shaktipeeth,West Bengal,Birbhum,Tarapith,Kolkata,Religious
+Bakreshwar Thermal Hot Springs & Temples,West Bengal,Birbhum,Bakreshwar,Kolkata,Natural Spring
+Bishnupur Rasmancha Terracotta,West Bengal,Bankura,Bishnupur,Kolkata,Heritage
+Jor Bangla Terracotta Temple Bishnupur,West Bengal,Bankura,Bishnupur,Kolkata,Heritage
+Mukutmanipur Dam & Kangsabati Confluence,West Bengal,Bankura,Mukutmanipur,Kolkata,Lake
+Susunia Hill Rock Inscriptions,West Bengal,Bankura,Susunia,Kolkata,Hill
+Ayodhya Hills (Ajodhya Pahar),West Bengal,Purulia,Baghmundi,Ranchi,Hill Station
+Bamni Waterfalls Ayodhya Hills,West Bengal,Purulia,Ayodhya Hills,Ranchi,Waterfall
+Hazarduari Palace 1000 Doors,West Bengal,Murshidabad,Murshidabad,Kolkata,Palace
+Digha Sea Beach & Marine Aquarium,West Bengal,Purba Medinipur,Digha,Kolkata,Nature
+Mandarmani Motorrable Sea Beach,West Bengal,Purba Medinipur,Mandarmani,Kolkata,Nature
+Mayapur ISKCON World HQ & Temple,West Bengal,Nadia,Mayapur,Kolkata,Religious
