@@ -1,5 +1,6 @@
 # 🌍 Tech On Tour — National Tourism Dataset & Knowledge Graph
 
+[![Data Audit CI](https://github.com/Priya-Ranjan-0201/TECH-ON-TOUR/actions/workflows/data_integrity_audit.yml/badge.svg)](https://github.com/Priya-Ranjan-0201/TECH-ON-TOUR/actions/workflows/data_integrity_audit.yml)
 [![Verified Destinations](https://img.shields.io/badge/Verified%20Destinations-12%2C293-blue?style=flat-square&logo=googlemaps)](data/places.csv)
 [![States & UTs](https://img.shields.io/badge/States%20%26%20UTs-36%20All--India-green?style=flat-square)](data/states)
 [![Districts Covered](https://img.shields.io/badge/Districts-737-orange?style=flat-square)](#)
@@ -92,43 +93,44 @@ place_name,state_ut,district,city_or_town,nearest_major_city,category
 
 ---
 
-## 🕸️ Search & Recommendation Graph
+## 🔍 Interactive Search CLI
 
-The repository includes a dedicated co-search association graph at `data/search_graph/related_searches.csv` containing **17,891 relations**:
-- **Schema**: `place_id,associated_search_term,search_weight`
-- **Application**: Powers autocomplete, related destination queries, semantic search, and cross-corridor exploration in travel planners.
+Explore destinations across India directly from your terminal:
+
+```bash
+# Search by State and District
+python scripts/search.py --state Bihar --district Patna
+
+# Search by Category with summary statistics
+python scripts/search.py --category Waterfall --stats --limit 10
+
+# Keyword search across all states
+python scripts/search.py --query "fort" --state Rajasthan
+
+# Output as JSON
+python scripts/search.py --state Kerala --category Beach --json
+```
 
 ---
 
-## 📁 Repository Structure
+## 📦 Web & Mobile Application Formats
 
-```text
-Tech-On-Tour/
-├── data/
-│   ├── places.csv                           # National master dataset (12,293 verified records)
-│   ├── search_graph/
-│   │   └── related_searches.csv             # Recommendation graph (17,891 edges)
-│   ├── states/                              # 28 State subdirectories (11,147 records)
-│   │   ├── Andhra_Pradesh/places.csv
-│   │   ├── ...
-│   │   └── West_Bengal/places.csv
-│   └── union_territories/                   # 8 Union Territory subdirectories (1,146 records)
-│       ├── Andaman_and_Nicobar_Islands/places.csv
-│       ├── ...
-│       └── Puducherry/places.csv
-├── scripts/
-│   └── comprehensive_audit.py               # Complete automated validation & parity suite
-├── .gitignore
-└── README.md                                # Project & dataset documentation
+For developers building frontend web or mobile apps, pre-built JSON schemas are available in `data/`:
+- **`data/places.min.json`**: Minified single-file array of all 12,293 destinations.
+- **`data/hierarchy.json`**: Nested `State -> District -> Places` JSON object for building dynamic multi-tier selection menus.
+
+Generate updated JSON exports at any time:
+```bash
+python scripts/export_formats.py
 ```
 
 ---
 
 ## 🧪 Automated Verification & Quality Audit
 
-A comprehensive verification script is provided to audit all 37 CSV files for data integrity, zero nulls, and exact parity.
+A comprehensive verification suite audits all 37 CSV files for data integrity, zero nulls, and exact parity. This check runs automatically on every pull request via **GitHub Actions CI**.
 
-```powershell
+```bash
 python scripts/comprehensive_audit.py
 ```
 
@@ -140,34 +142,15 @@ python scripts/comprehensive_audit.py
 
 ---
 
-## 💻 Quick Start & Data Ingestion
+## 🤝 Community Contributions
 
-### Python (Pandas)
-```python
-import pandas as pd
+We welcome open-source contributions from travelers, historians, and developers across India!
+- Please read our [Contribution Guidelines](.github/CONTRIBUTING.md).
+- Propose new destinations using our [Destination Proposal Template](.github/ISSUE_TEMPLATE/new_destination_proposal.md).
+- Report data corrections using our [Data Correction Template](.github/ISSUE_TEMPLATE/data_correction.md).
 
-# Load master national dataset
-df = pd.read_csv("data/places.csv")
-print(f"Loaded {len(df):,} destinations across {df['state_ut'].nunique()} States/UTs.")
+---
 
-# Filter destinations in a specific state
-bihar_places = df[df["state_ut"] == "Bihar"]
-print(bihar_places.head())
-```
+## 📜 License
 
-### Node.js / JavaScript
-```javascript
-const fs = require('fs');
-const readline = require('readline');
-
-const stream = fs.createReadStream('data/places.csv');
-const rl = readline.createInterface({ input: stream });
-
-let count = 0;
-rl.on('line', (line) => {
-  count++;
-});
-rl.on('close', () => {
-  console.log(`Total records: ${count - 1}`); // 12,293 destinations
-});
-```
+This repository is licensed under the strict proprietary copyright terms detailed in [LICENSE](LICENSE). All rights reserved.
