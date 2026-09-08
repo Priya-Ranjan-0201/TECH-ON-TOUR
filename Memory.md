@@ -9,14 +9,13 @@
 ## ⚡ CURRENT STATE (Always Read First)
 
 *   **Project Name:** TravelSathi (Unified DPI for Indian Tourism & Hospitality)
-*   **Active Phase:** **Phase 2 — Core Backend REST & PostGIS Spatial APIs**
-*   **Last Completed Milestone:** **Phase 1 — Database Bootstrap & Tech-On-Tour 12k Seeding (100% COMPLETE)** (Commit: `f3baee0`)
+*   **Active Phase:** **Phase 3 — Frontend Shell, Heritage Design & 2D Hero**
+*   **Last Completed Milestone:** **Phase 2 — Core Backend REST & PostGIS Spatial APIs (100% COMPLETE)** (Commit: `00ff1ba`)
 *   **Next Immediate Task:**
-    1. Implement `/api/destinations` with pagination, state filtering (36 States/UTs), category and price filters.
-    2. Implement `/api/destinations/{id}` returning POI details, pre-computed reviews, and sentiment scores.
-    3. Implement `/api/destinations/nearby` using `gis_service` radius queries ($<25\text{ms}$).
-    4. Implement `/api/anti-overtourism/alternatives` returning curated diversion circuits.
-    5. Implement `/api/homestays` with PM-JUGA prioritization filter.
+    1. Implement React Router views: Home (`/`), Explore (`/explore`), Travel Twin Planner (`/plan`), Host Hub (`/host`), DMO Console (`/dmo`).
+    2. Build reusable UI components strictly under `Design.md` Theme 1: Heritage Earth (`Button`, `Card`, `Badge`, `SearchPill`, `LoadingSpinner`).
+    3. Implement `HeroFallback2D.jsx` with glassmorphic cards, quick search pills, and regional showcase.
+    4. Connect frontend live to `/api/destinations`, `/api/homestays`, and `/api/weather`.
 *   **Active Design Theme:** **Theme 1: Heritage Earth** (Terracotta `#712B13`, Forest `#27500A`, Temple Gold `#E5A93C`, Warm Ivory `#FDFBF7`)
 *   **Core Grounding Dataset:** **Tech On Tour** (12,293 verified destinations across 36 States/UTs, 737 districts, 0 null values, 17,891 graph edges)
 *   **Known Blockers:** None.
