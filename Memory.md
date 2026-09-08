@@ -9,8 +9,14 @@
 ## ⚡ CURRENT STATE (Always Read First)
 
 *   **Project Name:** TravelSathi (Unified DPI for Indian Tourism & Hospitality)
-*   **Active Phase:** **Phase 6 — AI Multilingual Concierge Chatbot & Indic Speech (Tier 1 Priority #3)**
-*   **Last Completed Milestone:** **Phase 5 — AI Itinerary Generator & Travel Twin (100% COMPLETE)**
+*   **Active Phase:** **Phase 5 Advanced Upgrades (COMPLETE) & Ready for Phase 6 (AI Concierge Chatbot & Indic Speech)**
+*   **Last Completed Milestone:** **Phase 5 — AI Itinerary Generator & Travel Twin (Advanced Upgrades COMPLETE)**
+    *   *TransitGuard Fare Auditor (Feature 12):* Inter-stop geodesic routing, realistic city transit time, municipal fare caps against "Tourist Tax" scams.
+    *   *EcoFootprint Tracker & Gamification (Feature 11):* Carbon emissions calculation (kg CO2e) vs. commercial tours, with Eco-Tokens redeemable on GI handicrafts.
+    *   *Regional Culinary & PM-JUGA Pairing:* Verified authentic regional delicacies and direct-booking tribal/heritage homestay matching on every day.
+    *   *Interactive Stop Customization:* Swap Activity modal with curated verified alternatives, interactive stop reordering (up/down), and visit checklist.
+    *   *Leaflet Polyline Map:* Sequential numbered pins (`1`, `2`, `3`), time-of-day color styles, route polylines, and Day X vs All Days toggle.
+    *   *Calendar Sync & RFP Bridge:* RFC 5545 iCalendar (.ics) download, WhatsApp share, and 1-click RFP conversion broadcasting to local hosts.
 *   **Next Immediate Task:**
     1. Implement backend vernacular chat service (`backend/app/services/chat_service.py`) with support for Indic queries (Hindi, Bengali, Tamil, Telugu, Marathi, English) and context retrieval over the 12,293 POIs and tribal homestays.
     2. Expose `POST /api/chat/message` with session memory and quick suggestion pills.

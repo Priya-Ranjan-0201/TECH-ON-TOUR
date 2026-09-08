@@ -59,7 +59,10 @@ const INTEREST_OPTIONS = [
   { id: 'Spiritual & Temples', label: 'Spiritual & Shrines', icon: '🛕' },
   { id: 'Rural & PM-JUGA Stays', label: 'PM-JUGA Tribal Stays', icon: '🏡' },
   { id: 'Culinary & Street Food', label: 'Authentic Regional Food', icon: '🍲' },
-  { id: 'Adventure & Treks', label: 'Treks & Adventure', icon: '🥾' },
+  { id: 'Adventure & Treks', label: 'Treks & High Passes', icon: '🥾' },
+  { id: 'GI Handicrafts & Bazaars', label: 'GI Crafts & Artisans', icon: '🛍️' },
+  { id: 'Wellness & Ayurveda', label: 'Ayurveda & Wellness', icon: '🌿' },
+  { id: 'Photography & Sunsets', label: 'Scenic Golden Hours', icon: '📸' },
 ];
 
 const BUDGET_OPTIONS = [
@@ -110,12 +113,14 @@ export default function PlanWizard({
     }
   };
 
-  const handleQuickPreset = (presetState, presetDays, presetBudget, presetInterests) => {
+  const handleQuickPreset = (presetState, presetDays, presetBudget, presetInterests, presetDest = '') => {
     setState(presetState);
     setDays(presetDays);
     setBudget(presetBudget);
     setInterests(presetInterests);
+    setDestination(presetDest);
     onGenerate({
+      destination: presetDest || undefined,
       state: presetState,
       days: presetDays,
       budget: presetBudget,
@@ -156,7 +161,7 @@ export default function PlanWizard({
             Generate Your Multi-Day Travel Twin
           </h2>
           <p className="text-xs sm:text-sm text-neutral-600">
-            Customized day-by-day itinerary grounded in 12,293 destinations with zero-commission homestays.
+            Customized day-by-day itinerary grounded in 12,293 destinations with TransitGuard fair transit and zero-commission homestays.
           </p>
         </div>
 
@@ -172,7 +177,8 @@ export default function PlanWizard({
                 'Rajasthan',
                 3,
                 'moderate',
-                ['Heritage & Monuments', 'Culinary & Street Food', 'Rural & PM-JUGA Stays']
+                ['Heritage & Monuments', 'Culinary & Street Food', 'Rural & PM-JUGA Stays'],
+                'Jaipur & Amer'
               )
             }
             className="text-xs px-2.5 py-1 rounded-md bg-amber-50 text-amber-900 border border-amber-200 hover:bg-amber-100 font-medium transition-colors"
@@ -186,7 +192,8 @@ export default function PlanWizard({
                 'Himachal Pradesh',
                 4,
                 'budget',
-                ['Nature & Wildlife', 'Rural & PM-JUGA Stays', 'Adventure & Treks']
+                ['Nature & Wildlife', 'Rural & PM-JUGA Stays', 'Adventure & Treks'],
+                'Tirthan Valley'
               )
             }
             className="text-xs px-2.5 py-1 rounded-md bg-forest-50 text-forest-900 border border-forest-200 hover:bg-forest-100 font-medium transition-colors"
@@ -200,12 +207,43 @@ export default function PlanWizard({
                 'Kerala',
                 3,
                 'luxury',
-                ['Spiritual & Temples', 'Culinary & Street Food', 'Nature & Wildlife']
+                ['Spiritual & Temples', 'Culinary & Street Food', 'Wellness & Ayurveda'],
+                'Alleppey & Fort Kochi'
               )
             }
             className="text-xs px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-900 border border-emerald-200 hover:bg-emerald-100 font-medium transition-colors"
           >
             🌴 Kerala (3D)
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              handleQuickPreset(
+                'Uttar Pradesh',
+                2,
+                'moderate',
+                ['Spiritual & Temples', 'Culinary & Street Food', 'Heritage & Monuments'],
+                'Varanasi'
+              )
+            }
+            className="text-xs px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-900 border border-indigo-200 hover:bg-indigo-100 font-medium transition-colors"
+          >
+            🛕 Varanasi (2D)
+          </button>
+          <button
+            type="button"
+            onClick={() =>
+              handleQuickPreset(
+                'Goa',
+                3,
+                'moderate',
+                ['Nature & Wildlife', 'Culinary & Street Food', 'Heritage & Monuments'],
+                'Old Goa & Panaji'
+              )
+            }
+            className="text-xs px-2.5 py-1 rounded-md bg-teal-50 text-teal-900 border border-teal-200 hover:bg-teal-100 font-medium transition-colors"
+          >
+            🏖️ Goa (3D)
           </button>
         </div>
       </div>
@@ -221,7 +259,7 @@ export default function PlanWizard({
             <select
               value={state}
               onChange={(e) => setState(e.target.value)}
-              className="w-full text-sm rounded-lg border border-neutral-300 bg-white px-3 py-2.5 text-neutral-800 focus:outline-none focus:ring-2 focus:ring-primary-600"
+              className="w-full text-sm rounded-lg border border-neutral-300 bg-white px-3 py-2.5 text-neutral-800 focus:outline-hidden focus:ring-2 focus:ring-primary-600"
               required
             >
               {INDIAN_STATES.map((s) => (
@@ -235,14 +273,14 @@ export default function PlanWizard({
           <div>
             <label className="block text-xs font-semibold text-neutral-700 mb-1 flex items-center gap-1.5">
               <Compass className="w-3.5 h-3.5 text-primary-700" />
-              Specific City or Landmark (Optional)
+              Specific City, Valley or Landmark (Optional)
             </label>
             <input
               type="text"
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
-              placeholder="e.g. Manali, Jaipur, Hampi, Fort Kochi..."
-              className="w-full text-sm rounded-lg border border-neutral-300 bg-white px-3 py-2.5 text-neutral-800 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-600"
+              placeholder="e.g. Manali, Jaipur, Hampi, Fort Kochi, Bastar..."
+              className="w-full text-sm rounded-lg border border-neutral-300 bg-white px-3 py-2.5 text-neutral-800 placeholder-neutral-400 focus:outline-hidden focus:ring-2 focus:ring-primary-600"
             />
           </div>
         </div>
@@ -412,7 +450,7 @@ export default function PlanWizard({
             )}
           </Button>
           <p className="text-center text-[11px] text-neutral-500 mt-2">
-            ⚡ Grounded in 12,293 verified destinations • 3.5s Circuit Breaker • 100% Zero OTA Commission
+            ⚡ Grounded in 12,293 verified destinations • TransitGuard Fare Caps • 3.5s Circuit Breaker • 100% Zero OTA Commission
           </p>
         </div>
       </form>

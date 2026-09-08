@@ -1,11 +1,18 @@
 import logging
-from typing import Dict, List
+from typing import Any, Dict, List
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.connection import get_db
-from app.schemas.itinerary import ItineraryRequest, ItineraryResponse
+from app.schemas.itinerary import (
+    AlternativeStop,
+    ConvertToRFPRequest,
+    ItineraryRequest,
+    ItineraryResponse,
+    ReorderStopsRequest,
+    SwapStopRequest,
+)
 from app.services.itinerary_service import ItineraryService
 
 logger = logging.getLogger(__name__)
@@ -24,6 +31,8 @@ async def generate_itinerary(
     - Grounded in 12,293 real verified Indian destinations.
     - Google Gemini 1.5 Flash structured generation with strict 3.5s timeout circuit breaker.
     - Automatic zero-latency fallback to Deterministic Spatial Graph Solver.
+    - TransitGuard municipal fare auditing & EcoFootprint calculations.
+    - Regional culinary highlights & PM-JUGA homestay recommendations.
     - Automatic persistence to database with unique UUID.
     """
     try:
@@ -62,3 +71,101 @@ async def get_saved_itinerary(
             detail=f"Itinerary with ID '{itinerary_id}' not found.",
         )
     return itinerary
+
+
+@router.get("/{itinerary_id}/alternatives", response_model=List[AlternativeStop])
+async def get_stop_alternatives(
+    itinerary_id: str,
+    day_number: int = Query(..., ge=1, le=7),
+    stop_index: int = Query(..., ge=0, le=10),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Fetch candidate replacement destinations for a specific stop slot.
+    Allows tourists to swap any stop with an alternative verified POI in the region.
+    """
+    alternatives = await ItineraryService.get_stop_alternatives(
+        db, itinerary_id, day_number, stop_index
+    )
+    return alternatives
+
+
+@router.post("/{itinerary_id}/swap-stop", response_model=ItineraryResponse)
+async def swap_itinerary_stop(
+    itinerary_id: str,
+    payload: SwapStopRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Replace a stop on the itinerary with a selected destination.
+    Automatically recalculates geodesic distances, TransitGuard fare caps,
+    and the itinerary EcoFootprint.
+    """
+    updated = await ItineraryService.swap_stop(db, itinerary_id, payload)
+    if not updated:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Failed to swap stop. Verify itinerary ID, day number, stop index, and destination ID.",
+        )
+    return updated
+
+
+@router.post("/{itinerary_id}/reorder-stops", response_model=ItineraryResponse)
+async def reorder_itinerary_stops(
+    itinerary_id: str,
+    payload: ReorderStopsRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Reorder stops on a specific day according to user preference.
+    Recalculates transit legs, optimal time slots, and carbon impact.
+    """
+    updated = await ItineraryService.reorder_stops(db, itinerary_id, payload)
+    if not updated:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Failed to reorder stops. Verify day number and new stop order array.",
+        )
+    return updated
+
+
+@router.get("/{itinerary_id}/export/ics")
+async def export_itinerary_ics(
+    itinerary_id: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Generate and serve standard RFC 5545 iCalendar (.ics) stream
+    for 1-click calendar sync with Google Calendar, Apple Calendar, and Outlook.
+    """
+    itinerary = await ItineraryService.get_itinerary_by_id(db, itinerary_id)
+    if not itinerary:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Itinerary with ID '{itinerary_id}' not found.",
+        )
+
+    ics_content = ItineraryService.generate_ics_calendar(itinerary)
+    headers = {
+        "Content-Disposition": f'attachment; filename="travelsathi-{itinerary.id}.ics"',
+    }
+    return Response(content=ics_content, media_type="text/calendar", headers=headers)
+
+
+@router.post("/{itinerary_id}/rfp", response_model=Dict[str, Any])
+async def convert_itinerary_to_rfp(
+    itinerary_id: str,
+    payload: ConvertToRFPRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Convert the generated itinerary into a community Travel RFP,
+    broadcasting to verified local homestay hosts and guides for direct bidding (Phase 6 Bridge).
+    """
+    rfp_receipt = await ItineraryService.convert_to_rfp(db, itinerary_id, payload)
+    if "error" in rfp_receipt:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=rfp_receipt["error"],
+        )
+    return rfp_receipt

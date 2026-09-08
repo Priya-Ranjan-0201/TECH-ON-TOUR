@@ -7,8 +7,17 @@ import {
   Sun,
   ShieldCheck,
   ChevronRight,
-  ExternalLink,
   IndianRupee,
+  Utensils,
+  Home,
+  CheckCircle2,
+  ArrowUp,
+  ArrowDown,
+  RefreshCw,
+  Users,
+  Navigation,
+  CheckSquare,
+  Square,
 } from 'lucide-react';
 import Badge from '../ui/Badge';
 import Card from '../ui/Card';
@@ -19,7 +28,11 @@ export default function ItineraryTimeline({
   selectedDay,
   onSelectDay,
   onOpenBooking,
+  onOpenSwapModal,
+  onReorderStops,
 }) {
+  const [visitedStops, setVisitedStops] = useState({});
+
   if (!itinerary || !itinerary.days_schedule || itinerary.days_schedule.length === 0) {
     return null;
   }
@@ -29,6 +42,28 @@ export default function ItineraryTimeline({
     itinerary.days_schedule.length - 1
   );
   const currentDay = itinerary.days_schedule[activeDayIndex];
+
+  const toggleVisited = (stopKey) => {
+    setVisitedStops((prev) => ({
+      ...prev,
+      [stopKey]: !prev[stopKey],
+    }));
+  };
+
+  const handleMoveStop = (currentIndex, direction) => {
+    const newIndex = currentIndex + direction;
+    if (newIndex < 0 || newIndex >= currentDay.stops.length) return;
+
+    // Construct new order array
+    const originalOrder = currentDay.stops.map((_, i) => i);
+    const temp = originalOrder[currentIndex];
+    originalOrder[currentIndex] = originalOrder[newIndex];
+    originalOrder[newIndex] = temp;
+
+    if (onReorderStops) {
+      onReorderStops(currentDay.day_number, originalOrder);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -65,16 +100,16 @@ export default function ItineraryTimeline({
       {/* Current Day Header Card */}
       <Card
         variant="default"
-        className="p-5 bg-gradient-to-r from-surface to-ivory border-l-4 border-l-primary-700 shadow-sm"
+        className="p-5 bg-gradient-to-r from-surface to-ivory border-l-4 border-l-primary-700 shadow-sm space-y-3"
       >
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <div className="flex items-center gap-2 mb-1">
+            <div className="flex flex-wrap items-center gap-2 mb-1">
               <span className="text-xs font-extrabold tracking-wider uppercase text-primary-700">
                 Day {currentDay.day_number} Schedule
               </span>
               {currentDay.weather_advisory && (
-                <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 font-medium">
+                <span className="inline-flex items-center gap-1 text-[11px] px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200 font-medium">
                   <Sun className="w-3 h-3 text-amber-600" />
                   {currentDay.weather_advisory}
                 </span>
@@ -92,11 +127,25 @@ export default function ItineraryTimeline({
             </div>
           </div>
         </div>
+
+        {/* Regional Culinary Delicacy Banner */}
+        {currentDay.culinary_highlight && (
+          <div className="p-3 rounded-xl bg-accent-50/70 border border-accent-200 flex items-start gap-2.5 text-xs text-accent-950">
+            <Utensils className="w-4 h-4 text-accent-700 flex-shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold text-accent-900">Authentic Regional Culinary Highlight: </span>
+              <span>{currentDay.culinary_highlight}</span>
+            </div>
+          </div>
+        )}
       </Card>
 
       {/* Stops Timeline for Current Day */}
       <div className="relative border-l-2 border-primary-200 ml-4 pl-6 space-y-6">
         {currentDay.stops.map((stop, idx) => {
+          const stopKey = `d${currentDay.day_number}-s${idx}`;
+          const isVisited = visitedStops[stopKey] || false;
+
           const isMorning = stop.time_slot.toLowerCase().includes('morning');
           const isAfternoon = stop.time_slot.toLowerCase().includes('afternoon');
           const isEvening = stop.time_slot.toLowerCase().includes('evening');
@@ -106,23 +155,49 @@ export default function ItineraryTimeline({
 
           if (isAfternoon) {
             slotColor = 'bg-forest-100 text-forest-900 border-forest-300';
-            markerColor = 'bg-secondary-600 ring-secondary-100';
+            markerColor = 'bg-forest-700 ring-forest-100';
           } else if (isEvening) {
-            slotColor = 'bg-indigo-100 text-indigo-900 border-indigo-300';
-            markerColor = 'bg-primary-700 ring-primary-100';
+            slotColor = 'bg-primary-100 text-primary-900 border-primary-300';
+            markerColor = 'bg-primary-800 ring-primary-100';
           }
 
           return (
-            <div key={idx} className="relative group">
+            <div key={idx} className="relative group space-y-4">
+              {/* Inter-Stop TransitGuard Commute Banner (Between stops) */}
+              {idx > 0 && stop.transit_from_previous_km && (
+                <div className="p-3 rounded-xl bg-neutral-50 border border-neutral-200 text-xs flex flex-wrap items-center justify-between gap-2 shadow-xs">
+                  <div className="flex items-center gap-2 text-neutral-700">
+                    <Navigation className="w-4 h-4 text-primary-700" />
+                    <span>
+                      <strong className="font-semibold text-neutral-900">{stop.transit_from_previous_km} km</strong> ({stop.transit_time_minutes} mins) via{' '}
+                      <span className="font-medium text-neutral-800">{stop.transit_mode}</span>
+                    </span>
+                  </div>
+
+                  {stop.transit_guard_fare_inr && (
+                    <div className="flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-forest-100 border border-forest-300 text-forest-900 text-[11px] font-bold">
+                      <ShieldCheck className="w-3.5 h-3.5 text-forest-700" />
+                      <span>TransitGuard Fare Cap: ₹{stop.transit_guard_fare_inr}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Bullet Node on Timeline */}
               <div
-                className={`absolute -left-[31px] top-1.5 w-4 h-4 rounded-full border-2 border-white ring-4 ${markerColor} transition-transform group-hover:scale-125`}
+                className={`absolute -left-[31px] top-1.5 w-4 h-4 rounded-full border-2 border-white ring-4 ${
+                  isVisited ? 'bg-forest-600 ring-forest-100' : markerColor
+                } transition-transform group-hover:scale-125`}
               />
 
               {/* Stop Card */}
               <Card
                 variant="default"
-                className="p-4 sm:p-5 border border-neutral-200 bg-white hover:border-primary-300 transition-all shadow-xs hover:shadow-sm"
+                className={`p-4 sm:p-5 border transition-all shadow-xs hover:shadow-sm ${
+                  isVisited
+                    ? 'border-forest-300 bg-forest-50/20'
+                    : 'border-neutral-200 bg-white hover:border-primary-300'
+                }`}
               >
                 <div className="flex flex-col sm:flex-row gap-4">
                   {/* POI Photo / Thumbnail */}
@@ -142,29 +217,77 @@ export default function ItineraryTimeline({
 
                   {/* Stop Content */}
                   <div className="flex-1 min-w-0">
-                    {/* Time Slot and Category */}
+                    {/* Time Slot, Duration & Interactive Reorder Tools */}
                     <div className="flex flex-wrap items-center justify-between gap-2 mb-1.5">
-                      <span
-                        className={`text-[11px] font-bold px-2 py-0.5 rounded-md border ${slotColor}`}
-                      >
-                        <Clock className="w-3 h-3 inline mr-1" />
-                        {stop.time_slot}
-                      </span>
-
                       <div className="flex items-center gap-2">
-                        <span className="text-xs text-neutral-500 flex items-center gap-1">
-                          <IndianRupee className="w-3 h-3" />
-                          Est. Fee: ₹{stop.estimated_cost_inr}
+                        <span
+                          className={`text-[11px] font-bold px-2 py-0.5 rounded-md border ${slotColor}`}
+                        >
+                          <Clock className="w-3 h-3 inline mr-1" />
+                          {stop.time_slot}
                         </span>
-                        <span className="text-xs text-neutral-400">•</span>
-                        <span className="text-xs text-neutral-500 font-medium">
-                          {stop.estimated_duration}
-                        </span>
+
+                        {stop.crowd_level && (
+                          <span className="text-[10px] px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-600 font-medium">
+                            <Users className="w-3 h-3 inline mr-1 text-neutral-500" />
+                            {stop.crowd_level}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Reorder and Visited Controls */}
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => toggleVisited(stopKey)}
+                          className={`flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-medium border transition-colors ${
+                            isVisited
+                              ? 'bg-forest-100 text-forest-900 border-forest-300'
+                              : 'bg-white text-neutral-600 border-neutral-200 hover:bg-neutral-50'
+                          }`}
+                          title="Mark this stop as visited"
+                        >
+                          {isVisited ? (
+                            <>
+                              <CheckSquare className="w-3.5 h-3.5 text-forest-700" />
+                              <span>Visited</span>
+                            </>
+                          ) : (
+                            <>
+                              <Square className="w-3.5 h-3.5 text-neutral-400" />
+                              <span>Check In</span>
+                            </>
+                          )}
+                        </button>
+
+                        {/* Move Up Button */}
+                        {idx > 0 && onReorderStops && (
+                          <button
+                            type="button"
+                            onClick={() => handleMoveStop(idx, -1)}
+                            className="p-1 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded"
+                            title="Move stop earlier"
+                          >
+                            <ArrowUp className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+
+                        {/* Move Down Button */}
+                        {idx < currentDay.stops.length - 1 && onReorderStops && (
+                          <button
+                            type="button"
+                            onClick={() => handleMoveStop(idx, 1)}
+                            className="p-1 text-neutral-400 hover:text-neutral-700 hover:bg-neutral-100 rounded"
+                            title="Move stop later"
+                          >
+                            <ArrowDown className="w-3.5 h-3.5" />
+                          </button>
+                        )}
                       </div>
                     </div>
 
                     {/* Stop Title */}
-                    <h4 className="text-base font-display font-bold text-neutral-900 group-hover:text-primary-800 transition-colors">
+                    <h4 className={`text-base font-display font-bold text-neutral-900 group-hover:text-primary-800 transition-colors ${isVisited ? 'line-through text-neutral-500' : ''}`}>
                       {stop.title}
                     </h4>
 
@@ -175,6 +298,11 @@ export default function ItineraryTimeline({
                       <span className="text-neutral-400 font-mono text-[10px]">
                         ({stop.latitude.toFixed(3)}, {stop.longitude.toFixed(3)})
                       </span>
+                      {stop.best_time_to_visit && (
+                        <span className="text-neutral-500 text-[11px] ml-1">
+                          • {stop.best_time_to_visit}
+                        </span>
+                      )}
                     </div>
 
                     {/* Description */}
@@ -193,8 +321,22 @@ export default function ItineraryTimeline({
                       </div>
                     )}
 
-                    {/* Action Bar */}
-                    <div className="flex items-center justify-end gap-2 mt-3 pt-2 border-t border-neutral-100">
+                    {/* Action Bar: Swap Stop + Direct Homestay Booking */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 mt-3 pt-2 border-t border-neutral-100">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() =>
+                          onOpenSwapModal &&
+                          onOpenSwapModal(currentDay.day_number, idx, stop.destination_name)
+                        }
+                        className="text-xs text-neutral-600 hover:text-primary-800 flex items-center gap-1"
+                      >
+                        <RefreshCw className="w-3 h-3 text-neutral-500" />
+                        Swap Activity
+                      </Button>
+
                       <Button
                         type="button"
                         variant="ghost"
@@ -217,6 +359,62 @@ export default function ItineraryTimeline({
             </div>
           );
         })}
+
+        {/* Night Lodging Recommendation Card (PM-JUGA Homestay Match) */}
+        {currentDay.recommended_homestay && (
+          <div className="pt-2">
+            <Card
+              variant="default"
+              className="p-4 bg-gradient-to-r from-forest-50 to-sand-50 border border-forest-200 rounded-xl shadow-xs"
+            >
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-forest-200 text-forest-900 flex items-center gap-1">
+                      <Home className="w-3 h-3" />
+                      Night {currentDay.day_number} Matched Homestay
+                    </span>
+                    {currentDay.recommended_homestay.is_tribal_pmjuga && (
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-accent-100 text-accent-900 border border-accent-300">
+                        PM-JUGA Tribal Partner
+                      </span>
+                    )}
+                  </div>
+                  <h5 className="text-sm font-bold text-neutral-900">
+                    {currentDay.recommended_homestay.title}
+                  </h5>
+                  <div className="text-xs text-neutral-600 flex items-center gap-2">
+                    <span>{currentDay.recommended_homestay.district}, {currentDay.recommended_homestay.state}</span>
+                    <span>•</span>
+                    <span className="font-semibold text-forest-800">
+                      Sanitation Score: {currentDay.recommended_homestay.sanitation_trust_score}/100
+                    </span>
+                    <span>•</span>
+                    <span className="font-bold text-neutral-900">
+                      ₹{currentDay.recommended_homestay.base_price_inr}/night
+                    </span>
+                  </div>
+                </div>
+
+                <Button
+                  type="button"
+                  variant="primary"
+                  size="sm"
+                  onClick={() =>
+                    onOpenBooking({
+                      name: currentDay.recommended_homestay.title,
+                      state: currentDay.recommended_homestay.state,
+                      price_range: 'moderate',
+                    })
+                  }
+                  className="text-xs font-bold whitespace-nowrap bg-forest-800 hover:bg-forest-900 text-white"
+                >
+                  Direct Book (0% Fee)
+                </Button>
+              </div>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );

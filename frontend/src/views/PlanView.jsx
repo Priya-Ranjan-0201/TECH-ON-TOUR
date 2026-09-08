@@ -12,6 +12,8 @@ import {
   CheckCircle2,
   ChevronDown,
   ChevronUp,
+  Send,
+  Navigation,
 } from 'lucide-react';
 import Card from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
@@ -22,6 +24,8 @@ import ItineraryTimeline from '../components/plan/ItineraryTimeline';
 import ItineraryMap from '../components/plan/ItineraryMap';
 import ItinerarySummaryCard from '../components/plan/ItinerarySummaryCard';
 import BookingModal from '../components/explore/BookingModal';
+import SwapStopModal from '../components/plan/SwapStopModal';
+import RFPModal from '../components/plan/RFPModal';
 
 export default function PlanView() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,9 +33,15 @@ export default function PlanView() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDay, setSelectedDay] = useState(1);
   const [error, setError] = useState(null);
+  const [successToast, setSuccessToast] = useState(null);
   const [showWizard, setShowWizard] = useState(true);
+
+  // Modals state
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [bookingDestination, setBookingDestination] = useState(null);
+  const [swapModalOpen, setSwapModalOpen] = useState(false);
+  const [swapModalData, setSwapModalData] = useState({ dayNumber: 1, stopIndex: 0, currentStopName: '' });
+  const [rfpModalOpen, setRfpModalOpen] = useState(false);
 
   const initialDestination = searchParams.get('destination') || '';
   const initialState = searchParams.get('state') || 'Rajasthan';
@@ -69,7 +79,6 @@ export default function PlanView() {
       setItinerary(res.data);
       setSelectedDay(1);
       setShowWizard(false);
-      // Update URL query param to saved ID for reload persistence
       setSearchParams({ id: res.data.id });
     } catch (err) {
       console.error('Error generating itinerary:', err);
@@ -84,11 +93,38 @@ export default function PlanView() {
 
   const handleOpenBooking = (item) => {
     setBookingDestination({
-      name: item.destination_name,
-      state: item.state,
+      name: item.destination_name || item.name,
+      state: item.state || itinerary?.state,
       price_range: 'moderate',
     });
     setBookingModalOpen(true);
+  };
+
+  const handleOpenSwapModal = (dayNumber, stopIndex, currentStopName) => {
+    setSwapModalData({ dayNumber, stopIndex, currentStopName });
+    setSwapModalOpen(true);
+  };
+
+  const handleStopSwapped = (updatedItinerary) => {
+    setItinerary(updatedItinerary);
+    setSuccessToast('Activity successfully replaced! Routes, transit caps, and carbon savings updated.');
+    setTimeout(() => setSuccessToast(null), 4000);
+  };
+
+  const handleReorderStops = async (dayNumber, newOrder) => {
+    if (!itinerary) return;
+    try {
+      const res = await axios.post(`/api/itinerary/${itinerary.id}/reorder-stops`, {
+        day_number: dayNumber,
+        new_order: newOrder,
+      });
+      setItinerary(res.data);
+      setSuccessToast(`Day ${dayNumber} stop sequence updated! Transit distances recalculated.`);
+      setTimeout(() => setSuccessToast(null), 3500);
+    } catch (err) {
+      console.error('Failed to reorder stops:', err);
+      setError('Failed to reorder stops. Please try again.');
+    }
   };
 
   return (
@@ -103,7 +139,7 @@ export default function PlanView() {
                 Travel Twin Engine (Tier 1 Priority #1)
               </span>
               <span className="text-xs text-neutral-500 font-mono">
-                12,293 Grounded POIs • Zero OTA Commission
+                12,293 Grounded POIs • TransitGuard Fare Caps • Zero OTA Commission
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-display font-bold text-primary-900">
@@ -139,6 +175,14 @@ export default function PlanView() {
           )}
         </div>
 
+        {/* Success Toast Notification */}
+        {successToast && (
+          <div className="p-3.5 rounded-xl bg-forest-50 border border-forest-200 text-xs text-forest-900 flex items-center gap-2 animate-fadeIn shadow-xs">
+            <CheckCircle2 className="w-4 h-4 text-forest-600 flex-shrink-0" />
+            <span className="font-semibold">{successToast}</span>
+          </div>
+        )}
+
         {/* Error Alert */}
         {error && (
           <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-xs text-red-800 flex items-center gap-2">
@@ -162,7 +206,7 @@ export default function PlanView() {
           <div className="text-center py-16 space-y-4">
             <LoadingSpinner size="lg" message="Synthesizing personalized travel twin..." />
             <p className="text-xs text-neutral-500 font-mono">
-              Clustering spatial coordinates across 12,293 destinations & optimizing zero-commission stays...
+              Clustering spatial coordinates across 12,293 destinations & auditing TransitGuard fare caps...
             </p>
           </div>
         )}
@@ -187,6 +231,11 @@ export default function PlanView() {
                     <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-forest-100 text-forest-900 border border-forest-300 capitalize">
                       {itinerary.budget} Budget
                     </span>
+                    {itinerary.eco_footprint && (
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+                        🌱 -{itinerary.eco_footprint.carbon_saved_pct}% Carbon
+                      </span>
+                    )}
                   </div>
 
                   <h2 className="text-xl sm:text-2xl font-display font-bold text-primary-950">
@@ -218,6 +267,8 @@ export default function PlanView() {
                   selectedDay={selectedDay}
                   onSelectDay={setSelectedDay}
                   onOpenBooking={handleOpenBooking}
+                  onOpenSwapModal={handleOpenSwapModal}
+                  onReorderStops={handleReorderStops}
                 />
               </div>
 
@@ -226,7 +277,10 @@ export default function PlanView() {
                 {/* Interactive Leaflet Route Map */}
                 <div className="space-y-2">
                   <div className="flex items-center justify-between text-xs font-bold text-neutral-700">
-                    <span>Day {selectedDay} Spatial Route Geometry</span>
+                    <span className="flex items-center gap-1.5">
+                      <Navigation className="w-3.5 h-3.5 text-primary-700" />
+                      Day {selectedDay} Spatial Route Geometry
+                    </span>
                     <span className="text-[10px] text-neutral-500 font-mono">OpenStreetMap</span>
                   </div>
                   <ItineraryMap itinerary={itinerary} selectedDay={selectedDay} />
@@ -236,6 +290,7 @@ export default function PlanView() {
                 <ItinerarySummaryCard
                   itinerary={itinerary}
                   onOpenBooking={handleOpenBooking}
+                  onOpenRFP={() => setRfpModalOpen(true)}
                 />
               </div>
             </div>
@@ -248,6 +303,24 @@ export default function PlanView() {
         isOpen={bookingModalOpen}
         onClose={() => setBookingModalOpen(false)}
         destination={bookingDestination}
+      />
+
+      {/* Stop Swapping Modal */}
+      <SwapStopModal
+        isOpen={swapModalOpen}
+        onClose={() => setSwapModalOpen(false)}
+        itineraryId={itinerary?.id}
+        dayNumber={swapModalData.dayNumber}
+        stopIndex={swapModalData.stopIndex}
+        currentStopName={swapModalData.currentStopName}
+        onStopSwapped={handleStopSwapped}
+      />
+
+      {/* Reverse Marketplace RFP Broadcast Modal (Phase 6 Bridge) */}
+      <RFPModal
+        isOpen={rfpModalOpen}
+        onClose={() => setRfpModalOpen(false)}
+        itinerary={itinerary}
       />
     </div>
   );
