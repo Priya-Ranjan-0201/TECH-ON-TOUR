@@ -9,16 +9,16 @@
 ## ⚡ CURRENT STATE (Always Read First)
 
 *   **Project Name:** TravelSathi (Unified DPI for Indian Tourism & Hospitality)
-*   **Active Phase:** **Phase 3 — Frontend Shell, Heritage Design & 2D Hero**
-*   **Last Completed Milestone:** **Phase 2 — Core Backend REST & PostGIS Spatial APIs (100% COMPLETE)** (Commit: `00ff1ba`)
+*   **Active Phase:** **Phase 5 — AI Itinerary Generator & Travel Twin (Tier 1 Priority #1)**
+*   **Last Completed Milestone:** **Phase 4 — Search, Catalog Discovery & Spatial Filtering (100% COMPLETE)**
 *   **Next Immediate Task:**
-    1. Implement React Router views: Home (`/`), Explore (`/explore`), Travel Twin Planner (`/plan`), Host Hub (`/host`), DMO Console (`/dmo`).
-    2. Build reusable UI components strictly under `Design.md` Theme 1: Heritage Earth (`Button`, `Card`, `Badge`, `SearchPill`, `LoadingSpinner`).
-    3. Implement `HeroFallback2D.jsx` with glassmorphic cards, quick search pills, and regional showcase.
-    4. Connect frontend live to `/api/destinations`, `/api/homestays`, and `/api/weather`.
+    1. Implement backend RAG / structured itinerary generation service (`backend/app/services/itinerary_service.py`) using Gemini structured JSON prompt with strict 3.5s timeout circuit-breaker and deterministic graph fallback.
+    2. Expose `POST /api/itinerary/generate` and `GET /api/itinerary/{id}` endpoints with Pydantic v2 schemas.
+    3. Build frontend `PlanView.jsx` wizard with destination, days, budget, interests, and mobility options.
+    4. Implement `ItineraryTimeline.jsx` (day-by-day stops, time allocations, activities) and `ItineraryMap.jsx` (interactive route geometry and pins).
 *   **Active Design Theme:** **Theme 1: Heritage Earth** (Terracotta `#712B13`, Forest `#27500A`, Temple Gold `#E5A93C`, Warm Ivory `#FDFBF7`)
 *   **Core Grounding Dataset:** **Tech On Tour** (12,293 verified destinations across 36 States/UTs, 737 districts, 0 null values, 17,891 graph edges)
-*   **Known Blockers:** None.
+*   **Known Blockers:** Playwright CDN driver 404 in sandbox subagent (local servers healthy and directly verifiable in local browser at http://127.0.0.1:5173).
 *   **Active Branch:** `main` (clean Git tracking active)
 
 ---
