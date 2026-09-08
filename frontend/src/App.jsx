@@ -7,11 +7,12 @@ import ExploreView from './views/ExploreView';
 import PlanView from './views/PlanView';
 import HostView from './views/HostView';
 import DMOView from './views/DMOView';
+import ConciergeWidget from './components/chat/ConciergeWidget';
 
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-neutral-100 flex flex-col font-sans selection:bg-primary-100 selection:text-primary-900">
+      <div className="min-h-screen bg-neutral-100 flex flex-col font-sans selection:bg-primary-100 selection:text-primary-900 relative">
         {/* Sticky Global Navigation */}
         <Navbar />
 
@@ -29,6 +30,9 @@ export default function App() {
 
         {/* Global Footer */}
         <Footer />
+
+        {/* 24/7 AI Multilingual Concierge Floating Widget */}
+        <ConciergeWidget />
       </div>
     </Router>
   );

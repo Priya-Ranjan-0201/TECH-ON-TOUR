@@ -9,19 +9,15 @@
 ## ⚡ CURRENT STATE (Always Read First)
 
 *   **Project Name:** TravelSathi (Unified DPI for Indian Tourism & Hospitality)
-*   **Active Phase:** **Phase 5 Advanced Upgrades (COMPLETE) & Ready for Phase 6 (AI Concierge Chatbot & Indic Speech)**
-*   **Last Completed Milestone:** **Phase 5 — AI Itinerary Generator & Travel Twin (Advanced Upgrades COMPLETE)**
-    *   *TransitGuard Fare Auditor (Feature 12):* Inter-stop geodesic routing, realistic city transit time, municipal fare caps against "Tourist Tax" scams.
-    *   *EcoFootprint Tracker & Gamification (Feature 11):* Carbon emissions calculation (kg CO2e) vs. commercial tours, with Eco-Tokens redeemable on GI handicrafts.
-    *   *Regional Culinary & PM-JUGA Pairing:* Verified authentic regional delicacies and direct-booking tribal/heritage homestay matching on every day.
-    *   *Interactive Stop Customization:* Swap Activity modal with curated verified alternatives, interactive stop reordering (up/down), and visit checklist.
-    *   *Leaflet Polyline Map:* Sequential numbered pins (`1`, `2`, `3`), time-of-day color styles, route polylines, and Day X vs All Days toggle.
-    *   *Calendar Sync & RFP Bridge:* RFC 5545 iCalendar (.ics) download, WhatsApp share, and 1-click RFP conversion broadcasting to local hosts.
+*   **Active Phase:** **Phase 7 — Review Sentiment Trust Layer & Host Seller Hub (Tier 1 Priority #4 & #5)**
+*   **Last Completed Milestone:** **Phase 6 — AI Multilingual Concierge Chatbot & Indic Speech Assistant (100% COMPLETE)**
+    *   *Multilingual RAG Engine:* Grounded context retrieval across 12,293 POIs, PM-JUGA tribal homestays, and zero-commission DPI savings in 6 Indic languages (English, Hindi, Bengali, Tamil, Telugu, Marathi).
+    *   *FastAPI Backend Service:* `POST /api/chat/message` with rolling conversational history, grounded POI card injection, and 3.5s Gemini circuit breaker with deterministic knowledge failover.
+    *   *Global Floating Concierge:* `ConciergeWidget.jsx` mounted across all routes, with Web Speech API voice input (Speech-to-Text), Text-to-Speech audio readout, and 1-tap localized starter chips.
 *   **Next Immediate Task:**
-    1. Implement backend vernacular chat service (`backend/app/services/chat_service.py`) with support for Indic queries (Hindi, Bengali, Tamil, Telugu, Marathi, English) and context retrieval over the 12,293 POIs and tribal homestays.
-    2. Expose `POST /api/chat/message` with session memory and quick suggestion pills.
-    3. Build floating / embedded concierge widget (`frontend/src/components/chat/ConciergeWidget.jsx`) accessible from any page.
-    4. Implement Web Speech API / Bhashini audio input & TTS synthesis toggle.
+    1. Implement Review Sentiment Trust Layer (`backend/app/services/review_service.py`) using pre-computed DistilBERT SST-2 sentiment & authenticity scoring for 0ms latency on stage.
+    2. Build Verified Review submission modal gated by confirmed booking ID (`POST /api/reviews/submit`).
+    3. Build Host Hub / Seller Hub view (`frontend/src/views/HostView.jsx`) displaying incoming tourist RFPs with 1-click bid submission and calendar-based dynamic pricing co-pilot.
 *   **Active Design Theme:** **Theme 1: Heritage Earth** (Terracotta `#712B13`, Forest `#27500A`, Temple Gold `#E5A93C`, Warm Ivory `#FDFBF7`)
 *   **Core Grounding Dataset:** **Tech On Tour** (12,293 verified destinations across 36 States/UTs, 737 districts, 0 null values, 17,891 graph edges)
 *   **Known Blockers:** Playwright CDN driver 404 in sandbox subagent (local servers healthy and directly verifiable in local browser at http://127.0.0.1:5173).

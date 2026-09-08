@@ -9,6 +9,7 @@ from app.api.homestays import router as homestays_router
 from app.api.overtourism import router as overtourism_router
 from app.api.insights import router as insights_router
 from app.api.itinerary import router as itinerary_router
+from app.api.chat import router as chat_router
 
 app = FastAPI(
     title="TravelSathi API",
@@ -43,6 +44,7 @@ app.include_router(homestays_router, prefix="/api")
 app.include_router(overtourism_router, prefix="/api")
 app.include_router(insights_router, prefix="/api")
 app.include_router(itinerary_router, prefix="/api")
+app.include_router(chat_router, prefix="/api")
 
 
 @app.get("/", tags=["General"])
