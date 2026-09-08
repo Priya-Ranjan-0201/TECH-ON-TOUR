@@ -8,3 +8,4 @@ sqlalchemy>=2.0.30
 asyncpg>=0.29.0
 supabase>=2.5.0
 pytest>=8.2.0
+aiosqlite>=0.20.0

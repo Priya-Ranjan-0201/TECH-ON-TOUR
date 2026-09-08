@@ -9,16 +9,16 @@
 ## ⚡ CURRENT STATE (Always Read First)
 
 *   **Project Name:** TravelSathi (Unified DPI for Indian Tourism & Hospitality)
-*   **Active Phase:** **Phase 0 — Workspace Scaffolding & Design System Foundation** (Ready for execution)
-*   **Last Completed Milestone:** Master Specifications Finalized (PRD, Architecture, Rules, Phases, Design, Memory) — **100% COMPLETE**
+*   **Active Phase:** **Phase 1 — Database Bootstrap & Tech-On-Tour 12k Seeding**
+*   **Last Completed Milestone:** **Phase 0 — Workspace Scaffolding & Design System Foundation (100% COMPLETE)** (Commit: `d0a4a8c`)
 *   **Next Immediate Task:**
-    1. Scaffold directory trees for `frontend/` (React + Vite) and `backend/` (FastAPI).
-    2. Create `.env.example` in both repositories listing all API credentials.
-    3. Bootstrap `frontend/src/styles/theme.css` with the Theme 1: Heritage Earth CSS tokens.
+    1. Initialize PostgreSQL PostGIS tables from `Architecture.md` (`destinations_master`, `homestays`, `guides`, `bookings`, `itineraries`, `reviews_training`, `user_badges`).
+    2. Build and run `backend/scripts/seed_destinations.py` to ingest 12,293 verified destinations from `Tech-On-Tour/data/places.csv`.
+    3. Seed curated anti-overtourism alternate pairs and pre-computed review sentiment data.
 *   **Active Design Theme:** **Theme 1: Heritage Earth** (Terracotta `#712B13`, Forest `#27500A`, Temple Gold `#E5A93C`, Warm Ivory `#FDFBF7`)
 *   **Core Grounding Dataset:** **Tech On Tour** (12,293 verified destinations across 36 States/UTs, 737 districts, 0 null values, 17,891 graph edges)
 *   **Known Blockers:** None.
-*   **Active Branch:** `main`
+*   **Active Branch:** `main` (clean Git tracking active)
 
 ---
 
