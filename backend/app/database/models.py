@@ -193,3 +193,41 @@ class UserBadge(Base):
     badge_icon = Column(String(50), default="leaf")
     points_awarded = Column(Integer, default=50)
     awarded_at = Column(DateTime, default=datetime.utcnow)
+
+
+class MarketplaceRFP(Base):
+    """
+    Reverse Marketplace: Traveler Requests For Proposal (RFP) broadcast from itineraries.
+    """
+    __tablename__ = "marketplace_rfps"
+
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    itinerary_id = Column(String(36), nullable=True)
+    traveler_name = Column(String(100), nullable=False, default="Priya Sharma")
+    traveler_phone = Column(String(20), nullable=True, default="+91 98765 43210")
+    destination = Column(String(100), nullable=False, index=True)
+    state = Column(String(100), nullable=False, index=True)
+    days = Column(Integer, nullable=False, default=3)
+    target_budget_inr = Column(Numeric(10, 2), nullable=False)
+    status = Column(String(30), default="open")  # open, bid_received, accepted, completed
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+
+class HostBid(Base):
+    """
+    Reverse Marketplace: Host and Guide Bids submitted against open Traveler RFPs.
+    """
+    __tablename__ = "host_bids"
+
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    rfp_id = Column(String(36), ForeignKey("marketplace_rfps.id"), nullable=False, index=True)
+    host_id = Column(String(36), nullable=False, index=True)
+    host_name = Column(String(100), nullable=False)
+    homestay_name = Column(String(255), nullable=True)
+    bid_amount_inr = Column(Numeric(10, 2), nullable=False)
+    inclusions = Column(Text, nullable=False)  # e.g. "3 Nights Homestay + Organic Breakfast + Tribal Guide"
+    message = Column(Text, nullable=True)
+    status = Column(String(30), default="submitted")  # submitted, accepted, declined
+    created_at = Column(DateTime, default=datetime.utcnow)
+

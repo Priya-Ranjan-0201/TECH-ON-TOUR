@@ -9,12 +9,14 @@ import {
   Sparkles, 
   MessageSquare,
   CheckCircle2,
-  Navigation
+  Navigation,
+  PenLine
 } from 'lucide-react';
 import axios from 'axios';
 import Badge from '../ui/Badge';
 import Button from '../ui/Button';
 import LoadingSpinner from '../ui/LoadingSpinner';
+import VerifiedReviewModal from './VerifiedReviewModal';
 
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&auto=format&fit=crop';
 
@@ -27,6 +29,7 @@ export default function DestinationDetailModal({
   const [nearby, setNearby] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview'); // overview, reviews, nearby
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchDetail = async () => {
@@ -216,16 +219,27 @@ export default function DestinationDetailModal({
 
               {activeTab === 'reviews' && (
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between bg-primary-50/50 p-3 rounded-ts border border-primary-800/10">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-primary-50/50 p-3 rounded-ts border border-primary-800/10">
                     <div className="flex items-center gap-2">
-                      <ShieldCheck className="w-4 h-4 text-secondary-800" />
+                      <ShieldCheck className="w-4 h-4 text-secondary-800 shrink-0" />
                       <span className="text-xs font-semibold text-primary-900">
                         HuggingFace DistilBERT SST-2 Sentiment & Authenticity Verification
                       </span>
                     </div>
-                    <span className="text-[11px] font-bold text-secondary-800 bg-secondary-50 px-2 py-0.5 rounded-full border border-secondary-800/20">
-                      Pre-computed • 0ms Lag
-                    </span>
+                    <div className="flex items-center gap-2 self-end sm:self-auto">
+                      <span className="text-[11px] font-bold text-secondary-800 bg-secondary-50 px-2 py-0.5 rounded-full border border-secondary-800/20">
+                        Pre-computed • 0ms Lag
+                      </span>
+                      <Button
+                        variant="primary"
+                        size="sm"
+                        className="text-xs py-1 px-2.5 font-bold shadow-sm"
+                        icon={PenLine}
+                        onClick={() => setIsReviewModalOpen(true)}
+                      >
+                        Write Review
+                      </Button>
+                    </div>
                   </div>
 
                   {reviews.length === 0 ? (
@@ -322,6 +336,20 @@ export default function DestinationDetailModal({
             )}
           </div>
         </div>
+
+        {/* Verified Review Modal */}
+        {isReviewModalOpen && dest && (
+          <VerifiedReviewModal
+            destination={dest}
+            onClose={() => setIsReviewModalOpen(false)}
+            onReviewSubmitted={(newRev) => {
+              setData((prev) => prev ? {
+                ...prev,
+                verified_reviews: [newRev, ...(prev.verified_reviews || [])]
+              } : prev);
+            }}
+          />
+        )}
 
       </div>
     </div>

@@ -8,16 +8,19 @@ import {
   QrCode, 
   ArrowRight,
   Landmark,
-  Award
+  Award,
+  PenLine
 } from 'lucide-react';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
+import VerifiedReviewModal from './VerifiedReviewModal';
 
 export default function BookingModal({ destination, onClose }) {
   const [step, setStep] = useState('checkout'); // 'checkout', 'processing', 'confirmed'
   const [guestName, setGuestName] = useState('Priya Sharma');
   const [guestPhone, setGuestPhone] = useState('+91 98765 43210');
   const [bookingRef, setBookingRef] = useState('');
+  const [showReviewModal, setShowReviewModal] = useState(false);
 
   if (!destination) return null;
 
@@ -168,14 +171,41 @@ export default function BookingModal({ destination, onClose }) {
                 </p>
               </div>
 
-              <div className="pt-2">
-                <Button variant="primary" size="md" onClick={onClose} className="w-full font-bold">
+              <div className="pt-2 flex flex-col sm:flex-row gap-2">
+                <Button 
+                  variant="outline" 
+                  size="md" 
+                  onClick={onClose} 
+                  className="w-full font-bold"
+                >
                   Return to Catalog
+                </Button>
+                <Button 
+                  variant="primary" 
+                  size="md" 
+                  onClick={() => setShowReviewModal(true)} 
+                  className="w-full font-bold shadow-sm"
+                  icon={PenLine}
+                >
+                  Leave Verified Review
                 </Button>
               </div>
             </div>
           )}
         </div>
+
+        {/* Verified Review Modal from Confirmed Booking */}
+        {showReviewModal && (
+          <VerifiedReviewModal
+            destination={destination}
+            initialBookingId={bookingRef}
+            onClose={() => setShowReviewModal(false)}
+            onReviewSubmitted={() => {
+              setShowReviewModal(false);
+              onClose();
+            }}
+          />
+        )}
 
       </div>
     </div>
