@@ -49,7 +49,7 @@ id,name,state,category,latitude,longitude,price_range,rating,review_count,descri
 | `review_count` | Integer | `INT` (>= 0) | Authentic visitor review count | `28547` |
 | `description` | Text | `TEXT` | Descriptive overview and heritage context | `Solang Valley is a renowned nature landmark situated in Manali...` |
 | `best_season` | String | `VARCHAR` (e.g. `Oct-Feb`, `Apr-Jun`) | Recommended seasonal visiting window | `Apr-Jun` |
-| `image_url` | String | `VARCHAR` (URL) | High-resolution image CDN URL (100% verified 200 OK) | `https://images.unsplash.com/photo-1599661046289-e31897846e41?w=800&auto=format&fit=crop&q=80` |
+| `image_url` | String | `VARCHAR` (URL) | Authentic verified destination photograph (100% 200 OK) | `https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f1/Solang_Valley_%2CManali%2C_Himachal_Pardes%2C_India.JPG/960px-Solang_Valley_%2CManali%2C_Himachal_Pardes%2C_India.JPG` |
 
 ---
 
@@ -59,21 +59,20 @@ id,name,state,category,latitude,longitude,price_range,rating,review_count,descri
 
 | State | Places | State | Places |
 | :--- | :---: | :--- | :---: |
-| [Andhra Pradesh](data/states/Andhra_Pradesh/places.csv) | 229 | [Maharashtra](data/states/Maharashtra/places.csv) | 1,473 |
-| [Arunachal Pradesh](data/states/Arunachal_Pradesh/places.csv) | 126 | [Manipur](data/states/Manipur/places.csv) | 332 |
-| [Assam](data/states/Assam/places.csv) | 623 | [Meghalaya](data/states/Meghalaya/places.csv) | 137 |
-| [Bihar](data/states/Bihar/places.csv) | 617 | [Mizoram](data/states/Mizoram/places.csv) | 39 |
-| [Chhattisgarh](data/states/Chhattisgarh/places.csv) | 209 | [Nagaland](data/states/Nagaland/places.csv) | 743 |
-| [Goa](data/states/Goa/places.csv) | 142 | [Odisha](data/states/Odisha/places.csv) | 236 |
-| [Gujarat](data/states/Gujarat/places.csv) | 222 | [Punjab](data/states/Punjab/places.csv) | 299 |
-| [Haryana](data/states/Haryana/places.csv) | 164 | [Rajasthan](data/states/Rajasthan/places.csv) | 296 |
-| [Himachal Pradesh](data/states/Himachal_Pradesh/places.csv) | 245 | [Sikkim](data/states/Sikkim/places.csv) | 200 |
-| [Jharkhand](data/states/Jharkhand/places.csv) | 173 | [Tamil Nadu](data/states/Tamil_Nadu/places.csv) | 1,572 |
-| [Karnataka](data/states/Karnataka/places.csv) | 790 | [Telangana](data/states/Telangana/places.csv) | 596 |
-| [Kerala](data/states/Kerala/places.csv) | 231 | [Tripura](data/states/Tripura/places.csv) | 216 |
-| [Madhya Pradesh](data/states/Madhya_Pradesh/places.csv) | 266 | [Uttar Pradesh](data/states/Uttar_Pradesh/places.csv) | 233 |
-| | | [Uttarakhand](data/states/Uttarakhand/places.csv) | 190 |
-| | | [West Bengal](data/states/West_Bengal/places.csv) | 548 |
+| [Andhra Pradesh](data/states/Andhra_Pradesh/places.csv) | 229 | [Manipur](data/states/Manipur/places.csv) | 332 |
+| [Arunachal Pradesh](data/states/Arunachal_Pradesh/places.csv) | 126 | [Meghalaya](data/states/Meghalaya/places.csv) | 137 |
+| [Assam](data/states/Assam/places.csv) | 623 | [Mizoram](data/states/Mizoram/places.csv) | 39 |
+| [Bihar](data/states/Bihar/places.csv) | 617 | [Nagaland](data/states/Nagaland/places.csv) | 743 |
+| [Chhattisgarh](data/states/Chhattisgarh/places.csv) | 209 | [Odisha](data/states/Odisha/places.csv) | 236 |
+| [Goa](data/states/Goa/places.csv) | 142 | [Punjab](data/states/Punjab/places.csv) | 299 |
+| [Gujarat](data/states/Gujarat/places.csv) | 222 | [Rajasthan](data/states/Rajasthan/places.csv) | 296 |
+| [Haryana](data/states/Haryana/places.csv) | 164 | [Sikkim](data/states/Sikkim/places.csv) | 200 |
+| [Himachal Pradesh](data/states/Himachal_Pradesh/places.csv) | 245 | [Tamil Nadu](data/states/Tamil_Nadu/places.csv) | 1,572 |
+| [Jharkhand](data/states/Jharkhand/places.csv) | 173 | [Telangana](data/states/Telangana/places.csv) | 596 |
+| [Karnataka](data/states/Karnataka/places.csv) | 790 | [Tripura](data/states/Tripura/places.csv) | 216 |
+| [Kerala](data/states/Kerala/places.csv) | 231 | [Uttar Pradesh](data/states/Uttar_Pradesh/places.csv) | 233 |
+| [Madhya Pradesh](data/states/Madhya_Pradesh/places.csv) | 266 | [Uttarakhand](data/states/Uttarakhand/places.csv) | 190 |
+| [Maharashtra](data/states/Maharashtra/places.csv) | 1,473 | [West Bengal](data/states/West_Bengal/places.csv) | 548 |
 
 ### 🏛️ 8 Union Territories (`1,146` places)
 
@@ -90,8 +89,8 @@ id,name,state,category,latitude,longitude,price_range,rating,review_count,descri
 
 | Category | Destinations | Price Range | Destinations |
 | :--- | :---: | :--- | :---: |
-| **`attraction`** | 12,117 | **`budget`** | 10,729 |
-| **`hotel`** | 82 | **`mid`** | 1,529 |
+| **`attraction`** | 12,117 | **`budget`** | 10,959 |
+| **`hotel`** | 82 | **`mid`** | 1,299 |
 | **`homestay`** | 54 | **`luxury`** | 35 |
 | **`restaurant`** | 40 | | |
 
@@ -121,7 +120,7 @@ python scripts/search.py --state "Himachal Pradesh" --category attraction --json
 
 For developers building frontend web or mobile apps, pre-built JSON schemas are available in `data/`:
 - **`data/places.min.json`**: Minified single-file array of all 12,293 destinations.
-- **`data/hierarchy.json`**: Nested `State -> District -> Places` JSON object for building dynamic multi-tier selection menus.
+- **`data/hierarchy.json`**: Nested `State -> Category -> Places` JSON object for building dynamic multi-tier selection menus.
 
 Generate updated JSON exports at any time:
 ```bash
@@ -141,7 +140,7 @@ python scripts/comprehensive_audit.py
 ### Audit Guarantees:
 - ✅ **100% Mathematical Parity**: Regional sum (`11,147 + 1,146`) equals master (`12,293`).
 - ✅ **Bidirectional Integrity**: `set(Master) == set(Regional)` with 0 orphaned records.
-- ✅ **Zero Missing Values**: Every row contains valid non-empty entries for all 6 columns.
+- ✅ **Zero Missing Values**: Every row contains valid non-empty entries for all 12 columns.
 - ✅ **Clean Encoding**: UTF-8 format without BOM headers, unescaped HTML entities, or trailing whitespace.
 
 ---
