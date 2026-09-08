@@ -2,7 +2,12 @@ import time
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+
 from app.core.config import settings
+from app.api.destinations import router as destinations_router
+from app.api.homestays import router as homestays_router
+from app.api.overtourism import router as overtourism_router
+from app.api.insights import router as insights_router
 
 app = FastAPI(
     title="TravelSathi API",
@@ -29,6 +34,13 @@ async def add_process_time_header(request: Request, call_next):
     process_time = (time.time() - start_time) * 1000
     response.headers["X-Process-Time-Ms"] = f"{process_time:.2f}"
     return response
+
+
+# Include API Routers under /api
+app.include_router(destinations_router, prefix="/api")
+app.include_router(homestays_router, prefix="/api")
+app.include_router(overtourism_router, prefix="/api")
+app.include_router(insights_router, prefix="/api")
 
 
 @app.get("/", tags=["General"])

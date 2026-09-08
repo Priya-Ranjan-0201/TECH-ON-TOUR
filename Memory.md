@@ -9,12 +9,14 @@
 ## ⚡ CURRENT STATE (Always Read First)
 
 *   **Project Name:** TravelSathi (Unified DPI for Indian Tourism & Hospitality)
-*   **Active Phase:** **Phase 1 — Database Bootstrap & Tech-On-Tour 12k Seeding**
-*   **Last Completed Milestone:** **Phase 0 — Workspace Scaffolding & Design System Foundation (100% COMPLETE)** (Commit: `d0a4a8c`)
+*   **Active Phase:** **Phase 2 — Core Backend REST & PostGIS Spatial APIs**
+*   **Last Completed Milestone:** **Phase 1 — Database Bootstrap & Tech-On-Tour 12k Seeding (100% COMPLETE)** (Commit: `f3baee0`)
 *   **Next Immediate Task:**
-    1. Initialize PostgreSQL PostGIS tables from `Architecture.md` (`destinations_master`, `homestays`, `guides`, `bookings`, `itineraries`, `reviews_training`, `user_badges`).
-    2. Build and run `backend/scripts/seed_destinations.py` to ingest 12,293 verified destinations from `Tech-On-Tour/data/places.csv`.
-    3. Seed curated anti-overtourism alternate pairs and pre-computed review sentiment data.
+    1. Implement `/api/destinations` with pagination, state filtering (36 States/UTs), category and price filters.
+    2. Implement `/api/destinations/{id}` returning POI details, pre-computed reviews, and sentiment scores.
+    3. Implement `/api/destinations/nearby` using `gis_service` radius queries ($<25\text{ms}$).
+    4. Implement `/api/anti-overtourism/alternatives` returning curated diversion circuits.
+    5. Implement `/api/homestays` with PM-JUGA prioritization filter.
 *   **Active Design Theme:** **Theme 1: Heritage Earth** (Terracotta `#712B13`, Forest `#27500A`, Temple Gold `#E5A93C`, Warm Ivory `#FDFBF7`)
 *   **Core Grounding Dataset:** **Tech On Tour** (12,293 verified destinations across 36 States/UTs, 737 districts, 0 null values, 17,891 graph edges)
 *   **Known Blockers:** None.
