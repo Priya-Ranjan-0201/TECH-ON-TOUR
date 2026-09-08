@@ -9,18 +9,19 @@
 ## ⚡ CURRENT STATE (Always Read First)
 
 *   **Project Name:** TravelSathi (Unified DPI for Indian Tourism & Hospitality)
-*   **Active Phase:** **Phase 7 — Review Sentiment Trust Layer & Host Seller Hub (Tier 1 Priority #4 & #5)**
-*   **Last Completed Milestone:** **Phase 6 — AI Multilingual Concierge Chatbot & Indic Speech Assistant (100% COMPLETE)**
-    *   *Multilingual RAG Engine:* Grounded context retrieval across 12,293 POIs, PM-JUGA tribal homestays, and zero-commission DPI savings in 6 Indic languages (English, Hindi, Bengali, Tamil, Telugu, Marathi).
-    *   *FastAPI Backend Service:* `POST /api/chat/message` with rolling conversational history, grounded POI card injection, and 3.5s Gemini circuit breaker with deterministic knowledge failover.
-    *   *Global Floating Concierge:* `ConciergeWidget.jsx` mounted across all routes, with Web Speech API voice input (Speech-to-Text), Text-to-Speech audio readout, and 1-tap localized starter chips.
+*   **Active Phase:** **Phase 8 — DMO Command Center & Live Demo Readiness**
+*   **Last Completed Milestone:** **Phase 7 — Review Sentiment Trust Layer & Host Seller Hub (100% COMPLETE)**
+    *   *Review Sentiment Trust Layer:* Pre-computed DistilBERT SST-2 sentiment confidence and authenticity ratings (0–100) on 12k destinations and PM-JUGA homestays. Gated review submission requiring confirmed `booking_id` (`POST /api/reviews/submit`), returning HTTP 403 Forbidden for unverified submissions.
+    *   *Verified Review UI:* Built `VerifiedReviewModal.jsx` featuring real-time NLP sentiment preview, integrated into `DestinationDetailModal.jsx` and `BookingModal.jsx` on confirmed bookings.
+    *   *AI Dynamic Pricing Co-Pilot:* `PricingService` with Indian cultural festival calendar heuristics (Pushkar Camel Fair, Diwali, Dussehra, Hornbill Festival, Rann Utsav, weekend surges), providing +12% to +25% tariff recommendations with 1-click apply (`POST /api/host/pricing/apply`).
+    *   *Reverse Marketplace & Host Seller Hub:* Completely rebuilt `HostView.jsx` with gross revenue metrics, 0% OTA commission savings (+₹10,692 retained), 96% vision sanitation badge, active tourist RFP lead board, and 1-click competitive bidding modal (`POST /api/marketplace/bid`) with instant simulated acceptance.
+    *   *Test & Verification:* 46/46 PyTest tests passing in 1.31s; frontend production bundle building cleanly in 1.07s (0 errors).
 *   **Next Immediate Task:**
-    1. Implement Review Sentiment Trust Layer (`backend/app/services/review_service.py`) using pre-computed DistilBERT SST-2 sentiment & authenticity scoring for 0ms latency on stage.
-    2. Build Verified Review submission modal gated by confirmed booking ID (`POST /api/reviews/submit`).
-    3. Build Host Hub / Seller Hub view (`frontend/src/views/HostView.jsx`) displaying incoming tourist RFPs with 1-click bid submission and calendar-based dynamic pricing co-pilot.
+    1. Upgrade DMO Command Center (`frontend/src/views/DMOView.jsx`) with dynamic eco-permit gatekeeper, footfall saturation heatmap, and visitor diversion toggles.
+    2. Lightweight AR Heritage Lens info-card modal with camera feed simulation and Web Speech TTS audio narration.
+    3. Final pitch rehearsal checks and 270-second live demo workflow validation.
 *   **Active Design Theme:** **Theme 1: Heritage Earth** (Terracotta `#712B13`, Forest `#27500A`, Temple Gold `#E5A93C`, Warm Ivory `#FDFBF7`)
 *   **Core Grounding Dataset:** **Tech On Tour** (12,293 verified destinations across 36 States/UTs, 737 districts, 0 null values, 17,891 graph edges)
-*   **Known Blockers:** Playwright CDN driver 404 in sandbox subagent (local servers healthy and directly verifiable in local browser at http://127.0.0.1:5173).
 *   **Active Branch:** `main` (clean Git tracking active)
 
 ---
