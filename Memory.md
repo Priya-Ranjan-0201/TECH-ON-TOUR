@@ -9,13 +9,13 @@
 ## ⚡ CURRENT STATE (Always Read First)
 
 *   **Project Name:** TravelSathi (Unified DPI for Indian Tourism & Hospitality)
-*   **Active Phase:** **Phase 5 — AI Itinerary Generator & Travel Twin (Tier 1 Priority #1)**
-*   **Last Completed Milestone:** **Phase 4 — Search, Catalog Discovery & Spatial Filtering (100% COMPLETE)**
+*   **Active Phase:** **Phase 6 — AI Multilingual Concierge Chatbot & Indic Speech (Tier 1 Priority #3)**
+*   **Last Completed Milestone:** **Phase 5 — AI Itinerary Generator & Travel Twin (100% COMPLETE)**
 *   **Next Immediate Task:**
-    1. Implement backend RAG / structured itinerary generation service (`backend/app/services/itinerary_service.py`) using Gemini structured JSON prompt with strict 3.5s timeout circuit-breaker and deterministic graph fallback.
-    2. Expose `POST /api/itinerary/generate` and `GET /api/itinerary/{id}` endpoints with Pydantic v2 schemas.
-    3. Build frontend `PlanView.jsx` wizard with destination, days, budget, interests, and mobility options.
-    4. Implement `ItineraryTimeline.jsx` (day-by-day stops, time allocations, activities) and `ItineraryMap.jsx` (interactive route geometry and pins).
+    1. Implement backend vernacular chat service (`backend/app/services/chat_service.py`) with support for Indic queries (Hindi, Bengali, Tamil, Telugu, Marathi, English) and context retrieval over the 12,293 POIs and tribal homestays.
+    2. Expose `POST /api/chat/message` with session memory and quick suggestion pills.
+    3. Build floating / embedded concierge widget (`frontend/src/components/chat/ConciergeWidget.jsx`) accessible from any page.
+    4. Implement Web Speech API / Bhashini audio input & TTS synthesis toggle.
 *   **Active Design Theme:** **Theme 1: Heritage Earth** (Terracotta `#712B13`, Forest `#27500A`, Temple Gold `#E5A93C`, Warm Ivory `#FDFBF7`)
 *   **Core Grounding Dataset:** **Tech On Tour** (12,293 verified destinations across 36 States/UTs, 737 districts, 0 null values, 17,891 graph edges)
 *   **Known Blockers:** Playwright CDN driver 404 in sandbox subagent (local servers healthy and directly verifiable in local browser at http://127.0.0.1:5173).
