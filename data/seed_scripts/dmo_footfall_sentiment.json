@@ -1,0 +1,93 @@
+{
+  "circuits": [
+    {
+      "id": "rajasthan_heritage",
+      "name": "Golden Triangle - Jaipur & Shekhawati",
+      "state": "Rajasthan",
+      "monthly_footfall": [
+        {"month": "Jan", "domestic": 142000, "international": 38000, "capacity_index": 0.88},
+        {"month": "Feb", "domestic": 135000, "international": 36000, "capacity_index": 0.84},
+        {"month": "Mar", "domestic": 110000, "international": 24000, "capacity_index": 0.70},
+        {"month": "Apr", "domestic": 75000, "international": 12000, "capacity_index": 0.48},
+        {"month": "May", "domestic": 52000, "international": 6000, "capacity_index": 0.35},
+        {"month": "Jun", "domestic": 68000, "international": 7000, "capacity_index": 0.42},
+        {"month": "Jul", "domestic": 85000, "international": 9000, "capacity_index": 0.52},
+        {"month": "Aug", "domestic": 105000, "international": 14000, "capacity_index": 0.65},
+        {"month": "Sep", "domestic": 118000, "international": 19000, "capacity_index": 0.72},
+        {"month": "Oct", "domestic": 160000, "international": 42000, "capacity_index": 0.96},
+        {"month": "Nov", "domestic": 185000, "international": 51000, "capacity_index": 1.05},
+        {"month": "Dec", "domestic": 198000, "international": 58000, "capacity_index": 1.12}
+      ],
+      "sentiment_breakdown": {
+        "positive_pct": 78.4,
+        "neutral_pct": 14.2,
+        "negative_pct": 7.4,
+        "top_praises": ["Rich cultural storytelling", "Clean heritage stays", "Courteous local guides"],
+        "top_complaints": ["Peak season crowd near Hawa Mahal", "Touting near monuments", "Parking congestion"]
+      }
+    },
+    {
+      "id": "himachal_eco",
+      "name": "Parvati Valley & Kullu Circuit",
+      "state": "Himachal Pradesh",
+      "monthly_footfall": [
+        {"month": "Jan", "domestic": 62000, "international": 8000, "capacity_index": 0.55},
+        {"month": "Feb", "domestic": 58000, "international": 7500, "capacity_index": 0.52},
+        {"month": "Mar", "domestic": 72000, "international": 11000, "capacity_index": 0.64},
+        {"month": "Apr", "domestic": 115000, "international": 18000, "capacity_index": 0.85},
+        {"month": "May", "domestic": 178000, "international": 22000, "capacity_index": 1.18},
+        {"month": "Jun", "domestic": 192000, "international": 24000, "capacity_index": 1.25},
+        {"month": "Jul", "domestic": 65000, "international": 5000, "capacity_index": 0.44},
+        {"month": "Aug", "domestic": 55000, "international": 4000, "capacity_index": 0.38},
+        {"month": "Sep", "domestic": 88000, "international": 12000, "capacity_index": 0.71},
+        {"month": "Oct", "domestic": 130000, "international": 19000, "capacity_index": 0.92},
+        {"month": "Nov", "domestic": 94000, "international": 12000, "capacity_index": 0.68},
+        {"month": "Dec", "domestic": 145000, "international": 17000, "capacity_index": 0.98}
+      ],
+      "sentiment_breakdown": {
+        "positive_pct": 82.1,
+        "neutral_pct": 11.5,
+        "negative_pct": 6.4,
+        "top_praises": ["Pristine mountain trails", "Authentic Himachali homestays", "Peaceful vibes"],
+        "top_complaints": ["Plastic waste at high-altitude passes", "Traffic bottleneck at Atal Tunnel", "Erratic taxi fares"]
+      }
+    },
+    {
+      "id": "kerala_backwaters",
+      "name": "Alleppey & Kumarakom Backwaters",
+      "state": "Kerala",
+      "monthly_footfall": [
+        {"month": "Jan", "domestic": 120000, "international": 45000, "capacity_index": 0.89},
+        {"month": "Feb", "domestic": 110000, "international": 42000, "capacity_index": 0.85},
+        {"month": "Mar", "domestic": 85000, "international": 28000, "capacity_index": 0.68},
+        {"month": "Apr", "domestic": 70000, "international": 15000, "capacity_index": 0.54},
+        {"month": "May", "domestic": 65000, "international": 10000, "capacity_index": 0.48},
+        {"month": "Jun", "domestic": 55000, "international": 8000, "capacity_index": 0.41},
+        {"month": "Jul", "domestic": 62000, "international": 12000, "capacity_index": 0.46},
+        {"month": "Aug", "domestic": 95000, "international": 21000, "capacity_index": 0.72},
+        {"month": "Sep", "domestic": 115000, "international": 31000, "capacity_index": 0.82},
+        {"month": "Oct", "domestic": 130000, "international": 39000, "capacity_index": 0.91},
+        {"month": "Nov", "domestic": 145000, "international": 48000, "capacity_index": 0.98},
+        {"month": "Dec", "domestic": 175000, "international": 62000, "capacity_index": 1.15}
+      ],
+      "sentiment_breakdown": {
+        "positive_pct": 86.5,
+        "neutral_pct": 9.2,
+        "negative_pct": 4.3,
+        "top_praises": ["Houseboat tranquility", "Organic Ayurvedic meals", "Lush wetland biodiversity"],
+        "top_complaints": ["Houseboat diesel smell in congested canals", "High seasonal price spikes"]
+      }
+    }
+  ],
+  "overall_summary": {
+    "total_domestic_annual": 4120000,
+    "total_intl_annual": 890000,
+    "average_sentiment_positive_pct": 82.3,
+    "overtourism_high_risk_circuits": 2,
+    "recommended_interventions": [
+      "Dynamic eco-permit cap enforcement in Kullu/Manali during May-June",
+      "Off-peak night rates and artisan incentive vouchers in Jaipur during April-July",
+      "Solar houseboat conversion subsidies in Alleppey backwaters"
+    ]
+  }
+}

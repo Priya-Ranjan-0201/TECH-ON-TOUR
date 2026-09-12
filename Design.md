@@ -7,58 +7,50 @@
 
 ---
 
-## 1. CSS Custom Properties Token Ramp (`frontend/src/styles/theme.css`)
+## 1. Master Palette Tokens (`frontend/src/styles/theme.css` & `tailwind.config.js`)
+
+TravelSathi V2.0 utilizes a light, crisp, and uplifting palette anchored in Fresh Emerald, Pure White Canvas, and Warm Coral Terracotta (avoiding heavy, deep, or muddy dark colors):
 
 ```css
+/* Core V2.0 Light Theme Tokens */
 :root {
-  /* 🏺 PRIMARY FAMILY: Terracotta & Ochre (Brand Core, Headers & CTAs) */
-  --ts-primary-900: #4A1B0C;   /* Deepest Terracotta - Headings & High-contrast text */
-  --ts-primary-800: #712B13;   /* Primary Brand - Header bars, primary action buttons */
-  --ts-primary-600: #993C1D;   /* Mid Terracotta - Secondary buttons, interactive accents */
-  --ts-primary-400: #D85A30;   /* Light Terracotta - Active highlights, borders */
-  --ts-primary-100: #F5C4B3;   /* Pale Terracotta - Subtle card fills, hover states */
-  --ts-primary-50:  #FAECE7;   /* Palest Terracotta - Tag backgrounds, button text on dark */
+  /* 🌲 PRIMARY: Fresh Emerald / Travel Leaf */
+  --color-primary: #257A57;
+  --color-primary-dark: #19523B;
+  --color-primary-light: #F0F9F5;
 
-  /* 🌿 SECONDARY FAMILY: Forest Canopy & Temple Green (Verified & Eco Badges) */
-  --ts-secondary-900: #173404; /* Dark Forest - Success text, verified badges */
-  --ts-secondary-800: #27500A; /* Verified Checkmarks, Hidden-Gem tags, Eco-permits */
-  --ts-secondary-600: #3B6D11; /* Forest Mid - Secondary success indicators */
-  --ts-secondary-400: #639922; /* Leaf Green - Progress indicators, ratings */
-  --ts-secondary-50:  #EAF3DE; /* Pale Green - Success badges, hidden-gem card fills */
+  /* 🌿 SECONDARY: Balanced Natural Green */
+  --color-secondary: #318A66;
+  --color-success: #43A67D;
 
-  /* 🛕 ACCENT FAMILY: Saffron & Sacred Gold (Pricing Tips & Cultural Highlights) */
-  --ts-accent-900: #412402;    /* Dark Amber - Pricing recommendation text */
-  --ts-accent-800: #633806;    /* Warm Amber - Dynamic pricing co-pilot alerts */
-  --ts-accent-600: #854F0B;    /* Saffron Gold - Star ratings, cultural highlight icons */
-  --ts-accent-400: #E5A93C;    /* Temple Gold - Explorer badges, featured borders */
-  --ts-accent-50:  #FAEEDA;    /* Pale Amber - Pricing tip & festival alert backgrounds */
+  /* 🏺 ACCENT: Warm Coral Terracotta & Sunlight Amber */
+  --color-accent: #D96238;
+  --color-saffron: #F59E0B;
 
-  /* 🚨 ALERT FAMILY: Varanasi Vermillion (Emergency SOS & Validation Errors) */
-  --ts-alert-red-800: #B71C1C; /* Dark Red - Error text, emergency SOS triggers */
-  --ts-alert-red-600: #D32F2F; /* Vermillion Red - Input validation error borders */
-  --ts-alert-red-50:  #FFEBEE; /* Pale Red - Error banner backgrounds */
+  /* 🏜️ NEUTRALS: Crisp Light Canvas & Pure White */
+  --color-bg-canvas: #F8FAFC;
+  --color-surface-white: #FFFFFF;
+  --color-text-slate: #1E293B;
+  --color-text-muted: #64748B;
+  --color-border-light: #E2E8F0;
 
-  /* 🏛️ NEUTRAL FAMILY: Sandalwood & Charcoal Slate (Backgrounds & Structural) */
-  --ts-neutral-900: #2C2C2A;   /* Charcoal Slate - Primary body text (100% contrast) */
-  --ts-neutral-600: #5F5E5A;   /* Sandalwood Gray - Secondary metadata, subtitles */
-  --ts-neutral-400: #888780;   /* Muted Gray - Placeholders, disabled states */
-  --ts-neutral-200: #E0E0E0;   /* Border Ash - Hairline dividers, card outlines */
-  --ts-neutral-100: #F5F7FA;   /* Pristine Canvas - Main screen background */
-  --ts-neutral-50:  #FDFBF7;   /* Warm Ivory - Card surfaces, modal backgrounds */
-
-  /* 🪟 GLASSMORPHIC TOKENS */
-  --ts-glass-surface: rgba(253, 251, 247, 0.88);
-  --ts-glass-border: rgba(113, 43, 19, 0.12);
-  --ts-glass-blur: blur(12px);
+  /* 🚨 STATUS & ALERTS */
+  --color-danger: #C53030;
+  --color-warning: #D97706;
+  --color-map-teal: #0D9488;
 }
 ```
 
+
 ---
 
-## 2. Semantic Color Rules
-*   **Family Pairing Rule:** Text on colored background must use darkest shade (`900`/`800`) from that family. Never pure black.
+## 2. Accessibility & High-Contrast Standards (WCAG 2.1 AA)
+*   **Zero Invisible Text Rule:** Never apply dark text on dark backgrounds or pale text on light cards. 
+*   **Card Contrast Classes:** Always use `ts-card-light` (guarantees `#FFFFFF` card surface with `#111827` primary text) or dark mode equivalent.
+*   **Hero Section Rule:** In the hero section, the heading must use crisp, high-contrast white text (`#FFFFFF`) with subtle text-shadow against dark overlays, while the body paragraph uses `#F3F4F6` (95%+ contrast ratio).
+*   **Family Pairing Rule:** Text on colored background must use darkest shade (`900`/`800`) from that family. Never low-contrast mid-tones.
 *   **Badge & Pill Pairing:** Always pair `-50` background with `-800`/`-900` text (e.g., Verified: `--ts-secondary-50` + `--ts-secondary-800`).
-*   **Primary Action Buttons:** `--ts-primary-800` background, `--ts-primary-50` text.
+*   **Form Inputs:** Explicit `bg-white dark:bg-darkmode-elevated`, `text-neutral-900 dark:text-darkmode-text-primary`, and `border-neutral-300 dark:border-darkmode-border`.
 
 ---
 

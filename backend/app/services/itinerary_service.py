@@ -2,17 +2,18 @@ import asyncio
 import json
 import logging
 import math
-import os
 import uuid
 from datetime import datetime, timezone, timedelta
 from typing import Any, Dict, List, Optional, Tuple
 
 import httpx
-from sqlalchemy import or_, select
+from fastapi import HTTPException
+from sqlalchemy import or_, select, func, case, and_
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
 from app.database.models import DestinationMaster, Homestay, Itinerary
+from app.services.gis_service import calculate_haversine_distance
 from app.schemas.itinerary import (
     AlternativeStop,
     BudgetBreakdown,
@@ -25,23 +26,10 @@ from app.schemas.itinerary import (
     ReorderStopsRequest,
     SwapStopRequest,
 )
+from app.api.dmo import is_destination_permit_locked, get_permit_locked_alternative
+from app.api.destinations import parse_search_query, INDIAN_STATES_MAP
 
 logger = logging.getLogger(__name__)
-
-
-def calculate_haversine_distance(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
-    """Haversine distance in kilometers between two geographic coordinates."""
-    r = 6371.0
-    phi1, phi2 = math.radians(lat1), math.radians(lat2)
-    delta_phi = math.radians(lat2 - lat1)
-    delta_lambda = math.radians(lon2 - lon1)
-
-    a = (
-        math.sin(delta_phi / 2.0) ** 2
-        + math.cos(phi1) * math.cos(phi2) * math.sin(delta_lambda / 2.0) ** 2
-    )
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
-    return r * c
 
 
 def estimate_transit_details(lat1: float, lon1: float, lat2: float, lon2: float) -> Tuple[float, int, int, str]:
@@ -181,7 +169,21 @@ class ItineraryService:
         Main itinerary generation entrypoint.
         Attempts Gemini 1.5 Flash structured generation with timeout;
         falls back to Deterministic Spatial Graph Solver on timeout or missing key.
+        Integrates Dynamic Eco-Permit Gatekeeper to reroute overwhelmed hotspots.
         """
+        # 0. Anti-Overtourism & Dynamic Eco-Permit Gatekeeper Check
+        original_query_target = request.destination or ""
+        permit_locked = is_destination_permit_locked(original_query_target)
+        permit_alt = get_permit_locked_alternative(original_query_target) if permit_locked else None
+
+        if permit_locked and permit_alt:
+            logger.info(
+                f"Eco-Permit Gatekeeper active for '{original_query_target}'. "
+                f"Diverting itinerary to '{permit_alt['alternative']}' ({permit_alt['state']})."
+            )
+            request.destination = permit_alt["alternative"]
+            request.state = permit_alt["state"]
+
         # 1. Retrieve interest-weighted candidate POIs from database
         candidate_pois, resolved_state = await cls._fetch_candidate_pois(db, request)
 
@@ -205,10 +207,23 @@ class ItineraryService:
         if not response:
             response = cls._deterministic_graph_solver(request, candidate_pois, resolved_state, homestays)
 
+        # 4b. If diverted by Eco-Permit Gatekeeper, inject transparent carrying-capacity advisory
+        if permit_locked and permit_alt:
+            response.destination = f"{permit_alt['alternative']} (Eco-Permit Diverted from {permit_alt['destination']})"
+            response.title = f"Sustainable Eco-Circuit: {permit_alt['alternative']}"
+            response.summary = (
+                f"🚨 Eco-Permit Throttling Active: Carrying capacity for {permit_alt['destination']} exceeded "
+                f"({permit_alt['saturation_pct']}% saturation). Itinerary automatically rerouted to pristine secondary "
+                f"heritage circuit {permit_alt['alternative']} ({permit_alt['crowd_reduction_pct']}% less crowd)."
+            )
+            response.eco_permit_rerouted = True
+            response.original_destination = permit_alt["destination"]
+            response.diversion_advisory = permit_alt["reason"]
+
         # 5. Persist to database
         db_record = Itinerary(
             id=response.id,
-            user_id="tourist_guest",
+            user_id=getattr(request, "user_id", None) or "usr-901",
             destination=response.destination,
             days=response.days,
             budget=response.budget,
@@ -243,75 +258,288 @@ class ItineraryService:
     async def _fetch_candidate_pois(
         cls, db: AsyncSession, request: ItineraryRequest
     ) -> Tuple[List[DestinationMaster], str]:
-        """Fetch real grounding POIs from SQLite/PostGIS database with interest weighting."""
-        state_target = request.state
-        query_target = request.destination
+        """
+        Fetch real grounding POIs strictly filtered to the requested destination or state.
+        Never substitutes places from an unrelated city or region.
+        """
+        query_target = (request.destination or "").strip()
+        state_target = (request.state or "").strip()
 
-        # If user specified destination name (e.g. "Manali", "Jaipur")
-        if query_target and not state_target:
-            sample_stmt = (
+        candidate_pois: List[DestinationMaster] = []
+        resolved_state = state_target or "India"
+
+        # 1. Intelligent entity and state extraction from query_target
+        if query_target:
+            clean_q, tokens, matched_state = parse_search_query(query_target)
+            eff_state = matched_state or INDIAN_STATES_MAP.get(clean_q)
+
+            if eff_state:
+                resolved_state = eff_state
+                state_stmt = (
+                    select(DestinationMaster)
+                    .where(func.lower(DestinationMaster.state) == eff_state.lower())
+                )
+                token_filters = [
+                    or_(
+                        func.lower(DestinationMaster.name).like(f"%{t}%"),
+                        func.lower(DestinationMaster.category).like(f"%{t}%"),
+                        func.lower(DestinationMaster.description).like(f"%{t}%")
+                    )
+                    for t in tokens if eff_state.lower() not in t.lower()
+                ]
+                if token_filters:
+                    state_stmt = state_stmt.where(and_(*token_filters))
+
+                state_stmt = state_stmt.order_by(
+                    case(
+                        (func.lower(DestinationMaster.name).like(f"%{clean_q}%"), 0),
+                        else_=1
+                    ),
+                    DestinationMaster.rating.desc(),
+                    DestinationMaster.review_count.desc(),
+                    DestinationMaster.id.asc()
+                ).limit(100)
+
+                res_state = await db.execute(state_stmt)
+                candidate_pois = list(res_state.scalars().all())
+
+                if not candidate_pois:
+                    fallback_state_stmt = (
+                        select(DestinationMaster)
+                        .where(func.lower(DestinationMaster.state) == eff_state.lower())
+                        .order_by(DestinationMaster.rating.desc(), DestinationMaster.id.asc())
+                        .limit(100)
+                    )
+                    res_fb = await db.execute(fallback_state_stmt)
+                    candidate_pois = list(res_fb.scalars().all())
+
+            # 2. Try simultaneous multi-token matching (e.g. "temples in Varanasi", "places near Manali", "forts in Jaipur")
+            if not candidate_pois and len(tokens) >= 2:
+                multi_conds = []
+                for t in tokens:
+                    t_pat = f"%{t}%"
+                    multi_conds.append(
+                        or_(
+                            func.lower(DestinationMaster.name).like(t_pat),
+                            func.lower(DestinationMaster.category).like(t_pat),
+                            func.lower(DestinationMaster.description).like(t_pat),
+                            func.lower(DestinationMaster.state).like(t_pat)
+                        )
+                    )
+                stmt_multi = (
+                    select(DestinationMaster)
+                    .where(and_(*multi_conds))
+                    .order_by(
+                        case(
+                            (or_(*[func.lower(DestinationMaster.name).like(f"%{t}%") for t in tokens]), 0),
+                            else_=1
+                        ),
+                        DestinationMaster.rating.desc(),
+                        DestinationMaster.review_count.desc(),
+                        DestinationMaster.id.asc()
+                    )
+                    .limit(50)
+                )
+                res_m = await db.execute(stmt_multi)
+                candidate_pois = list(res_m.scalars().all())
+
+            # 3. If not matched, try exact or substring match on clean_q
+            if not candidate_pois:
+                dest_clean = clean_q
+                dest_pat = f"%{dest_clean}%"
+
+                stmt = (
+                    select(DestinationMaster)
+                    .where(
+                        or_(
+                            func.lower(DestinationMaster.name).like(dest_pat),
+                            func.lower(DestinationMaster.state).like(dest_pat),
+                        )
+                    )
+                    .order_by(
+                        case(
+                            (func.lower(DestinationMaster.name) == dest_clean, 0),
+                            (func.lower(DestinationMaster.name).like(f"{dest_clean}%"), 1),
+                            (func.lower(DestinationMaster.name).like(dest_pat), 2),
+                            else_=3
+                        ),
+                        DestinationMaster.rating.desc(),
+                        DestinationMaster.review_count.desc(),
+                        DestinationMaster.id.asc()
+                    )
+                    .limit(50)
+                )
+                res = await db.execute(stmt)
+                candidate_pois = list(res.scalars().all())
+
+            # 4. Try individual non-generic place tokens first, then generic category tokens
+            if not candidate_pois and tokens:
+                GENERIC_CATEGORIES = {
+                    "temple", "beach", "fort", "hotel", "waterfall", "lake", "hill", 
+                    "mountain", "place", "nature", "wildlife", "monument", "palace", 
+                    "garden", "market", "museum", "park", "attraction"
+                }
+                sorted_tokens = sorted(tokens, key=lambda x: (x in GENERIC_CATEGORIES, -len(x)))
+                for t in sorted_tokens:
+                    t_pat = f"%{t}%"
+                    t_stmt = (
+                        select(DestinationMaster)
+                        .where(
+                            or_(
+                                func.lower(DestinationMaster.name).like(t_pat),
+                                func.lower(DestinationMaster.state).like(t_pat),
+                            )
+                        )
+                        .order_by(
+                            case(
+                                (func.lower(DestinationMaster.name).like(f"{t}%"), 0),
+                                else_=1
+                            ),
+                            DestinationMaster.rating.desc(),
+                            DestinationMaster.review_count.desc()
+                        )
+                        .limit(50)
+                    )
+                    res_t = await db.execute(t_stmt)
+                    cand_t = list(res_t.scalars().all())
+                    if cand_t:
+                        candidate_pois = cand_t
+                        break
+
+            if candidate_pois:
+                resolved_state = eff_state or candidate_pois[0].state
+
+        # 3. Fallback to state_target if query_target was empty but state was selected
+        if not candidate_pois and state_target:
+            st_clean = state_target.lower()
+            st_pat = f"%{st_clean}%"
+            stmt = (
+                select(DestinationMaster)
+                .where(func.lower(DestinationMaster.state).like(st_pat))
+                .order_by(
+                    DestinationMaster.rating.desc(),
+                    DestinationMaster.review_count.desc(),
+                    DestinationMaster.id.asc()
+                )
+                .limit(100)
+            )
+            res = await db.execute(stmt)
+            candidate_pois = list(res.scalars().all())
+            if candidate_pois:
+                resolved_state = candidate_pois[0].state
+
+        # CRITICAL SPATIAL ISOLATION:
+        # Strictly purge any POI not belonging to the resolved state to avoid mixing cross-state POIs
+        if resolved_state and resolved_state.lower() != "india":
+            candidate_pois = [p for p in candidate_pois if p.state.lower() == resolved_state.lower()]
+
+        # If fewer than 15 candidate POIs, backfill exclusively with top-rated POIs from the SAME state
+        if resolved_state and resolved_state.lower() != "india" and len(candidate_pois) < 15:
+            needed = 15 - len(candidate_pois)
+            existing_ids = {p.id for p in candidate_pois}
+            bf_stmt = (
                 select(DestinationMaster)
                 .where(
-                    or_(
-                        DestinationMaster.name.ilike(f"%{query_target}%"),
-                        DestinationMaster.description.ilike(f"%{query_target}%"),
-                    )
+                    func.lower(DestinationMaster.state) == resolved_state.lower(),
+                    DestinationMaster.id.notin_(existing_ids)
                 )
-                .order_by(DestinationMaster.rating.desc())
-                .limit(1)
+                .order_by(DestinationMaster.rating.desc(), DestinationMaster.review_count.desc())
+                .limit(needed)
             )
-            sample_res = await db.execute(sample_stmt)
-            sample_place = sample_res.scalars().first()
-            if sample_place:
-                state_target = sample_place.state
+            bf_res = await db.execute(bf_stmt)
+            candidate_pois.extend(bf_res.scalars().all())
 
-        if not state_target:
-            state_target = "Rajasthan"  # Default flagship demo state
-
-        # Query top-rated POIs in this state
-        stmt = (
-            select(DestinationMaster)
-            .where(DestinationMaster.state == state_target)
-            .order_by(DestinationMaster.rating.desc(), DestinationMaster.review_count.desc())
-            .limit(50)
-        )
-        res = await db.execute(stmt)
-        all_state_pois = list(res.scalars().all())
-
-        if not all_state_pois:
-            fallback_stmt = (
-                select(DestinationMaster)
-                .order_by(DestinationMaster.rating.desc())
-                .limit(35)
+        # 4. If STILL no matching POIs found:
+        if not candidate_pois:
+            target_display = query_target or state_target or "this destination"
+            raise HTTPException(
+                status_code=404,
+                detail=f"We don't have enough verified data for '{target_display}' yet. Try a nearby major city or check back soon."
             )
-            fallback_res = await db.execute(fallback_stmt)
-            all_state_pois = list(fallback_res.scalars().all())
-            state_target = all_state_pois[0].state if all_state_pois else "India"
 
-        # Interest-based scoring to prioritize relevant POIs
+        # Interest-based scoring to prioritize genuinely matching POIs within the candidate set
         interest_keywords = {
-            "Heritage & Monuments": ["fort", "palace", "haveli", "museum", "citadel", "monument", "mahal", "tomb", "heritage"],
-            "Nature & Wildlife": ["park", "sanctuary", "lake", "waterfall", "valley", "forest", "peak", "wildlife", "river", "garden"],
-            "Spiritual & Temples": ["temple", "mandir", "ghat", "aarti", "gurudwara", "church", "mosque", "dargah", "ashram", "stupa"],
-            "Rural & PM-JUGA Stays": ["village", "tribal", "craft", "rural", "organic", "heritage", "community"],
-            "Culinary & Street Food": ["bazaar", "market", "food", "lane", "chowk", "spice", "cuisine"],
-            "Adventure & Treks": ["trek", "pass", "ridge", "safari", "camping", "rafting", "climb", "gorge", "adventure"],
+            "Heritage & Monuments": [
+                "fort", "palace", "haveli", "museum", "citadel", "monument", "mahal", 
+                "tomb", "heritage", "archaeological", "gate", "ruins", "bastion"
+            ],
+            "Nature & Wildlife": [
+                "park", "sanctuary", "lake", "waterfall", "valley", "forest", "peak", 
+                "wildlife", "river", "garden", "reserve", "hills", "meadow", "national park"
+            ],
+            "Spiritual & Temples": [
+                "temple", "mandir", "ghat", "aarti", "gurudwara", "church", "mosque", 
+                "dargah", "ashram", "stupa", "shrine", "monastery", "spiritual", "parikrama"
+            ],
+            "Rural & PM-JUGA Stays": [
+                "village", "tribal", "craft", "rural", "organic", "community", 
+                "folk", "handloom", "pottery", "homestay", "farm"
+            ],
+            "Culinary & Street Food": [
+                "bazaar", "market", "food", "lane", "chowk", "spice", "cuisine", 
+                "mithai", "chaat", "sweet", "tea", "dhaba"
+            ],
+            "Adventure & Treks": [
+                "trek", "pass", "ridge", "safari", "camping", "rafting", "climb", 
+                "gorge", "adventure", "camp", "hiking", "trail", "expedition"
+            ],
         }
 
-        active_keywords = []
+        active_keywords: List[str] = []
         for interest in request.interests:
             active_keywords.extend(interest_keywords.get(interest, []))
 
+        budget_preference = (request.budget or "moderate").lower()
+        target_name_clean = (query_target or "").strip().lower()
+
         def score_poi(p: DestinationMaster) -> float:
-            score = p.rating or 4.0
-            text_corpus = f"{p.name} {p.description or ''}".lower()
+            score = float(p.rating or 4.0)
+            
+            # Review count authority weight (up to +1.0)
+            if p.review_count:
+                score += min(p.review_count / 1500.0, 1.0)
+            
+            # Text matching on name, description, category
+            p_name = (p.name or "").lower()
+            p_desc = (p.description or "").lower()
+            p_cat = (p.category or "").lower()
+
+            # Heavy boost if POI directly matches query target city or name
+            if target_name_clean and target_name_clean not in ("india", "trip", "tour"):
+                if target_name_clean in p_name:
+                    score += 8.0
+                elif any(t in p_name for t in target_name_clean.split() if len(t) > 3):
+                    score += 4.0
+                elif target_name_clean in p_desc:
+                    score += 2.0
+
             for kw in active_keywords:
-                if kw in text_corpus:
-                    score += 0.8
+                if kw in p_name:
+                    score += 2.5  # High priority match in name
+                elif kw in p_cat:
+                    score += 1.8  # Category match
+                elif kw in p_desc:
+                    score += 1.0  # Description match
+
+            # Budget tier alignment
+            p_price = (p.price_range or "mid").lower()
+            if budget_preference == "budget" and p_price == "budget":
+                score += 2.0
+            elif budget_preference == "luxury" and p_price == "luxury":
+                score += 2.0
+            elif budget_preference == "moderate" and p_price in ("mid", "budget"):
+                score += 1.0
+
+            # Hidden gem preference for rural / nature lovers
+            if any(i in ("Rural & PM-JUGA Stays", "Nature & Wildlife") for i in request.interests):
+                if p.is_hidden_gem:
+                    score += 1.5
+
             return score
 
-        all_state_pois.sort(key=score_poi, reverse=True)
-        return all_state_pois[:35], state_target
+        candidate_pois.sort(key=score_poi, reverse=True)
+        # Return top 35 grounded candidates strictly for this destination
+        return candidate_pois[:35], resolved_state
 
     @classmethod
     async def _fetch_homestays_for_state(cls, db: AsyncSession, state: str) -> List[Dict[str, Any]]:
@@ -353,9 +581,11 @@ class ItineraryService:
         state: str,
         homestays: List[Dict[str, Any]],
     ) -> Optional[ItineraryResponse]:
-        """Call Gemini 1.5 Flash using direct REST endpoint with structured schema."""
+        """Call Gemini 1.5 Flash using direct REST endpoint with structured schema and strict grounding."""
         api_key = settings.gemini_api_key
         url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+
+        target_destination = request.destination or request.state or state
 
         poi_context = [
             {
@@ -370,11 +600,20 @@ class ItineraryService:
             for p in candidate_pois[:15]
         ]
 
+        verified_names = [p.name for p in candidate_pois[:15]]
+        places_list = "\n".join([f"- {p.name} (Category: {p.category}, Lat: {p.latitude}, Lng: {p.longitude})" for p in candidate_pois[:15]])
+
         prompt = (
             f"You are the TravelSathi AI Travel Twin planner for India tourism.\n"
-            f"Generate a {request.days}-day itinerary for {state}, India for a {request.group_type} traveler.\n"
-            f"Budget Tier: {request.budget}. Interests: {', '.join(request.interests)}. Pace: {request.pace}.\n"
-            f"Grounding POIs (use these real places):\n{json.dumps(poi_context)}\n"
+            f"You are planning a {request.days}-day trip STRICTLY within {target_destination}, India for a {request.group_type} traveler.\n"
+            f"Budget Tier: {request.budget}. Primary Interests: {', '.join(request.interests)}. Pace: {request.pace}.\n\n"
+            f"You may ONLY use these verified real locations — do not invent, substitute, or include any place not on this list, and do not include places from any other city or region:\n\n"
+            f"{places_list}\n\n"
+            f"CRITICAL GROUNDING CONSTRAINTS:\n"
+            f"1. ONLY recommend places from this verified list of destinations: {json.dumps(verified_names)}.\n"
+            f"2. DO NOT invent, hallucinate, or include any attraction or place not present in this list.\n"
+            f"3. Every stop MUST use the exact destination_name, destination_id, latitude, and longitude from the list above.\n"
+            f"4. If the list above has fewer than {request.days * 3} places, repeat a highly-rated place across multiple days or designate a time slot as 'Free time to explore {target_destination}' rather than inventing a location.\n\n"
             f"Output MUST be valid JSON adhering exactly to the specified TravelSathi format:\n"
             f'{{"title": "...", "summary": "...", "days_schedule": [{{"day_number": 1, "theme": "...", '
             f'"weather_advisory": "...", "culinary_highlight": "...", "day_cost_inr": 2500, "stops": [{{"time_slot": "Morning (09:00 - 12:30)", '
@@ -412,6 +651,7 @@ class ItineraryService:
             total_transit_km = 0.0
 
             culinary_options = REGIONAL_CULINARY_MAP.get(state, DEFAULT_CULINARY)
+            valid_poi_map = {p.name.lower(): p for p in candidate_pois}
 
             for d_idx, d in enumerate(parsed.get("days_schedule", [])):
                 stops: List[ItineraryStop] = []
@@ -419,8 +659,27 @@ class ItineraryService:
                 prev_stop = None
 
                 for s_idx, s in enumerate(raw_stops):
-                    lat = s.get("latitude", 26.9)
-                    lng = s.get("longitude", 75.8)
+                    s_name = s.get("destination_name", "").strip()
+                    matched_poi = valid_poi_map.get(s_name.lower())
+
+                    # Enforce strict grounding: if Gemini hallucinated a place outside the list, ground it
+                    if not matched_poi and "free time" not in s_name.lower():
+                        matched_poi = candidate_pois[s_idx % len(candidate_pois)]
+                        s["destination_name"] = matched_poi.name
+                        s["destination_id"] = matched_poi.id
+                        s["latitude"] = matched_poi.latitude
+                        s["longitude"] = matched_poi.longitude
+                        s["title"] = f"Exploration: {matched_poi.name}"
+                        s["category"] = matched_poi.category
+                    elif matched_poi:
+                        s["destination_name"] = matched_poi.name
+                        s["destination_id"] = matched_poi.id
+                        s["latitude"] = matched_poi.latitude
+                        s["longitude"] = matched_poi.longitude
+                        s["category"] = matched_poi.category
+
+                    lat = s.get("latitude", candidate_pois[0].latitude if candidate_pois else 26.9)
+                    lng = s.get("longitude", candidate_pois[0].longitude if candidate_pois else 75.8)
 
                     if prev_stop is not None:
                         dist_km, time_mins, fare, mode = estimate_transit_details(
@@ -435,17 +694,17 @@ class ItineraryService:
 
                     stop_obj = ItineraryStop(
                         time_slot=s.get("time_slot", "Morning (09:00 - 12:30)"),
-                        title=s.get("title", "Cultural Landmark Visit"),
+                        title=s.get("title", f"Visit {s.get('destination_name')}"),
                         destination_id=s.get("destination_id"),
-                        destination_name=s.get("destination_name", "Historic Monument"),
+                        destination_name=s.get("destination_name", target_destination),
                         category=s.get("category", "attraction"),
                         latitude=lat,
                         longitude=lng,
                         estimated_duration=s.get("estimated_duration", "2.0 hours"),
                         estimated_cost_inr=s.get("estimated_cost_inr", 200),
-                        description=s.get("description", "A celebrated cultural destination."),
+                        description=s.get("description", f"A celebrated cultural destination in {target_destination}."),
                         insider_tip=s.get("insider_tip", "Arrive early for soft morning photography."),
-                        image_url=s.get("image_url", "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=400&q=80"),
+                        image_url=s.get("image_url", candidate_pois[s_idx % len(candidate_pois)].image_url if candidate_pois else "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=400&q=80"),
                         transit_from_previous_km=dist_km if s_idx > 0 else None,
                         transit_time_minutes=time_mins if s_idx > 0 else None,
                         transit_guard_fare_inr=fare if s_idx > 0 else None,
@@ -528,9 +787,26 @@ class ItineraryService:
         }
         b_rates = budget_multipliers.get(request.budget, budget_multipliers["moderate"])
 
-        # Spatial nearest-neighbor chaining
+        # Select top relevant POIs matching the itinerary length (num_days * 3 stops)
+        needed_count = min(max(num_days * 3, 3), len(candidate_pois))
+        anchor_poi = candidate_pois[0] if candidate_pois else None
+
+        # Prioritize candidate POIs that are within 90km of anchor POI to maintain realistic daily circuits
+        if anchor_poi:
+            proximate = [
+                p for p in candidate_pois
+                if calculate_haversine_distance(anchor_poi.latitude, anchor_poi.longitude, p.latitude, p.longitude) <= 90.0
+            ]
+            if len(proximate) >= needed_count:
+                top_relevant_pois = proximate[:needed_count]
+            else:
+                top_relevant_pois = list(candidate_pois[:needed_count])
+        else:
+            top_relevant_pois = list(candidate_pois[:needed_count])
+
+        # Spatial nearest-neighbor chaining on the top interest-matched candidates
         ordered_pois: List[DestinationMaster] = []
-        remaining = list(candidate_pois)
+        remaining = list(top_relevant_pois)
         if remaining:
             current = remaining.pop(0)
             ordered_pois.append(current)
@@ -547,15 +823,49 @@ class ItineraryService:
                 current = remaining.pop(nearest_idx)
                 ordered_pois.append(current)
 
-        day_themes = [
-            "Imperial Citadels, Living Heritage & Architecture",
-            "Sacred Shrines, Spiritual Radiance & Scenic Panoramas",
-            "Artisan Guilds, Tribal Crafts & Local Flavor",
-            "Wild Valleys, Forest Glades & Rural Immersion",
-            "Hidden Byways, Riverbanks & Folk Traditions",
-            "High Passes, Monasteries & Majestic Horizons",
-            "Savoring the Sunset: Cultural Reverence & Reflection",
-        ]
+        # Dynamic themes aligned with user's selected interests
+        primary_interest = request.interests[0] if request.interests else "Heritage & Monuments"
+        if "Spiritual" in primary_interest or "Temple" in primary_interest:
+            day_themes = [
+                "Sacred Sanctums, Morning Darshan & Architectural Shrines",
+                "Ancient Pilgrimage Byways, Riverside Ghats & Chants",
+                "Monastic Peace, Meditation & Twilight Aarti Rituals",
+                "Spiritual Radiance & Divine Heritage Circuit",
+                "Historic Mandirs, Ashrams & Soulful Reflections",
+            ]
+        elif "Nature" in primary_interest or "Wildlife" in primary_interest:
+            day_themes = [
+                "National Park Safari, Wildlife Haven & Canopy Trails",
+                "Lakeside Wetlands, Flora & Pristine Avian Glades",
+                "Mountain Valley Vista, Nature Reserve & Scenic Glades",
+                "Forest Sanctuaries, River Walk & Eco-Preserves",
+                "Panoramic Horizons, Green Valleys & Serene Nature Trails",
+            ]
+        elif "Adventure" in primary_interest or "Trek" in primary_interest:
+            day_themes = [
+                "Highland Ridge Trek, Alpine Horizons & Mountain Passes",
+                "River Gorges, Rapid Escarpments & Wilderness Discovery",
+                "Rugged Trails, Outdoor Exploration & Panoramic Escapes",
+                "Valley Safari, Adventure Camp & Crest Trails",
+                "Peak Expeditions & Uncharted Nature Byways",
+            ]
+        elif "Culinary" in primary_interest or "Food" in primary_interest:
+            day_themes = [
+                "Old Bazaar Spice Trails, Street Flavors & Morning Kachori",
+                "Royal Heritage Recipes, Sweet Guilds & Traditional Breads",
+                "Farm-to-Table Village Dining, Local Spices & Evening Tea",
+                "Culinary Delights & Regional Street Food Trails",
+                "Aromatic Chowks, Saffron Confections & Savoring Heritage",
+            ]
+        else:
+            day_themes = [
+                "Imperial Citadels, Living Heritage & Fortified Architecture",
+                "Royal Palaces, Living Legends & Archaeological Artifacts",
+                "Artisan Guilds, Tribal Crafts & Local Culture",
+                "Historic Courtyards, Byways & Folk Traditions",
+                "Grand Monuments, Sunset Ramparts & Cultural Reflections",
+                "Savoring the Sunset: Cultural Reverence & Reflection",
+            ]
 
         time_slots = [
             ("Morning (09:00 - 12:30)", "Architectural Wonder & Heritage Walk", 2.5, "Low (Quiet Hours)", "08:30 - 10:30 AM (Soft Lighting)"),
@@ -724,7 +1034,7 @@ class ItineraryService:
             select(DestinationMaster)
             .where(
                 DestinationMaster.state == itinerary.state,
-                DestinationMaster.id.not_in(existing_ids),
+                DestinationMaster.id.not_in(list(existing_ids)),
             )
             .order_by(DestinationMaster.rating.desc(), DestinationMaster.review_count.desc())
             .limit(8)

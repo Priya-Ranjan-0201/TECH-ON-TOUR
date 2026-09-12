@@ -1,0 +1,163 @@
+{
+  "framework": "TravelSathi Specialized Multi-Model Recommendation Engine",
+  "evaluation_strategy": "Strict temporal and held-out test splits without data leakage",
+  "models": {
+    "destination_recommender": {
+      "name": "MODEL 1: Destination Recommender (LTR)",
+      "version": "v1.0.0",
+      "algorithm": "HistGradientBoostingClassifier",
+      "metrics": {
+        "accuracy": 0.9531,
+        "precision": 0.9542,
+        "recall": 0.9531,
+        "f1": 0.9514,
+        "roc_auc": 0.9806,
+        "ndcg_at_10": 0.9825,
+        "precision_at_10": 0.1751,
+        "recall_at_10": 1.0
+      },
+      "features": [
+        "destination_rating",
+        "average_budget",
+        "adventure_score",
+        "nature_score",
+        "heritage_score",
+        "religious_score",
+        "popularity_score",
+        "budget_gap",
+        "category_match",
+        "activity_overlap",
+        "duration"
+      ]
+    },
+    "season_weather": {
+      "name": "MODEL 2: Season & Weather Suitability",
+      "version": "v1.0.0",
+      "algorithm": "HistGradientBoostingClassifier",
+      "metrics": {
+        "accuracy": 0.9822,
+        "precision": 0.9822,
+        "recall": 0.9822,
+        "f1": 0.9821,
+        "roc_auc": 0.9995
+      },
+      "features": [
+        "temperature",
+        "humidity",
+        "rainfall",
+        "wind_speed",
+        "weather_alert",
+        "month",
+        "temp_deviation",
+        "humidity_deviation",
+        "rain_intensity",
+        "month_sin",
+        "month_cos"
+      ]
+    },
+    "nearby_ranker": {
+      "name": "MODEL 3: Nearby Place Ranker",
+      "version": "v1.0.0",
+      "algorithm": "HistGradientBoostingRegressor",
+      "metrics": {
+        "mae": 0.0018,
+        "rmse": 0.0031,
+        "r2": 0.9987,
+        "mape_pct": 0.26,
+        "ndcg_at_5": 0.9881,
+        "mrr": 0.9839
+      },
+      "features": [
+        "distance_km",
+        "rating_place",
+        "popularity_score",
+        "price",
+        "is_scenic_cat",
+        "prox_score",
+        "rat_score"
+      ]
+    },
+    "preference_model": {
+      "name": "MODEL 4: Personal Preference Latent Model",
+      "version": "v1.0.0",
+      "algorithm": "Implicit Matrix Factorization (TruncatedSVD)",
+      "metrics": {
+        "recall_at_10": 0.055,
+        "ndcg_at_10": 0.1611,
+        "explained_variance": 0.0465
+      },
+      "features": []
+    },
+    "trending_model": {
+      "name": "MODEL 5: Popularity & Trending Model",
+      "version": "v1.0.0",
+      "algorithm": "HistGradientBoostingRegressor",
+      "metrics": {
+        "mae": 0.0019,
+        "rmse": 0.0053,
+        "r2": 0.9983,
+        "mape_pct": 0.54,
+        "spearman_rho": 0.9487
+      },
+      "features": [
+        "activity_7d",
+        "activity_14d",
+        "activity_30d",
+        "activity_90d",
+        "velocity_ratio",
+        "booking_rate",
+        "base_popularity",
+        "growth_rate"
+      ]
+    },
+    "demand_model": {
+      "name": "MODEL 6: Travel Demand & Crowd Forecaster",
+      "version": "v1.0.0",
+      "algorithm": "HistGradientBoostingClassifier",
+      "metrics": {
+        "regression": {
+          "mae": 0.0095,
+          "rmse": 0.0122,
+          "r2": 0.9953,
+          "mape_pct": 1.69
+        },
+        "classification": {
+          "accuracy": 0.9634,
+          "precision": 0.9645,
+          "recall": 0.9634,
+          "f1": 0.9636,
+          "roc_auc": 0.9973
+        }
+      },
+      "features": [
+        "month",
+        "day_of_week",
+        "is_weekend",
+        "holiday",
+        "festival",
+        "popularity_score",
+        "accessibility_score",
+        "searches",
+        "bookings",
+        "views",
+        "search_booking_ratio",
+        "booking_intensity",
+        "search_intensity",
+        "event_boost",
+        "month_sin",
+        "month_cos",
+        "weekend_pop"
+      ]
+    },
+    "similarity_model": {
+      "name": "MODEL 7: Destination Similarity Model",
+      "version": "v1.0.0",
+      "algorithm": "Hybrid TF-IDF + TruncatedSVD + Cosine NearestNeighbors",
+      "metrics": {
+        "mean_top3_cosine_similarity": 0.9844,
+        "explained_text_variance": 0.3882
+      },
+      "features": []
+    }
+  }
+}

@@ -43,7 +43,7 @@ async def get_weather(
     key = destination.strip().lower()
     profile = WEATHER_PROFILES.get(key, WEATHER_PROFILES["default"])
 
-    is_rain = profile["rain"] >= 50
+    is_rain = profile.get("is_rainy", False) or profile["rain"] >= 50
     advisory = (
         "Active rainfall projected. Prioritize indoor heritage museums, temple complexes, and craft workshops."
         if is_rain else

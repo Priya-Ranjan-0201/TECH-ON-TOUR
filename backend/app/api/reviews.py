@@ -4,23 +4,29 @@ Provides DistilBERT SST-2 sentiment confidence and authenticity ratings,
 with anti-fake review gating requiring a verified booking reference.
 """
 
-from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database.connection import get_db
+from app.schemas.review import ReviewSubmitRequest
 from app.services.review_service import ReviewService
 
 router = APIRouter(tags=["Reviews & Trust Layer"])
 
 
-class ReviewSubmitRequest(BaseModel):
-    place_id: int = Field(..., description="Destination or POI ID")
-    booking_id: str = Field(..., description="Confirmed booking reference (e.g. TS-UPI-123456)")
-    author_name: str = Field("Verified Tourist", description="Author full name")
-    rating: float = Field(5.0, ge=1.0, le=5.0, description="Rating from 1.0 to 5.0")
-    review_text: str = Field(..., min_length=10, description="Authentic review text")
+class ReviewAuthenticityCheckRequest(BaseModel):
+    review_text: str = Field(..., description="Review content to evaluate")
+    rating: float = Field(4.5, ge=1.0, le=5.0, description="Star rating (1.0 to 5.0)")
+
+
+@router.post("/reviews/predict-authenticity")
+async def check_review_authenticity(payload: ReviewAuthenticityCheckRequest):
+    """
+    Evaluates review text and star rating using the trained LogisticRegression
+    classifier with 6 engineered NLP features. Returns trust badge eligibility and confidence.
+    """
+    return ReviewService.predict_authenticity(text=payload.review_text, rating=payload.rating)
 
 
 @router.get("/destinations/{destination_id}/reviews")

@@ -4,109 +4,484 @@
 
 @layer base {
   :root {
-    /* 🏺 PRIMARY FAMILY: Terracotta & Ochre (Brand Core, Headers & CTAs) */
-    --ts-primary-900: #4A1B0C;   /* Deepest Terracotta - Headings & High-contrast text */
-    --ts-primary-800: #712B13;   /* Primary Brand - Header bars, primary action buttons */
-    --ts-primary-600: #993C1D;   /* Mid Terracotta - Secondary buttons, interactive accents */
-    --ts-primary-400: #D85A30;   /* Light Terracotta - Active highlights, borders */
-    --ts-primary-100: #F5C4B3;   /* Pale Terracotta - Subtle card fills, hover states */
-    --ts-primary-50:  #FAECE7;   /* Palest Terracotta - Tag backgrounds, button text on dark */
+    /* 🌲 PRIMARY FAMILY: Fresh Emerald / Travel Leaf (#2A805E) */
+    --ts-primary-900: #1E5C43;   /* Polished Dark Sage - Headings & High-contrast text */
+    --ts-primary-800: #2A805E;   /* Core Brand - Header accents, primary action buttons */
+    --ts-primary-600: #389E75;   /* Fresh Jade Green - Interactive buttons, active accents */
+    --ts-primary-400: #62C098;   /* Light Sage - Highlights, active borders */
+    --ts-primary-100: #E6F4ED;   /* Pale Mint - Subtle card fills, hover states */
+    --ts-primary-50:  #F4FAF6;   /* Palest Mint - Tag backgrounds */
 
-    /* 🌿 SECONDARY FAMILY: Forest Canopy & Temple Green (Verified & Eco Badges) */
-    --ts-secondary-900: #173404; /* Dark Forest - Success text, verified badges */
-    --ts-secondary-800: #27500A; /* Verified Checkmarks, Hidden-Gem tags, Eco-permits */
-    --ts-secondary-600: #3B6D11; /* Forest Mid - Secondary success indicators */
-    --ts-secondary-400: #639922; /* Leaf Green - Progress indicators, ratings */
-    --ts-secondary-50:  #EAF3DE; /* Pale Green - Success badges, hidden-gem card fills */
+    /* 🌿 SECONDARY FAMILY: Natural Green (#2E8B6E) & Soft Leaf (#42A888) */
+    --ts-secondary-900: #22614E; /* Balanced Slate Pine */
+    --ts-secondary-800: #2E8B6E; /* Clean Green - Verified Badges */
+    --ts-secondary-600: #42A888; /* Natural Green - Success indicators */
+    --ts-secondary-400: #72C7AC; /* Leaf Green - Progress indicators, ratings */
+    --ts-secondary-50:  #EBF7F2; /* Soft Light Green - Badges, card fills */
 
-    /* 🛕 ACCENT FAMILY: Saffron & Sacred Gold (Pricing Tips & Cultural Highlights) */
-    --ts-accent-900: #412402;    /* Dark Amber - Pricing recommendation text */
-    --ts-accent-800: #633806;    /* Warm Amber - Dynamic pricing co-pilot alerts */
-    --ts-accent-600: #854F0B;    /* Saffron Gold - Star ratings, cultural highlight icons */
-    --ts-accent-400: #E5A93C;    /* Temple Gold - Explorer badges, featured borders */
-    --ts-accent-50:  #FAEEDA;    /* Pale Amber - Pricing tip & festival alert backgrounds */
+    /* 🏺 ACCENT FAMILY: Warm Ochre & Terracotta (#D96B43) & Golden Amber (#F59E0B) */
+    --ts-accent-900: #A14624;    /* Balanced Terracotta */
+    --ts-accent-800: #C0542C;    /* Medium Terracotta */
+    --ts-accent-600: #D96B43;    /* Warm Ochre / Terracotta - Accent buttons & highlights */
+    --ts-accent-400: #F59E0B;    /* Sunlight Gold - Star ratings, highlights */
+    --ts-accent-50:  #FDF6F0;    /* Pale Warm Ivory - Tips & accents */
 
-    /* 🚨 ALERT FAMILY: Varanasi Vermillion (Emergency SOS & Validation Errors) */
-    --ts-alert-red-800: #B71C1C; /* Dark Red - Error text, emergency SOS triggers */
-    --ts-alert-red-600: #D32F2F; /* Vermillion Red - Input validation error borders */
-    --ts-alert-red-50:  #FFEBEE; /* Pale Red - Error banner backgrounds */
+    /* 🚨 ALERT & STATUS TOKENS */
+    --ts-alert-red-800: #C53030; /* Clean Red - Error text, emergency triggers */
+    --ts-alert-red-600: #E53E3E; /* Bright Red - Error borders */
+    --ts-alert-red-50:  #FEF2F2; /* Soft Red Background */
+    --ts-alert-amber:   #D97706; /* Golden Amber */
+    --ts-info-teal:     #0D9488; /* Fresh Teal Map/Info Accent */
 
-    /* 🏛️ NEUTRAL FAMILY: Sandalwood & Charcoal Slate (Backgrounds & Structural) */
-    --ts-neutral-900: #2C2C2A;   /* Charcoal Slate - Primary body text */
-    --ts-neutral-600: #5F5E5A;   /* Sandalwood Gray - Secondary metadata, subtitles */
-    --ts-neutral-400: #888780;   /* Muted Gray - Placeholders, disabled states */
-    --ts-neutral-200: #E0E0E0;   /* Border Ash - Hairline dividers, card outlines */
-    --ts-neutral-100: #F5F7FA;   /* Pristine Canvas - Main screen background */
-    --ts-neutral-50:  #FDFBF7;   /* Warm Ivory - Card surfaces, modal backgrounds */
+    /* 🏜️ NEUTRAL FAMILY: Crisp Light Canvas (#FAFAF5) & Pure White (#FFFFFF) */
+    --ts-neutral-900: #1F2937;   /* Slate Charcoal - Primary body text (crisp, readable) */
+    --ts-neutral-700: #374151;   /* Neutral Slate - Subtitles */
+    --ts-neutral-600: #4B5563;   /* Muted Slate - Secondary metadata */
+    --ts-neutral-400: #9CA3AF;   /* Light Gray - Placeholders, borders */
+    --ts-neutral-200: #E5E7EB;   /* Clean Light Border - Hairline dividers */
+    --ts-neutral-100: #FAFAF5;   /* Crisp Airy Cream - Main screen background */
+    --ts-neutral-50:  #FFFFFF;   /* Pure White - Card surfaces, modal backgrounds */
 
     /* 🪟 GLASSMORPHIC TOKENS */
-    --ts-glass-surface: rgba(253, 251, 247, 0.90);
-    --ts-glass-border: rgba(113, 43, 19, 0.12);
+    --ts-glass-surface: rgba(255, 255, 255, 0.96);
+    --ts-glass-border: rgba(42, 128, 94, 0.15);
+    --ts-glass-blur: blur(12px);
+
+    /* ========================================================
+       FOUR-PERSONA COLOR SYSTEM (TravelSathi Multi-Panel Architecture)
+       ======================================================== */
+    --panel-primary-900: #1E5C43;
+    --panel-primary-800: #2A805E;
+    --panel-primary-600: #389E75;
+    --panel-primary-50:  #F4FAF6;
+    --panel-accent:      #D96B43;
+
+
+    /* Mappings for backwards-compatible variable usage */
+    --ts-brand-primary: var(--ts-primary-800);
+    --ts-brand-hover:   var(--ts-primary-900);
+    --ts-brand-pressed: #144230;
+    --ts-brand-50:      var(--ts-primary-50);
+    --ts-nature-primary: var(--ts-secondary-800);
+    --ts-nature-light:   var(--ts-secondary-50);
+    --ts-trust-primary:  var(--ts-secondary-600);
+    --ts-action-primary: var(--ts-primary-800);
+    --ts-action-hover:   var(--ts-primary-900);
+    --ts-action-light:   var(--ts-primary-50);
+    --ts-semantic-sos:   var(--ts-alert-red-800);
+    --ts-semantic-error: var(--ts-alert-red-800);
+    --ts-semantic-success: var(--ts-secondary-600);
+    --ts-semantic-warning: var(--ts-accent-400);
+    --ts-neutral-bg:     var(--ts-neutral-100);
+    --ts-neutral-card:   #FFFFFF;
+    --ts-neutral-text:   var(--ts-neutral-900);
+    --ts-neutral-text-sec: var(--ts-neutral-600);
+    --ts-neutral-border: var(--ts-neutral-200);
+    --ts-ai-bg:          var(--ts-primary-50);
+    --ts-ai-border:      var(--ts-primary-100);
+    --ts-ai-icon:        var(--ts-primary-800);
+    --ts-ai-text:        var(--ts-primary-900);
+    --ts-ai-gradient:    linear-gradient(135deg, #2A805E 0%, #389E75 50%, #D96B43 100%);
+  }
+
+  /* Host / Homestay Portal Persona (Warm Amber / Gold) */
+  html[data-panel="host"] {
+    --panel-primary-900: #412402;
+    --panel-primary-800: #633806;
+    --panel-primary-600: #854F0B;
+    --panel-primary-50:  #FAEEDA;
+    --panel-accent:      #712B13;
+  }
+
+  /* DMO Tourism Intelligence / Government Persona (Ocean Blue / Trust) */
+  html[data-panel="dmo"], html[data-panel="gov"] {
+    --panel-primary-900: #042C53;
+    --panel-primary-800: #185FA5;
+    --panel-primary-600: #0F6E56;
+    --panel-primary-50:  #E6F1FB;
+    --panel-accent:      #0F6E56;
+  }
+
+  /* System Admin Center Persona (Neutral Slate / Reserved Red Accent) */
+  html[data-panel="admin"] {
+    --panel-primary-900: #1A1A1A;
+    --panel-primary-800: #2C2C2A;
+    --panel-primary-600: #5F5E5A;
+    --panel-primary-50:  #F1EFE8;
+    --panel-accent:      #B3261E;
+  }
+
+  .dark {
+    --ts-neutral-bg:        #141210;
+    --ts-neutral-card:      #1F1B18;
+    --ts-neutral-text:      #F7F4F0;
+    --ts-neutral-text-sec:  #C4BCB5;
+    --ts-neutral-muted:     #8F857E;
+    --ts-neutral-border:    #3D352F;
+    --ts-neutral-50:        #1F1B18;
+
+    --ts-primary-800: #D85A30;
+    --ts-brand-primary: #D85A30;
+    --ts-brand-hover:   #F5C4B3;
+    --ts-nature-primary: #639922;
+    --ts-action-primary: #E5A93C;
+
+    --ts-ai-bg:     #2A1D18;
+    --ts-ai-border: #4D2E24;
+    --ts-ai-icon:   #D85A30;
+    --ts-ai-text:   #F5C4B3;
   }
 
   body {
-    background-color: var(--ts-neutral-100);
-    color: var(--ts-neutral-900);
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--ts-neutral-bg);
+    color: var(--ts-neutral-text);
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: var(--ts-primary-900);
-    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
-    font-weight: 600;
+    font-family: 'Outfit', 'Plus Jakarta Sans', 'Manrope', 'Inter', sans-serif;
+    letter-spacing: -0.015em;
+    color: var(--ts-neutral-900);
+    font-weight: 700;
+  }
+
+  .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: var(--ts-neutral-text);
   }
 }
 
-/* Custom Heritage Utility Classes */
-.btn-primary-ts {
-  background-color: var(--ts-primary-800);
-  color: var(--ts-primary-50);
-  padding: 10px 20px;
-  border-radius: 12px;
-  font-weight: 500;
-  transition: all 0.2s ease-in-out;
+/* ========================================================
+   PART 1: EXPLICIT TEXT / BACKGROUND CONTRAST PAIRS
+   ======================================================== */
+.ts-section-light {
+  background-color: var(--ts-neutral-50) !important;
+  color: var(--ts-neutral-900) !important;
+}
+.ts-section-light h1, .ts-section-light h2, .ts-section-light h3,
+.ts-section-light h4, .ts-section-light h5, .ts-section-light h6 {
+  color: var(--ts-neutral-900) !important;
+}
+.ts-section-light p, .ts-section-light span, .ts-section-light label {
+  color: inherit;
 }
 
-.btn-primary-ts:hover {
+.ts-section-dark {
+  background-color: var(--ts-primary-900) !important;
+  color: var(--ts-primary-50) !important;
+}
+.ts-section-dark h1, .ts-section-dark h2, .ts-section-dark h3,
+.ts-section-dark h4, .ts-section-dark h5, .ts-section-dark h6 {
+  color: #FFFFFF !important;
+}
+.ts-section-dark p, .ts-section-dark span {
+  color: var(--ts-primary-50);
+}
+
+.ts-card-light {
+  background-color: var(--ts-neutral-50) !important;
+  color: var(--ts-neutral-900) !important;
+  border: 1px solid var(--ts-neutral-200);
+}
+
+.ts-card-dark {
+  background-color: var(--ts-primary-900) !important;
+  color: var(--ts-primary-50) !important;
+  border: 1px solid rgba(250, 236, 231, 0.2);
+}
+
+/* ========================================================
+   THEME 1: HERITAGE EARTH COMPONENT SPECIFICATIONS
+   ======================================================== */
+
+/* Primary Brand Button (Crisp Forest Emerald #1C6B4E) */
+.btn-primary, .btn-brand, .btn-action {
+  background-color: var(--ts-primary-800);
+  color: #FFFFFF;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  box-shadow: 0 2px 8px rgba(42, 128, 94, 0.22);
+}
+.btn-primary:hover, .btn-brand:hover, .btn-action:hover {
   background-color: var(--ts-primary-900);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(30, 92, 67, 0.32);
+}
+.btn-primary:active, .btn-brand:active, .btn-action:active {
+  background-color: #164633;
+  transform: translateY(0);
+}
+
+/* Secondary Button (Warm Ivory Surface with Terracotta Border) */
+.btn-secondary {
+  background-color: var(--ts-neutral-50);
+  color: var(--ts-primary-800);
+  border: 1px solid var(--ts-neutral-200);
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.btn-secondary:hover {
+  background-color: var(--ts-primary-50);
+  border-color: var(--ts-primary-400);
+  color: var(--ts-primary-900);
+}
+
+/* Accent Button (Temple Gold #E5A93C) */
+.btn-accent {
+  background-color: var(--ts-accent-400);
+  color: var(--ts-accent-900);
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+}
+.btn-accent:hover {
+  background-color: var(--ts-accent-600);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(229, 169, 60, 0.35);
+}
+
+/* Emergency SOS Button (Varanasi Vermillion #B71C1C) */
+.btn-sos {
+  background-color: var(--ts-alert-red-800);
+  color: #FFFFFF;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  box-shadow: 0 4px 14px rgba(183, 28, 28, 0.35);
+}
+.btn-sos:hover {
+  background-color: #8E1414;
+  box-shadow: 0 6px 20px rgba(183, 28, 28, 0.45);
+}
+
+/* Card Surface with 8px Geometry & 1px hairline border */
+.ts-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--ts-neutral-200);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 8px -1px rgba(74, 27, 12, 0.05);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ts-card:hover {
+  box-shadow: 0 10px 25px -4px rgba(74, 27, 12, 0.08);
+  border-color: var(--ts-primary-400);
+}
+.dark .ts-card {
+  background-color: var(--ts-neutral-card);
+  border-color: var(--ts-neutral-border);
+}
+
+/* Badges conforming to Semantic Family Pairing Rule */
+.badge-nature, .badge-verified {
+  background-color: var(--ts-secondary-50);
+  color: var(--ts-secondary-900);
+  border: 1px solid rgba(39, 80, 10, 0.25);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.badge-brand {
+  background-color: var(--ts-primary-50);
+  color: var(--ts-primary-900);
+  border: 1px solid rgba(113, 43, 19, 0.25);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.badge-gem, .badge-accent, .badge-action {
+  background-color: var(--ts-accent-50);
+  color: var(--ts-accent-900);
+  border: 1px solid rgba(229, 169, 60, 0.35);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.badge-trust {
+  background-color: var(--ts-secondary-50);
+  color: var(--ts-secondary-900);
+  border: 1px solid rgba(39, 80, 10, 0.2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+/* AI Surface */
+.ai-surface {
+  background-color: var(--ts-primary-50);
+  border: 1px solid var(--ts-primary-100);
+  border-radius: 0.75rem;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--ts-neutral-100);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ts-neutral-200);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ts-primary-800);
+}
+
+/* ========================================================
+   THEME: HERO RESTYLING UTILITIES (Fresh Emerald & Warm Ochre)
+   ======================================================== */
+.theme1-hero-container {
+  position: relative;
+  background-color: #2A805E;
+  background-image: 
+    linear-gradient(to bottom, rgba(30, 92, 67, 0.60) 0%, rgba(24, 76, 55, 0.72) 55%, rgba(18, 58, 42, 0.85) 100%),
+    url('/heritage_hero_bg.jpg');
+  background-position: center 30%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: var(--ts-neutral-50);
+}
+
+.hero-heading-line1 {
+  color: var(--ts-primary-50) !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.hero-heading-line2 {
+  color: var(--ts-accent-400);
+  background: linear-gradient(135deg, #F59E0B 0%, #FDF6F0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(245, 158, 11, 0.35));
+}
+
+/* 5 Hero Actions strictly matching Theme Semantic Families */
+.btn-generate-travel-twin {
+  background: var(--ts-accent-600) !important;
+  color: #FFFFFF !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-generate-travel-twin:hover {
+  background: var(--ts-accent-800) !important;
   transform: translateY(-1px);
 }
 
-.badge-verified-ts {
-  background-color: var(--ts-secondary-50);
-  color: var(--ts-secondary-800);
-  border: 1px solid rgba(39, 80, 10, 0.2);
-  padding: 4px 10px;
-  border-radius: 9999px;
-  font-size: 12px;
-  font-weight: 600;
+.btn-live-safety-index {
+  background: var(--ts-secondary-800) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-live-safety-index:hover {
+  background: var(--ts-secondary-900) !important;
+  transform: translateY(-1px);
 }
 
-.badge-gem-ts {
-  background-color: var(--ts-secondary-50);
-  color: var(--ts-secondary-900);
-  border: 1px solid rgba(23, 52, 4, 0.2);
-  padding: 4px 10px;
-  border-radius: 9999px;
-  font-size: 12px;
-  font-weight: 600;
+.btn-explorer-badges {
+  background: var(--ts-secondary-600) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-explorer-badges:hover {
+  background: var(--ts-secondary-800) !important;
+  transform: translateY(-1px);
 }
 
-.badge-pricing-ts {
-  background-color: var(--ts-accent-50);
-  color: var(--ts-accent-900);
-  border: 1px solid rgba(133, 79, 11, 0.2);
-  padding: 4px 10px;
-  border-radius: 9999px;
-  font-size: 12px;
-  font-weight: 600;
+.btn-ai-concierge {
+  background: var(--ts-primary-600) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-ai-concierge:hover {
+  background: var(--ts-primary-800) !important;
+  transform: translateY(-1px);
 }
 
-.card-ts {
-  background-color: var(--ts-neutral-50);
-  border: 1px solid var(--ts-neutral-200);
-  border-radius: 12px;
-  box-shadow: 0 2px 8px -2px rgba(113, 43, 19, 0.08);
+.btn-pitch-studio {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  color: #FFFFFF !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
+.btn-pitch-studio:hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+  transform: translateY(-1px);
+}
+
+/* 5 Popular Circuit Tags: crisp white background + clean dark sage text */
+.circuit-tag {
+  background: #FFFFFF !important;
+  color: #1E5C43 !important;
+  border: 1px solid rgba(42, 128, 94, 0.25) !important;
+  font-weight: 600;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.circuit-tag:hover {
+  background: #E6F4ED !important;
+  color: #1E5C43 !important;
+  border-color: #2A805E !important;
+  transform: translateY(-1px);
+}
+
+

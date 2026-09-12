@@ -1,11 +1,12 @@
 import asyncio
 import json
 import logging
+import math
 import uuid
 from typing import Dict, List, Optional, Tuple
 
 import httpx
-from sqlalchemy import or_, select
+from sqlalchemy import and_, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.config import settings
@@ -20,13 +21,45 @@ from app.schemas.chat import (
 
 logger = logging.getLogger(__name__)
 
+def haversine_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
+    """Calculate great-circle distance between two GPS coordinates in kilometers."""
+    R = 6371.0
+    dlat = math.radians(lat2 - lat1)
+    dlon = math.radians(lon2 - lon1)
+    a = math.sin(dlat / 2.0)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon / 2.0)**2
+    c = 2.0 * math.atan2(math.sqrt(a), math.sqrt(1.0 - a))
+    return R * c
+
+CITY_COORDINATES = {
+    "delhi": (28.6139, 77.2090), "new delhi": (28.6139, 77.2090), "ncr": (28.6139, 77.2090),
+    "mumbai": (19.0760, 72.8777), "bombay": (19.0760, 72.8777),
+    "bengaluru": (12.9716, 77.5946), "bangalore": (12.9716, 77.5946),
+    "kolkata": (22.5726, 88.3639), "calcutta": (22.5726, 88.3639),
+    "chennai": (13.0827, 80.2707), "madras": (13.0827, 80.2707),
+    "hyderabad": (17.3850, 78.4867),
+    "jaipur": (26.9124, 75.7873),
+    "pune": (18.5204, 73.8567),
+    "ahmedabad": (23.0225, 72.5714),
+    "chandigarh": (30.7333, 76.7794),
+    "shimla": (31.1048, 77.1734),
+    "manali": (32.2432, 77.1892),
+    "kochi": (9.9312, 76.2673), "cochin": (9.9312, 76.2673),
+    "goa": (15.2993, 74.1240),
+    "varanasi": (25.3176, 82.9739),
+    "lucknow": (26.8467, 80.9462),
+    "dehradun": (30.3165, 78.0322),
+    "rishikesh": (30.0869, 78.2676),
+    "guwahati": (26.1445, 91.7362),
+    "bhubaneswar": (20.2961, 85.8245),
+}
+
 # Pre-compiled multi-lingual prompts and responses
 LOCALIZED_INITIAL_PROMPTS = {
     "en": [
         {
             "id": "p1",
-            "label": "🏡 PM-JUGA Tribal Homestays",
-            "query": "Tell me about PM-JUGA certified tribal homestays in Bastar and how to book them.",
+            "label": "🏡 Verified Community Homestays",
+            "query": "Tell me about verified community homestays in Bastar and how to book them.",
         },
         {
             "id": "p2",
@@ -47,8 +80,8 @@ LOCALIZED_INITIAL_PROMPTS = {
     "hi": [
         {
             "id": "p1",
-            "label": "🏡 पीएम-जुगा जनजातीय होमस्टे",
-            "query": "बस्तर में पीएम-जुगा प्रमाणित जनजातीय होमस्टे के बारे में बताएं और बुकिंग कैसे करें?",
+            "label": "🏡 प्रमाणित समुदाय होमस्टे",
+            "query": "बस्तर में प्रमाणित समुदाय होमस्टे के बारे में बताएं और बुकिंग कैसे करें?",
         },
         {
             "id": "p2",
@@ -69,8 +102,8 @@ LOCALIZED_INITIAL_PROMPTS = {
     "bn": [
         {
             "id": "p1",
-            "label": "🏡 পিএম-জুগা উপজাতীয় হোমস্টে",
-            "query": "বস্তারের পিএম-জুগা প্রত্যয়িত আদিবাসী হোমস্টে সম্পর্কে তথ্য দিন।",
+            "label": "🏡 প্রত্যয়িত সম্প্রদায়ের হোমস্টে",
+            "query": "বস্তারের প্রত্যয়িত সম্প্রদায়ের হোমস্টে সম্পর্কে তথ্য দিন।",
         },
         {
             "id": "p2",
@@ -86,7 +119,7 @@ LOCALIZED_INITIAL_PROMPTS = {
     "ta": [
         {
             "id": "p1",
-            "label": "🏡 பிஎம்-ஜுகா பழங்குடியினர் தங்குமிடம்",
+            "label": "🏡 சரிபார்க்கப்பட்ட சமூக தங்குமிடம்",
             "query": "பஸ்தாரில் உள்ள பழங்குடியினர் நல்வாழ்வு தங்குமிடங்கள் பற்றி கூறவும்.",
         },
         {
@@ -103,7 +136,7 @@ LOCALIZED_INITIAL_PROMPTS = {
     "te": [
         {
             "id": "p1",
-            "label": "🏡 పీఎం-జుగా గిరిజన హోమ్‌స్టేలు",
+            "label": "🏡 ధృవీకరించబడిన కమ్యూనిటీ హోమ్‌స్టేలు",
             "query": "బస్తర్‌లోని గిరిజన హోమ్‌స్టేల వివరాలు మరియు బుకింగ్ విధానం తెలపండి.",
         },
         {
@@ -120,8 +153,8 @@ LOCALIZED_INITIAL_PROMPTS = {
     "mr": [
         {
             "id": "p1",
-            "label": "🏡 पीएम-जुगा आदिवासी होमस्टे",
-            "query": "बस्तरमधील पीएम-जुगा प्रमाणित आदिवासी होमस्टेबद्दल माहिती द्या.",
+            "label": "🏡 प्रमाणित समुदाय होमस्टे",
+            "query": "बस्तरमधील प्रमाणित समुदाय होमस्टेबद्दल माहिती द्या.",
         },
         {
             "id": "p2",
@@ -152,9 +185,19 @@ class ChatService:
         lang = request.language.lower() if request.language else "en"
         session_id = request.session_id or str(uuid.uuid4())
         msg = request.message.strip()
+        logger.info(
+            "AI Concierge Query: '%s...' with %d history turns (Session: %s, Lang: %s, Lat: %s, Lon: %s)",
+            msg[:50], len(request.history or []), session_id, lang, request.latitude, request.longitude
+        )
 
-        # 1. Retrieve candidate POIs / homestays based on keyword intent
-        referenced_pois, context_summary = await cls._retrieve_rag_context(db, msg)
+        # 1. Retrieve candidate POIs / homestays based on keyword intent, coordinates, or city
+        referenced_pois, context_summary = await cls._retrieve_rag_context(
+            db=db,
+            message=msg,
+            latitude=request.latitude,
+            longitude=request.longitude,
+            city=request.city
+        )
 
         # 2. Try Gemini 1.5 Flash structured multilingual chat call
         response_text = None
@@ -190,6 +233,25 @@ class ChatService:
         )
 
     @classmethod
+    async def stream_concierge_response(cls, db: AsyncSession, request: ChatRequest):
+        """Server-Sent Events (SSE) token stream for conversational concierge."""
+        response = await cls.process_message(db, request)
+        words = response.response_text.split(" ")
+        for word in words:
+            yield f"data: {json.dumps({'token': word + ' '})}\n\n"
+            await asyncio.sleep(0.012)
+
+        final_meta = {
+            "done": True,
+            "response_text": response.response_text,
+            "referenced_pois": [p.model_dump() for p in response.referenced_pois],
+            "suggested_prompts": [p.model_dump() for p in response.suggested_prompts],
+            "session_id": response.session_id,
+            "source": response.source,
+        }
+        yield f"data: {json.dumps(final_meta)}\n\n"
+
+    @classmethod
     def get_initial_prompts(cls, language: str = "en") -> List[SuggestedPrompt]:
         """Return localized initial prompt chips for the concierge drawer."""
         lang = language.lower() if language else "en"
@@ -198,14 +260,123 @@ class ChatService:
 
     @classmethod
     async def _retrieve_rag_context(
-        cls, db: AsyncSession, message: str
+        cls,
+        db: AsyncSession,
+        message: str,
+        latitude: Optional[float] = None,
+        longitude: Optional[float] = None,
+        city: Optional[str] = None,
     ) -> Tuple[List[ReferencedPOI], str]:
         """Query database for destinations, homestays, and overtourism pairs relevant to query."""
         msg_lower = message.lower()
         referenced_pois: List[ReferencedPOI] = []
         context_parts: List[str] = []
 
-        # Intent A: PM-JUGA Tribal Homestays
+        is_near_intent = any(w in msg_lower for w in [
+            "near me", "nearby", "close to me", "around me", "close by", "in my area",
+            "मेरे पास", "कास्ट", "काछे", "কাছে", "அருகில்", "దగ్గర", "जवळ"
+        ])
+        is_hidden_intent = any(w in msg_lower for w in [
+            "hidden", "offbeat", "secret", "peaceful", "quiet", "crowdless", "untouched",
+            "छिपा", "छिपे", "अज्ञात", "गुप्त", "অচেনা", "লুকানো", "மறைந்த", "దాగివున్న", "गुपित"
+        ])
+
+        # Intent 0: Proximity & Hidden Gems Nearest to User Location or Requested City
+        if is_near_intent or is_hidden_intent:
+            # 1. Determine geographic anchor point
+            center_lat, center_lon = latitude, longitude
+
+            # If no GPS provided, check if user specified city or if city parameter exists
+            if center_lat is None or center_lon is None:
+                user_city_str = (city or "").lower()
+                for c_name, (c_lat, c_lon) in CITY_COORDINATES.items():
+                    if c_name in msg_lower or c_name in user_city_str:
+                        center_lat, center_lon = c_lat, c_lon
+                        break
+
+            # 2. If center coordinates exist, execute spatial Haversine search
+            if center_lat is not None and center_lon is not None:
+                lat_min, lat_max = center_lat - 1.6, center_lat + 1.6
+                lon_min, lon_max = center_lon - 1.6, center_lon + 1.6
+                spatial_stmt = (
+                    select(DestinationMaster)
+                    .where(
+                        and_(
+                            DestinationMaster.latitude.between(lat_min, lat_max),
+                            DestinationMaster.longitude.between(lon_min, lon_max)
+                        )
+                    )
+                )
+                res = await db.execute(spatial_stmt)
+                candidates = res.scalars().all()
+
+                scored = []
+                for p in candidates:
+                    dist = haversine_km(center_lat, center_lon, p.latitude, p.longitude)
+                    # Score favoring authentic hidden gems and high ratings while penalizing excessive distance
+                    pref_score = 1.0 if p.is_hidden_gem else 0.4
+                    score = (pref_score * 0.45) + ((p.rating / 5.0) * 0.35) + (max(0.0, 1.0 - (dist / 120.0)) * 0.20)
+                    scored.append((score, dist, p))
+
+                scored.sort(key=lambda x: x[0], reverse=True)
+                for score, dist, p in scored[:3]:
+                    referenced_pois.append(
+                        ReferencedPOI(
+                            id=p.id,
+                            name=p.name,
+                            category=p.category or "attraction",
+                            state=p.state,
+                            rating=p.rating,
+                            price_range=p.price_range or "₹2,000/day",
+                            image_url=p.image_url,
+                            action_type="explore",
+                            distance_km=round(dist, 1)
+                        )
+                    )
+                    context_parts.append(
+                        f"Nearby Hidden Gem: {p.name} ({p.state}) is located only {round(dist, 1)} km away. "
+                        f"Rating: {p.rating}★. Category: {p.category}. Verified peaceful atmosphere."
+                    )
+
+            # 3. If no coordinates known and user asked for hidden places near them:
+            # Query top authentic national hidden gems across diverse states from destinations_master
+            elif is_hidden_intent or is_near_intent:
+                hidden_stmt = (
+                    select(DestinationMaster)
+                    .where(DestinationMaster.is_hidden_gem.is_(True))
+                    .order_by(DestinationMaster.rating.desc())
+                    .limit(25)
+                )
+                hidden_res = await db.execute(hidden_stmt)
+                all_hidden = hidden_res.scalars().all()
+                distinct_states = set()
+                diverse_hidden = []
+                for p in all_hidden:
+                    if p.state not in distinct_states:
+                        distinct_states.add(p.state)
+                        diverse_hidden.append(p)
+                    if len(diverse_hidden) >= 3:
+                        break
+
+                for p in diverse_hidden:
+                    referenced_pois.append(
+                        ReferencedPOI(
+                            id=p.id,
+                            name=p.name,
+                            category=p.category or "attraction",
+                            state=p.state,
+                            rating=p.rating,
+                            price_range=p.price_range or "₹2,000/day",
+                            image_url=p.image_url,
+                            action_type="explore",
+                        )
+                    )
+                    context_parts.append(
+                        f"National Hidden Gem: {p.name} ({p.state}). Rating: {p.rating}★. "
+                        f"Authentic offbeat destination with verified zero-commission homestays and low crowd footfall."
+                    )
+
+        # Intent A: Verified Community Homestays
         if any(w in msg_lower for w in ["tribal", "homestay", "juga", "bastar", "dhokra", "maria", "stay"]):
             stmt = select(Homestay).where(Homestay.is_tribal_pmjuga.is_(True)).limit(3)
             res = await db.execute(stmt)
@@ -215,7 +386,7 @@ class ChatService:
                     ReferencedPOI(
                         id=None,
                         name=h.title,
-                        category="PM-JUGA Tribal Homestay",
+                        category="Verified Community Homestay",
                         state=h.state,
                         rating=round(float(h.sanitation_trust_score) / 20.0, 1),
                         price_range=f"₹{int(h.base_price_inr)}/night",
@@ -240,16 +411,25 @@ class ChatService:
                     f"with {p.crowd_reduction_pct}% lower footfall and scenic river/forest tranquility."
                 )
 
-        # Intent C: Specific Destination lookup (e.g. Amber Fort, Hampi, Konark, Jaipur)
-        keywords = ["amber fort", "hampi", "konark", "jaipur", "tirthan", "manali", "kochi", "varanasi", "mysore"]
+        # Intent C: Specific Destination or Regional lookup
+        keywords = [
+            "amber fort", "hampi", "konark", "jaipur", "tirthan", "manali", "kochi", "varanasi", "mysore",
+            "himachal", "goa", "kerala", "spiti", "jibhi", "bastar", "ooty", "shimla", "ladakh", "kashmir"
+        ]
         found_kw = next((k for k in keywords if k in msg_lower), None)
 
-        if found_kw:
+        if found_kw and not referenced_pois:
             dest_stmt = (
                 select(DestinationMaster)
-                .where(DestinationMaster.name.ilike(f"%{found_kw}%"))
+                .where(
+                    or_(
+                        DestinationMaster.name.ilike(f"%{found_kw}%"),
+                        DestinationMaster.state.ilike(f"%{found_kw}%"),
+                        DestinationMaster.description.ilike(f"%{found_kw}%")
+                    )
+                )
                 .order_by(DestinationMaster.rating.desc())
-                .limit(2)
+                .limit(3)
             )
             dest_res = await db.execute(dest_stmt)
             places = dest_res.scalars().all()
@@ -271,27 +451,36 @@ class ChatService:
                     f"Best Season: {p.best_season}. Description: {p.description[:180]}."
                 )
 
-        # Default fallback: add top-rated regional anchor if none matched
-        if not referenced_pois and any(w in msg_lower for w in ["rajasthan", "kerala", "himachal", "place", "suggest"]):
-            anchor_stmt = (
-                select(DestinationMaster)
-                .order_by(DestinationMaster.rating.desc())
-                .limit(2)
-            )
-            anchor_res = await db.execute(anchor_stmt)
-            for p in anchor_res.scalars().all():
-                referenced_pois.append(
-                    ReferencedPOI(
-                        id=p.id,
-                        name=p.name,
-                        category=p.category,
-                        state=p.state,
-                        rating=p.rating,
-                        price_range=p.price_range,
-                        image_url=p.image_url,
-                        action_type="explore",
-                    )
+        # Default regional fallback: ONLY if explicit state named (strictly no generic 'place' match)
+        if not referenced_pois:
+            state_keywords = {
+                "rajasthan": "Rajasthan", "kerala": "Kerala", "himachal": "Himachal Pradesh",
+                "goa": "Goa", "uttarakhand": "Uttarakhand", "kashmir": "Jammu and Kashmir",
+                "assam": "Assam", "karnataka": "Karnataka", "tamil nadu": "Tamil Nadu",
+                "maharashtra": "Maharashtra", "meghalaya": "Meghalaya", "sikkim": "Sikkim"
+            }
+            matched_state = next((v for k, v in state_keywords.items() if k in msg_lower), None)
+            if matched_state:
+                anchor_stmt = (
+                    select(DestinationMaster)
+                    .where(DestinationMaster.state.ilike(f"%{matched_state}%"))
+                    .order_by(DestinationMaster.rating.desc())
+                    .limit(2)
                 )
+                anchor_res = await db.execute(anchor_stmt)
+                for p in anchor_res.scalars().all():
+                    referenced_pois.append(
+                        ReferencedPOI(
+                            id=p.id,
+                            name=p.name,
+                            category=p.category,
+                            state=p.state,
+                            rating=p.rating,
+                            price_range=p.price_range,
+                            image_url=p.image_url,
+                            action_type="explore",
+                        )
+                    )
 
         return referenced_pois, "\n".join(context_parts)
 
@@ -316,13 +505,13 @@ class ChatService:
         system_instruction = (
             f"You are TravelSathi AI Concierge, the official digital public infrastructure assistant for Indian tourism.\n"
             f"Respond in {target_lang}. Be polite, culturally appreciative, authentic, and informative.\n"
-            f"Promote zero-commission rural and tribal homestays (PM-JUGA), certified local guides, and peaceful alternatives to congested overtourism spots.\n"
+            f"Promote zero-commission verified community homestays, certified local guides, and peaceful alternatives to congested overtourism spots.\n"
             f"Grounded Context Information:\n{context}\n"
             f"Keep your response concise (2-4 paragraphs max) with practical details such as entry fees, optimal timing, and cultural tips."
         )
 
         conversation_turns = [{"parts": [{"text": system_instruction}]}]
-        for turn in history[-4:]:
+        for turn in history[-6:]:
             role = "user" if turn.sender == "user" else "model"
             conversation_turns.append({"role": role, "parts": [{"text": turn.text}]})
         conversation_turns.append({"role": "user", "parts": [{"text": message}]})
@@ -359,11 +548,11 @@ class ChatService:
         """
         msg_lower = message.lower()
 
-        # Intent 1: PM-JUGA Tribal Homestays
+        # Intent 1: Verified Community Homestays
         if any(w in msg_lower for w in ["tribal", "homestay", "juga", "bastar", "dhokra", "maria", "जनजातीय", "होमस्टे"]):
             if language == "hi":
                 return (
-                    "नमस्ते! पीएम-जुगा (PM-JUGA) योजना के तहत बस्तर, छत्तीसगढ़ में प्रमाणित जनजातीय होमस्टे अत्यंत अनूठे और प्रामाणिक सांस्कृतिक अनुभव प्रदान करते हैं। "
+                    "नमस्ते! प्रमाणित समुदाय होमस्टे (Verified community homestay) बस्तर, छत्तीसगढ़ में अत्यंत अनूठे और प्रामाणिक सांस्कृतिक अनुभव प्रदान करते हैं। "
                     "यहाँ आपको पारंपरिक मारिया और मुरिया जनजातीय वास्तुकला, ढोकरा बेल-मेटल हस्तशिल्प और जैविक स्थानीय खान-पान का आनंद मिलता है।\n\n"
                     "ट्रैवल्सार्थी (TravelSathi) के डिजिटल पब्लिक इंफ्रास्ट्रक्चर के माध्यम से आपकी बुकिंग राशि का 97% सीधे स्थानीय जनजातीय परिवारों के बैंक खाते में बिना किसी बिचौलिए या कमीशन के पहुँचता है। आप नीचे दिए गए कार्ड से सीधे बुकिंग कर सकते हैं।"
                 )
@@ -389,7 +578,7 @@ class ChatService:
                 )
             else:
                 return (
-                    "Welcome! Under the Pradhan Mantri Janjatiya Unnat Gram Abhiyan (PM-JUGA), certified tribal homestays in Bastar, Chhattisgarh provide an authentic immersion into indigenous Maria traditions, Dhokra lost-wax bell metal art, and organic forest dining.\n\n"
+                    "Welcome! Verified community homestays in Bastar, Chhattisgarh provide an authentic immersion into indigenous Maria traditions, Dhokra lost-wax bell metal art, and organic forest dining.\n\n"
                     "Through the TravelSathi Digital Public Infrastructure, 100% of the commercial OTA commission (15% to 30%) is eliminated, delivering 97% of your booking funds directly to indigenous hosts via instant UPI split-settlement."
                 )
 
@@ -474,11 +663,142 @@ class ChatService:
                     "• Local Insider Tip: Arrive before 10:00 AM to beat midday heat and capture soft natural lighting across the Sheesh Mahal (Mirror Palace) and Ganesh Pol. Engage a certified TravelSathi guide at the Lion Gate for authentic Rajput lore."
                 )
 
+        # Intent 5: Himachal Pradesh / Mountain Quiet Escapes
+        if any(w in msg_lower for w in ["himachal", "quiet", "peaceful", "mountain", "hill station"]):
+            if language == "hi":
+                return (
+                    "हिमाचल प्रदेश में शांत और भीड़मुक्त अनुभव के लिए हम तीर्थन घाटी (Tirthan Valley), जिभी (Jibhi) और शोजा की अनुशंसा करते हैं। "
+                    "यहाँ मनाली की तुलना में 65% कम भीड़ होती है। यहाँ आप ग्रेट हिमालयन नेशनल पार्क के निकट पारंपरिक काष्ठ होमस्टे, शुद्ध ट्राउट नदियाँ और देवदार के वनों का आनंद ले सकते हैं।"
+                )
+            elif language == "mr":
+                return (
+                    "हिमाचल प्रदेशातील शांत आणि निसर्गरम्य प्रवासासाठी आम्ही 'तीर्थन व्हॅली' आणि 'जिभी'ची शिफारस करतो. "
+                    "मनालीच्या गर्दीपासून दूर येथे अस्सल स्थानिक काष्ठ होमस्टे आणि ग्रेट हिमालयन राष्ट्रीय उद्यानाचे सौंदर्य अनुभवता येते."
+                )
+            else:
+                return (
+                    "For a peaceful, uncrowded escape in Himachal Pradesh, we strongly recommend Tirthan Valley, Jibhi, and Shoja bordering the UNESCO Great Himalayan National Park.\n\n"
+                    "• Tirthan Valley: Pristine glacial rivers, eco-friendly wooden Kathkuni homestays, and 65% lower tourist footfall than Manali.\n"
+                    "• Jibhi & Jalori Pass: Serene pine forests, waterfall trails, and direct contact with verified local mountain guides on zero-commission pricing."
+                )
+
+        # Intent 6: Goa / Coastal Beaches & Seafood
+        if any(w in msg_lower for w in ["goa", "beach", "seafood", "coastal"]):
+            if language == "hi":
+                return (
+                    "गोवा में प्रामाणिक तटीय और स्थानीय खान-पान के लिए दक्षिण गोवा के पालोलेम (Palolem), अगोंडा (Agonda) और बेनाउलिम की यात्रा करें। "
+                    "यहाँ आपको शांत समुद्र तट, पारंपरिक कोंकणी समुद्री भोजन (ताज़ा फिश करी, रवा फ्राई) और स्थानीय मछुआरों द्वारा संचालित प्रमाणित होमस्टे मिलते हैं।"
+                )
+            elif language == "mr":
+                return (
+                    "गोव्यात निसर्गरम्य समुद्रकिनारे आणि अस्सल मालवणी/कोंकणी सीफूडसाठी दक्षिण गोव्यातील पालोलेम, अगोंडा आणि बाणावली सर्वोत्तम पर्याय आहेत. "
+                    "येथे शांत समुद्रकिनारे आणि शून्य-कमिशन थेट बुकिंगसह स्थानिक होमस्टे उपलब्ध आहेत."
+                )
+            else:
+                return (
+                    "For coastal serenity and authentic local seafood in Goa, head towards South Goa's uncrowded shores:\n\n"
+                    "• Best Beaches: Palolem, Agonda, and Cola Beach offer tranquil sands far away from congested northern commercial strips.\n"
+                    "• Authentic Coastal Fare: Savor fresh kingfish rava fry, Goan prawn curry with red rice, and crab xec-xec at community-run coastal shacks.\n"
+                    "• Verified Homestays: Book heritage Portuguese-Goan village homes directly without intermediary commissions."
+                )
+
+        # Intent 7: Nearby / Hidden Places & Proximity Queries
+        if any(w in msg_lower for w in [
+            "near me", "nearby", "close to me", "around me", "hidden place", "hidden gem",
+            "offbeat", "peaceful place", "quiet place", "मेरे पास", "छिपा", "छिपे", "कास्ट",
+            "কাছে", "அருகில்", "దగ్గర", "जवळ"
+        ]):
+            has_distances = any(p.distance_km is not None for p in referenced_pois)
+            if has_distances:
+                poi_lines = "\n".join([
+                    f"• {p.name} ({p.state}) — {p.distance_km} km away | Rating: {p.rating}★ | {p.category}"
+                    for p in referenced_pois[:3]
+                ])
+                if language == "hi":
+                    return (
+                        f"आपके स्थान के निकटतम सत्यापित और शांत पर्यटन स्थल:\n\n{poi_lines}\n\n"
+                        "इन सभी स्थलों पर भीड़ कम होती है और प्रमाणित स्थानीय समुदाय गाइड तथा शून्य-कमीशन होमस्टे उपलब्ध हैं।"
+                    )
+                elif language == "bn":
+                    return (
+                        f"আপনার নিকটবর্তী যাচাইকৃত শান্ত ও অনাবিল পর্যটন কেন্দ্র:\n\n{poi_lines}\n\n"
+                        "এই স্থানগুলিতে পর্যটকদের ভিড় কম এবং সরাসরি নির্ভরযোগ্য হোমস্টে বুকিং সুবিধা রয়েছে।"
+                    )
+                elif language == "ta":
+                    return (
+                        f"உங்கள் இருப்பிடத்திற்கு அருகிலுள்ள அமைதியான சுற்றுலா இடங்கள்:\n\n{poi_lines}\n\n"
+                        "இங்கு குறைவான கூட்ட நெரிசல் மற்றும் சான்றளிக்கப்பட்ட உள்ளூர் வழிகாட்டிகள் உள்ளனர்."
+                    )
+                elif language == "te":
+                    return (
+                        f"మీ స్థానానికి సమీపంలో ఉన్న ప్రశాంతమైన మరియు దాగివున్న పర్యాటక ప్రాంతాలు:\n\n{poi_lines}\n\n"
+                        "ఇక్కడ తక్కువ రద్దీ మరియు జీరో కమీషన్ హోమ్‌స్టేలు అందుబాటులో ఉన్నాయి."
+                    )
+                elif language == "mr":
+                    return (
+                        f"आपल्या स्थानाजवळील प्रमाणित आणि शांत छुपी पर्यटन स्थळे:\n\n{poi_lines}\n\n"
+                        "येथे कमी गर्दी असून थेट शून्य-कमिशन बुकिंगसह स्थानिक मार्गदर्शक उपलब्ध आहेत."
+                    )
+                else:
+                    return (
+                        f"Here are verified tranquil hidden spots closest to your location:\n\n{poi_lines}\n\n"
+                        "All of these spots feature low crowd footfall, verified local community guides, and zero-commission bookings."
+                    )
+            else:
+                poi_lines = "\n".join([
+                    f"• {p.name} ({p.state}) — Rating: {p.rating}★ | Verified Low-Crowd Gem"
+                    for p in referenced_pois[:3]
+                ])
+                if language == "hi":
+                    return (
+                        "सटीक निकटवर्ती छिपे स्थल खोजने के लिए कृपया ब्राउज़र लोकेशन सक्षम करें या अपने वर्तमान शहर का नाम बताएं (जैसे *'दिल्ली के पास छिपी जगहें'* या *'जयपुर के पास'* )।\n\n"
+                        f"इस बीच, भारत के राष्ट्रीय कैटलॉग से शीर्ष सत्यापित छिपे हुए शांत स्थल:\n\n{poi_lines}\n\n"
+                        "ये सभी स्थल भीड़भाड़ से दूर हैं और शून्य-कमीशन स्थानीय आतिथ्य प्रदान करते हैं।"
+                    )
+                elif language == "bn":
+                    return (
+                        "আপনার সঠিক অবস্থান অনুযায়ী লুকানো জায়গা খুঁজতে অনুগ্রহ করে ব্রাউজার লোকেশন দিন অথবা শহরের নাম বলুন (যেমন *'কলকাতার কাছে অচেনা জায়গা'* )।\n\n"
+                        f"ইতিমধ্যে, জাতীয় ক্যাটালগ থেকে শীর্ষ যাচাইকৃত শান্ত ও নির্জন গন্তব্য:\n\n{poi_lines}\n\n"
+                        "এই স্থানগুলিতে বাণিজ্যিক ভিড় এড়িয়ে প্রাকৃতিক শান্তি উপভোগ করা যায়।"
+                    )
+                elif language == "ta":
+                    return (
+                        "உங்கள் அருகிலுள்ள மறைந்த இடங்களை அறிய உங்கள் நகரத்தின் பெயரை குறிப்பிடவும் (எ.கா: *'சென்னை அருகில் உள்ள அமைதியான இடங்கள்'*).\n\n"
+                        f"தேசிய பட்டியலிலிருந்து சிறந்த சரிபார்க்கப்பட்ட அமைதியான சுற்றுலா தலங்கள்:\n\n{poi_lines}\n\n"
+                        "இங்கு வணிக இடைத்தரகர்கள் இன்றி அமைதியான இயற்கை சூழலை அனுபவிக்கலாம்."
+                    )
+                elif language == "te":
+                    return (
+                        "మీ పరిసరాల్లోని దాగివున్న ప్రదేశాలను ఖచ్చితంగా తెలుసుకోవడానికి మీ నగరం పేరు తెలపండి (ఉదా: *'హైదరాబాద్ దగ్గర ప్రశాంతమైన ప్రదేశాలు'*).\n\n"
+                        f"ఈలోగా, భారతదేశంలోని అగ్రశ్రేణి ప్రశాంతమైన దాగివున్న పర్యాటక ప్రాంతాలు:\n\n{poi_lines}\n\n"
+                        "ఇవి రద్దీ లేని మరియు సహజ సౌందర్యం కలిగిన స్థలాలు."
+                    )
+                elif language == "mr":
+                    return (
+                        "आपल्या परिसरातील छुपी ठिकाणे अचूक शोधण्यासाठी कृपया शहराचे नाव सांगा (उदा. *'पुण्याजवळील शांत ठिकाणे'*).\n\n"
+                        f"तोपर्यंत, राष्ट्रीय कॅटलॉगमधील शीर्ष प्रमाणित शांत व गर्दीमुक्त ठिकाणे:\n\n{poi_lines}\n\n"
+                        "येथे शून्य-कमिशन मॉडेलसह अस्सल स्थानिक अनुभव मिळतो."
+                    )
+                else:
+                    return (
+                        "To discover hidden gems right around your immediate vicinity, please enable browser location or mention your city/state (e.g., *'hidden places near Delhi'* or *'near Bangalore'*).\n\n"
+                        f"In the meantime, here are India's top verified, low-footfall hidden gems from our national catalog:\n\n{poi_lines}\n\n"
+                        "These destinations offer tranquil environments far away from congested tourist traps, with transparent entry timings and zero-commission local homestays."
+                    )
+
+        # Contextual summary if candidate POIs were retrieved
+        if referenced_pois:
+            names = ", ".join([f"{p.name} ({p.state})" for p in referenced_pois[:3]])
+            return (
+                f"Based on your query regarding '{message.strip()}', here are top verified destinations from our catalog: {names}.\n\n"
+                f"These feature certified local community guides, transparent entry timings, and zero-commission bookings."
+            )
+
         # Generic / Multi-purpose Greeting Fallback
         if language == "hi":
             return (
                 "नमस्ते! मैं आपका ट्रैवल्सार्थी एआई टूरिज़्म कॉन्सिअर्ज हूँ। "
-                "मैं आपको भारत के 12,293 प्रमाणित पर्यटन स्थलों, पीएम-जुगा जनजातीय होमस्टे, शून्य-कमिशन डायरेक्ट बुकिंग और भीड़मुक्त विकल्पों के बारे में सम्पूर्ण जानकारी दे सकता हूँ। "
+                "मैं आपको भारत के 12,293 प्रमाणित पर्यटन स्थलों, प्रमाणित समुदाय होमस्टे, शून्य-कमिशन डायरेक्ट बुकिंग और भीड़मुक्त विकल्पों के बारे में सम्पूर्ण जानकारी दे सकता हूँ। "
                 "आप मुझसे यात्रा योजना, टिकट, मौसम या किसी भी स्थल के बारे में पूछ सकते हैं!"
             )
         elif language == "bn":
@@ -505,7 +825,7 @@ class ChatService:
             return (
                 "Namaste! I am your TravelSathi AI Concierge, grounded in 12,293 verified Indian destinations across all 36 States/UTs.\n\n"
                 "I can assist you with:\n"
-                "• Discovering PM-JUGA certified tribal homestays in Bastar and beyond.\n"
+                "• Discovering verified community homestays in Bastar and beyond.\n"
                 "• Uncovering peaceful anti-overtourism hidden gems (e.g. Tirthan Valley instead of Manali).\n"
                 "• Explaining zero-commission direct bookings and local certified guide hiring.\n"
                 "• Real-time monument timings, ticket fees, and heritage insider tips.\n\n"
@@ -543,7 +863,7 @@ class ChatService:
         # Default follow-ups
         if lang == "hi":
             return [
-                SuggestedPrompt(id="f1", label="🏡 जनजातीय होमस्टे", query="पीएम-जुगा जनजातीय होमस्टे के बारे में बताएं"),
+                SuggestedPrompt(id="f1", label="🏡 जनजातीय होमस्टे", query="प्रमाणित समुदाय होमस्टे के बारे में बताएं"),
                 SuggestedPrompt(id="f2", label="🌲 भीड़मुक्त स्थल", query="मनाली के शांत विकल्प सुझाएं"),
                 SuggestedPrompt(id="f3", label="💳 शून्य कमीशन", query="ओटीए कमीशन की बचत कैसे होती है?"),
             ]

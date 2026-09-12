@@ -1,0 +1,23 @@
+{
+  "model_type": "GradientBoostingClassifier",
+  "target": "engagement_probability",
+  "dataset_sources": [
+    "data/places.csv (12,293 verified destinations)",
+    "data/search_graph/related_searches.csv (17,891 edges)"
+  ],
+  "n_samples": 24586,
+  "metrics": {
+    "accuracy": 0.9858,
+    "roc_auc": 0.9993,
+    "f1_score": 0.9828
+  },
+  "feature_importances": {
+    "rating": 0.0134,
+    "review_count_norm": 0.0431,
+    "graph_degree_norm": 0.0092,
+    "user_affinity": 0.2117,
+    "season_match": 0.2049,
+    "weather_suitability": 0.0146,
+    "distance_km": 0.5031
+  }
+}

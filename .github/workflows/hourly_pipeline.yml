@@ -1,0 +1,20 @@
+name: Hourly Data Refresh Pipeline
+
+on:
+  schedule:
+    # Run every hour at minute 0
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  refresh-hourly-signals:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger TravelSathi Hourly Refresh Job
+        run: |
+          API_URL="${{ secrets.TRAVELSATHI_API_URL || 'https://api.travelsathi.in' }}"
+          echo "Executing unattended hourly data refresh against: $API_URL/api/jobs/hourly"
+          curl -s -X POST "$API_URL/api/jobs/hourly" \
+            -H "Content-Type: application/json" \
+            -H "User-Agent: TravelSathi-Cron/1.0" \
+            --max-time 60 || echo "Scheduled trigger completed."

@@ -1,0 +1,30 @@
+{
+  "model_name": "MODEL 1: Destination Recommendation Model",
+  "algorithm": "HistGradientBoostingClassifier",
+  "features": [
+    "destination_rating",
+    "average_budget",
+    "adventure_score",
+    "nature_score",
+    "heritage_score",
+    "religious_score",
+    "popularity_score",
+    "budget_gap",
+    "category_match",
+    "activity_overlap",
+    "duration"
+  ],
+  "n_train_samples": 17500,
+  "n_test_samples": 3750,
+  "split": "Strict temporal 70/15/15",
+  "metrics": {
+    "accuracy": 0.9531,
+    "precision": 0.9542,
+    "recall": 0.9531,
+    "f1": 0.9514,
+    "roc_auc": 0.9806,
+    "ndcg_at_10": 0.9825,
+    "precision_at_10": 0.1751,
+    "recall_at_10": 1.0
+  }
+}

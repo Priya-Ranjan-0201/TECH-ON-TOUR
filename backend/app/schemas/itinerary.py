@@ -8,6 +8,7 @@ class ItineraryRequest(BaseModel):
 
     destination: Optional[str] = Field(default=None, description="City, region, or attraction name")
     state: Optional[str] = Field(default=None, description="Indian State or Union Territory")
+    user_id: Optional[str] = Field(default="usr-901", description="User ID associated with this itinerary")
     days: int = Field(default=3, ge=1, le=7, description="Number of days (1 to 7)")
     budget: str = Field(default="moderate", pattern="^(budget|moderate|luxury)$", description="Budget tier")
     interests: List[str] = Field(
@@ -92,6 +93,10 @@ class ItineraryResponse(BaseModel):
     eco_footprint: Optional[EcoFootprint] = None
     generation_source: str  # "gemini-1.5-flash" or "deterministic-graph-solver"
     created_at: datetime
+    # Anti-Overtourism & Eco-Permit Gatekeeper Metadata (Phase 9)
+    eco_permit_rerouted: Optional[bool] = Field(default=False, description="True if rerouted by Eco-Permit Gatekeeper")
+    original_destination: Optional[str] = Field(default=None, description="Original requested destination")
+    diversion_advisory: Optional[str] = Field(default=None, description="Carrying capacity advisory and alternative circuit benefits")
 
 
 class AlternativeStop(BaseModel):

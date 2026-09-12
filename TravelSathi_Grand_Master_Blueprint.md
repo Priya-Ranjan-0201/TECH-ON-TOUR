@@ -543,4 +543,57 @@ Slide 12: Team Experience & Vision Summary
 *   **Strategic Answer**: "To prevent server overload, we offload initial processing to the client device. The mobile app compresses and downsamples videos to 480p at 10 frames per second before uploading. Videos are routed to an **AWS S3 bucket with lifecycle policies** that automatically delete raw video assets 48 hours after audit completion, retaining only the compressed keyframes and metadata. Furthermore, room auditing tasks are queued asynchronously using **Celery and Redis** and processed during off-peak hours, keeping API costs low and predictable."
 
 ---
+
+## 10. TravelSathi V2.0 Production System Upgrades
+
+### A. Netflix/Hotstar-Style Recommendation Architecture
+TravelSathi V2.0 introduces a two-stage recommendation pipeline on top of the 12,293 destination dataset:
+1. **Stage 1: Candidate Generation**:
+   - Spatially constrained candidates within 50 km bounding box for nearby searches.
+   - Seasonal eligibility scoring against destination `best_months` and `avoid_months`.
+   - Weather suitability matching against live precipitation, temperature, and indoor/outdoor attraction attributes.
+   - User profile and historical interaction graph embeddings.
+   - Anti-overtourism boost for verified hidden gems with quality scores > 0.70.
+2. **Stage 2: Multi-Factor Ranking & Diversification**:
+   - `FinalScore = PersonalPreferenceScore + SeasonalSuitabilityScore + WeatherSuitabilityScore + LocationScore + QualityScore + FreshnessScore + TrendingScore + HiddenGemBoost - DistancePenalty - AlreadyVisitedPenalty`.
+   - Diversification filter guaranteeing that each rail of 6 recommendations does not collapse into a single category (maximum 2 per category).
+   - Data-backed explainable reasons attached to each card (e.g. *"Perfect for this monsoon"*, *"Only 14 km from your current location"*, *"Because you enjoyed historical places"*).
+3. **The Seven Dynamic Rails**:
+   - `BEST PLACES FOR THIS SEASON`
+   - `NEAR YOU RIGHT NOW`
+   - `RECOMMENDED FOR YOU`
+   - `BECAUSE YOU LIKED...`
+   - `HIDDEN GEMS NEAR YOU`
+   - `POPULAR NEARBY`
+   - `PERFECT FOR TODAY`
+
+### B. Live GPS Tracker & Privacy Safeguards
+- **Four Explicit Tracking Modes**:
+  1. *Mode 1 — One-Time Location*: Passive coordinate capture for nearby feeds.
+  2. *Mode 2 — Live Navigation*: Dynamic route tracking and waypoint alerts.
+  3. *Mode 3 — Group Location Sharing*: Authenticated session sharing with trip members.
+  4. *Mode 4 — Trip Track Record*: Distance, duration, and visited coordinate breadcrumbs.
+- **Privacy & Micro-Geofences**:
+  - Requires explicit opt-in (`● LIVE LOCATION ON` / `○ LOCATION OFF`).
+  - Arrival detection alerts trigger when user enters within 300m radius of a planned waypoint.
+  - Zero indefinite coordinate tracking: Location pings expire according to session TTL.
+
+### C. Live Trip Mode & Dynamic Weather Adaptation
+- **Real-Time Advisory Banners**:
+  - Live alerts when precipitation probability > 50% for outdoor attractions.
+  - Non-destructive user choices: `[Suggest Alternative]` or `[Keep Plan]`.
+  - Automatic indoor/cultural alternatives served without rewriting fixed bookings.
+
+### D. Group Expenses & Settlement Engine
+- **Settlement Matrix**:
+  - Supports Equal, Percentage, and Custom split types.
+  - Integrated receipt document upload and categorization.
+  - Minimized cash-flow settlement matrix ("Who Owes Whom").
+
+### E. Hourly Token & Rate-Limiting Policy
+- **Strictly Hourly Enforcement**:
+  - API rate limits, location sharing session TTLs, and quota allocations strictly reset on an **hourly token bucket** basis (e.g. 8-hour max active session TTL, 3,600 token hourly refill).
+  - No weekly or long-horizon locks, preventing starvation and stale session leakages.
+
+---
 *Grand Master Blueprint saved for TravelSathi SIH Grand Finale engineering execution.*

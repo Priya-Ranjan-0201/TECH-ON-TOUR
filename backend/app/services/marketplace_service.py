@@ -5,10 +5,10 @@ and host dashboard performance telemetry with zero-commission DPI savings.
 """
 
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from typing import Dict, List, Optional, Any
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func, or_
+from sqlalchemy import select, func
 
 from app.database.models import MarketplaceRFP, HostBid, Booking, Homestay
 from app.services.pricing_service import PricingService
@@ -92,6 +92,11 @@ class MarketplaceService:
         if len(results) == 0:
             for s in cls.SEED_RFPS:
                 if not state or state == "All" or s["state"].lower() == state.lower():
+                    # Guard: check if this seed ID already exists before inserting
+                    exists_stmt = select(MarketplaceRFP.id).where(MarketplaceRFP.id == s["id"])
+                    exists_res = await db.execute(exists_stmt)
+                    if exists_res.scalar_one_or_none() is not None:
+                        continue
                     new_rfp = MarketplaceRFP(
                         id=s["id"],
                         itinerary_id=f"itin-{s['destination'].lower()}",
@@ -103,13 +108,13 @@ class MarketplaceService:
                         target_budget_inr=s["target_budget_inr"],
                         status=s["status"],
                         notes=s["notes"],
-                        created_at=datetime.utcnow()
+                        created_at=datetime.now(timezone.utc)
                     )
                     db.add(new_rfp)
                     results.append({
                         **s,
                         "bids_count": 0,
-                        "created_at": datetime.utcnow().isoformat()
+                        "created_at": datetime.now(timezone.utc).isoformat()
                     })
             await db.commit()
 
@@ -130,7 +135,7 @@ class MarketplaceService:
             target_budget_inr=float(rfp_data.get("target_budget_inr", 4500.0)),
             status="open",
             notes=rfp_data.get("notes", "Interested in authentic homestay experience with local meals."),
-            created_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc)
         )
         db.add(new_rfp)
         await db.commit()
@@ -167,7 +172,7 @@ class MarketplaceService:
             inclusions=bid_data.get("inclusions", "3 Nights Stay + Chulha Cooked Organic Breakfast + Village Walk"),
             message=bid_data.get("message", "We would love to host you and share our tribal traditions!"),
             status="submitted",
-            created_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc)
         )
         db.add(new_bid)
 
@@ -211,6 +216,11 @@ class MarketplaceService:
         host_payout = round(total_amount * 0.97, 2)
         platform_fee = 0.0
 
+        # Use RFP days for check-in/check-out instead of identical dates
+        check_in = datetime.now(timezone.utc)
+        check_out_days = rfp.days if rfp else 3
+        check_out = check_in + timedelta(days=check_out_days)
+
         new_booking = Booking(
             booking_id=booking_ref,
             tourist_id="usr-traveler-01",
@@ -220,9 +230,9 @@ class MarketplaceService:
             host_payout_inr=host_payout,
             payment_status="confirmed",
             upi_transaction_id=f"UPI-{uuid.uuid4().hex[:12].upper()}",
-            check_in_date=datetime.utcnow().strftime("%Y-%m-%d"),
-            check_out_date=datetime.utcnow().strftime("%Y-%m-%d"),
-            created_at=datetime.utcnow()
+            check_in_date=check_in.strftime("%Y-%m-%d"),
+            check_out_date=check_out.strftime("%Y-%m-%d"),
+            created_at=datetime.now(timezone.utc)
         )
         db.add(new_booking)
         await db.commit()

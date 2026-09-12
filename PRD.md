@@ -19,17 +19,22 @@ India's tourism and hospitality industry ($200B+) suffers from severe structural
 ---
 
 ## 2. Vision
-TravelSathi is an AI-first, three-sided **Digital Public Infrastructure (DPI)** platform operating on a **"Reverse Marketplace + AI Travel Twin"** model:
-*   **For Tourists:** An **AI Travel Twin** that curates personalized, multi-day, safety-audited itineraries, balances famous sights with uncrowded hidden gems, and enables direct booking with verified hosts—cutting commissions to **3% to 5%**.
-*   **For Local Hosts & Artisans:** A zero-subscription **Seller Hub** with voice-first vernacular onboarding (Bhashini-powered), a **Reverse Marketplace** where hosts bid on tourist itineraries, and an automated AI pricing co-pilot.
-*   **For State Tourism Boards & DMOs:** An interactive **Command Center** featuring live footfall density heatmaps, predictive saturation indexes, and dynamic eco-permits to mitigate overtourism.
+TravelSathi is an AI-first, four-sided **Digital Public Infrastructure (DPI)** platform operating on a **"Reverse Marketplace + AI Travel Twin"** model:
+*   **For Tourists (`data-panel="tourist"`):** An **AI Travel Twin** that curates personalized, multi-day, safety-audited itineraries, balances famous sights with uncrowded hidden gems, and enables direct booking with verified hosts—cutting commissions to **0% to 3%**.
+*   **For Local Hosts & Artisans (`data-panel="host"`):** A zero-subscription **Seller Hub** with voice-first vernacular onboarding (Bhashini-powered), an 11-step listing creator, DigiLocker eKYC badge, a **Reverse Marketplace** where hosts bid on tourist itineraries, and an automated AI pricing co-pilot.
+*   **For State Tourism Boards & DMOs (`data-panel="dmo"`):** An interactive **Command Center** featuring live footfall density heatmaps, predictive saturation indexes, and dynamic eco-permits to mitigate overtourism.
+*   **For System Administrators (`data-panel="admin"`):** A central **Command & Governance Console** managing user/host/DMO registries, audit trails, telemetry, and platform-wide policy enforcement with an admin-restricted experience switcher.
 
 ---
 
-## 3. Stakeholder Personas
-*   **Aparna Sen (27, Bengaluru):** Solo female explorer seeking off-beat heritage circuits (Lepakshi, Gandikota). Needs verified safe homestays, fair local transit fares, and authentic reviews.
-*   **Ramesh Gond (42, Bastar, Chhattisgarh):** Tribal homestay host under the PM-JUGA scheme and Dhokra artisan. Speaks Gondi/Chhattisgarhi. Needs voice-guided vernacular listing, zero OTA commission, and direct UPI payouts.
-*   **Dr. Amit Sharma (51, Director of Tourism, HP):** Manages regional crowd influxes in Manali/Shimla. Needs real-time density heatmaps and dynamic eco-permits to disperse crowds into secondary valleys (Jibhi, Spiti).
+## 3. Stakeholder Personas & Scoped Theme Ramps
+
+| Persona | Key User & Context | Primary Responsibilities & UI Features | Scoped Theme Palette (`data-panel`) |
+| :--- | :--- | :--- | :--- |
+| **1. Tourist** | **Aparna Sen (27, Bengaluru):** Solo female explorer seeking off-beat heritage circuits (Lepakshi, Gandikota). | AI Travel Twin itinerary builder, uncrowded gem discovery, direct UPI bookings, SOS safety beacon, AR heritage lens. | **Terracotta Warm Palette**<br>`--color-primary`: `#712B13`<br>`--color-brand`: `#8C3618` |
+| **2. Host** | **Ramesh Gond (42, Bastar, Chhattisgarh):** Tribal homestay host under PM-JUGA scheme and Dhokra artisan. | 11-step listing flow, DigiLocker eKYC verification, direct 97% UPI earnings, human-gated AI price co-pilot. | **Pine / Forest Green**<br>`--color-primary`: `#0F4A2A`<br>`--color-brand`: `#1E6B37` |
+| **3. DMO / Govt** | **Dr. Amit Sharma (51, Director of Tourism, HP):** Manages regional crowd influxes in Manali/Shimla. | Live saturation heatmaps, carrying capacity monitoring, eco-permit lock gatekeeper, tourist diversion policies. | **Slate Blue & Teal**<br>`--color-primary`: `#0C3B5E`<br>`--color-brand`: `#185FA5` |
+| **4. System Admin** | **Rajesh Verma (Head of Digital Public Infrastructure):** Manages platform infrastructure, security & compliance. | Platform metrics, user & host KYC audits, live API health telemetry, omni-experience switching. | **Crimson & Charcoal**<br>`--color-primary`: `#5C0606`<br>`--color-brand`: `#B3261E` |
 
 ---
 
@@ -82,4 +87,30 @@ TravelSathi is an AI-first, three-sided **Digital Public Infrastructure (DPI)** 
 | **4:15 - 5:00** | **DMO Command Center & Wrap-up** | Switch to Government view. Live crowd density heatmap, one-click eco-permit lock diverting traffic. | *"For the first time, government tourism boards have a real-time steering wheel to prevent disasters and build sustainable tourism across India."* |
 
 ---
-*PRD finalized for Smart India Hackathon Grand Finale execution.*
+
+## 8. Version 2.0 Feature Enhancements
+
+### 8.1 F-15: Netflix/Hotstar Horizontal Recommendation Rails
+*   **Two-Stage Architecture:** Stage 1 Candidate Generation (spatial, seasonal, weather, graph, anti-overtourism) $\rightarrow$ Stage 2 Multi-Factor Ranking & Category Diversity.
+*   **7 Dedicated Rails:** Best for Season, Near You Right Now, Recommended For You, Because You Liked, Hidden Gems Near You, Perfect For Today, Trending & Popular.
+*   **Cinematic Destination Card:** Real photography, distance, driving time, rating, season indicator, and explainable recommendation reason string.
+
+### 8.2 F-16: Live GPS Tracker & Geofence Arrival System
+*   **4 Privacy-Conscious Modes:** Mode 1 (Nearby Discovery), Mode 2 (Live Navigation), Mode 3 (Group Sharing), Mode 4 (Trip Track Record).
+*   **Explicit Consent & Accuracy Display:** Clear status indicator (`● LIVE LOCATION ON` / `○ LOCATION OFF`), accuracy display ($\pm 12\text{ m}$), and low accuracy guidance.
+*   **Arrival Detection:** Triggers contextual alerts when user is within $500\text{ m}$ of a destination stop with local history, cultural etiquette, and nearby verified amenities.
+
+### 8.3 F-17: Weather-Adaptive Itinerary Adaptation
+*   **Live Weather Advisory Banner:** Alerts traveler if inclement precipitation or extreme heat threatens an outdoor activity.
+*   **Actionable Alternatives:** User can choose `[Keep Plan]`, `[Suggest Alternative]` (automatically swaps to an indoor museum or heritage shelter), or `[Rebuild Affected Day]`.
+
+### 8.4 F-18: Group Travel Shared Expenses & Receipt Auditing
+*   **Companion Settlement Ledger:** Equal split, custom split, and weighted shares with automated balance matrix ("Who Owes Whom").
+*   **Instant UPI Settlement Ping & Receipt Attachment:** One-click settlement dispatch with receipt image verification.
+
+### 8.5 F-19: Hourly Token Rate Limits & Ephemeral Retention
+*   **Hourly Token Policy:** All rate limits, session tokens, and quota tracking strictly operate on **hourly cycles** rather than weekly tokens.
+*   **Ephemeral GPS TTL:** All location share sessions auto-expire after 8 hours with zero persistent unconsented tracking.
+
+---
+*PRD finalized for TravelSathi V2.0 Production & SIH National Grand Finale execution.*

@@ -1,0 +1,27 @@
+{
+  "model_name": "Dynamic Pricing Model",
+  "algorithm": "GradientBoostingRegressor",
+  "framework": "scikit-learn",
+  "features": [
+    "base_price",
+    "days_to_festival",
+    "is_weekend",
+    "season_demand_index",
+    "occupancy_rate_last_30d",
+    "category_luxury_tier",
+    "review_rating"
+  ],
+  "target": "suggested_price",
+  "rows_trained": 1600,
+  "mae_inr": 204.53,
+  "r2_score": 0.9948,
+  "metrics": {
+    "test_mae_inr": 204.53,
+    "test_r2_score": 0.9948,
+    "mae_inr": 204.53,
+    "r2_score": 0.9948,
+    "mape_percent": 3.31
+  },
+  "last_trained_utc": "2026-09-11T21:30:00.353792+00:00",
+  "version": "1.1.0-autorefresh"
+}

@@ -1,0 +1,33 @@
+{
+  "model_name": "Review Authenticity / Sentiment Classifier",
+  "algorithm": "LogisticRegression(class_weight='balanced', random_state=42)",
+  "task": "Binary Classification (1 = Likely Genuine, 0 = Likely Fake/Generic)",
+  "dataset_size": 180,
+  "evaluation_strategy": "5-Fold Stratified Cross-Validation",
+  "features": [
+    "review_length",
+    "exclamation_mark_count",
+    "generic_phrase_count",
+    "specificity_score",
+    "rating_sentiment_mismatch",
+    "pretrained_sentiment_score"
+  ],
+  "metrics": {
+    "cv_accuracy": 0.9333,
+    "cv_precision": 0.9632,
+    "cv_recall": 0.9255,
+    "cv_f1": 0.9432,
+    "cv_roc_auc": 0.9897
+  },
+  "coefficients": {
+    "review_length": 0.0977,
+    "exclamation_mark_count": -1.4634,
+    "generic_phrase_count": -1.8995,
+    "specificity_score": 0.8653,
+    "rating_sentiment_mismatch": -2.4806,
+    "pretrained_sentiment_score": 0.966
+  },
+  "intercept": -1.4204,
+  "error_tradeoff_rationale": "High-precision threshold to minimize False Positives (preventing legitimate travelers from being penalized).",
+  "serving_fallback_policy": "If model is unavailable, return has_badge=False (show no trust badge rather than guessing)."
+}

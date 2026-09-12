@@ -37,4 +37,12 @@
 *   **Refresh Persistence Test:** Every feature must survive a hard browser refresh (`Ctrl + F5`) with state in Supabase.
 
 ---
-*Development Rules finalized for Smart India Hackathon Grand Finale execution.*
+
+## 5. Version 2.0 Architectural & Operational Guardrails
+*   **Zero Feature Removal Guarantee:** Existing features, portals (Host, DMO, Admin), authentication, reverse RFPs, pricing models, and datasets must never be deleted or replaced with non-functional placeholders.
+*   **Hourly Token Policy:** Rate limits, token quotas, and tracking retention windows must strictly operate on **hourly metrics/tokens**, never weekly tokens.
+*   **Explicit GPS Authorization:** Live GPS tracking requires explicit user consent (`startTracking()`) with clear on/off UI indicators and an 8-hour auto-expiring session TTL.
+*   **Explainable Recommendations:** Every recommendation presented to users must have a real, data-grounded rationale string.
+
+---
+*Development Rules finalized for TravelSathi V2.0 Production & SIH Grand Finale execution.*

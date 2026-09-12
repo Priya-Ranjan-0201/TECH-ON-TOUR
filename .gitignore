@@ -40,3 +40,14 @@ Thumbs.db
 data/raw/
 *.sqlite3
 *.db
+
+# Playwright & Tests
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+playwright/.auth/
+
+# Scratch & Temporary Run Scripts
+scratch/
+scratch_*.py

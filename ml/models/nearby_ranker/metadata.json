@@ -1,0 +1,22 @@
+{
+  "model_name": "MODEL 3: Nearby Place Recommendation Model",
+  "algorithm": "HistGradientBoostingRegressor",
+  "features": [
+    "distance_km",
+    "rating_place",
+    "popularity_score",
+    "price",
+    "is_scenic_cat",
+    "prox_score",
+    "rat_score"
+  ],
+  "metrics": {
+    "mae": 0.0018,
+    "rmse": 0.0031,
+    "r2": 0.9987,
+    "mape_pct": 0.26,
+    "ndcg_at_5": 0.9881,
+    "mrr": 0.9839
+  },
+  "n_samples": 4015
+}

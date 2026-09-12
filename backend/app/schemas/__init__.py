@@ -1,0 +1,1 @@
+# TravelSathi Pydantic Schemas Package

@@ -1,0 +1,46 @@
+{
+  "model_name": "MODEL 6: Travel Demand / Crowdedness Prediction Model",
+  "regressor_algorithm": "HistGradientBoostingRegressor",
+  "classifier_algorithm": "HistGradientBoostingClassifier",
+  "features": [
+    "month",
+    "day_of_week",
+    "is_weekend",
+    "holiday",
+    "festival",
+    "popularity_score",
+    "accessibility_score",
+    "searches",
+    "bookings",
+    "views",
+    "search_booking_ratio",
+    "booking_intensity",
+    "search_intensity",
+    "event_boost",
+    "month_sin",
+    "month_cos",
+    "weekend_pop"
+  ],
+  "classes": [
+    "High",
+    "Low",
+    "Moderate",
+    "Very High"
+  ],
+  "metrics": {
+    "regression": {
+      "mae": 0.0095,
+      "rmse": 0.0122,
+      "r2": 0.9953,
+      "mape_pct": 1.69
+    },
+    "classification": {
+      "accuracy": 0.9634,
+      "precision": 0.9645,
+      "recall": 0.9634,
+      "f1": 0.9636,
+      "roc_auc": 0.9973
+    }
+  },
+  "n_samples": 45000
+}

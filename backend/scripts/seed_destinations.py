@@ -27,7 +27,9 @@ from app.database.models import (
 from sqlalchemy import select, func, delete
 
 
-CSV_PATH = backend_root.parent / "Tech-On-Tour" / "data" / "places.csv"
+CSV_PATH = backend_root.parent / "data" / "places.csv"
+if not CSV_PATH.exists():
+    CSV_PATH = backend_root.parent / "Tech-On-Tour" / "data" / "places.csv"
 
 
 # Curated Anti-Overtourism Alternate Circuits

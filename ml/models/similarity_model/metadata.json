@@ -1,0 +1,10 @@
+{
+  "model_name": "MODEL 7: Destination Similarity Model",
+  "algorithm": "Hybrid TF-IDF + TruncatedSVD + Cosine NearestNeighbors",
+  "embedding_dimensions": 44,
+  "n_destinations": 12293,
+  "metrics": {
+    "mean_top3_cosine_similarity": 0.9844,
+    "explained_text_variance": 0.3882
+  }
+}

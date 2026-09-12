@@ -1,0 +1,27 @@
+{
+  "model_name": "MODEL 5: Popularity & Trending Destination Model",
+  "algorithm": "HistGradientBoostingRegressor",
+  "features": [
+    "activity_7d",
+    "activity_14d",
+    "activity_30d",
+    "activity_90d",
+    "velocity_ratio",
+    "booking_rate",
+    "base_popularity",
+    "growth_rate"
+  ],
+  "metrics": {
+    "mae": 0.0019,
+    "rmse": 0.0053,
+    "r2": 0.9983,
+    "mape_pct": 0.54,
+    "spearman_rho": 0.9487
+  },
+  "n_samples": 2000,
+  "status_distribution": {
+    "Steady / Declining": 1875,
+    "Rising": 95,
+    "Consistently Popular": 30
+  }
+}

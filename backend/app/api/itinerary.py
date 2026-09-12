@@ -14,13 +14,14 @@ from app.schemas.itinerary import (
     SwapStopRequest,
 )
 from app.services.itinerary_service import ItineraryService
+from app.core.rate_limit import rate_limit_itinerary
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter(prefix="/itinerary", tags=["AI Travel Twin Itinerary Generator"])
 
 
-@router.post("/generate", response_model=ItineraryResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/generate", response_model=ItineraryResponse, status_code=status.HTTP_201_CREATED, dependencies=[Depends(rate_limit_itinerary)])
 async def generate_itinerary(
     request: ItineraryRequest,
     db: AsyncSession = Depends(get_db),
@@ -38,12 +39,54 @@ async def generate_itinerary(
     try:
         itinerary = await ItineraryService.generate_itinerary(db, request)
         return itinerary
+    except HTTPException:
+        raise
     except Exception as exc:
         logger.error(f"Error generating itinerary: {exc}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to generate travel twin itinerary: {str(exc)}",
         )
+
+
+@router.get("/user/{user_id}")
+async def get_user_itineraries(
+    user_id: str,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Fetch all multi-day itineraries created by a user from the database.
+    """
+    from app.database.models import Itinerary
+    from sqlalchemy import select
+    import json
+    stmt = select(Itinerary).where(Itinerary.user_id == user_id).order_by(Itinerary.created_at.desc())
+    res = await db.execute(stmt)
+    rows = res.scalars().all()
+
+    trips = []
+    for it in rows:
+        try:
+            plan = json.loads(it.plan_json)
+        except Exception:
+            plan = {}
+        trips.append({
+            "id": it.id,
+            "title": f"{it.days}-Day {it.destination} Itinerary",
+            "destination": it.destination,
+            "days": it.days,
+            "budget": it.budget,
+            "interests": it.interests,
+            "status": "Saved",
+            "created_at": it.created_at.isoformat() if it.created_at else None,
+            "schedule": plan
+        })
+
+    return {
+        "success": True,
+        "count": len(trips),
+        "trips": trips
+    }
 
 
 @router.get("/samples", response_model=List[Dict])
@@ -169,3 +212,27 @@ async def convert_itinerary_to_rfp(
             detail=rfp_receipt["error"],
         )
     return rfp_receipt
+
+
+@router.delete("/{itinerary_id}")
+async def delete_saved_itinerary(
+    itinerary_id: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Delete a saved itinerary by its UUID.
+    """
+    from app.database.models import Itinerary
+    from sqlalchemy import select
+    stmt = select(Itinerary).where(Itinerary.id == itinerary_id)
+    res = await db.execute(stmt)
+    item = res.scalars().first()
+    if not item:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Itinerary with ID '{itinerary_id}' not found.",
+        )
+    await db.delete(item)
+    await db.commit()
+    return {"success": True, "message": f"Itinerary {itinerary_id} deleted."}
+

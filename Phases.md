@@ -153,12 +153,22 @@
 *   Conduct two full timed run-throughs of the 5-Minute Pitch Script.
 *   **Exit Criteria:** Zero unhandled errors; pitch fits within 4:30; declared **Grand Finale Ready**.
 
+### Phase 12: MASTER FIX v3 — Autonomous Data Jobs, Seasonal Differentiator, Travel Twin Persistence, Role Separation & Security Hardening
+*   **1. Live Data Job & Hourly Token First:** Scheduled `run_hourly_refresh()` via `main.py` lifespan and GitHub Actions cron `hourly_pipeline.yml`. Implemented `tok_hourly_YYYYMMDD_HH00` token standard and `pipeline_runs` table logging.
+*   **2. Seasonal Bug Fix (12-Month Differentiation):** Replaced hardcoded season queries with climate-aware `GET /api/destinations/by-month?month={month}` algorithm. Verified 12/12 distinct candidate sets with dynamic badge consistency.
+*   **3. Travel Twin Real-Time Sync & Persistence:** Wired `PATCH /api/users/{user_id}/preferences` and `GET /api/user/twin/{user_id}`. Dropdowns update context and persist to SQLite with live right-panel re-rendering.
+*   **4. Four Isolated Portals:** Strictly separated Tourist (`/tourist`), Host (`/host`), DMO (`/dmo`), and Admin (`/admin`) portals with zero cross-role UI bleeding and universal profile switcher.
+*   **5. Security Hardening:** Enforced 5 req / 15 min sliding-window login rate limiting, TOTP MFA, secure cookies, and immutable `AuditLog` writes.
+*   **6. Multi-Panel State Mutations:** Verified end-to-end mutations for Host (apply price, create listing, approve booking), DMO (toggle permit lock, circuit editing, dynamic diversion to Tirthan Valley), and Admin (moderation, user role changes, catalog editor).
+*   **Exit Criteria:** 17/17 specialized ML model pytest tests passed; all mutation endpoints returned 200/201; Vite compiled cleanly in 4.5s; 100% verified.
+
 ---
 
-## Track B: Post-Hackathon National DPI Scale (Phases 12–14)
-*   **Phase 12 (Month 1):** Bhashini Dedicated Neural IVR Pipeline for non-smartphone tribal hosts.
-*   **Phase 13 (Month 2):** Live ONDC Network Protocol Federation (Beckn) with automated bank nodal escrow splits.
-*   **Phase 14 (Month 3):** Edge Computer Vision (CraftGuard GI verification + LLaVA homestay sanitation audit).
+## Track B: Post-Hackathon National DPI Scale (Phases 13–15)
+*   **Phase 13 (Month 1):** Bhashini Dedicated Neural IVR Pipeline for non-smartphone tribal hosts.
+*   **Phase 14 (Month 2):** Live ONDC Network Protocol Federation (Beckn) with automated bank nodal escrow splits.
+*   **Phase 15 (Month 3):** Edge Computer Vision (CraftGuard GI verification + LLaVA homestay sanitation audit).
 
 ---
-*Roadmap finalized for Smart India Hackathon Grand Finale execution.*
+*Roadmap finalized for Smart India Hackathon Grand Finale execution & Master Fix v3 Production.*
+

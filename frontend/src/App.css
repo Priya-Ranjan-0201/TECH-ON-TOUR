@@ -1,184 +1,166 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+/* TravelSathi Application CSS */
+@import 'leaflet.markercluster/dist/MarkerCluster.css';
+@import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
-
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
-}
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
+.leaflet-container {
   width: 100%;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
-
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+  height: 100%;
+  border-radius: inherit;
+  z-index: 10;
+  font-family: Inter, system-ui, sans-serif;
 }
+
+/* ==========================================================================
+   THEME 1 TEARDROP PINS (Hover/Click only - No permanent overlapping labels)
+   ========================================================================== */
+.custom-pin-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+
+.custom-pin {
+  width: 26px;
+  height: 26px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  background: var(--ts-primary-800, #8C3618);
+  border: 2px solid var(--ts-primary-50, #FFF8F3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+.custom-pin:hover {
+  transform: rotate(-45deg) scale(1.2);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+}
+
+.custom-pin::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  transform: rotate(45deg);
+}
+
+.custom-pin.hidden-gem {
+  background: var(--ts-secondary-800, #2E6038);
+}
+
+.custom-pin.trip-stop {
+  background: var(--ts-accent-600, #C97227);
+}
+
+.custom-pin.crowd-warning {
+  background: #B45309;
+}
+
+/* ==========================================================================
+   THEME 1 MARKER CLUSTERING BUBBLES (Numbered bubbles at low zoom)
+   ========================================================================== */
+.ts-cluster-wrapper {
+  background: transparent !important;
+  border: none !important;
+}
+
+.ts-cluster-bubble {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-family: Inter, system-ui, sans-serif;
+  font-weight: 800;
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(74, 27, 12, 0.4), 0 0 0 4px rgba(140, 54, 24, 0.25);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ts-cluster-bubble:hover {
+  transform: scale(1.12);
+  box-shadow: 0 6px 20px rgba(74, 27, 12, 0.5), 0 0 0 6px rgba(140, 54, 24, 0.35);
+}
+
+.ts-cluster-small {
+  width: 34px;
+  height: 34px;
+  font-size: 12px;
+  background: linear-gradient(135deg, #8C3618 0%, #A44320 100%);
+  border: 2px solid #FFF8F3;
+}
+
+.ts-cluster-medium {
+  width: 40px;
+  height: 40px;
+  font-size: 13px;
+  background: linear-gradient(135deg, #712B13 0%, #8C3618 100%);
+  border: 2.5px solid #FFF8F3;
+  box-shadow: 0 6px 16px rgba(74, 27, 12, 0.45), 0 0 0 5px rgba(113, 43, 19, 0.25);
+}
+
+.ts-cluster-large {
+  width: 48px;
+  height: 48px;
+  font-size: 14px;
+  background: linear-gradient(135deg, #551E0C 0%, #712B13 100%);
+  border: 3px solid #FFF8F3;
+  box-shadow: 0 8px 22px rgba(74, 27, 12, 0.55), 0 0 0 6px rgba(85, 30, 12, 0.3);
+}
+
+/* ==========================================================================
+   TOOLTIPS (Hover only - replaces permanent text pills)
+   ========================================================================== */
+.custom-map-tooltip-wrapper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.custom-map-tooltip-wrapper.leaflet-tooltip {
+  background: rgba(28, 26, 23, 0.94) !important;
+  backdrop-filter: blur(8px);
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 12px !important;
+  padding: 6px 10px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35) !important;
+  font-family: Inter, system-ui, sans-serif !important;
+}
+
+.custom-map-tooltip-wrapper.leaflet-tooltip-top:before {
+  border-top-color: rgba(28, 26, 23, 0.94) !important;
+}
+
+.ts-tooltip-title {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.ts-tooltip-meta {
+  font-size: 10px;
+  color: #D1D5DB;
+  margin-top: 2px;
+}
+
+.ts-tooltip-gem {
+  font-size: 9px;
+  color: #6EE7B7;
+  font-weight: 700;
+  margin-top: 3px;
+}
+
+/* ==========================================================================
+   GPS LIVE LOCATION PULSE ICON
+   ========================================================================== */
+.custom-gps-marker {
+  background: transparent !important;
+  border: none !important;
+}
+

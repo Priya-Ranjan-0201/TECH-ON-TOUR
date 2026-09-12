@@ -2,7 +2,7 @@ import math
 from typing import List, Dict, Any, Optional
 from sqlalchemy import select, and_
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.database.models import DestinationMaster, Homestay, Guide
+from app.database.models import DestinationMaster, Homestay
 
 EARTH_RADIUS_KM = 6371.0
 
@@ -58,6 +58,8 @@ class SpatialService:
         bbox = get_bounding_box(lat, lon, radius_km)
 
         filters = [
+            DestinationMaster.image_url.isnot(None),
+            DestinationMaster.image_url != "",
             DestinationMaster.latitude.between(bbox["min_lat"], bbox["max_lat"]),
             DestinationMaster.longitude.between(bbox["min_lon"], bbox["max_lon"]),
         ]
@@ -88,6 +90,8 @@ class SpatialService:
                     "description": dest.description,
                     "best_season": dest.best_season,
                     "is_hidden_gem": dest.is_hidden_gem,
+                    "crowd_density_score": dest.crowd_density_score,
+                    "safety_score": dest.safety_score,
                     "distance_km": round(dist_km, 2),
                 })
 

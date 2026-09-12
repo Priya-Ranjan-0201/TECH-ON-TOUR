@@ -1,0 +1,32 @@
+{
+  "model_name": "MODEL 2: Season & Weather Suitability Model",
+  "algorithm": "HistGradientBoostingClassifier",
+  "features": [
+    "temperature",
+    "humidity",
+    "rainfall",
+    "wind_speed",
+    "weather_alert",
+    "month",
+    "temp_deviation",
+    "humidity_deviation",
+    "rain_intensity",
+    "month_sin",
+    "month_cos"
+  ],
+  "classes": [
+    "Excellent",
+    "Good",
+    "Moderate",
+    "Not Recommended",
+    "Poor"
+  ],
+  "metrics": {
+    "accuracy": 0.9822,
+    "precision": 0.9822,
+    "recall": 0.9822,
+    "f1": 0.9821,
+    "roc_auc": 0.9995
+  },
+  "n_samples": 30000
+}

@@ -1,0 +1,33 @@
+{
+  "model_name": "Recommendation Ranking Model",
+  "algorithm": "GradientBoostingClassifier (scikit-learn)",
+  "features": [
+    "interest_overlap_score",
+    "distance_km",
+    "season_match",
+    "past_category_affinity",
+    "avg_rating",
+    "price_tier_match",
+    "global_popularity_30d"
+  ],
+  "target": "converted",
+  "n_samples": 16000,
+  "train_samples": 12800,
+  "test_samples": 3200,
+  "last_trained_utc": "2026-09-11T12:26:31.010796+00:00",
+  "metrics": {
+    "roc_auc": 0.7857,
+    "accuracy": 0.8325,
+    "f1_score": 0.9041,
+    "precision": 0.8495
+  },
+  "feature_importances": {
+    "interest_overlap_score": 0.2231,
+    "distance_km": 0.095,
+    "season_match": 0.161,
+    "past_category_affinity": 0.1628,
+    "avg_rating": 0.2121,
+    "price_tier_match": 0.0919,
+    "global_popularity_30d": 0.054
+  }
+}

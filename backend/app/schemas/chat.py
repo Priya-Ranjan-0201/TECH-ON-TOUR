@@ -1,13 +1,24 @@
-from typing import List, Optional
-from pydantic import BaseModel, ConfigDict, Field
-
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+from typing import Any, Optional, List
 
 class ChatMessage(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
+    model_config = ConfigDict(from_attributes=True, populate_by_name=True)
 
-    sender: str = Field(..., description="'user' or 'assistant'")
-    text: str = Field(..., description="Message text content")
+    sender: str = Field(default="user", description="'user' or 'assistant'")
+    text: str = Field(default="", description="Message text content")
     timestamp: Optional[str] = Field(default=None, description="ISO timestamp string")
+
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_fields(cls, data: Any):
+        if isinstance(data, dict):
+            d = dict(data)
+            if "role" in d and "sender" not in d:
+                d["sender"] = d["role"]
+            if "content" in d and "text" not in d:
+                d["text"] = d["content"]
+            return d
+        return data
 
 
 class ReferencedPOI(BaseModel):
@@ -21,6 +32,7 @@ class ReferencedPOI(BaseModel):
     price_range: Optional[str] = None
     image_url: Optional[str] = None
     action_type: str = "explore"  # "explore" or "book_homestay"
+    distance_km: Optional[float] = None
 
 
 class SuggestedPrompt(BaseModel):
@@ -39,6 +51,9 @@ class ChatRequest(BaseModel):
     language: str = Field(default="en", description="Language code: en, hi, bn, ta, te, mr")
     session_id: Optional[str] = Field(default=None, description="Client session UUID")
     history: List[ChatMessage] = Field(default_factory=list, description="Recent conversation turns")
+    latitude: Optional[float] = Field(default=None, description="Client latitude for location-aware queries")
+    longitude: Optional[float] = Field(default=None, description="Client longitude for location-aware queries")
+    city: Optional[str] = Field(default=None, description="Client detected city/state")
 
 
 class ChatResponse(BaseModel):

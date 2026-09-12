@@ -4,43 +4,18 @@ Powers tourist RFPs broadcast from itineraries, 1-click competitive host bidding
 and dynamic pricing co-pilot intelligence for local hosts.
 """
 
-from typing import Optional
-from fastapi import APIRouter, Depends, HTTPException, status
-from pydantic import BaseModel, Field
+from typing import Optional, List
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, func
 
 from app.database.connection import get_db
+from app.database.models import Guide
+from app.schemas.marketplace import CreateRFPRequest, SubmitBidRequest, ApplyPricingRequest
 from app.services.marketplace_service import MarketplaceService
 from app.services.pricing_service import PricingService
 
 router = APIRouter(tags=["Marketplace & Host Hub"])
-
-
-class CreateRFPRequest(BaseModel):
-    itinerary_id: Optional[str] = None
-    traveler_name: str = Field("Priya Sharma", description="Traveler primary name")
-    traveler_phone: str = Field("+91 98765 43210", description="Traveler contact phone")
-    destination: str = Field(..., description="Target destination city/region")
-    state: str = Field(..., description="Target state/UT")
-    days: int = Field(3, ge=1, le=14, description="Duration in days")
-    target_budget_inr: float = Field(..., gt=0, description="Target total budget in INR")
-    notes: Optional[str] = Field(None, description="Custom preferences or dietary needs")
-
-
-class SubmitBidRequest(BaseModel):
-    rfp_id: str = Field(..., description="ID of open RFP")
-    host_id: str = Field("host-bastar-01", description="Verified host identifier")
-    host_name: str = Field("Mangal Mandavi", description="Host full name")
-    homestay_name: Optional[str] = Field("Bastar Dhokra Craft & Forest Homestay", description="Homestay title")
-    bid_amount_inr: float = Field(..., gt=0, description="Proposed total quote in INR")
-    inclusions: str = Field(..., description="What is included (meals, guiding, cultural immersion)")
-    message: Optional[str] = Field(None, description="Personal welcome note from host")
-
-
-class ApplyPricingRequest(BaseModel):
-    host_id: str = Field("host-bastar-01", description="Host identifier")
-    state: str = Field("Chhattisgarh", description="Host state")
-    new_tariff_inr: float = Field(..., gt=0, description="Updated base room tariff in INR")
 
 
 @router.get("/marketplace/rfps")
@@ -93,38 +68,112 @@ async def accept_host_bid(
     return result
 
 
-@router.get("/host/dashboard")
-async def get_host_dashboard(
-    host_id: str = "host-bastar-01",
-    state: str = "Chhattisgarh",
+
+
+@router.get("/experiences")
+async def list_experiences(
+    state: Optional[str] = Query(None, description="Filter by state (e.g. 'Chhattisgarh')"),
+    limit: int = Query(20, ge=1, le=50),
     db: AsyncSession = Depends(get_db)
 ):
     """
-    Host Seller Hub telemetry: Gross revenue, 0% OTA commission savings,
-    PM-JUGA trust score, active leads, and AI Dynamic Pricing Co-Pilot recommendations.
+    List authentic local experiences and masterclasses led by verified local guides.
     """
-    return await MarketplaceService.get_host_dashboard(db, host_id=host_id, state=state)
+    stmt = select(Guide).where(Guide.is_available == True)
+    if state and state.lower() != "all":
+        stmt = stmt.where(func.lower(Guide.state) == state.strip().lower())
+    stmt = stmt.order_by(Guide.rating.desc()).limit(limit)
+    res = await db.execute(stmt)
+    guides = res.scalars().all()
 
+    EXPERIENCE_METADATA = {
+        "guide-001": {
+            "title": "Bastar Dhokra Bell-Metal Casting & Forest Trail",
+            "image": "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&auto=format&fit=crop",
+            "duration": "4 Hours (Half Day)",
+            "highlights": ["Hands-on lost-wax Dhokra bronze casting", "Foraged tribal herbal tea session", "Direct Maria craft cooperative purchase"],
+            "slots": ["09:00 AM", "02:30 PM"],
+            "badge": "PM-JUGA Tribal Craft Immersion"
+        },
+        "guide-002": {
+            "title": "Hampi Vijayanagara Living Heritage & Coracle Trail",
+            "image": "https://images.unsplash.com/photo-1600100397608-f010f421f1d1?w=800&auto=format&fit=crop",
+            "duration": "3.5 Hours",
+            "highlights": ["Ancient aqueducts and stone acoustics", "Tungabhadra coracle river crossing", "Uncrowded Vitthala bazaar sunset view"],
+            "slots": ["06:30 AM", "03:45 PM"],
+            "badge": "UNESCO Certified Heritage Walk"
+        },
+        "guide-003": {
+            "title": "Spiti 1000-Year Monastery & Marine Fossil Walk",
+            "image": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&auto=format&fit=crop",
+            "duration": "5 Hours",
+            "highlights": ["Ancient Tethys Ocean ammonite fossil exploration", "Langza Buddha statue high-altitude meditation", "Herbal seabuckthorn tea with village elder"],
+            "slots": ["08:30 AM", "01:30 PM"],
+            "badge": "High Altitude Tribal Trail"
+        },
+        "guide-004": {
+            "title": "Old Jaipur Havelis & Hand-Block Print Masterclass",
+            "image": "https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=800&q=80",
+            "duration": "3 Hours",
+            "highlights": ["Centuries-old Shekhawati fresco restoration", "Natural vegetable dye hand-block printing on organic khadi", "Rooftop masala chai overlooking Hawa Mahal"],
+            "slots": ["09:30 AM", "03:00 PM"],
+            "badge": "Govt Certified Heritage Scout"
+        },
+        "guide-005": {
+            "title": "Wayanad Rainforest Herbal Trail & Tribal Lore",
+            "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&auto=format&fit=crop",
+            "duration": "4 Hours",
+            "highlights": ["Wild cardamom, pepper and endemic cinnamon identification", "Stingless bee honey extraction demonstration", "Kurichiya tribal archery and folk storytelling"],
+            "slots": ["07:30 AM", "02:00 PM"],
+            "badge": "PM-JUGA Ecological Immersion"
+        },
+        "guide-006": {
+            "title": "Sacred Ganga Ghats & Ayurvedic Herb Walk",
+            "image": "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?w=800&auto=format&fit=crop",
+            "duration": "3 Hours",
+            "highlights": ["Ancient Himalayan medicinal flora walk", "Private quiet morning sand ghat pranayama", "Traditional brass singing bowl sound meditation"],
+            "slots": ["06:00 AM", "04:30 PM"],
+            "badge": "Vedic Wellness Certified"
+        }
+    }
 
-@router.get("/host/pricing-recommendation")
-async def get_pricing_recommendation(
-    state: str = "Chhattisgarh",
-    base_tariff: float = 1650.0
-):
-    """
-    AI Dynamic Pricing Co-Pilot: Indian festival calendar and weekend demand surge advice.
-    """
-    return PricingService.get_pricing_recommendation(state=state, base_tariff_inr=base_tariff)
+    results = []
+    for g in guides:
+        meta = EXPERIENCE_METADATA.get(g.user_id, {
+            "title": f"Authentic Regional Immersion with {g.full_name}",
+            "image": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80",
+            "duration": "3 Hours",
+            "highlights": [f"Guided exploration of {g.district} by certified expert", f"Spoken in {g.languages_spoken}", "100% direct payment to local guide"],
+            "slots": ["09:00 AM", "02:00 PM"],
+            "badge": "Govt Certified Local Guide"
+        })
+        hourly = float(g.hourly_rate_inr or 300)
+        total_price = int(hourly * 3.5)
+        results.append({
+            "id": g.guide_id,
+            "guide_id": g.guide_id,
+            "title": meta["title"],
+            "hostName": g.full_name,
+            "hostTitle": f"Certified Tour Guide ({g.license_number or 'Govt Registered'})",
+            "location": f"{g.district}, {g.state}",
+            "district": g.district,
+            "state": g.state,
+            "image": meta["image"],
+            "rating": float(g.rating or 4.9),
+            "reviewsCount": 24 + int((g.rating or 4.9) * 5),
+            "duration": meta["duration"],
+            "totalPrice": total_price,
+            "pricePerPerson": int(hourly),
+            "groupSize": "Small Group (Max 6 travelers)",
+            "description": f"Immersive, eco-conscious regional experience led by {g.full_name}, official guide in {g.district}, {g.state}. Includes deep cultural context and heritage lore.",
+            "highlights": meta["highlights"],
+            "scheduleSlots": meta["slots"],
+            "verificationBadge": meta["badge"],
+            "phone": g.phone_number,
+            "languages": g.languages_spoken
+        })
 
-
-@router.post("/host/pricing/apply")
-async def apply_dynamic_pricing(payload: ApplyPricingRequest):
-    """
-    Host applies recommended dynamic tariff to their homestay listing.
-    """
     return {
-        "success": True,
-        "host_id": payload.host_id,
-        "updated_tariff_inr": payload.new_tariff_inr,
-        "message": f"Successfully updated base tariff to ₹{payload.new_tariff_inr:.2f}/night on the DPI network."
+        "total": len(results),
+        "results": results
     }
