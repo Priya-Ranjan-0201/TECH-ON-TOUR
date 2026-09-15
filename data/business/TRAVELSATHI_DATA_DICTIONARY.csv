@@ -1,0 +1,21 @@
+field_name,description,data_type,allowed_values,example
+business_id,Unique identifier for the tourism business (BUS000001 format),string,BUS[0-9]{6},BUS000001
+business_name,Trade or registered name of the establishment,string,Text up to 255 chars,Taj Mahal Grand Heritage Palace Hotel
+business_type,Primary commercial category,string,"hotel, homestay, guest_house, dharamshala, restaurant, dhaba, cafe",hotel
+business_category,Broad category grouping,string,"accommodation, food",accommodation
+sub_category,Granular operational style,string,"luxury_hotel, boutique_hotel, budget_hotel, eco_stay, farm_stay, dhaba, fine_dining",luxury_hotel
+tourist_place_id,Foreign key reference to parent destination,string,DEST[0-9]{5},DEST00001
+tourist_place_name,Name of the anchor tourist destination,string,Valid destination name,Taj Mahal
+distance_from_tourist_place_km,Geodesic Haversine distance in kilometers,float,0.00 to 100.00,0.48
+estimated_travel_time_minutes,Estimated transit time taking local traffic into account,integer,1 to 240,6
+price_level,Normalized cost category indicator,string,"₹, ₹₹, ₹₹₹, ₹₹₹₹",₹₹₹
+price_min_inr,Starting night rate or average dining spend in INR,numeric,>= 0,3200
+rating,Verified aggregated tourist satisfaction rating,float,1.0 to 5.0,4.8
+verification_status,Data audit verification level,string,"Verified, Partially Verified, Unverified, Government Verified",Verified
+source_name,Authoritative origin of the business listing,string,"OpenStreetMap, Government Tourism Department, etc.",OpenStreetMap & Verified Local Tourism Directory
+latitude,WGS84 decimal latitude coordinate,float,-90.0 to +90.0,27.175144
+longitude,WGS84 decimal longitude coordinate,float,-180.0 to +180.0,78.042142
+vegetarian,Offers certified pure vegetarian food,boolean,"TRUE, FALSE",TRUE
+jain_food,Offers root-vegetable free Jain meals,boolean,"TRUE, FALSE",TRUE
+local_owned,Owned and staffed by native resident hosts,boolean,"TRUE, FALSE",TRUE
+status,Current operating availability,string,"Active, Inactive, Seasonal",Active

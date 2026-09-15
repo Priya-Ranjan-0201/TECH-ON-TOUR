@@ -12,6 +12,8 @@ from app.schemas.itinerary import (
     ItineraryResponse,
     ReorderStopsRequest,
     SwapStopRequest,
+    AdaptItineraryRequest,
+    AdaptItineraryResponse,
 )
 from app.services.itinerary_service import ItineraryService
 from app.core.rate_limit import rate_limit_itinerary
@@ -235,4 +237,29 @@ async def delete_saved_itinerary(
     await db.delete(item)
     await db.commit()
     return {"success": True, "message": f"Itinerary {itinerary_id} deleted."}
+
+
+@router.post("/adapt", response_model=AdaptItineraryResponse)
+async def adapt_itinerary_generic(
+    payload: AdaptItineraryRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Dynamically adapt active live trip schedule in real-time.
+    Supports actions: 'delay', 'cheaper', 'weather', 'relax'.
+    """
+    return await ItineraryService.adapt_itinerary(db, payload, itinerary_id=None)
+
+
+@router.post("/{itinerary_id}/adapt", response_model=AdaptItineraryResponse)
+async def adapt_saved_itinerary(
+    itinerary_id: str,
+    payload: AdaptItineraryRequest,
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Dynamically adapt a saved itinerary in real-time by its ID.
+    Supports actions: 'delay', 'cheaper', 'weather', 'relax'.
+    """
+    return await ItineraryService.adapt_itinerary(db, payload, itinerary_id=itinerary_id)
 

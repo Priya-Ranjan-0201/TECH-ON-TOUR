@@ -11,23 +11,32 @@
     "global_popularity_30d"
   ],
   "target": "converted",
-  "n_samples": 16000,
-  "train_samples": 12800,
-  "test_samples": 3200,
-  "last_trained_utc": "2026-09-11T12:26:31.010796+00:00",
+  "n_samples": 35000,
+  "train_samples": 28000,
+  "test_samples": 7000,
+  "split": "80/20 train/test (stratified by converted)",
   "metrics": {
-    "roc_auc": 0.7857,
-    "accuracy": 0.8325,
-    "f1_score": 0.9041,
-    "precision": 0.8495
+    "roc_auc": 0.7164,
+    "precision_at_6": 0.6232,
+    "accuracy": 0.6886,
+    "f1_score": 0.5132,
+    "cold_start_auc": 0.6591,
+    "confusion_matrix": {
+      "tn": 3671,
+      "fp": 599,
+      "fn": 1581,
+      "tp": 1149
+    }
   },
   "feature_importances": {
-    "interest_overlap_score": 0.2231,
-    "distance_km": 0.095,
-    "season_match": 0.161,
-    "past_category_affinity": 0.1628,
-    "avg_rating": 0.2121,
-    "price_tier_match": 0.0919,
-    "global_popularity_30d": 0.054
-  }
+    "interest_overlap_score": 0.2755,
+    "distance_km": 0.1468,
+    "season_match": 0.0083,
+    "past_category_affinity": 0.2676,
+    "avg_rating": 0.1126,
+    "price_tier_match": 0.1627,
+    "global_popularity_30d": 0.0266
+  },
+  "cold_start_policy": "Brand-new users fall back to season_match + avg_rating + global_popularity_30d + distance_km",
+  "heuristic_fallback": "interest_overlap*0.4 + season_match*0.2 + proximity*0.2 + rating*0.2"
 }

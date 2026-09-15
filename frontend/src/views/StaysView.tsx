@@ -14,9 +14,12 @@ import {
   Check
 } from 'lucide-react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
+import { translateText } from '../utils/summaryTranslator';
 import { useApp } from '../context/AppContext';
 
 export default function StaysView() {
+  const { t, i18n } = useTranslation();
   const { homestays, setBookings } = useApp();
   const [liveStays, setLiveStays] = useState<any[]>([]);
   const [selectedStay, setSelectedStay] = useState(null);
@@ -88,13 +91,13 @@ export default function StaysView() {
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <span className="badge-nature">
-          🏡 PM-JUGA Tribal & Eco Homestays
+          {t('stays.badgeTitle', '🏡 PM-JUGA Tribal & Eco Homestays')}
         </span>
         <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-neutral-text-primary dark:text-darkmode-text-primary">
-          Verified Community Stays & Havelis
+          {t('stays.pageTitle', 'Verified Community Stays & Havelis')}
         </h1>
         <p className="text-sm sm:text-base text-neutral-text-sec dark:text-darkmode-text-secondary leading-relaxed">
-          Stay directly with local families, traditional Kathkuni timber homes, and tribal heritage retreats with 100% tariff going to the hosts.
+          {t('stays.pageSubtitle', 'Stay directly with local families, traditional Kathkuni timber homes, and tribal heritage retreats with 100% tariff going to the hosts.')}
         </p>
       </div>
 
@@ -114,7 +117,7 @@ export default function StaysView() {
                 />
                 <div className="absolute top-3 left-3">
                   <span className="badge-nature shadow-sm">
-                    {stay.verificationBadge}
+                    {translateText(stay.verificationBadge, i18n.language)}
                   </span>
                 </div>
                 <div className="absolute top-3 right-3 bg-white/95 dark:bg-darkmode-surface/95 px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm">
@@ -128,19 +131,19 @@ export default function StaysView() {
                 <div className="flex items-center justify-between text-xs text-neutral-muted">
                   <span className="flex items-center gap-1 font-semibold text-brand">
                     <MapPin className="w-3.5 h-3.5" />
-                    {stay.location}
+                    {translateText(stay.location, i18n.language)}
                   </span>
                   <span className="font-semibold text-nature">
-                    Eco: {stay.ecoScore ?? stay.sanitationScore ?? 92}/100
+                    {t('stays.ecoScore', 'Eco')}: {stay.ecoScore ?? stay.sanitationScore ?? 92}/100
                   </span>
                 </div>
 
                 <h3 className="text-lg font-bold text-neutral-text-primary dark:text-darkmode-text-primary group-hover:text-brand transition-colors">
-                  {stay.name}
+                  {translateText(stay.name, i18n.language)}
                 </h3>
 
                 <p className="text-xs text-neutral-text-sec dark:text-darkmode-text-secondary line-clamp-2">
-                  {stay.description}
+                  {translateText(stay.description, i18n.language)}
                 </p>
 
                 {/* Amenities pills */}
@@ -150,13 +153,13 @@ export default function StaysView() {
                       key={idx}
                       className="text-[10px] font-semibold px-2 py-0.5 rounded bg-neutral-bg-secondary dark:bg-darkmode-elevated text-neutral-text-sec dark:text-darkmode-text-secondary"
                     >
-                      ✓ {amenity}
+                      ✓ {translateText(amenity, i18n.language)}
                     </span>
                   ))}
                 </div>
 
                 <div className="p-2 rounded bg-nature-light/50 dark:bg-darkmode-elevated text-[11px] text-nature font-medium">
-                  {stay.supportLocalNote}
+                  {translateText(stay.supportLocalNote || '100% of payment goes directly to verified host via UPI.', i18n.language)}
                 </div>
               </div>
             </div>
@@ -165,16 +168,16 @@ export default function StaysView() {
             <div className="px-5 py-4 border-t border-neutral-border dark:border-darkmode-border flex items-center justify-between">
               <div>
                 <p className="text-lg font-extrabold text-neutral-text-primary dark:text-darkmode-text-primary">
-                  ₹{stay.pricePerNight} <span className="text-xs font-normal text-neutral-muted">/ night</span>
+                  ₹{stay.pricePerNight} <span className="text-xs font-normal text-neutral-muted">{t('stays.perNight', '/ night')}</span>
                 </p>
-                <p className="text-[10px] text-nature font-bold">Zero OTA Commission</p>
+                <p className="text-[10px] text-nature font-bold">{t('stays.zeroMiddleman', '0% Middleman Commission')}</p>
               </div>
 
               <button
                 onClick={() => handleOpenBooking(stay)}
                 className="btn-action !px-4 !py-2 !text-xs font-bold"
               >
-                Reserve Stay
+                {t('stays.reserveStay', 'Reserve Homestay')}
               </button>
             </div>
 
@@ -190,10 +193,10 @@ export default function StaysView() {
             <div className="flex items-center justify-between pb-3 border-b border-neutral-border dark:border-darkmode-border">
               <div>
                 <h3 className="text-lg font-bold text-neutral-text-primary dark:text-darkmode-text-primary">
-                  {bookingConfirmed ? 'Reservation Confirmed!' : 'Reserve Verified Homestay'}
+                  {bookingConfirmed ? t('stays.modalConfirmed', 'Homestay Reserved!') : t('stays.modalTitle', 'Book Verified Homestay')}
                 </h3>
                 <p className="text-xs text-neutral-muted">
-                  {selectedStay.name} • {selectedStay.location}
+                  {translateText(selectedStay.name, i18n.language)} • {translateText(selectedStay.location, i18n.language)}
                 </p>
               </div>
               <button
@@ -209,7 +212,7 @@ export default function StaysView() {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <label className="font-bold text-neutral-text-primary dark:text-darkmode-text-primary block mb-1">
-                      Nights
+                      {t('stays.stayDates', 'Stay Duration (Nights)')}
                     </label>
                     <select
                       value={nights}
@@ -225,7 +228,7 @@ export default function StaysView() {
 
                   <div>
                     <label className="font-bold text-neutral-text-primary dark:text-darkmode-text-primary block mb-1">
-                      Guests
+                      {t('stays.numGuests', 'Number of Guests')}
                     </label>
                     <select
                       value={guests}
@@ -242,22 +245,22 @@ export default function StaysView() {
 
                 <div className="p-4 rounded-ts-md bg-neutral-bg-secondary dark:bg-darkmode-elevated border border-neutral-border dark:border-darkmode-border space-y-2">
                   <p className="font-bold text-neutral-text-primary dark:text-darkmode-text-primary">
-                    Transparent Cost Summary
+                    {t('stays.priceBreakdown', 'Transparent Tariff Breakdown')}
                   </p>
                   <div className="flex justify-between text-neutral-muted">
-                    <span>Base Tariff (₹{selectedStay.pricePerNight} × {nights} nights):</span>
+                    <span>{t('stays.baseTariff', 'Base Tariff')} (₹{selectedStay.pricePerNight} × {nights} nights):</span>
                     <span>₹{selectedStay.pricePerNight * nights}</span>
                   </div>
                   <div className="flex justify-between text-nature font-medium">
-                    <span>Cleaning Fee:</span>
-                    <span>₹0 (Complimentary)</span>
+                    <span>{t('stays.cleaningHygiene', 'Cleanliness & Sanitation:')}</span>
+                    <span>{t('stays.inclusiveAudit', '₹0 (Govt Certified)')}</span>
                   </div>
                   <div className="flex justify-between text-nature font-bold">
-                    <span>Platform Commission:</span>
+                    <span>{t('stays.platformFee', 'Platform Fee:')}</span>
                     <span>₹0 (National DPI Standard)</span>
                   </div>
                   <div className="pt-2 border-t border-neutral-border dark:border-darkmode-border flex justify-between font-extrabold text-sm text-neutral-text-primary dark:text-darkmode-text-primary">
-                    <span>Total:</span>
+                    <span>{t('stays.totalPayable', 'Total Amount Payable:')}</span>
                     <span className="text-brand">₹{selectedStay.pricePerNight * nights}</span>
                   </div>
                 </div>
@@ -267,7 +270,7 @@ export default function StaysView() {
                   className="btn-action w-full py-3 text-sm font-bold shadow-md flex items-center justify-center gap-2"
                 >
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Reserve Direct with Host (Zero Fee)</span>
+                  <span>{t('stays.confirmStay', 'Confirm Homestay Reservation')}</span>
                 </button>
               </div>
             ) : (
@@ -276,17 +279,17 @@ export default function StaysView() {
                   <Check className="w-8 h-8 stroke-[3px]" />
                 </div>
                 <h4 className="text-lg font-bold text-neutral-text-primary dark:text-darkmode-text-primary">
-                  Reservation Confirmed!
+                  {t('stays.modalConfirmed', 'Homestay Reserved!')}
                 </h4>
                 <p className="text-xs text-neutral-muted max-w-sm mx-auto leading-relaxed">
-                  Your reservation at <strong>{selectedStay.name}</strong> is confirmed. Host {selectedStay.hostName} has been notified. Offline confirmation card saved in your <strong>Trip Wallet</strong>.
+                  {t('stays.confirmedMsg', 'Your reservation is confirmed. Your host has received the notification and your stay pass is in your Trip Wallet.')}
                 </p>
                 <div className="pt-2">
                   <button
                     onClick={() => setBookingModalOpen(false)}
                     className="btn-brand px-6 py-2 text-xs font-bold"
                   >
-                    Done / View in Wallet
+                    {t('stays.doneWallet', 'Done / View in Wallet')}
                   </button>
                 </div>
               </div>

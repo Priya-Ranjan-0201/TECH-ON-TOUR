@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 from starlette.testclient import TestClient
 from app.main import app
+from app.core.security import create_access_token
 
 def run_tests():
     print("==================================================")
@@ -183,7 +184,10 @@ def run_tests():
 
     # 13. Admin Real Stats
     print("\n[13/16] Admin Dashboard Telemetry (Zero Fabricated Metrics)")
-    r = client.get("/api/admin/stats")
+    client.cookies.clear()
+    admin_token = create_access_token({"sub": "admin-001", "role": "admin", "email": "admin.ops@travelsathi.gov.in"})
+    admin_headers = {"Authorization": f"Bearer {admin_token}"}
+    r = client.get("/api/admin/stats", headers=admin_headers)
     assert r.status_code == 200, f"Admin stats failed ({r.status_code}): {r.text}"
     stats = r.json()
     assert "total_users" in stats
@@ -196,18 +200,18 @@ def run_tests():
 
     # 14. Admin User Management
     print("\n[14/16] Admin User Management & Role RBAC")
-    r = client.get("/api/admin/users")
+    r = client.get("/api/admin/users", headers=admin_headers)
     assert r.status_code == 200, f"Admin users failed ({r.status_code}): {r.text}"
     users = r.json().get("users", [])
     assert len(users) >= 4, "Fewer than 4 seeded users found"
     print(f"  [PASS] Admin user directory lists {len(users)} registered accounts")
     
     # Change test user role to 'host'
-    r = client.put(f"/api/admin/users/{user_id}/role", json={"role": "host"})
+    r = client.put(f"/api/admin/users/{user_id}/role", json={"role": "host"}, headers=admin_headers)
     assert r.status_code == 200, f"Role change failed ({r.status_code}): {r.text}"
     
     # Verify change
-    r = client.get("/api/admin/users")
+    r = client.get("/api/admin/users", headers=admin_headers)
     updated_user = next((u for u in r.json().get("users", []) if u["id"] == user_id), None)
     assert updated_user and updated_user["role"] == "host", "Role was not updated in database"
     print(f"  [PASS] Promoted user {user_id} to 'host' role and verified in database")
@@ -220,7 +224,7 @@ def run_tests():
         "rating": 4.9,
         "description": "Premier high-altitude Himalayan mountain resort and alpine trail center in Himachal Pradesh."
     }
-    r = client.put("/api/admin/destinations/2360", json=update_payload)
+    r = client.put("/api/admin/destinations/2360", json=update_payload, headers=admin_headers)
     assert r.status_code == 200, f"Admin destination update failed ({r.status_code}): {r.text}"
     
     # Verify by getting destination

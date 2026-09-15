@@ -40,6 +40,8 @@ Thumbs.db
 data/raw/
 *.sqlite3
 *.db
+*.db-shm
+*.db-wal
 
 # Playwright & Tests
 test-results/

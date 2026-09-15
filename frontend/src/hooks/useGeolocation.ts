@@ -17,16 +17,6 @@ export function useGeolocation() {
   const watchIdRef = useRef(null);
   const pingThrottleRef = useRef(0);
 
-  // Check initial permission
-  useEffect(() => {
-    if ('permissions' in navigator) {
-      navigator.permissions.query({ name: 'geolocation' }).then((res) => {
-        setPermissionStatus(res.state);
-        res.onchange = () => setPermissionStatus(res.state);
-      }).catch(() => {});
-    }
-  }, []);
-
   const sendLocationPing = useCallback(async (pos, currentSessionId) => {
     const now = Date.now();
     // Throttle backend pings to once every 6 seconds to save battery and network
@@ -95,6 +85,50 @@ export function useGeolocation() {
     }
     setError(msg);
   }, []);
+
+  // Check initial permission and seed coordinates from live location endpoint + browser GPS
+  useEffect(() => {
+    let isMounted = true;
+
+    // 1. Fetch user's stored live coordinates so Near You rail has genuine location immediately
+    axios.get('/api/location/live/usr-901')
+      .then((res) => {
+        if (isMounted && res.data?.has_location && res.data.latitude && res.data.longitude) {
+          setCoordinates({
+            latitude: res.data.latitude,
+            longitude: res.data.longitude
+          });
+          setLastUpdated(new Date());
+        }
+      })
+      .catch(() => {});
+
+    // 2. Query browser permission and auto-fetch current device GPS if supported
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          if (isMounted) {
+            handlePositionSuccess(pos, null);
+          }
+        },
+        () => {},
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+      );
+    }
+
+    if ('permissions' in navigator) {
+      navigator.permissions.query({ name: 'geolocation' }).then((res) => {
+        if (isMounted) {
+          setPermissionStatus(res.state);
+          res.onchange = () => {
+            if (isMounted) setPermissionStatus(res.state);
+          };
+        }
+      }).catch(() => {});
+    }
+
+    return () => { isMounted = false; };
+  }, [handlePositionSuccess]);
 
   // Request Single Position
   const requestOneTimePosition = useCallback(() => {

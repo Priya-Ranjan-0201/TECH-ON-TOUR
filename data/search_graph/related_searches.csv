@@ -1,9 +1,4 @@
 place_id,associated_search_term,search_weight
-0,Kedarnath Temple,1
-0,Shree Tungnath Temple,1
-0,Triyuginarayan Temple,1
-0,Tunganath Ganesh Mandir,1
-0,Tungnath. Official,1
 1,Corbett Jungle Safari,1
 1,Corbett Tiger Reserve,1
 1,Dhikala Corbett national park,1
@@ -73,11 +68,6 @@ place_id,associated_search_term,search_weight
 14,Auli Ski & Snowboard School,1
 14,Auli Tourism,1
 14,Auli skiing Point,1
-15,Bhootnath Temple Rishikesh,1
-15,Lakshman Temple,1
-15,Mahadev Mandir,1
-15,Rishikesh Shiv Mandir,1
-15,"Trayambakeshwar, Om Shiv Pooja bhandar",1
 16,0,1
 16,Naini Lake,1
 16,Nainital Lake,1
@@ -5875,11 +5865,11 @@ place_id,associated_search_term,search_weight
 1209,Satpurush Temple,1
 1209,Shree Mangesh temple,1
 1209,Shri Mahalasa Narayani Temple,1
-1210,Aguada Fort,1
-1210,Lower Aguada Fort,1
-1210,Mormugao fort,1
-1210,Reis Magos Fort,1
-1210,Sinquerim Fort,1
+1154,Aguada Fort,1
+1154,Lower Aguada Fort,1
+1154,Mormugao fort,1
+1154,Reis Magos Fort,1
+1154,Sinquerim Fort,1
 1211,Arvalem Caves,1
 1211,Shiva Temple,1
 1211,Shree Ramnath Devsthan,1
@@ -6006,11 +5996,11 @@ place_id,associated_search_term,search_weight
 1236,Light House Aguada,1
 1236,Old Lighthouse Tower,1
 1237,0,5
-1238,Aguada Childrens Park,1
-1238,Coco Heritage Resort Water Park & Swimming Pool,1
-1238,Froggyland - The Water World,1
-1238,Nagesh Water World,1
-1238,"Snow Park, Goa",1
+1044,Aguada Childrens Park,1
+1044,Coco Heritage Resort Water Park & Swimming Pool,1
+1044,Froggyland - The Water World,1
+1044,Nagesh Water World,1
+1044,"Snow Park, Goa",1
 1239,Charavane Waterfall,1
 1239,Harvalem Waterfalls,1
 1239,Hivrem waterfall Goa,1
@@ -6565,11 +6555,11 @@ place_id,associated_search_term,search_weight
 1349,KAMAKHYA WEST VIEW POINT,1
 1349,Kamakhya View Point,1
 1349,River View Point,1
-1350,Bhalukjuri Waterfall,1
-1350,Kangthi Langso Waterfall,1
-1350,Kangthilangso Eco Tourist & Picnic Spot,1
-1350,Pak'longkam (Di'krutpi) Waterfall,1
-1350,Silveta Waterfall,1
+1123,Bhalukjuri Waterfall,1
+1123,Kangthi Langso Waterfall,1
+1123,Kangthilangso Eco Tourist & Picnic Spot,1
+1123,Pak'longkam (Di'krutpi) Waterfall,1
+1123,Silveta Waterfall,1
 1351,Bhubaneswari Temple,1
 1351,Kamakhya Temple,1
 1351,Lankeswar Temple,1
@@ -6715,11 +6705,11 @@ place_id,associated_search_term,search_weight
 1379,Jojuwa Waterfall,1
 1379,Nepal Dhara Waterfalls,1
 1379,Theopani Waterfall,1
-1380,Hello Amri Tourism,1
-1380,Khawra Tana,1
-1380,Samadi,1
-1380,Umswai Christian Graveyard,1
-1380,Umswai view point,1
+1363,Hello Amri Tourism,1
+1363,Khawra Tana,1
+1363,Samadi,1
+1363,Umswai Christian Graveyard,1
+1363,Umswai view point,1
 1381,Bhelughat Waterfall,1
 1381,Kangthilangso Eco Tourist & Picnic Spot,1
 1381,Pak'longkam (Di'krutpi) Waterfall,1
@@ -6730,21 +6720,21 @@ place_id,associated_search_term,search_weight
 1382,ISKCON Guwahati,1
 1382,MAATI CENTRE,1
 1382,Mini,1
-1383,0,1
-1383,Baghdhara borpukhuri,1
-1383,Jorhat Science Centre & Planetarium,1
-1383,Private Farmhouse,1
-1383,গীতাৰ্থী পইণ্ট,1
+1356,0,1
+1356,Baghdhara borpukhuri,1
+1356,Jorhat Science Centre & Planetarium,1
+1356,Private Farmhouse,1
+1356,গীতাৰ্থী পইণ্ট,1
 1384,Deo Pahar Temple Ruins,1
 1384,Deopahar Temple Archeological Site,1
 1384,Deoparbat,1
 1384,Kakochang Waterfall,1
 1384,দেওপাহাৰ ধ্বংসাৱশেষ,1
-1385,DHURBA'S DREAMLAND,1
-1385,Dreamland Amusement Park,1
-1385,SILPUKHURI POND & PARK,1
-1385,University Water Park - A,1
-1385,website,1
+1375,DHURBA'S DREAMLAND,1
+1375,Dreamland Amusement Park,1
+1375,SILPUKHURI POND & PARK,1
+1375,University Water Park - A,1
+1375,website,1
 1386,Chakreshwar Temple,1
 1386,ISKCON Guwahati,1
 1386,Lankeswar Temple,1
@@ -6755,21 +6745,21 @@ place_id,associated_search_term,search_weight
 1387,Kakochang Water Falls Carparking Area,1
 1387,Semelangso waterfall,1
 1387,TOKOLANGSO WATERFALL,1
-1388,Dighalipukhuri Park,1
-1388,Prashaanti Udyan,1
-1388,River Side Park,1
-1388,Shankardev Park,1
-1388,Silpukhuri Park,1
+1356,Dighalipukhuri Park,1
+1356,Prashaanti Udyan,1
+1356,River Side Park,1
+1356,Shankardev Park,1
+1356,Silpukhuri Park,1
 1389,Bamuni Hills,1
 1389,Haleshwar Temple,1
 1389,Padum Pukhuri,1
 1389,SHIV MANDIR,1
 1389,Sri Sri Maa Bhairabi Mandir,1
-1390,Assam State Museum,1
-1390,Assam State Zoo cum Botanical Garden,1
-1390,ISKCON Guwahati,1
-1390,"SCIENCE MUSEUM, Khanapara Guwahati",1
-1390,Valley View,1
+1363,Assam State Museum,1
+1363,Assam State Zoo cum Botanical Garden,1
+1363,ISKCON Guwahati,1
+1363,"SCIENCE MUSEUM, Khanapara Guwahati",1
+1363,Valley View,1
 1391,Assam State Museum,1
 1391,Basistha Ashram and Temple,1
 1391,Sankardev Kalakshetra Science Museum,1
@@ -7296,11 +7286,11 @@ place_id,associated_search_term,search_weight
 1496,Rainbow Falls,1
 1496,Wah-Kaba Falls,1
 1496,Wei Sawdong Falls,1
-1497,Janailar Falls,1
-1497,Mawsawa Falls,1
-1497,Wah-Kaba Falls,1
-1497,Wah-kaba Falls Entry Gate,1
-1497,Wei Sawdong Falls,1
+1488,Janailar Falls,1
+1488,Mawsawa Falls,1
+1488,Wah-Kaba Falls,1
+1488,Wah-kaba Falls Entry Gate,1
+1488,Wei Sawdong Falls,1
 1498,0,1
 1498,Lum Kshaid View Point,1
 1498,Mawjngih Lapynshongdor View Point,1
@@ -7351,21 +7341,21 @@ place_id,associated_search_term,search_weight
 1507,Iooksi-Kupli Park,1
 1507,Lum Nehru Park,1
 1507,Tour somewhere,1
-1508,Adventures tours and trekking camp,1
-1508,Amlunong Waterfalls,1
-1508,Costlymore Pohtam Hayong,1
-1508,Songrampunji Waterfall,1
-1508,Umngot River Camp,1
+1488,Adventures tours and trekking camp,1
+1488,Amlunong Waterfalls,1
+1488,Costlymore Pohtam Hayong,1
+1488,Songrampunji Waterfall,1
+1488,Umngot River Camp,1
 1509,0,1
 1509,Moopun Falls,1
 1509,Phe Phe Fall Camps,1
 1509,Sua Ludong Water Falls,1
 1509,Thlu Amwi Falls,1
-1510,Eco Park,1
-1510,Mot Palong Park,1
-1510,Rainbow Falls,1
-1510,Sohra falls,1
-1510,Wah-Kaba Falls,1
+1490,Eco Park,1
+1490,Mot Palong Park,1
+1490,Rainbow Falls,1
+1490,Sohra falls,1
+1490,Wah-Kaba Falls,1
 1511,Balpakram National Park,1
 1511,Matcha Nokpante Nokrek National Park,1
 1511,Nokma wario,1

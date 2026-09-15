@@ -58,7 +58,24 @@
           - `POST /api/admin/pipeline/trigger-refresh` & `POST /api/admin/pipeline/trigger-hourly-refresh`: Manually triggers pipeline and live hourly refresh, logging runs to `pipeline_runs`.
     7. **Verification & Test Status:**
         - All 17 specialized ML model pytest tests passing (`pytest tests/test_7_specialized_models.py` -> 100%).
-        - All automated mutation tests passing (`test_panel_mutations.py` -> 100%).
+        - Master 26-check audit script passing (`python scripts/master_audit_runner.py`).
+        - Frontend build passing clean with zero errors (`npm run build`).
+    8. **Pillar 7 — Full 7 Indic Languages Localization Across Key Modules:**
+        - Cultural Events Dossier (`EventsView.tsx`): Localized festival titles, significance, activities, traditional foods, local crafts, cultural etiquette, transit guidance across Hindi, Marathi, Bengali, Tamil, Telugu, Gujarati, and English.
+        - Safety & Emergency Hub (`SafetyView.tsx`): Localized regional travel advisories, emergency hospital & police directories, travel check-in forms.
+        - Experiences & Stays Marketplaces (`ExperiencesView.tsx`, `StaysView.tsx`): Localized zero-commission banners, tour guide details, artisan certifications, direct reservation modal.
+        - Upgraded `summaryTranslator.ts` with parametric regex translators for distances (`X km away`), durations (`X Hours`), confidence scores, and source stamps.
+    9. **Pillar 8 — Essentials Grid Expansion & Rich Data Adjustment (Smart Map):**
+        - Expanded database essentials coverage from 368 to **548+ verified facilities** across all 36 States and Union Territories (seeded 167+ new hospitals, hotels, homestays, and dining spots in Uttar Pradesh, Madhya Pradesh, Rajasthan, Gujarat, Kerala, Punjab, Bihar, Chhattisgarh, Andaman, Puducherry, etc.).
+        - Enriched `/api/destinations/map-points` to always provide `description`, `price_range`, and `review_count`.
+        - Upgraded Leaflet Map Popups with:
+          - Category badge (`🏥 24/7 Hospital & Emergency`, `🏨 Verified Hotel`, `🏡 Certified Homestay`, `🍽️ Verified Dining`).
+          - Star rating, review count, and price tier (`★ 4.8 (1,420 reviews) • ₹₹₹`).
+          - Rich operational description snippet.
+          - 1-click `📞 Call` helpline button linking directly to telephone hotlines (`tel:108` / `tel:...`).
+          - In-app highway routing preview and external Google Maps fallback.
+        - Added interactive category filter pills (`[All]`, `[🏥 Hospitals]`, `[🏨 Hotels]`, `[🏡 Homestays]`, `[🍽️ Dining]`) in the Smart Map toolbar.
+        - Enhanced right-hand list view cards with description snippets, tags, and one-tap call buttons.
         - Frontend Vite production build compiling cleanly (`dist/` built in 4.5s with zero errors).
         - Both servers running: Backend on `:8000`, Frontend on `:5173`.
 *   **Core Grounding Dataset:** Canonical `data/places.csv` (12,293 verified destinations across 36 States/UTs, 17,891 graph edges)

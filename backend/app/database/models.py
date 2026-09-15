@@ -8,6 +8,8 @@ from sqlalchemy import (
     Text,
     Boolean,
     DateTime,
+    Date,
+    JSON,
     ForeignKey,
     Index,
     Numeric
@@ -48,10 +50,46 @@ class DestinationMaster(Base):
     crowd_density_score = Column(Integer, default=50)  # 0 (desolate) to 100 (heavily congested)
     safety_score = Column(Integer, default=85)         # 0 to 100 normalized score
 
+    # Official Heritage Verification Fields (ASI / State Directorate of Archaeology)
+    heritage_status = Column(String(50), nullable=True, default="✅ Government-listed")
+    heritage_authority = Column(String(255), nullable=True, default="Archaeological Survey of India / State Archaeology")
+    heritage_category = Column(String(100), nullable=True, default="Protected monument")
+    official_source = Column(String(255), nullable=True, default="https://asi.nic.in/")
+    current_accessibility = Column(String(255), nullable=True, default="Verified - Motorable all-weather access")
+    entry_fee = Column(String(100), nullable=True, default="₹25 (Indians) / ₹300 (Foreigners)")
+    opening_hours = Column(String(100), nullable=True, default="06:00 AM – 06:00 PM")
+    last_field_verification = Column(String(50), nullable=True, default="June 2026")
+
+    # Destination Potential Scoring (6 Factors: Attraction, Demand, Significance, Growth, Access, Season)
+    potential_score = Column(Float, nullable=True, index=True)
+    score_breakdown = Column(JSON, nullable=True)
+    score_confidence = Column(String(20), nullable=True, default="full")
+    score_computed_at = Column(DateTime, nullable=True)
+
     __table_args__ = (
         Index("idx_dest_state_category", "state", "category"),
         Index("idx_dest_lat_lng", "latitude", "longitude"),
+        Index("idx_dest_potential_score", "potential_score"),
     )
+
+
+class DestinationTransport(Base):
+    __tablename__ = "destination_transport"
+
+    destination_id = Column(Integer, ForeignKey("destinations_master.id"), primary_key=True)
+    nearest_airport_km = Column(Float, nullable=True)
+    nearest_railway_km = Column(Float, nullable=True)
+    nearest_highway_km = Column(Float, nullable=True)
+    fetched_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class DestinationMonthlyVisit(Base):
+    __tablename__ = "destination_monthly_visits"
+
+    destination_id = Column(Integer, ForeignKey("destinations_master.id"), primary_key=True)
+    month = Column(Integer, primary_key=True)
+    visit_index = Column(Float, nullable=True)
+    source = Column(String(100), nullable=True)
 
 
 class Homestay(Base):
@@ -482,5 +520,457 @@ class HourlySignalCache(Base):
     updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc), index=True)
 
 
+class TravelGroup(Base):
+    """
+    Collaborative Travel Group for real-time coordination, E2EE chat, and live tracking.
+    """
+    __tablename__ = "travel_groups"
 
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    name = Column(String(150), nullable=False)
+    destination = Column(String(150), nullable=False)
+    start_date = Column(String(30), nullable=True)
+    end_date = Column(String(30), nullable=True)
+    creator_id = Column(String(36), nullable=False, index=True)
+    invite_code = Column(String(16), unique=True, nullable=False, index=True)
+    status = Column(String(20), default="active")  # 'active', 'completed', 'archived'
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    members = relationship("GroupMember", back_populates="group", cascade="all, delete-orphan")
+    meeting_points = relationship("GroupMeetingPoint", back_populates="group", cascade="all, delete-orphan")
+    messages = relationship("EncryptedGroupMessage", back_populates="group", cascade="all, delete-orphan")
+
+
+class GroupMember(Base):
+    """
+    Authorized membership within a TravelGroup with explicit location sharing state.
+    """
+    __tablename__ = "group_members"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    group_id = Column(String(36), ForeignKey("travel_groups.id"), nullable=False, index=True)
+    user_id = Column(String(36), nullable=False, index=True)
+    role = Column(String(20), default="member")  # 'admin', 'member'
+    display_name = Column(String(100), nullable=False)
+    avatar = Column(Text, nullable=True)
+    is_online = Column(Boolean, default=True)
+    location_sharing_state = Column(String(30), default="OFF")  # 'ON', 'OFF', 'PAUSED', 'PERMISSION_DENIED', 'UNAVAILABLE', 'STALE'
+    last_latitude = Column(Float, nullable=True)
+    last_longitude = Column(Float, nullable=True)
+    battery_level = Column(Integer, nullable=True)  # 0-100 if explicitly opted in
+    joined_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    last_updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+    group = relationship("TravelGroup", back_populates="members")
+
+    __table_args__ = (
+        Index("idx_group_user", "group_id", "user_id", unique=True),
+    )
+
+
+class GroupMeetingPoint(Base):
+    """
+    Collaborative group designated meeting point with coordinates, ETA and descriptions.
+    """
+    __tablename__ = "group_meeting_points"
+
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    group_id = Column(String(36), ForeignKey("travel_groups.id"), nullable=False, index=True)
+    title = Column(String(150), nullable=False)
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
+    description = Column(Text, nullable=True)
+    set_by_user_id = Column(String(36), nullable=False)
+    set_by_name = Column(String(100), nullable=False, default="Group Member")
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+    group = relationship("TravelGroup", back_populates="meeting_points")
+
+
+class EncryptedGroupMessage(Base):
+    """
+    True End-to-End Encrypted (E2EE) Group Message.
+    The database stores STRICTLY ciphertext and IV. The server has ZERO plaintext access.
+    """
+    __tablename__ = "encrypted_group_messages"
+
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    group_id = Column(String(36), ForeignKey("travel_groups.id"), nullable=False, index=True)
+    sender_id = Column(String(36), nullable=False, index=True)
+    sender_name = Column(String(100), nullable=False)
+    message_type = Column(String(30), default="text")  # 'text', 'location', 'system', 'emergency', 'attachment'
+    encrypted_payload = Column(Text, nullable=False)   # Base64 AES-GCM ciphertext
+    iv = Column(String(64), nullable=False)            # Base64 96-bit AES-GCM IV
+    sender_key_fingerprint = Column(String(64), nullable=True)
+    attachment_url = Column(Text, nullable=True)       # Encrypted blob storage path
+    status = Column(String(20), default="sent")        # 'sending', 'sent', 'delivered', 'read'
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+
+    group = relationship("TravelGroup", back_populates="messages")
+
+
+class GroupPingLog(Base):
+    """
+    Audit & rate-limit log for member attention pings.
+    """
+    __tablename__ = "group_ping_logs"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    group_id = Column(String(36), nullable=False, index=True)
+    sender_id = Column(String(36), nullable=False, index=True)
+    recipient_id = Column(String(36), nullable=False, index=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+
+
+class SustainabilityReport(Base):
+    """
+    Eco-evidence & waste reporting with server-side AI classification,
+    perceptual hashing (anti-spoofing), and server-authoritative score calculation.
+    """
+    __tablename__ = "sustainability_reports"
+
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String(36), nullable=False, index=True)
+    user_name = Column(String(100), nullable=False, default="Responsible Traveler")
+    image_url = Column(Text, nullable=False)
+    image_hash = Column(String(64), nullable=False, index=True)  # SHA-256 / perceptual anti-spoofing
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
+    destination_id = Column(Integer, ForeignKey("destinations_master.id"), nullable=True)
+    ai_classification = Column(String(100), nullable=False)
+    confidence = Column(Float, nullable=False, default=0.92)
+    geo_distance_km = Column(Float, nullable=True)
+    verification_status = Column(String(40), default="AI verified")  # 'AI verified', 'Human verified', 'Pending review', 'Unable to verify'
+    score_awarded = Column(Integer, nullable=False, default=25)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+
+
+class ActiveUserSession(Base):
+    """
+    Active authenticated sessions for account security auditing, device tracking, and remote revocation.
+    """
+    __tablename__ = "active_user_sessions"
+
+    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    user_id = Column(String(36), nullable=False, index=True)
+    session_token_hash = Column(String(64), nullable=False, index=True)
+    device_name = Column(String(100), nullable=False, default="Web Client / Trusted Browser")
+    ip_address = Column(String(60), nullable=False, default="127.0.0.1")
+    last_active_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    is_mfa_authenticated = Column(Boolean, default=False)
+    is_revoked = Column(Boolean, default=False, index=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class TourismBusiness(Base):
+    """
+    Tourism Business Model connecting destinations with nearby Accommodations and Dining.
+    Contains all 72 master attributes including geospatial coordinates, amenities, cuisines, and verification.
+    """
+    __tablename__ = "tourism_businesses"
+
+    business_id = Column(String(36), primary_key=True, index=True)
+    business_name = Column(String(255), nullable=False, index=True)
+    business_type = Column(String(50), nullable=False, index=True)  # hotel, homestay, restaurant, cafe, dhaba, etc.
+    business_category = Column(String(50), nullable=False, index=True)  # accommodation, food
+    sub_category = Column(String(50), nullable=True)
+    description = Column(Text, nullable=True)
+    tourist_place_id = Column(String(36), nullable=False, index=True)
+    tourist_place_name = Column(String(255), nullable=False, index=True)
+    destination_city = Column(String(100), nullable=True)
+    locality = Column(String(150), nullable=True)
+    district = Column(String(100), nullable=True, index=True)
+    state = Column(String(100), nullable=False, index=True)
+    country = Column(String(50), default="India")
+    address = Column(Text, nullable=True)
+    latitude = Column(Float, nullable=False, index=True)
+    longitude = Column(Float, nullable=False, index=True)
+    distance_from_tourist_place_km = Column(Float, nullable=False, index=True)
+    estimated_travel_time_minutes = Column(Integer, default=10)
+    phone = Column(String(50), default="Not Available")
+    email = Column(String(100), default="Not Available")
+    website = Column(String(255), default="Not Available")
+    booking_url = Column(Text, nullable=True)
+    source_url = Column(Text, nullable=True)
+    source_name = Column(String(150), default="OpenStreetMap")
+    source_type = Column(String(50), default="Public Geospatial Dataset")
+    data_confidence = Column(String(20), default="HIGH")
+    verification_status = Column(String(50), default="Verified")
+    last_verified = Column(String(20), nullable=True)
+    rating = Column(Float, default=4.5, index=True)
+    review_count = Column(Integer, default=100)
+    price_level = Column(String(10), default="₹₹", index=True)
+    price_min_inr = Column(Numeric(10, 2), default=1500)
+    price_max_inr = Column(Numeric(10, 2), default=4500)
+    currency = Column(String(10), default="INR")
+    opening_time = Column(String(50), default="09:00 AM")
+    closing_time = Column(String(50), default="10:00 PM")
+    opening_days = Column(String(100), default="All Days")
+    is_24_hours = Column(Boolean, default=False)
+    amenities = Column(Text, nullable=True)
+    room_types = Column(Text, nullable=True)
+    cuisines = Column(String(255), nullable=True)
+    vegetarian = Column(Boolean, default=False)
+    vegan = Column(Boolean, default=False)
+    jain_food = Column(Boolean, default=False)
+    halal_food = Column(Boolean, default=False)
+    family_friendly = Column(Boolean, default=True)
+    couple_friendly = Column(Boolean, default=True)
+    solo_friendly = Column(Boolean, default=True)
+    children_friendly = Column(Boolean, default=True)
+    elderly_friendly = Column(Boolean, default=True)
+    wheelchair_accessible = Column(Boolean, default=False)
+    parking = Column(Boolean, default=True)
+    wifi = Column(Boolean, default=True)
+    air_conditioning = Column(Boolean, default=True)
+    restaurant_available = Column(Boolean, default=True)
+    room_service = Column(Boolean, default=False)
+    breakfast = Column(Boolean, default=True)
+    pet_friendly = Column(Boolean, default=False)
+    laundry = Column(Boolean, default=False)
+    airport_transfer = Column(Boolean, default=False)
+    nearby_transport = Column(String(255), nullable=True)
+    sustainability = Column(String(255), nullable=True)
+    eco_friendly = Column(Boolean, default=False)
+    local_owned = Column(Boolean, default=True)
+    verified_business = Column(Boolean, default=True)
+    cancellation_policy = Column(String(255), nullable=True)
+    payment_methods = Column(String(255), default="UPI, Card, Cash")
+    languages_supported = Column(String(255), default="Hindi, English")
+    best_for = Column(String(255), nullable=True)
+    tourist_tags = Column(String(255), nullable=True)
+    seasonality = Column(String(100), default="All Year Round")
+    crowd_area = Column(String(100), default="Comfortable")
+    safety_information = Column(Text, nullable=True)
+    image_url = Column(Text, nullable=True)
+    map_url = Column(Text, nullable=True)
+    status = Column(String(20), default="Active")
+
+
+class DestinationBusinessMapping(Base):
+    """
+    Geospatial Relationship Matrix linking Tourist Destinations with Nearby Businesses.
+    Supports proximity brackets: very_near, nearby, close, surrounding, regional.
+    """
+    __tablename__ = "destination_business_mappings"
+
+    mapping_id = Column(String(36), primary_key=True, index=True)
+    tourist_place_id = Column(String(36), nullable=False, index=True)
+    business_id = Column(String(36), ForeignKey("tourism_businesses.business_id"), nullable=False, index=True)
+    business_type = Column(String(50), nullable=False, index=True)
+    distance_km = Column(Float, nullable=False, index=True)
+    estimated_travel_time_minutes = Column(Integer, default=10)
+    relationship_type = Column(String(30), nullable=False, index=True)
+    priority = Column(Integer, default=3, index=True)
+
+
+class CulturalEvent(Base):
+    """
+    India's Historical, Cultural & Annual Festival Intelligence System.
+    Stores full metadata including historical significance, unesco status, crowd levels, transport, etc.
+    """
+    __tablename__ = "cultural_events"
+
+    event_id = Column(String(50), primary_key=True, index=True)
+    event_name = Column(String(255), nullable=False, index=True)
+    official_name = Column(String(255), nullable=True)
+    event_type = Column(String(50), nullable=False, index=True)
+    event_category = Column(String(50), nullable=False, index=True)
+    sub_category = Column(String(50), nullable=True)
+    short_description = Column(Text, nullable=True)
+    full_description = Column(Text, nullable=True)
+    historical_significance = Column(Text, nullable=True)
+    cultural_significance = Column(Text, nullable=True)
+    religious_significance = Column(Text, nullable=True)
+    heritage_status = Column(String(100), nullable=True)
+    unesco_status = Column(String(100), nullable=True)
+    importance_tier = Column(String(20), nullable=False, index=True)  # TIER 1, TIER 2, TIER 3
+    state = Column(String(100), nullable=False, index=True)
+    district = Column(String(100), nullable=True, index=True)
+    city = Column(String(100), nullable=False, index=True)
+    venue = Column(String(255), nullable=True)
+    locality = Column(String(255), nullable=True)
+    latitude = Column(Float, nullable=False, index=True)
+    longitude = Column(Float, nullable=False, index=True)
+    nearest_major_city = Column(String(100), nullable=True)
+    nearest_airport = Column(String(100), nullable=True)
+    nearest_railway_station = Column(String(100), nullable=True)
+    event_start_date = Column(String(20), nullable=True, index=True)
+    event_end_date = Column(String(20), nullable=True, index=True)
+    date_type = Column(String(50), nullable=True)
+    recurrence = Column(String(50), nullable=True)
+    annual_event = Column(Boolean, default=True)
+    typical_month = Column(String(30), nullable=True, index=True)
+    typical_start_month = Column(String(30), nullable=True)
+    typical_end_month = Column(String(30), nullable=True)
+    date_confidence = Column(String(20), default="HIGH")  # HIGH, MEDIUM, LOW, TBA
+    date_source = Column(String(255), nullable=True)
+    official_website = Column(Text, nullable=True)
+    official_source = Column(Text, nullable=True)
+    government_source = Column(Text, nullable=True)
+    source_url = Column(Text, nullable=True)
+    source_name = Column(String(255), nullable=True)
+    source_type = Column(String(50), nullable=True)
+    data_confidence = Column(String(20), default="VERIFIED")
+    last_verified = Column(String(30), nullable=True)
+    expected_footfall = Column(String(50), nullable=True)
+    footfall_source = Column(String(255), nullable=True)
+    crowd_level = Column(String(30), nullable=True)
+    crowd_forecast_available = Column(Boolean, default=True)
+    transport_advisory = Column(Text, nullable=True)
+    road_advisory = Column(Text, nullable=True)
+    rail_advisory = Column(Text, nullable=True)
+    airport_advisory = Column(Text, nullable=True)
+    public_transport = Column(Text, nullable=True)
+    special_transport = Column(Text, nullable=True)
+    entry_type = Column(String(30), default="Free Entry")
+    ticket_required = Column(Boolean, default=False)
+    ticket_price = Column(String(100), default="Free")
+    booking_required = Column(Boolean, default=False)
+    booking_url = Column(Text, nullable=True)
+    best_for = Column(String(255), nullable=True)
+    tourist_interests = Column(String(255), nullable=True)
+    family_friendly = Column(Boolean, default=True)
+    solo_friendly = Column(Boolean, default=True)
+    senior_friendly = Column(Boolean, default=True)
+    accessibility = Column(String(100), nullable=True)
+    photography_allowed = Column(Boolean, default=True)
+    dress_code = Column(String(255), nullable=True)
+    cultural_etiquette = Column(Text, nullable=True)
+    local_food = Column(Text, nullable=True)
+    local_crafts = Column(Text, nullable=True)
+    major_activities = Column(Text, nullable=True)
+    event_highlights = Column(Text, nullable=True)
+    nearby_attractions = Column(Text, nullable=True)
+    nearby_hotels = Column(Text, nullable=True)
+    nearby_homestays = Column(Text, nullable=True)
+    nearby_rest_houses = Column(Text, nullable=True)
+    nearby_restaurants = Column(Text, nullable=True)
+    distance_from_major_destination_km = Column(Float, default=0.0)
+    status = Column(String(30), default="Active")
+    hero_image_url = Column(Text, nullable=True)
+
+    __table_args__ = (
+        Index("idx_events_state_city", "state", "city"),
+        Index("idx_events_category", "event_category"),
+        Index("idx_events_lat_lng", "latitude", "longitude"),
+    )
+
+
+class EventOccurrence(Base):
+    """
+    Multi-Year Event Model. Tracks historical and future occurrences for recurrence analysis.
+    """
+    __tablename__ = "event_occurrences"
+
+    occurrence_id = Column(String(50), primary_key=True, index=True)
+    event_id = Column(String(50), ForeignKey("cultural_events.event_id"), nullable=False, index=True)
+    year = Column(Integer, nullable=False, index=True)
+    start_date = Column(String(20), nullable=False, index=True)
+    end_date = Column(String(20), nullable=False, index=True)
+    date_status = Column(String(30), default="Confirmed")
+    official_date = Column(Boolean, default=True)
+    source_url = Column(Text, nullable=True)
+    source_name = Column(String(255), nullable=True)
+    last_verified = Column(String(30), nullable=True)
+
+
+class EventSource(Base):
+    """
+    Audit trail and source provenance for festival and cultural intelligence.
+    """
+    __tablename__ = "event_sources"
+
+    source_id = Column(String(50), primary_key=True, index=True)
+    event_id = Column(String(50), ForeignKey("cultural_events.event_id"), nullable=False, index=True)
+    source_name = Column(String(255), nullable=False)
+    source_type = Column(String(50), nullable=False)
+    source_url = Column(Text, nullable=True)
+    publication_date = Column(String(30), nullable=True)
+    last_checked = Column(String(30), nullable=True)
+    source_reliability = Column(String(30), default="HIGH")
+    information_supported = Column(Text, nullable=True)
+
+
+class Festival(Base):
+    """
+    Festival & Event entity for DMO Demand Forecasting.
+    """
+    __tablename__ = "festivals"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String(255), nullable=False, index=True)
+    region = Column(String(100), nullable=False, index=True)
+    state = Column(String(100), nullable=False, index=True)
+    event_date = Column(Date, nullable=False, index=True)
+    category = Column(String(100), nullable=True, default="Cultural")
+    expected_scale = Column(String(50), nullable=False, default="regional")  # 'local', 'regional', 'national'
+    source = Column(String(100), default="calendarific")
+
+    forecasts = relationship("FootfallForecast", back_populates="festival", cascade="all, delete-orphan")
+
+
+class FootfallForecast(Base):
+    """
+    Predicts footfall index spikes and staffing pre-positioning requirements.
+    """
+    __tablename__ = "footfall_forecasts"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    region = Column(String(100), nullable=False, index=True)
+    forecast_date = Column(Date, nullable=False, index=True)
+    predicted_footfall_index = Column(Float, nullable=False, default=100.0)
+    confidence = Column(Float, nullable=False, default=0.85)
+    festival_id = Column(Integer, ForeignKey("festivals.id"), nullable=True, index=True)
+    staffing_recommendation = Column(JSON, nullable=False)  # {"police": int, "medical": int, "sanitation": int}
+    generated_at = Column(DateTime, default=datetime.utcnow)
+    staffing_overridden = Column(Boolean, default=False)
+    audit_log = Column(JSON, nullable=True)  # [{"timestamp": str, "user": str, "old": {}, "new": {}}]
+    crowd_status = Column(String(20), nullable=True)  # 'low', 'moderate', 'high', 'critical'
+    resource_recommendation = Column(JSON, nullable=True)  # {"police": int, "medical": int, "sanitation": int, "buses": int, "ambulances": int, "toilets": int}
+
+    festival = relationship("Festival", back_populates="forecasts")
+
+
+class InvestmentRecommendation(Base):
+    """
+    AI Tourism Investment Prioritization & District Capital Allocation.
+    """
+    __tablename__ = "investment_recommendations"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    budget_crore = Column(Float, nullable=False)
+    district = Column(String(100), nullable=False, index=True)
+    state = Column(String(100), nullable=False, index=True)
+    rank = Column(Integer, nullable=False)
+    expected_tourist_increase_pct = Column(Float, nullable=False)
+    expected_spend_crore = Column(Float, nullable=False)
+    expected_jobs = Column(Integer, nullable=False)
+    infra_priority = Column(String(100), nullable=False)
+    tourism_potential = Column(Float, nullable=False)
+    roi_label = Column(String(100), nullable=False)
+    top_factors = Column(JSON, nullable=False)
+    recommended_actions = Column(JSON, nullable=False)
+    data_label = Column(String(50), nullable=False, default="AI Recommendation")
+    generated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class FlowRedistribution(Base):
+    """
+    Smart Tourist Flow Redistribution for high/critical overtourism mitigations.
+    """
+    __tablename__ = "flow_redistribution"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    primary_destination_id = Column(Integer, ForeignKey("destinations_master.id"), nullable=False, index=True)
+    alternative_destination_id = Column(Integer, ForeignKey("destinations_master.id"), nullable=False, index=True)
+    current_flow_pct = Column(Float, nullable=False)
+    recommended_flow_pct = Column(Float, nullable=False)
+    distance_km = Column(Float, nullable=False)
+    expected_economic_impact_crore = Column(Float, nullable=False)
+    data_label = Column(String(50), nullable=False, default="AI Recommendation")
+    generated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    primary_destination = relationship("DestinationMaster", foreign_keys=[primary_destination_id])
+    alternative_destination = relationship("DestinationMaster", foreign_keys=[alternative_destination_id])
 

@@ -12,7 +12,7 @@ TravelSathi intentionally maintains **exactly 3 machine learning models**. Gener
 
 | Model | Architecture | File Path | Objective & Target | Primary Validation Metrics (Empirical) | Training Provenance |
 |---|---|---|---|---|---|
-| **Model 1: Dynamic Pricing Predictor** | `GradientBoostingRegressor` (scikit-learn) | `backend/app/services/pricing_model.pkl` | Predicts fair, market-adjusted nightly homestay tariff (INR) | **MAE:** ₹230.23<br>**$R^2$:** 0.9946<br>**RMSE:** ₹288.94 | 1,600 samples based on festival lead time, weekend multipliers, season demand index, and 30-day occupancy rates. |
+| **Model 1: Dynamic Pricing Predictor** | `GradientBoostingRegressor` (scikit-learn) | `backend/app/services/pricing_model.pkl` | Predicts fair, market-adjusted nightly homestay tariff (INR) | **MAE:** ₹204.53<br>**$R^2$:** 0.9948<br>**RMSE:** ₹262.18 | 1,600 samples based on festival lead time, weekend multipliers, season demand index, and 30-day occupancy rates. |
 | **Model 2: Recommendation Ranker** | `GradientBoostingClassifier` (scikit-learn) | `backend/app/services/recommendation_model.pkl` | Probability of user click/booking given destination & user profile features | **AUC-ROC:** 0.7164<br>**Precision@6:** 0.6232 (62.32%)<br>**Test Accuracy:** 68.86%<br>**Confusion Matrix:** `[[3671, 599], [1581, 1149]]` | 35,000 synthetic bootstrap interactions across 12,293 national POIs. Stratified 80/20 train/test split. |
 | **Model 3: Review Authenticity Classifier** | `LogisticRegression` with engineered linguistic & metadata features | `backend/app/services/authenticity_model.pkl` | Distinguishes authentic visitor reviews from bot-generated or generic reviews | **CV Accuracy:** 93.33%<br>**CV Precision:** 96.32%<br>**CV Recall:** 92.55%<br>**CV F1 Score:** 0.9432<br>**Confusion Matrix:** `[[TN=68, FP=4], [FN=8, TP=100]]` | 180 benchmark reviews (108 genuine, 72 suspicious/templated) evaluated using 5-Fold Stratified Cross-Validation. |
 
@@ -55,6 +55,21 @@ TravelSathi intentionally maintains **exactly 3 machine learning models**. Gener
   4. Removed silent fake fallback in `PlanView.jsx`; honest backend errors are now rendered with clear user notices and a prompt to pick another destination.
 - **Verification:**
   - Automated tests in `backend/tests/test_search_accuracy.py` and `backend/tests/test_itinerary_accuracy.py` passed 100% (7/7 tests passed). Live queries for "Manali", "Jaipur", "Hampi", and unknown destinations confirmed accurate, repeatable, and honest responses.
+
+### 2.5 Multilingual Localization Across 7 Indic Languages
+- **Scope**: Cultural Events Dossier modal (`EventsView.tsx`), Safety & Emergency Center (`SafetyView.tsx`), Local Experiences (`ExperiencesView.tsx`), and Community Stays (`StaysView.tsx`).
+- **Implementation**:
+  - Expanded `summaryTranslator.ts` across Hindi, Marathi, Bengali, Tamil, Telugu, Gujarati, and English for all major Indian festivals (Durga Puja, Hornbill, Pushkar, Bihu, etc.), venues, and cultural significance.
+  - Implemented dynamic parametric translation for distances (`X km away`), event durations (`X Hours`), confidence scores, and source stamps.
+  - Synchronized all 7 JSON translation files in `frontend/src/locales/`.
+
+### 2.6 High-Density Emergency & Tourist Essentials Mesh (548+ Facilities)
+- **Scope**: Smart Interactive GIS Map (`SmartMapView.tsx`) and Destinations API (`destinations.py`).
+- **Implementation**:
+  - Seeded 167+ verified emergency hospitals, level-1 trauma centers, certified homestays, verified hotels, and authentic regional dining spots across 36 States & UTs (boosting total from 368 to 548+).
+  - Enriched `/api/destinations/map-points` to always provide `description`, `price_range`, and `review_count`.
+  - Upgraded Leaflet Map popups with category badges, star ratings, price tiers, rich descriptions, and 1-click direct `tel:` helpline call buttons (`tel:108` / `tel:...`).
+  - Added dedicated category filter pills (`All`, `🏥 Hospitals`, `🏨 Hotels`, `🏡 Homestays`, `🍽️ Dining`) with live counts.
 
 ## 3. Known Limitations (Honest Disclosure for Judges)
 

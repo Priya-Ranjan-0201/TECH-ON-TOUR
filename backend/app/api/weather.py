@@ -158,40 +158,54 @@ def get_regional_weather(dest_name: str, state: str, category: str, lat: Optiona
 
 @router.get("")
 async def get_destination_weather(
-    destination: str = Query(..., description="Target destination or city name"),
+    destination: Optional[str] = Query(None, description="Target destination or city name"),
+    lat: Optional[float] = Query(None, description="Direct latitude coordinate"),
+    lng: Optional[float] = Query(None, description="Direct longitude coordinate"),
     db: AsyncSession = Depends(get_db)
 ):
     """
-    Get live microclimate data, rainfall risk probability, and travel advisory for any destination.
+    Get live microclimate data, rainfall risk probability, and travel advisory for any destination or coordinates.
     """
-    clean_query = destination.strip()
-    if not clean_query:
-        clean_query = "Manali"
+    dest_name = (destination or "").strip()
+    state = "India"
+    category = "Attraction"
+    target_lat = lat
+    target_lng = lng
 
-    # 1. Look up destination in DB to resolve coordinates and state
-    stmt = select(DestinationMaster).where(
-        or_(
-            func.lower(DestinationMaster.name).like(f"%{clean_query.lower()}%"),
-            func.lower(DestinationMaster.state).like(f"%{clean_query.lower()}%")
-        )
-    ).order_by(DestinationMaster.rating.desc()).limit(1)
+    if not dest_name and (target_lat is None or target_lng is None):
+        dest_name = "Manali"
 
-    res = await db.execute(stmt)
-    dest = res.scalar_one_or_none()
+    if dest_name:
+        # 1. Look up destination in DB to resolve coordinates and state
+        stmt = select(DestinationMaster).where(
+            or_(
+                func.lower(DestinationMaster.name).like(f"%{dest_name.lower()}%"),
+                func.lower(DestinationMaster.state).like(f"%{dest_name.lower()}%")
+            )
+        ).order_by(DestinationMaster.rating.desc()).limit(1)
 
-    dest_name = dest.name if dest else clean_query.title()
-    state = dest.state if dest else "India"
-    category = dest.category if dest else "Attraction"
-    lat = dest.latitude if dest else None
-    lng = dest.longitude if dest else None
+        res = await db.execute(stmt)
+        dest = res.scalar_one_or_none()
+
+        if dest:
+            dest_name = dest.name
+            state = dest.state or "India"
+            category = dest.category or "Attraction"
+            if target_lat is None or target_lng is None:
+                target_lat = dest.latitude
+                target_lng = dest.longitude
+        else:
+            dest_name = dest_name.title()
+    elif target_lat is not None and target_lng is not None:
+        dest_name = f"Coordinates ({target_lat:.2f}, {target_lng:.2f})"
 
     # 2. Try OpenWeatherMap API if configured
-    if lat and lng and settings.openweather_api_key and settings.openweather_api_key != "mock-weather-key":
+    if target_lat and target_lng and settings.openweather_api_key and settings.openweather_api_key != "mock-weather-key":
         try:
             url = "https://api.openweathermap.org/data/2.5/weather"
             params = {
-                "lat": lat,
-                "lon": lng,
+                "lat": target_lat,
+                "lon": target_lng,
                 "appid": settings.openweather_api_key,
                 "units": "metric"
             }
@@ -255,4 +269,4 @@ async def get_destination_weather(
             pass
 
     # 3. Authentic regional microclimate model
-    return get_regional_weather(dest_name, state, category, lat, lng)
+    return get_regional_weather(dest_name, state, category, target_lat, target_lng)

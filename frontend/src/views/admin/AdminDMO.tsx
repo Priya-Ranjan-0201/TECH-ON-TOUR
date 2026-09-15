@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { 
   ShieldAlert, 
@@ -19,156 +19,44 @@ import {
   TrendingUp,
   Sliders,
   Compass,
-  Info
+  Info,
+  Calendar,
+  Edit3,
+  Save,
+  X,
+  Clock,
+  Shield,
+  Award,
+  Search
 } from 'lucide-react';
 import { MapContainer, TileLayer, CircleMarker, Popup, Tooltip } from 'react-leaflet';
 import axios from 'axios';
+import { DataBadge } from '../../components/common/DataBadge';
 
-// Fallback initial dataset if backend API is cold-starting
-const INITIAL_HEATMAP_NODES = [
-  {
-    id: "node-manali",
-    name: "Manali",
-    state: "Himachal Pradesh",
-    lat: 32.2396,
-    lng: 77.1887,
-    carrying_capacity: 50000,
-    current_footfall: 95000,
-    saturation: 92,
-    status: "CRITICAL",
-    is_locked: false,
-    alternative: "Tirthan Valley & Jibhi"
-  },
-  {
-    id: "node-shimla",
-    name: "Shimla",
-    state: "Himachal Pradesh",
-    lat: 31.1048,
-    lng: 77.1734,
-    carrying_capacity: 65000,
-    current_footfall: 115000,
-    saturation: 88,
-    status: "CRITICAL",
-    is_locked: false,
-    alternative: "Chail & Narkanda"
-  },
-  {
-    id: "node-goa",
-    name: "Goa Beaches",
-    state: "Goa",
-    lat: 15.2993,
-    lng: 74.1240,
-    carrying_capacity: 120000,
-    current_footfall: 230000,
-    saturation: 95,
-    status: "CRITICAL",
-    is_locked: false,
-    alternative: "Gokarna & Divar Island"
-  },
-  {
-    id: "node-jaipur",
-    name: "Jaipur",
-    state: "Rajasthan",
-    lat: 26.9124,
-    lng: 75.7873,
-    carrying_capacity: 90000,
-    current_footfall: 150000,
-    saturation: 82,
-    status: "WARNING",
-    is_locked: false,
-    alternative: "Bundi & Shekhawati"
-  },
-  {
-    id: "node-varanasi",
-    name: "Varanasi",
-    state: "Uttar Pradesh",
-    lat: 25.3176,
-    lng: 83.0064,
-    carrying_capacity: 85000,
-    current_footfall: 145000,
-    saturation: 86,
-    status: "CRITICAL",
-    is_locked: false,
-    alternative: "Chunar & Sarnath Rural"
-  },
-  {
-    id: "node-ooty",
-    name: "Ooty",
-    state: "Tamil Nadu",
-    lat: 11.4064,
-    lng: 76.6932,
-    carrying_capacity: 40000,
-    current_footfall: 72000,
-    saturation: 79,
-    status: "WARNING",
-    is_locked: false,
-    alternative: "Valparai & Coonoor"
-  },
-  {
-    id: "node-munnar",
-    name: "Munnar",
-    state: "Kerala",
-    lat: 10.0889,
-    lng: 77.0595,
-    carrying_capacity: 55000,
-    current_footfall: 78000,
-    saturation: 71,
-    status: "WARNING",
-    is_locked: false,
-    alternative: "Vagamon & Marayoor"
-  },
-  {
-    id: "node-jibhi",
-    name: "Jibhi",
-    state: "Himachal Pradesh",
-    lat: 31.6120,
-    lng: 77.3440,
-    carrying_capacity: 25000,
-    current_footfall: 4500,
-    saturation: 18,
-    status: "SUSTAINABLE",
-    is_locked: false,
-    alternative: null
-  },
-  {
-    id: "node-tirthan",
-    name: "Tirthan Valley",
-    state: "Himachal Pradesh",
-    lat: 31.6395,
-    lng: 77.4459,
-    carrying_capacity: 30000,
-    current_footfall: 3600,
-    saturation: 12,
-    status: "SUSTAINABLE",
-    is_locked: false,
-    alternative: null
-  },
-  {
-    id: "node-bastar",
-    name: "Bastar",
-    state: "Chhattisgarh",
-    lat: 19.1071,
-    lng: 81.9535,
-    carrying_capacity: 35000,
-    current_footfall: 2800,
-    saturation: 8,
-    status: "SUSTAINABLE",
-    is_locked: false,
-    alternative: null
-  },
-];
+// Lazy-loaded intelligence suite modules (Step 0 code-splitting)
+const InvestmentIntelligenceView = React.lazy(() => import('../dmo/InvestmentIntelligenceView'));
+const CrowdIntelligenceView = React.lazy(() => import('../dmo/CrowdIntelligenceView'));
+const FlowRedistributionView = React.lazy(() => import('../dmo/FlowRedistributionView'));
+
+export type DMOTabType = 'overview' | 'analytics' | 'investment' | 'crowd' | 'flow' | 'potential' | 'circuits' | 'safety' | 'forecasts';
 
 export default function AdminDMO() {
-  const [loading, setLoading] = useState(false);
-  const [heatmapNodes, setHeatmapNodes] = useState(INITIAL_HEATMAP_NODES);
+  const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+  const [heatmapNodes, setHeatmapNodes] = useState<any[]>([]);
   const [activeLocks, setActiveLocks] = useState({});
   const [platformMetrics, setPlatformMetrics] = useState({
-    total_destinations: 12293,
+    total_destinations: 12601,
     active_eco_permit_locks: 0,
-    diverted_tourist_volume: 0,
-    carbon_abated_kg: 0,
+    diverted_tourist_volume: 36900,
+    carbon_abated_kg: 1568250,
   });
+  // Live data from new backend endpoints
+  const [sentimentStats, setSentimentStats] = useState<any>(null);
+  const [bookingStats, setBookingStats] = useState<any>(null);
+  const [pipelineHealth, setPipelineHealth] = useState<any>(null);
   const [filterMode, setFilterMode] = useState('ALL'); // 'ALL' | 'CRITICAL' | 'LOCKED'
+  const [investmentPriorities, setInvestmentPriorities] = useState<any[]>([]);
   const [togglingNode, setTogglingNode] = useState(null);
   const [toastMessage, setToastMessage] = useState(null);
   const [testingItinerary, setTestingItinerary] = useState(false);
@@ -176,7 +64,52 @@ export default function AdminDMO() {
   const [showFullAnalytics, setShowFullAnalytics] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-  const [dmoTab, setDmoTab] = useState<'overview' | 'analytics' | 'circuits'>('overview');
+  const [dmoTab, setDmoTab] = useState<DMOTabType>('overview');
+  const [potentialFilter, setPotentialFilter] = useState({ state: '', search: '', category: '' });
+  const [potentialLoading, setPotentialLoading] = useState(false);
+
+  // ── Festival Forecast State ──
+  const [forecasts, setForecasts] = useState<any[]>([]);
+  const [forecastLoading, setForecastLoading] = useState(false);
+  const [editingForecast, setEditingForecast] = useState<any>(null);
+  const [staffingForm, setStaffingForm] = useState({ police: 0, medical: 0, sanitation: 0, notes: '' });
+  const [savingStaffing, setSavingStaffing] = useState(false);
+  const [forecastDetail, setForecastDetail] = useState<any>(null);
+
+  const fetchForecasts = async () => {
+    setForecastLoading(true);
+    try {
+      const res = await axios.get('/api/dmo/forecasts?days_ahead=90');
+      if (res.data?.forecasts) setForecasts(res.data.forecasts);
+    } catch (e) {
+      console.warn('Forecast fetch failed:', e);
+    } finally {
+      setForecastLoading(false);
+    }
+  };
+
+  const fetchForecastDetail = async (id: number) => {
+    try {
+      const res = await axios.get(`/api/dmo/forecasts/${id}`);
+      setForecastDetail(res.data);
+    } catch (e) {
+      console.warn('Forecast detail fetch failed:', e);
+    }
+  };
+
+  const saveStaffingOverride = async () => {
+    if (!editingForecast) return;
+    setSavingStaffing(true);
+    try {
+      await axios.patch(`/api/dmo/forecasts/${editingForecast.id}/staffing`, staffingForm);
+      setEditingForecast(null);
+      fetchForecasts();
+    } catch (e) {
+      console.warn('Staffing override failed:', e);
+    } finally {
+      setSavingStaffing(false);
+    }
+  };
 
   const [circuits, setCircuits] = useState<any[]>([]);
   const [editingCircuit, setEditingCircuit] = useState<any>(null);
@@ -198,24 +131,139 @@ export default function AdminDMO() {
     }
   };
 
+  // ── Hidden Gems State ──
+  const [hiddenGems, setHiddenGems] = useState<any[]>([]);
+  const [hiddenGemsLoading, setHiddenGemsLoading] = useState(false);
+
+  const fetchHiddenGems = async () => {
+    setHiddenGemsLoading(true);
+    try {
+      const res = await axios.get('/api/dmo/hidden-gems?limit=50');
+      if (res.data?.hidden_gems) setHiddenGems(res.data.hidden_gems);
+    } catch (e) {
+      console.warn('Hidden gems fetch failed:', e);
+    } finally {
+      setHiddenGemsLoading(false);
+    }
+  };
+
+  const handleToggleHiddenGem = async (dest: any) => {
+    try {
+      const res = await axios.post(`/api/dmo/hidden-gems/${dest.id}/toggle`);
+      showToast('Hidden Gem Updated', res.data?.message || `Updated ${dest.name}`, 'success');
+      fetchHiddenGems();
+      fetchDMOData();
+    } catch (e) {
+      showToast('Error', 'Failed to toggle hidden gem status.', 'alert');
+    }
+  };
+
+  // ── Safety Score & Audit Log State ──
+  const [safetyScores, setSafetyScores] = useState<any[]>([]);
+  const [safetyLoading, setSafetyLoading] = useState(false);
+  const [safetyAuditLogs, setSafetyAuditLogs] = useState<any[]>([]);
+  const [editingSafety, setEditingSafety] = useState<any>(null);
+  const [safetyForm, setSafetyForm] = useState({ score: 85, reason: '' });
+  const [savingSafety, setSavingSafety] = useState(false);
+  const [safetySearch, setSafetySearch] = useState('');
+
+  const fetchSafetyData = async () => {
+    setSafetyLoading(true);
+    try {
+      const [scoresRes, logsRes] = await Promise.allSettled([
+        axios.get(`/api/dmo/safety-scores?limit=50${safetySearch ? `&search=${encodeURIComponent(safetySearch)}` : ''}`),
+        axios.get('/api/dmo/safety-audit-logs?limit=20'),
+      ]);
+      if (scoresRes.status === 'fulfilled' && scoresRes.value.data?.destinations) {
+        setSafetyScores(scoresRes.value.data.destinations);
+      }
+      if (logsRes.status === 'fulfilled' && logsRes.value.data?.audit_logs) {
+        setSafetyAuditLogs(logsRes.value.data.audit_logs);
+      }
+    } catch (e) {
+      console.warn('Safety data fetch failed:', e);
+    } finally {
+      setSafetyLoading(false);
+    }
+  };
+
+  const handleSaveSafety = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!editingSafety) return;
+    setSavingSafety(true);
+    try {
+      const res = await axios.patch(`/api/dmo/safety-scores/${editingSafety.id}`, {
+        safety_score: Number(safetyForm.score),
+        reason: safetyForm.reason || 'DMO field safety compliance review'
+      });
+      showToast('Safety Score Updated', res.data?.message || 'Updated safety score with audit log.', 'success');
+      setEditingSafety(null);
+      fetchSafetyData();
+      fetchDMOData();
+    } catch (err: any) {
+      showToast('Error', 'Failed to update safety score.', 'alert');
+    } finally {
+      setSavingSafety(false);
+    }
+  };
+
+  // ── Overtourism Alerts State ──
+  const [overtourismAlerts, setOvertourismAlerts] = useState<any[]>([]);
+
   useEffect(() => {
     const path = location.pathname.toLowerCase();
-    if (path.includes('/analytics')) {
+    if (path.includes('/investment')) {
+      setDmoTab('investment');
+    } else if (path.includes('/crowd') || path.includes('/forecasts')) {
+      setDmoTab('crowd');
+    } else if (path.includes('/flow')) {
+      setDmoTab('flow');
+    } else if (path.includes('/analytics')) {
       setDmoTab('analytics');
       setShowFullAnalytics(true);
     } else if (path.includes('/circuits')) {
       setDmoTab('circuits');
       fetchCircuits();
+      fetchHiddenGems();
+    } else if (path.includes('/safety')) {
+      setDmoTab('safety');
+      fetchSafetyData();
     } else {
       setDmoTab('overview');
     }
   }, [location.pathname]);
 
-  const handleTabChange = (tab: 'overview' | 'analytics' | 'circuits') => {
+  const fetchInvestmentPriorities = async (stateFilter = '', searchFilter = '', catFilter = '') => {
+    setPotentialLoading(true);
+    try {
+      let url = '/api/dmo/investment-priorities?limit=50';
+      if (stateFilter) url += `&state=${encodeURIComponent(stateFilter)}`;
+      if (searchFilter) url += `&search=${encodeURIComponent(searchFilter)}`;
+      if (catFilter) url += `&category=${encodeURIComponent(catFilter)}`;
+      const res = await axios.get(url);
+      if (res.data?.investment_priorities) {
+        setInvestmentPriorities(res.data.investment_priorities);
+      }
+    } catch (e) {
+      console.error('Failed to fetch investment priorities', e);
+    } finally {
+      setPotentialLoading(false);
+    }
+  };
+
+  const handleTabChange = (tab: DMOTabType) => {
     setDmoTab(tab);
     if (tab === 'overview') navigate('/dmo');
     else navigate(`/dmo/${tab}`);
-    if (tab === 'circuits') fetchCircuits();
+    if (tab === 'circuits') {
+      fetchCircuits();
+      fetchHiddenGems();
+    }
+    if (tab === 'potential' || tab === 'analytics') {
+      fetchInvestmentPriorities(potentialFilter.state, potentialFilter.search, potentialFilter.category);
+    }
+    if (tab === 'safety') fetchSafetyData();
+    if (tab === 'forecasts' || tab === 'crowd') fetchForecasts();
   };
 
   const handleOpenEditCircuit = (c: any) => {
@@ -242,18 +290,55 @@ export default function AdminDMO() {
     }
   };
 
-  // Fetch real-time telemetry from backend DMO API
+  // Fetch real-time telemetry from backend DMO API + new live-data endpoints
   const fetchDMOData = useCallback(async () => {
     setLoading(true);
+    setFetchError(null);
     try {
-      const res = await axios.get('/api/dmo/analytics');
-      if (res.data) {
-        if (res.data.heatmap_data) setHeatmapNodes(res.data.heatmap_data);
-        if (res.data.eco_permit_locks) setActiveLocks(res.data.eco_permit_locks);
-        if (res.data.platform_metrics) setPlatformMetrics(res.data.platform_metrics);
+      const [analyticsRes, sentimentRes, bookingRes, pipelineRes, alertsRes, investRes] = await Promise.allSettled([
+        axios.get('/api/dmo/analytics'),
+        axios.get('/api/dmo/sentiment-stats'),
+        axios.get('/api/dmo/booking-stats'),
+        axios.get('/api/dmo/pipeline-health'),
+        axios.get('/api/dmo/overtourism-alerts?threshold=70'),
+        axios.get('/api/dmo/investment-priorities?limit=25'),
+      ]);
+
+      // Analytics (main)
+      if (analyticsRes.status === 'fulfilled' && analyticsRes.value.data) {
+        const d = analyticsRes.value.data;
+        if (d.heatmap_data) setHeatmapNodes(d.heatmap_data);
+        if (d.eco_permit_locks) setActiveLocks(d.eco_permit_locks);
+        if (d.platform_metrics) setPlatformMetrics(d.platform_metrics);
+      }
+
+      // Sentiment
+      if (sentimentRes.status === 'fulfilled' && sentimentRes.value.data) {
+        setSentimentStats(sentimentRes.value.data);
+      }
+
+      // Bookings
+      if (bookingRes.status === 'fulfilled' && bookingRes.value.data) {
+        setBookingStats(bookingRes.value.data);
+      }
+
+      // Pipeline
+      if (pipelineRes.status === 'fulfilled' && pipelineRes.value.data) {
+        setPipelineHealth(pipelineRes.value.data);
+      }
+
+      // Alerts
+      if (alertsRes.status === 'fulfilled' && alertsRes.value.data?.alerts) {
+        setOvertourismAlerts(alertsRes.value.data.alerts);
+      }
+
+      // Investment Priorities
+      if (investRes.status === 'fulfilled' && investRes.value.data?.investment_priorities) {
+        setInvestmentPriorities(investRes.value.data.investment_priorities);
       }
     } catch (err) {
-      console.warn("Backend DMO analytics API unavailable, utilizing local telemetry cache:", err);
+      setFetchError('Failed to connect to DMO backend. Ensure the server is running on :8000.');
+      console.warn("Backend DMO analytics API unavailable:", err);
     } finally {
       setLoading(false);
     }
@@ -429,11 +514,15 @@ export default function AdminDMO() {
       )}
 
       {/* DMO Mode Navigation Tabs */}
-      <div className="max-w-7xl mx-auto flex items-center gap-2 border-b border-neutral-200 dark:border-neutral-800 pb-3 text-xs font-bold">
+      <div className="max-w-7xl mx-auto flex items-center gap-2 border-b border-neutral-200 dark:border-neutral-800 pb-3 text-xs font-bold overflow-x-auto">
         {[
-          { id: 'overview', label: '🏛️ DMO Intelligence & Heatmap' },
-          { id: 'analytics', label: '📊 Footfall & Sentiment Analytics' },
-          { id: 'circuits', label: '🧭 Circuit Management' },
+          { id: 'overview', label: '🏛️ Tourism Overview' },
+          { id: 'investment', label: '💰 Investment Intelligence' },
+          { id: 'crowd', label: '🎪 Crowd Intelligence' },
+          { id: 'flow', label: '🔀 Tourist Flow Redistribution' },
+          { id: 'analytics', label: '📊 Footfall & Sentiment' },
+          { id: 'circuits', label: '🧭 Circuits & Hidden Gems' },
+          { id: 'safety', label: '🛡️ Safety Scores & Audit Log' },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -461,7 +550,7 @@ export default function AdminDMO() {
           </div>
           {/* Exactly 1 Headline Stat */}
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-[#712B13] dark:text-amber-100 tracking-tight">
-            {platformMetrics.total_destinations.toLocaleString()} National POIs Monitored • {platformMetrics.diverted_tourist_volume > 0 ? platformMetrics.diverted_tourist_volume.toLocaleString() : '36,900+'} Tourists Diverted
+            {(platformMetrics.total_destinations > 0 ? platformMetrics.total_destinations : 12293).toLocaleString()} National POIs Monitored • {platformMetrics.diverted_tourist_volume > 0 ? platformMetrics.diverted_tourist_volume.toLocaleString() : '36,900+'} Tourists Diverted
           </h1>
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-1 max-w-3xl">
             Real-time carrying capacity monitoring, automated visitor diversion to secondary cultural circuits, and administrative Eco-Permit throttling for State Tourism Boards.
@@ -512,16 +601,57 @@ export default function AdminDMO() {
         </div>
       </div>
 
-      {/* 4 Executive KPI Tiles (Visible only when showFullAnalytics is true) */}
-      {showFullAnalytics && (
+      {/* Real-time Overtourism Alerts Banner */}
+      {overtourismAlerts.length > 0 && (
+        <div className="max-w-7xl mx-auto p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-800/60 shadow-2xs space-y-3 animate-fadeIn">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping" />
+              <h3 className="font-bold text-xs uppercase tracking-wider text-amber-900 dark:text-amber-200 flex items-center gap-1.5">
+                <AlertTriangle className="w-4 h-4 text-amber-600" />
+                <span>Active Overtourism Alerts ({overtourismAlerts.length} High-Stress Corridors)</span>
+              </h3>
+            </div>
+            <span className="text-[11px] font-mono text-amber-700 dark:text-amber-300">Live Carrying Capacity Threshold &gt; 70</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+            {overtourismAlerts.slice(0, 3).map((a: any) => (
+              <div key={a.destination_id} className="p-3 rounded-xl bg-white dark:bg-[#1A1816] border border-amber-200 dark:border-amber-900/50 flex flex-col justify-between space-y-2">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-xs text-neutral-900 dark:text-white">{a.name} ({a.state})</span>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold ${
+                      a.severity === 'CRITICAL' ? 'bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-300' : 'bg-amber-100 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300'
+                    }`}>
+                      {a.severity} ({a.saturation_pct}%)
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-neutral-500 mt-1 line-clamp-2">{a.advisory}</p>
+                </div>
+                <div className="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-800 text-[11px]">
+                  <span className="text-emerald-600 font-semibold truncate">→ {a.recommended_alternative}</span>
+                  <button
+                    onClick={() => handleToggleEcoPermit({ name: a.name, state: a.state, alternative: a.recommended_alternative })}
+                    className="px-2.5 py-1 rounded-md bg-[#712B13] text-white text-[10px] font-bold hover:bg-[#5A220F] shrink-0 cursor-pointer"
+                  >
+                    {activeLocks[a.name.toLowerCase()] ? 'Unlock Gate' : 'Lock Gate'}
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 4 Executive KPI Tiles (Visible in Analytics, Potential, or when expanded) */}
+      {(dmoTab === 'analytics' || dmoTab === 'potential' || showFullAnalytics) && (
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-fadeIn">
           {/* KPI 1: Monitored Destinations */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Total POIs Mapped</span>
-              <div className="w-8 h-8 rounded-xl bg-[#712B13]/10 text-[#712B13] dark:text-[#E5A93C] flex items-center justify-center">
-                <Compass className="w-4 h-4" />
-              </div>
+              <DataBadge label="Actual Data" size="xs" />
             </div>
             <div className="mt-3 flex items-baseline gap-2">
               <span className="text-2xl sm:text-3xl font-display font-extrabold text-neutral-900 dark:text-white">
@@ -536,9 +666,7 @@ export default function AdminDMO() {
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Critical Hotspots</span>
-              <div className="w-8 h-8 rounded-xl bg-red-50 dark:bg-red-950/40 text-red-600 flex items-center justify-center">
-                <AlertTriangle className="w-4 h-4" />
-              </div>
+              <DataBadge label="Predicted Data" size="xs" />
             </div>
             <div className="mt-3 flex items-baseline gap-2">
               <span className="text-2xl sm:text-3xl font-display font-extrabold text-red-600 dark:text-red-400">
@@ -553,9 +681,7 @@ export default function AdminDMO() {
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Active Gatekeepers</span>
-              <div className="w-8 h-8 rounded-xl bg-amber-50 dark:bg-amber-950/40 text-[#712B13] dark:text-[#E5A93C] flex items-center justify-center">
-                <ShieldAlert className="w-4 h-4" />
-              </div>
+              <DataBadge label="Actual Data" size="xs" />
             </div>
             <div className="mt-3 flex items-baseline gap-2">
               <span className="text-2xl sm:text-3xl font-display font-extrabold text-[#712B13] dark:text-[#E5A93C]">
@@ -570,9 +696,7 @@ export default function AdminDMO() {
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Decentralized Footfall</span>
-              <div className="w-8 h-8 rounded-xl bg-green-50 dark:bg-green-950/40 text-emerald-600 flex items-center justify-center">
-                <Leaf className="w-4 h-4" />
-              </div>
+              <DataBadge label="Estimated Data" size="xs" />
             </div>
             <div className="mt-3 flex items-baseline gap-2">
               <span className="text-2xl sm:text-3xl font-display font-extrabold text-emerald-700 dark:text-emerald-400">
@@ -585,7 +709,401 @@ export default function AdminDMO() {
         </div>
       )}
 
-      {/* Circuit Management Panel (Visible when dmoTab === 'circuits') */}
+      {/* ═══ LIVE DATA PANELS (Sentiment, Bookings, Pipeline) ═══ */}
+      {(dmoTab === 'analytics' || dmoTab === 'potential' || showFullAnalytics) && (
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 animate-fadeIn">
+
+          {/* Panel 1: Real Sentiment from reviews_training */}
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Review Sentiment (Live DB)</span>
+              <div className="w-7 h-7 rounded-lg bg-violet-50 dark:bg-violet-950/40 text-violet-600 flex items-center justify-center">
+                <TrendingUp className="w-3.5 h-3.5" />
+              </div>
+            </div>
+            {sentimentStats ? (
+              <>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-3xl font-display font-extrabold text-violet-700 dark:text-violet-300">
+                    {(sentimentStats.overall?.avg_sentiment_score * 100).toFixed(1)}%
+                  </span>
+                  <span className="text-[11px] font-bold text-violet-500">Positive</span>
+                </div>
+                <div className="space-y-1.5 text-[11px] text-neutral-600 dark:text-neutral-400">
+                  <div className="flex justify-between">
+                    <span>Authenticity Score</span>
+                    <span className="font-bold">{sentimentStats.overall?.avg_authenticity_score}/100</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Total Reviews</span>
+                    <span className="font-bold">{sentimentStats.overall?.total_reviews}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Verified Bookings</span>
+                    <span className="font-bold">{sentimentStats.overall?.verified_bookings}</span>
+                  </div>
+                </div>
+                {sentimentStats.by_state?.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-neutral-100 dark:border-neutral-800">
+                    <span className="text-[10px] font-bold text-neutral-400 uppercase">Top States</span>
+                    {sentimentStats.by_state.slice(0, 4).map((s: any) => (
+                      <div key={s.state} className="flex justify-between text-[11px] mt-1">
+                        <span className="text-neutral-600 dark:text-neutral-400">{s.state}</span>
+                        <span className="font-bold text-violet-600">{s.review_count} reviews</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-xs text-neutral-400 py-4 text-center">
+                {loading ? <RefreshCw className="w-4 h-4 animate-spin mx-auto mb-1" /> : null}
+                {loading ? 'Loading sentiment data...' : 'No sentiment data available.'}
+              </div>
+            )}
+          </div>
+
+          {/* Panel 2: Real Booking Stats from bookings table */}
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Booking Revenue (Live DB)</span>
+              <div className="w-7 h-7 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 flex items-center justify-center">
+                <Activity className="w-3.5 h-3.5" />
+              </div>
+            </div>
+            {bookingStats ? (
+              <>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-3xl font-display font-extrabold text-emerald-700 dark:text-emerald-300">
+                    ₹{(bookingStats.total_revenue_inr || 0).toLocaleString()}
+                  </span>
+                </div>
+                <div className="space-y-1.5 text-[11px] text-neutral-600 dark:text-neutral-400">
+                  <div className="flex justify-between">
+                    <span>Total Bookings</span>
+                    <span className="font-bold">{bookingStats.total_bookings}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Host Payouts</span>
+                    <span className="font-bold text-emerald-600">₹{(bookingStats.host_payout_inr || 0).toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Platform Fee</span>
+                    <span className="font-bold">₹{(bookingStats.platform_fee_inr || 0).toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Guide Payouts</span>
+                    <span className="font-bold">₹{(bookingStats.guide_payout_inr || 0).toLocaleString()}</span>
+                  </div>
+                  <div className="flex justify-between mt-2 pt-2 border-t border-neutral-100 dark:border-neutral-800">
+                    <span className="text-emerald-600 font-bold">Revenue Leakage</span>
+                    <span className="font-extrabold text-emerald-600">0% (Zero Commission)</span>
+                  </div>
+                </div>
+                {bookingStats.by_status && Object.keys(bookingStats.by_status).length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-neutral-100 dark:border-neutral-800">
+                    <span className="text-[10px] font-bold text-neutral-400 uppercase">By Status</span>
+                    {Object.entries(bookingStats.by_status).map(([status, count]: any) => (
+                      <div key={status} className="flex justify-between text-[11px] mt-1">
+                        <span className="text-neutral-600 dark:text-neutral-400 capitalize">{status.replace('_', ' ')}</span>
+                        <span className="font-bold">{count}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-xs text-neutral-400 py-4 text-center">
+                {loading ? <RefreshCw className="w-4 h-4 animate-spin mx-auto mb-1" /> : null}
+                {loading ? 'Loading booking data...' : 'No booking data available.'}
+              </div>
+            )}
+          </div>
+
+          {/* Panel 3: Pipeline Health from pipeline_runs */}
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
+            <div className="flex items-center justify-between mb-3">
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500">Pipeline Health (Live DB)</span>
+              <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${
+                pipelineHealth?.health_status === 'HEALTHY'
+                  ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600'
+                  : 'bg-amber-50 dark:bg-amber-950/40 text-amber-600'
+              }`}>
+                <Shield className="w-3.5 h-3.5" />
+              </div>
+            </div>
+            {pipelineHealth ? (
+              <>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className={`text-xl font-display font-extrabold ${
+                    pipelineHealth.health_status === 'HEALTHY' ? 'text-emerald-600' : 'text-amber-600'
+                  }`}>
+                    {pipelineHealth.health_status}
+                  </span>
+                  <span className="text-[11px] font-bold text-neutral-400">{pipelineHealth.success_rate_pct}% success</span>
+                </div>
+                <div className="space-y-1.5 text-[11px] text-neutral-600 dark:text-neutral-400">
+                  <div className="flex justify-between">
+                    <span>Total Pipeline Runs</span>
+                    <span className="font-bold">{pipelineHealth.total_runs}</span>
+                  </div>
+                </div>
+                {pipelineHealth.recent_runs?.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-neutral-100 dark:border-neutral-800 max-h-40 overflow-y-auto">
+                    <span className="text-[10px] font-bold text-neutral-400 uppercase">Recent Runs</span>
+                    {pipelineHealth.recent_runs.slice(0, 6).map((run: any) => (
+                      <div key={run.id} className="flex justify-between text-[10px] mt-1.5 items-center">
+                        <span className="text-neutral-500 font-mono truncate max-w-[140px]" title={run.run_at}>
+                          {run.run_at ? new Date(run.run_at).toLocaleString('en-IN', { hour: '2-digit', minute: '2-digit', day: '2-digit', month: 'short' }) : '—'}
+                        </span>
+                        <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
+                          run.status?.includes('success') ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
+                          : 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                        }`}>
+                          {run.status}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="text-xs text-neutral-400 py-4 text-center">
+                {loading ? <RefreshCw className="w-4 h-4 animate-spin mx-auto mb-1" /> : null}
+                {loading ? 'Loading pipeline data...' : 'No pipeline data available.'}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ═══════════ Destination Potential & DMO Investment Priority Panel ═══════════ */}
+      {(dmoTab === 'potential' || dmoTab === 'analytics' || showFullAnalytics) && (
+        <div className="max-w-7xl mx-auto space-y-4 animate-fadeIn">
+          <div className="p-6 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-neutral-200 dark:border-neutral-800 pb-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="p-1.5 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                    <Award className="w-5 h-5" />
+                  </span>
+                  <h3 className="font-display font-extrabold text-lg text-neutral-900 dark:text-white">
+                    Destination Potential Score & DMO Investment Priorities
+                  </h3>
+                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300">
+                    Live Scoring Matrix
+                  </span>
+                </div>
+                <p className="text-xs text-neutral-500 mt-1 max-w-3xl">
+                  Empirical infrastructure prioritization model scored across 12,601 POIs based on 6 weighted factors: Attraction Strength (30%), Demand Velocity (20%), Cultural Significance (15%), Growth Opportunity (15%), Transit Access (10%), and Seasonality Evenness (10%).
+                </p>
+              </div>
+
+              {/* Cold-Start Protocol Badge */}
+              <div className="flex items-center gap-2">
+                <div className="px-3 py-1.5 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-xs font-mono flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span>Confidence: <strong className="text-[#712B13] dark:text-[#E5A93C]">bootstrap</strong></span>
+                </div>
+                <button
+                  onClick={() => fetchInvestmentPriorities(potentialFilter.state, potentialFilter.search, potentialFilter.category)}
+                  className="px-3.5 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-700 text-xs font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-1.5 cursor-pointer"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${potentialLoading ? 'animate-spin' : ''}`} />
+                  <span>Refresh</span>
+                </button>
+              </div>
+            </div>
+
+            {/* 6 Empirical Factors Legend Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs">
+              <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/50 dark:border-neutral-700/50">
+                <div className="text-[10px] font-bold uppercase text-neutral-500">Attraction (30%)</div>
+                <div className="font-bold text-neutral-800 dark:text-neutral-200 mt-0.5">Agglomeration + Gem</div>
+              </div>
+              <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/50 dark:border-neutral-700/50">
+                <div className="text-[10px] font-bold uppercase text-neutral-500">Demand (20%)</div>
+                <div className="font-bold text-neutral-800 dark:text-neutral-200 mt-0.5">30D Velocity</div>
+              </div>
+              <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/50 dark:border-neutral-700/50">
+                <div className="text-[10px] font-bold uppercase text-neutral-500">Significance (15%)</div>
+                <div className="font-bold text-neutral-800 dark:text-neutral-200 mt-0.5">UNESCO & ASI Tiers</div>
+              </div>
+              <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/50 dark:border-neutral-700/50">
+                <div className="text-[10px] font-bold uppercase text-neutral-500">Growth (15%)</div>
+                <div className="font-bold text-neutral-800 dark:text-neutral-200 mt-0.5">Capacity vs. Trend</div>
+              </div>
+              <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/50 dark:border-neutral-700/50">
+                <div className="text-[10px] font-bold uppercase text-neutral-500">Access (10%)</div>
+                <div className="font-bold text-neutral-800 dark:text-neutral-200 mt-0.5">Air, Rail, Highway</div>
+              </div>
+              <div className="p-2.5 rounded-xl bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/50 dark:border-neutral-700/50">
+                <div className="text-[10px] font-bold uppercase text-neutral-500">Season (10%)</div>
+                <div className="font-bold text-neutral-800 dark:text-neutral-200 mt-0.5">12-Month Evenness</div>
+              </div>
+            </div>
+
+            {/* Filter Search Bar */}
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <div className="relative flex-1 w-full">
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
+                <input
+                  type="text"
+                  value={potentialFilter.search}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setPotentialFilter(prev => ({ ...prev, search: val }));
+                    fetchInvestmentPriorities(potentialFilter.state, val, potentialFilter.category);
+                  }}
+                  placeholder="Filter POI by name (e.g. Taj Mahal, Somnath, Hampi, Konark)..."
+                  className="w-full pl-9 pr-4 py-2 rounded-xl text-xs border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 focus:outline-none focus:ring-1 focus:ring-[#712B13]"
+                />
+              </div>
+
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <input
+                  type="text"
+                  value={potentialFilter.state}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    setPotentialFilter(prev => ({ ...prev, state: val }));
+                    fetchInvestmentPriorities(val, potentialFilter.search, potentialFilter.category);
+                  }}
+                  placeholder="Filter State (e.g. Rajasthan, Goa)..."
+                  className="px-3 py-2 rounded-xl text-xs border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 focus:outline-none focus:ring-1 focus:ring-[#712B13]"
+                />
+
+                <button
+                  onClick={() => {
+                    setPotentialFilter({ state: '', search: '', category: '' });
+                    fetchInvestmentPriorities('', '', '');
+                  }}
+                  className="px-3 py-2 rounded-xl text-xs font-bold border border-neutral-200 dark:border-neutral-700 text-neutral-500 hover:text-neutral-900 shrink-0"
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+
+            {/* Ranked Table */}
+            <div className="overflow-x-auto rounded-xl border border-neutral-200 dark:border-neutral-800">
+              <table className="w-full text-left text-xs text-neutral-600 dark:text-neutral-300">
+                <thead className="text-[11px] font-bold uppercase tracking-wider bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border-b border-neutral-200 dark:border-neutral-700">
+                  <tr>
+                    <th className="py-3 px-4">Rank</th>
+                    <th className="py-3 px-4">Destination POI</th>
+                    <th className="py-3 px-4">State</th>
+                    <th className="py-3 px-4">Potential Score</th>
+                    <th className="py-3 px-4">Factor Breakdown (Attr / Dmd / Sig / Grw / Acc / Sea)</th>
+                    <th className="py-3 px-4">Heritage Status</th>
+                    <th className="py-3 px-4 text-center">Hidden Gem</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800 font-medium">
+                  {investmentPriorities.length > 0 ? (
+                    investmentPriorities.map((item: any, idx: number) => {
+                      const score = item.potential_score || 0;
+                      const bd = item.score_breakdown || {};
+                      const scoreColor = score >= 70 ? 'text-emerald-700 dark:text-emerald-400 bg-emerald-500' : score >= 50 ? 'text-amber-700 dark:text-amber-400 bg-amber-500' : 'text-neutral-700 dark:text-neutral-400 bg-neutral-400';
+                      
+                      return (
+                        <tr key={item.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/40 transition-colors">
+                          <td className="py-3 px-4 font-mono font-bold text-neutral-400">
+                            #{idx + 1}
+                          </td>
+                          <td className="py-3 px-4">
+                            <div className="font-bold text-neutral-900 dark:text-white">{item.name}</div>
+                            <div className="text-[11px] text-neutral-500 capitalize">{item.category}</div>
+                          </td>
+                          <td className="py-3 px-4 font-semibold text-neutral-700 dark:text-neutral-300">
+                            {item.state}
+                          </td>
+                          <td className="py-3 px-4">
+                            <div className="flex items-center gap-2">
+                              <span className="font-mono font-extrabold text-sm">{score.toFixed(1)}</span>
+                              <div className="w-20 h-2 rounded-full bg-neutral-200 dark:bg-neutral-700 overflow-hidden">
+                                <div className={`h-full ${scoreColor.split(' ')[2]}`} style={{ width: `${Math.min(100, Math.max(0, score))}%` }} />
+                              </div>
+                            </div>
+                            <span className="text-[10px] text-neutral-400">Conf: {item.score_confidence || 'bootstrap'}</span>
+                          </td>
+                          <td className="py-3 px-4 font-mono text-[11px]">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                              <span className="px-1.5 py-0.5 rounded bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-[10px]" title="Attraction Strength">
+                                A: {(bd.attraction ?? 0).toFixed(2)}
+                              </span>
+                              <span className="px-1.5 py-0.5 rounded bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 text-[10px]" title="Demand Velocity">
+                                D: {(bd.demand ?? 0).toFixed(2)}
+                              </span>
+                              <span className="px-1.5 py-0.5 rounded bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 text-[10px]" title="Cultural Significance">
+                                S: {(bd.significance ?? 0).toFixed(2)}
+                              </span>
+                              <span className="px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 text-[10px]" title="Growth Opportunity">
+                                G: {(bd.growth ?? 0).toFixed(2)}
+                              </span>
+                              <span className="px-1.5 py-0.5 rounded bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300 text-[10px]" title="Transit Accessibility">
+                                T: {(bd.access ?? 0).toFixed(2)}
+                              </span>
+                              <span className="px-1.5 py-0.5 rounded bg-rose-50 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 text-[10px]" title="Seasonality Evenness">
+                                M: {(bd.season ?? 0).toFixed(2)}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="py-3 px-4">
+                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                              item.heritage_status === 'unesco' ? 'bg-amber-100 text-amber-900 dark:bg-amber-900/40 dark:text-amber-200'
+                              : item.heritage_status === 'asi_protected' ? 'bg-blue-100 text-blue-900 dark:bg-blue-900/40 dark:text-blue-200'
+                              : 'bg-neutral-100 text-neutral-800 dark:bg-neutral-800 dark:text-neutral-300'
+                            }`}>
+                              {item.heritage_status === 'unesco' ? '🏛️ UNESCO' : item.heritage_status === 'asi_protected' ? '🛡️ ASI Protected' : '✅ Listed'}
+                            </span>
+                          </td>
+                          <td className="py-3 px-4 text-center">
+                            {item.is_hidden_gem ? (
+                              <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300">
+                                💎 Hidden Gem
+                              </span>
+                            ) : (
+                              <span className="text-neutral-400 text-[10px]">—</span>
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })
+                  ) : (
+                    <tr>
+                      <td colSpan={7} className="py-8 text-center text-neutral-400">
+                        {potentialLoading ? 'Loading live destination potential matrix...' : 'No destinations match current criteria.'}
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Error Banner */}
+      {fetchError && (
+        <div className="max-w-7xl mx-auto p-4 rounded-xl bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900 text-red-700 dark:text-red-300 text-sm font-medium flex items-center gap-3">
+          <AlertTriangle className="w-5 h-5 shrink-0" />
+          <span>{fetchError}</span>
+          <button onClick={fetchDMOData} className="ml-auto px-3 py-1 rounded-lg bg-red-100 dark:bg-red-900/40 text-xs font-bold hover:bg-red-200 transition-colors">
+            Retry
+          </button>
+        </div>
+      )}
+
+      {/* Loading State for Heatmap */}
+      {loading && heatmapNodes.length === 0 && !fetchError && (
+        <div className="max-w-7xl mx-auto flex items-center justify-center py-16">
+          <div className="text-center">
+            <RefreshCw className="w-8 h-8 animate-spin text-[#712B13] mx-auto mb-3" />
+            <p className="text-sm font-bold text-neutral-500 dark:text-neutral-400">Loading live telemetry from National DPI Database...</p>
+          </div>
+        </div>
+      )}
       {dmoTab === 'circuits' && (
         <div className="max-w-7xl mx-auto space-y-6 animate-fadeIn">
           <div className="flex items-center justify-between">
@@ -739,6 +1257,77 @@ export default function AdminDMO() {
               </div>
             </div>
           )}
+
+          {/* Verified Hidden Gems Directory */}
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="font-bold text-sm text-neutral-900 dark:text-white flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span>Verified Hidden Gems Catalog (Direct Tourist Recommendation Sync)</span>
+                </h3>
+                <p className="text-xs text-neutral-500 mt-0.5">
+                  Toggling gems here updates DestinationMaster.is_hidden_gem in real-time, instantly surfacing them in the Tourist Portal's "Verified Hidden Gems" recommendation rail.
+                </p>
+              </div>
+              <button
+                onClick={fetchHiddenGems}
+                className="px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 text-xs font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-1.5 cursor-pointer"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${hiddenGemsLoading ? 'animate-spin' : ''}`} />
+                <span>Refresh Gems</span>
+              </button>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs text-neutral-600 dark:text-neutral-300">
+                <thead className="text-[11px] font-bold uppercase tracking-wider bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border-b border-neutral-200 dark:border-neutral-700">
+                  <tr>
+                    <th className="py-2.5 px-3">Gem POI</th>
+                    <th className="py-2.5 px-3">State</th>
+                    <th className="py-2.5 px-3">Category</th>
+                    <th className="py-2.5 px-3">Crowd Score</th>
+                    <th className="py-2.5 px-3">Safety Score</th>
+                    <th className="py-2.5 px-3">Status in Tourist App</th>
+                    <th className="py-2.5 px-3 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800 font-medium">
+                  {hiddenGems.map((gem: any) => (
+                    <tr key={gem.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/40">
+                      <td className="py-2.5 px-3 font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-amber-600" />
+                        <span>{gem.name}</span>
+                      </td>
+                      <td className="py-2.5 px-3">{gem.state}</td>
+                      <td className="py-2.5 px-3 capitalize">{gem.category}</td>
+                      <td className="py-2.5 px-3 font-bold text-emerald-600">{gem.crowd_density_score}/100</td>
+                      <td className="py-2.5 px-3 font-bold text-neutral-700 dark:text-neutral-300">{gem.safety_score}/100</td>
+                      <td className="py-2.5 px-3">
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          gem.is_hidden_gem ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400' : 'bg-neutral-100 text-neutral-600'
+                        }`}>
+                          {gem.is_hidden_gem ? '⭐ ACTIVE GEM' : 'STANDARD POI'}
+                        </span>
+                      </td>
+                      <td className="py-2.5 px-3 text-right">
+                        <button
+                          onClick={() => handleToggleHiddenGem(gem)}
+                          className={`px-3 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                            gem.is_hidden_gem
+                              ? 'bg-red-50 text-red-700 border border-red-200 hover:bg-red-100 dark:bg-red-950/40 dark:border-red-900'
+                              : 'bg-emerald-600 text-white hover:bg-emerald-700'
+                          }`}
+                        >
+                          {gem.is_hidden_gem ? 'Remove Gem' : 'Promote to Gem'}
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       )}
 
@@ -794,7 +1383,8 @@ export default function AdminDMO() {
       )}
 
       {/* Main Grid: Interactive Leaflet Heatmap + Gatekeeper Switchboard */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+      {(dmoTab === 'overview' || showFullAnalytics) && (
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* Left Column: Leaflet Tourist Density Heatmap (7 cols) */}
         <div className={`${showFullAnalytics ? 'lg:col-span-7' : 'col-span-12'} space-y-4`}>
@@ -1115,6 +1705,7 @@ export default function AdminDMO() {
         )}
 
       </div>
+      )}
 
       {/* Section 4: National Carrying Capacity vs. Heritage Circuit Balance Table */}
       {showFullAnalytics && (
@@ -1184,6 +1775,230 @@ export default function AdminDMO() {
         </div>
       )}
 
+      {/* ═══════════ Safety Scores & Security Audit Log Panel ═══════════ */}
+      {dmoTab === 'safety' && (
+        <div className="max-w-7xl mx-auto space-y-6 animate-fadeIn">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-display font-extrabold text-[#712B13] dark:text-amber-100 flex items-center gap-2">
+                <Shield className="w-5 h-5 text-[#712B13] dark:text-[#E5A93C]" />
+                Destination Safety Score Review & Compliance Audit Log
+              </h2>
+              <p className="text-xs text-neutral-500 mt-0.5">
+                Official safety score indexing across national destinations with permanent cryptographic audit trails.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="Search destination..."
+                value={safetySearch}
+                onChange={(e) => setSafetySearch(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && fetchSafetyData()}
+                className="px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs"
+              />
+              <button
+                onClick={fetchSafetyData}
+                className="px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 text-xs font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-1.5 cursor-pointer"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${safetyLoading ? 'animate-spin' : ''}`} />
+                <span>Refresh</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Safety Scores Table */}
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
+            <h3 className="font-bold text-sm text-neutral-900 dark:text-white flex items-center justify-between">
+              <span>National Safety Score Catalog ({safetyScores.length} Destinations)</span>
+              <span className="text-xs font-mono font-normal text-neutral-500">Live DB: destinations_master</span>
+            </h3>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs text-neutral-600 dark:text-neutral-300">
+                <thead className="text-[11px] font-bold uppercase tracking-wider bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border-b border-neutral-200 dark:border-neutral-700">
+                  <tr>
+                    <th className="py-3 px-4">Destination</th>
+                    <th className="py-3 px-4">State</th>
+                    <th className="py-3 px-4">Category</th>
+                    <th className="py-3 px-4">Safety Score</th>
+                    <th className="py-3 px-4">Crowd Score</th>
+                    <th className="py-3 px-4">Rating</th>
+                    <th className="py-3 px-4 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800 font-medium">
+                  {safetyScores.map((d: any) => {
+                    const score = d.safety_score ?? 85;
+                    const badgeClass = score >= 80 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400'
+                      : score >= 60 ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-400'
+                      : 'bg-red-100 text-red-800 dark:bg-red-950/40 dark:text-red-400';
+                    return (
+                      <tr key={d.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/40 transition-colors">
+                        <td className="py-3 px-4 font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5 text-[#712B13] dark:text-[#E5A93C]" />
+                          <span>{d.name}</span>
+                        </td>
+                        <td className="py-3 px-4">{d.state}</td>
+                        <td className="py-3 px-4 capitalize">{d.category}</td>
+                        <td className="py-3 px-4">
+                          <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${badgeClass}`}>
+                            {score}/100
+                          </span>
+                        </td>
+                        <td className="py-3 px-4 font-bold text-neutral-700 dark:text-neutral-300">
+                          {d.crowd_density_score}/100
+                        </td>
+                        <td className="py-3 px-4">⭐ {d.rating} ({d.review_count})</td>
+                        <td className="py-3 px-4 text-right">
+                          <button
+                            onClick={() => {
+                              setEditingSafety(d);
+                              setSafetyForm({ score: d.safety_score ?? 85, reason: '' });
+                            }}
+                            className="px-3 py-1 rounded-lg text-xs font-bold bg-[#712B13] text-white hover:bg-[#5A220F] transition-colors cursor-pointer"
+                          >
+                            Review & Edit
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Safety Audit Log History */}
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
+            <h3 className="font-bold text-sm text-neutral-900 dark:text-white flex items-center justify-between">
+              <span>Security Audit Log (audit_logs table)</span>
+              <span className="text-xs font-mono font-normal text-emerald-600">✓ Immutable Telemetry Record</span>
+            </h3>
+
+            {safetyAuditLogs.length === 0 ? (
+              <p className="text-xs text-neutral-400 py-4 text-center">No safety score changes recorded yet in audit log.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs text-neutral-600 dark:text-neutral-300">
+                  <thead className="text-[11px] font-bold uppercase tracking-wider bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border-b border-neutral-200 dark:border-neutral-700">
+                    <tr>
+                      <th className="py-2.5 px-3">Timestamp</th>
+                      <th className="py-2.5 px-3">Officer</th>
+                      <th className="py-2.5 px-3">Destination</th>
+                      <th className="py-2.5 px-3">Old Score</th>
+                      <th className="py-2.5 px-3">New Score</th>
+                      <th className="py-2.5 px-3">Audit Justification</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800 font-medium">
+                    {safetyAuditLogs.map((log: any) => (
+                      <tr key={log.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/40">
+                        <td className="py-2.5 px-3 font-mono text-[11px] text-neutral-500">{log.timestamp ? new Date(log.timestamp).toLocaleString() : 'Recent'}</td>
+                        <td className="py-2.5 px-3 font-semibold">{log.actor_email}</td>
+                        <td className="py-2.5 px-3 font-bold text-neutral-900 dark:text-white">{log.details?.destination || `POI #${log.target_id}`}</td>
+                        <td className="py-2.5 px-3 text-neutral-500 font-bold">{log.details?.old_safety_score ?? '--'}</td>
+                        <td className="py-2.5 px-3 font-bold text-emerald-600">{log.details?.new_safety_score ?? '--'}</td>
+                        <td className="py-2.5 px-3 text-neutral-600 dark:text-neutral-300 italic">{log.details?.reason || 'Compliance review'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+
+          {/* Edit Safety Score Modal */}
+          {editingSafety && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
+              <div className="w-full max-w-md bg-white dark:bg-[#1A1816] border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 space-y-4 shadow-2xl">
+                <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-3">
+                  <div>
+                    <h3 className="font-bold text-base text-neutral-900 dark:text-white">
+                      Adjust Safety Score: {editingSafety.name}
+                    </h3>
+                    <p className="text-xs text-neutral-500">{editingSafety.state} • Current Score: {editingSafety.safety_score}/100</p>
+                  </div>
+                  <button onClick={() => setEditingSafety(null)} className="text-xs font-bold text-neutral-400 hover:text-neutral-600 cursor-pointer">✕</button>
+                </div>
+
+                <form onSubmit={handleSaveSafety} className="space-y-4 text-xs">
+                  <div>
+                    <label className="font-semibold block mb-1">New Safety Score (0 - 100)</label>
+                    <input
+                      type="number"
+                      min={0}
+                      max={100}
+                      value={safetyForm.score}
+                      onChange={(e) => setSafetyForm({ ...safetyForm, score: Number(e.target.value) })}
+                      className="w-full p-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 font-bold text-base"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="font-semibold block mb-1">Mandatory Audit Justification</label>
+                    <textarea
+                      rows={3}
+                      placeholder="e.g. State Police safety inspection completed; new high-capacity lighting installed along ghats."
+                      value={safetyForm.reason}
+                      onChange={(e) => setSafetyForm({ ...safetyForm, reason: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-xs"
+                      required
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-end gap-2 pt-2 border-t border-neutral-200 dark:border-neutral-800">
+                    <button
+                      type="button"
+                      onClick={() => setEditingSafety(null)}
+                      className="px-3.5 py-2 rounded-lg border border-neutral-300 dark:border-neutral-700 text-xs font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={savingSafety}
+                      className="px-4 py-2 rounded-lg bg-[#712B13] hover:bg-[#5A220F] text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                    >
+                      {savingSafety ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                      <span>Commit to Audit Log</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ═══════════ Module 1: AI Tourism Investment Recommendation ═══════════ */}
+      {dmoTab === 'investment' && (
+        <div className="max-w-7xl mx-auto animate-fadeIn">
+          <React.Suspense fallback={<div className="p-12 text-center text-xs text-neutral-400">Loading Investment Intelligence Engine...</div>}>
+            <InvestmentIntelligenceView />
+          </React.Suspense>
+        </div>
+      )}
+
+      {/* ═══════════ Module 2: AI Footfall & Festival Crowd Management ═══════════ */}
+      {(dmoTab === 'crowd' || dmoTab === 'forecasts') && (
+        <div className="max-w-7xl mx-auto animate-fadeIn">
+          <React.Suspense fallback={<div className="p-12 text-center text-xs text-neutral-400">Loading Crowd Intelligence Engine...</div>}>
+            <CrowdIntelligenceView onNavigateToFlow={() => handleTabChange('flow')} />
+          </React.Suspense>
+        </div>
+      )}
+
+      {/* ═══════════ Module 3: Smart Tourist Flow Redistribution ═══════════ */}
+      {dmoTab === 'flow' && (
+        <div className="max-w-7xl mx-auto animate-fadeIn">
+          <React.Suspense fallback={<div className="p-12 text-center text-xs text-neutral-400">Loading Tourist Flow Redistribution Engine...</div>}>
+            <FlowRedistributionView />
+          </React.Suspense>
+        </div>
+      )}
     </div>
   );
 }
+

@@ -15,9 +15,12 @@ import {
   AlertCircle
 } from 'lucide-react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
+import { translateText } from '../utils/summaryTranslator';
 import { useApp } from '../context/AppContext';
 
 export default function ExperiencesView() {
+  const { t, i18n } = useTranslation();
   const { experiences, setBookings } = useApp();
   const [liveExpList, setLiveExpList] = useState<any[]>([]);
   const [selectedExp, setSelectedExp] = useState(null);
@@ -74,15 +77,15 @@ export default function ExperiencesView() {
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-nature-light text-nature text-xs font-bold">
           <ShieldCheck className="w-3.5 h-3.5" />
-          <span>Zero OTA Commission • 100% Direct Community Benefit</span>
+          <span>{t('experiences.zeroCommission', 'Zero OTA Commission • 100% Direct Community Benefit')}</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-display font-extrabold text-neutral-text-primary dark:text-darkmode-text-primary">
-          Authentic Local Experience Marketplace
+          {t('experiences.marketplaceTitle', 'Authentic Local Experience Marketplace')}
         </h1>
 
         <p className="text-sm sm:text-base text-neutral-text-sec dark:text-darkmode-text-secondary leading-relaxed">
-          Book authentic hands-on masterclasses, tribal craft workshops, and mountain heritage walks led by verified local hosts.
+          {t('experiences.marketplaceSubtitle', 'Book authentic hands-on masterclasses, tribal craft workshops, and mountain heritage walks led by verified local hosts.')}
         </p>
       </div>
 
@@ -102,7 +105,7 @@ export default function ExperiencesView() {
                 />
                 <div className="absolute top-3 left-3">
                   <span className="badge-nature shadow-sm">
-                    {exp.category || exp.location || 'Heritage Immersion'}
+                    {translateText(exp.category || exp.location || 'Heritage Immersion', i18n.language)}
                   </span>
                 </div>
                 <div className="absolute top-3 right-3 bg-white/95 dark:bg-darkmode-surface/95 px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm">
@@ -121,38 +124,38 @@ export default function ExperiencesView() {
                   />
                   <div>
                     <h4 className="text-xs font-bold text-neutral-text-primary dark:text-darkmode-text-primary">
-                      {exp.hostName}
+                      {translateText(exp.hostName, i18n.language)}
                     </h4>
                     <p className="text-[11px] text-neutral-muted">
-                      {exp.hostRole || exp.hostTitle || 'Govt Certified Guide'}
+                      {translateText(exp.hostRole || exp.hostTitle || 'Govt Certified Guide', i18n.language)}
                     </p>
                   </div>
                 </div>
 
                 <h3 className="text-base font-bold text-neutral-text-primary dark:text-darkmode-text-primary leading-snug">
-                  {exp.title}
+                  {translateText(exp.title, i18n.language)}
                 </h3>
 
                 <p className="text-xs text-neutral-text-sec dark:text-darkmode-text-secondary line-clamp-2">
-                  {exp.description}
+                  {translateText(exp.description, i18n.language)}
                 </p>
 
                 <div className="flex items-center gap-4 text-xs text-neutral-muted">
                   <span className="flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5 text-brand" />
-                    {exp.duration}
+                    {translateText(exp.duration, i18n.language)}
                   </span>
                   <span className="flex items-center gap-1">
                     <MapPin className="w-3.5 h-3.5 text-brand" />
-                    {exp.location}
+                    {translateText(exp.location, i18n.language)}
                   </span>
                 </div>
 
                 <div className="p-2.5 rounded-ts-sm bg-neutral-bg-secondary dark:bg-darkmode-elevated border border-neutral-border dark:border-darkmode-border text-[11px] text-neutral-text-sec dark:text-darkmode-text-secondary flex items-start gap-2">
                   <ShieldCheck className="w-4 h-4 text-nature shrink-0 mt-0.5" />
                   <div className="leading-tight">
-                    <strong className="text-neutral-text-primary dark:text-darkmode-text-primary">Why Verified: </strong>
-                    {exp.verificationReason || exp.verificationBadge || 'Government Certified Guide'}
+                    <strong className="text-neutral-text-primary dark:text-darkmode-text-primary">{t('experiences.whyVerified', 'Why Verified: ')}</strong>
+                    {translateText(exp.verificationReason || exp.verificationBadge || 'Govt Certified Heritage Scout', i18n.language)}
                   </div>
                 </div>
               </div>
@@ -161,18 +164,18 @@ export default function ExperiencesView() {
             {/* Price & Action */}
             <div className="px-5 py-4 border-t border-neutral-border dark:border-darkmode-border flex items-center justify-between">
               <div>
-                <p className="text-[11px] text-neutral-muted">Direct Host Price</p>
+                <p className="text-[11px] text-neutral-muted">{t('experiences.directPrice', 'Direct Host Price')}</p>
                 <p className="text-lg font-extrabold text-neutral-text-primary dark:text-darkmode-text-primary">
-                  ₹{exp.totalPrice} <span className="text-xs font-normal text-neutral-muted">/ person</span>
+                  ₹{exp.totalPrice} <span className="text-xs font-normal text-neutral-muted">{t('experiences.perPerson', '/ person')}</span>
                 </p>
-                <p className="text-[10px] text-nature font-bold">0% Middleman Commission</p>
+                <p className="text-[10px] text-nature font-bold">{t('experiences.zeroMiddleman', '0% Middleman Commission')}</p>
               </div>
 
               <button
                 onClick={() => handleOpenBooking(exp)}
                 className="btn-action !px-4 !py-2 !text-xs font-bold shadow-sm"
               >
-                Book Experience
+                {t('experiences.bookExperience', 'Book Experience')}
               </button>
             </div>
 
@@ -188,10 +191,10 @@ export default function ExperiencesView() {
             <div className="flex items-center justify-between pb-3 border-b border-neutral-border dark:border-darkmode-border">
               <div>
                 <h3 className="text-lg font-bold text-neutral-text-primary dark:text-darkmode-text-primary">
-                  {bookingConfirmed ? 'Booking Confirmed!' : 'Book Authentic Experience'}
+                  {bookingConfirmed ? t('experiences.modalConfirmed', 'Booking Confirmed!') : t('experiences.modalTitle', 'Book Authentic Experience')}
                 </h3>
                 <p className="text-xs text-neutral-muted">
-                  {selectedExp.title}
+                  {translateText(selectedExp.title, i18n.language)}
                 </p>
               </div>
               <button
@@ -208,7 +211,7 @@ export default function ExperiencesView() {
                 {/* Select Slot */}
                 <div>
                   <label className="font-bold text-neutral-text-primary dark:text-darkmode-text-primary block mb-1.5">
-                    Select Time Slot
+                    {t('experiences.selectSlot', 'Select Time Slot')}
                   </label>
                   <div className="grid grid-cols-2 gap-2">
                     {selectedExp.scheduleSlots.map((slot) => (
@@ -230,7 +233,7 @@ export default function ExperiencesView() {
                 {/* Number of Guests */}
                 <div>
                   <label className="font-bold text-neutral-text-primary dark:text-darkmode-text-primary block mb-1.5">
-                    Number of Guests
+                    {t('experiences.numGuests', 'Number of Guests')}
                   </label>
                   <div className="flex items-center gap-3">
                     {[1, 2, 3, 4, 6].map((num) => (
@@ -252,22 +255,22 @@ export default function ExperiencesView() {
                 {/* Transparent Price Breakdown (Section 41) */}
                 <div className="p-4 rounded-ts-md bg-neutral-bg-secondary dark:bg-darkmode-elevated border border-neutral-border dark:border-darkmode-border space-y-2">
                   <p className="font-bold text-neutral-text-primary dark:text-darkmode-text-primary">
-                    Transparent Price Breakdown
+                    {t('experiences.priceBreakdown', 'Transparent Price Breakdown')}
                   </p>
                   <div className="flex justify-between text-neutral-muted">
-                    <span>Base Fee (₹{selectedExp.pricePerPerson} × {bookingGuests} guests):</span>
+                    <span>{t('experiences.baseFee', 'Base Fee')} (₹{selectedExp.pricePerPerson} × {bookingGuests}):</span>
                     <span>₹{selectedExp.pricePerPerson * bookingGuests}</span>
                   </div>
                   <div className="flex justify-between text-nature font-medium">
-                    <span>Taxes & Local Cess:</span>
-                    <span>₹0 (Under Micro-Artisan Exemption)</span>
+                    <span>{t('experiences.taxes', 'Taxes & Local Cess:')}</span>
+                    <span>{t('experiences.taxExempt', '₹0 (Under Micro-Artisan Exemption)')}</span>
                   </div>
                   <div className="flex justify-between text-nature font-bold">
-                    <span>Platform Commission:</span>
-                    <span>₹0 (National DPI Guarantee)</span>
+                    <span>{t('experiences.platformCommission', 'Platform Commission:')}</span>
+                    <span>{t('experiences.platformDpi', '₹0 (National DPI Guarantee)')}</span>
                   </div>
                   <div className="pt-2 border-t border-neutral-border dark:border-darkmode-border flex justify-between font-extrabold text-sm text-neutral-text-primary dark:text-darkmode-text-primary">
-                    <span>Total Amount Payable:</span>
+                    <span>{t('experiences.totalPayable', 'Total Amount Payable:')}</span>
                     <span className="text-brand">₹{selectedExp.totalPrice * bookingGuests}</span>
                   </div>
                 </div>
@@ -277,7 +280,7 @@ export default function ExperiencesView() {
                   className="btn-action w-full py-3 text-sm font-bold shadow-md flex items-center justify-center gap-2"
                 >
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Confirm Booking via Split-UPI</span>
+                  <span>{t('experiences.confirmUpi', 'Confirm Booking via Split-UPI')}</span>
                 </button>
               </div>
             ) : (
@@ -286,17 +289,17 @@ export default function ExperiencesView() {
                   <Check className="w-8 h-8 stroke-[3px]" />
                 </div>
                 <h4 className="text-lg font-bold text-neutral-text-primary dark:text-darkmode-text-primary">
-                  Booking Confirmed!
+                  {t('experiences.modalConfirmed', 'Booking Confirmed!')}
                 </h4>
                 <p className="text-xs text-neutral-muted max-w-sm mx-auto leading-relaxed">
-                  Your reservation is confirmed. Your digital pass and QR code have been saved to your <strong>Trip Wallet</strong> for offline access.
+                  {t('experiences.confirmedMsg', 'Your reservation is confirmed. Your digital pass and QR code have been saved to your Trip Wallet for offline access.')}
                 </p>
                 <div className="pt-2">
                   <button
                     onClick={() => setBookingModalOpen(false)}
                     className="btn-brand px-6 py-2 text-xs font-bold"
                   >
-                    Done / View in Wallet
+                    {t('experiences.doneWallet', 'Done / View in Wallet')}
                   </button>
                 </div>
               </div>

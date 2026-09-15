@@ -71,9 +71,13 @@ export default function Hero3DScene() {
 
   const handlePlanSubmit = (e) => {
     e.preventDefault();
-    const destination = destinationQuery.trim() || 'Manali, Himachal Pradesh';
+    const destination = destinationQuery.trim();
     setIsDropdownOpen(false);
-    navigate('/plan', { state: { prefilledDestination: destination } });
+    if (destination) {
+      navigate(`/explore?query=${encodeURIComponent(destination)}`);
+    } else {
+      navigate('/explore');
+    }
   };
 
   const handleExploreAll = () => {

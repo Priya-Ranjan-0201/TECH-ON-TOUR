@@ -111,10 +111,27 @@ async def get_route(
                     else:
                         coords = [[start_lat, start_lng], [end_lat, end_lng]]
 
+                    # Extract turn-by-turn guidance from ORS segments
+                    parsed_steps = []
+                    segments = route.get("segments", [])
+                    if segments and len(segments) > 0:
+                        for st in segments[0].get("steps", []):
+                            dist_m = st.get("distance", 0)
+                            dur_s = st.get("duration", 0)
+                            parsed_steps.append({
+                                "instruction": st.get("instruction", "Continue along road"),
+                                "distance_m": round(dist_m, 1),
+                                "distance_text": f"{round(dist_m)} m" if dist_m < 1000 else f"{round(dist_m / 1000.0, 1)} km",
+                                "duration_text": f"{round(dur_s / 60.0, 1)} mins",
+                                "type": str(st.get("type", "continue")),
+                                "modifier": ""
+                            })
+
                     return {
                         "distance_km": distance_km,
                         "duration_min": duration_min,
                         "coordinates": coords,
+                        "steps": parsed_steps,
                         "geometry": raw_geom if raw_geom else {"type": "LineString", "coordinates": [[pt[1], pt[0]] for pt in coords]},
                         "is_estimated": False,
                         "provider": "openrouteservice",
@@ -128,8 +145,8 @@ async def get_route(
     # High-fidelity OpenStreetMap (OSRM) Road Routing (No API Key Required)
     try:
         osrm_profile = "driving" if "car" in mode else ("walking" if "walk" in mode else "cycling")
-        osrm_url = f"https://router.project-osrm.org/route/v1/{osrm_profile}/{start_lng},{start_lat};{end_lng},{end_lat}?overview=full&geometries=geojson"
-        async with httpx.AsyncClient(timeout=5.0) as client:
+        osrm_url = f"https://router.project-osrm.org/route/v1/{osrm_profile}/{start_lng},{start_lat};{end_lng},{end_lat}?overview=full&geometries=geojson&steps=true"
+        async with httpx.AsyncClient(timeout=6.0) as client:
             resp = await client.get(osrm_url)
             if resp.status_code == 200:
                 osrm_data = resp.json()
@@ -140,10 +157,45 @@ async def get_route(
                     raw_pts = r_best.get("geometry", {}).get("coordinates", [])
                     # OSRM returns [lng, lat] GeoJSON; Leaflet requires [lat, lng]
                     leaflet_coords = [[pt[1], pt[0]] for pt in raw_pts] if raw_pts else [[start_lat, start_lng], [end_lat, end_lng]]
+
+                    # Extract turn-by-turn maneuvers like Google Maps
+                    parsed_steps = []
+                    raw_steps = r_best.get("legs", [{}])[0].get("steps", []) if r_best.get("legs") else []
+                    for st in raw_steps:
+                        m = st.get("maneuver", {})
+                        m_type = m.get("type", "continue")
+                        m_mod = (m.get("modifier") or "").replace("_", " ").strip()
+                        st_name = st.get("name", "").strip()
+                        dist_m = st.get("distance", 0)
+                        dur_s = st.get("duration", 0)
+
+                        if m_type == "depart":
+                            instr = f"Head {m_mod} on {st_name}" if (m_mod and st_name) else (f"Head on {st_name}" if st_name else "Depart from starting point")
+                        elif m_type == "arrive":
+                            instr = "Arrive at destination"
+                        elif m_type == "turn":
+                            instr = f"Turn {m_mod} onto {st_name}" if st_name else f"Turn {m_mod}"
+                        elif "roundabout" in m_type or "rotary" in m_type:
+                            instr = f"At the roundabout, take exit onto {st_name}" if st_name else "Enter roundabout"
+                        elif m_type in ("fork", "on ramp", "off ramp"):
+                            instr = f"Take the {m_mod} ramp/fork onto {st_name}" if st_name else f"Take the {m_mod} ramp"
+                        else:
+                            instr = f"Continue straight onto {st_name}" if st_name else "Continue along the road"
+
+                        parsed_steps.append({
+                            "instruction": instr,
+                            "distance_m": round(dist_m, 1),
+                            "distance_text": f"{round(dist_m)} m" if dist_m < 1000 else f"{round(dist_m / 1000.0, 1)} km",
+                            "duration_text": f"{round(dur_s / 60.0, 1)} mins",
+                            "type": m_type,
+                            "modifier": m_mod
+                        })
+
                     return {
                         "distance_km": dist_km,
                         "duration_min": dur_min,
                         "coordinates": leaflet_coords,
+                        "steps": parsed_steps,
                         "geometry": r_best.get("geometry") or {"type": "LineString", "coordinates": raw_pts},
                         "is_estimated": False,
                         "provider": "openstreetmap_osrm",
@@ -164,10 +216,17 @@ async def get_route(
         arc = math.sin(frac * math.pi) * 0.002
         interpolated_coords.append([round(lat_i + arc, 5), round(lng_i - arc, 5)])
 
+    fallback_steps = [
+        {"instruction": "Head along regional corridor towards destination", "distance_text": f"{round(direct_dist_km * 0.3, 1)} km", "duration_text": "3 mins", "type": "depart", "modifier": "straight"},
+        {"instruction": "Continue along connecting state road", "distance_text": f"{round(direct_dist_km * 0.5, 1)} km", "duration_text": f"{round(est_duration_min * 0.6)} mins", "type": "continue", "modifier": "straight"},
+        {"instruction": "Arrive at destination entrance", "distance_text": f"{round(direct_dist_km * 0.2, 1)} km", "duration_text": "2 mins", "type": "arrive", "modifier": "straight"}
+    ]
+
     return {
         "distance_km": direct_dist_km,
         "duration_min": est_duration_min,
         "coordinates": interpolated_coords,
+        "steps": fallback_steps,
         "geometry": {"type": "LineString", "coordinates": [[pt[1], pt[0]] for pt in interpolated_coords]},
         "is_estimated": True,
         "provider": "haversine_fallback",

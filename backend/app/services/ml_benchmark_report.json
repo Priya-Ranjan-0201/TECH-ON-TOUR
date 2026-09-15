@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-09-08T20:50:15.301981",
+  "timestamp": "2026-09-15T10:52:05.457719",
   "national_corpus": {
     "places_records": 12293,
     "search_graph_edges": 17891,
-    "pricing_observations": 14293,
+    "pricing_observations": 14793,
     "states_and_uts_covered": 36,
     "districts_covered": 737
   },
@@ -50,22 +50,22 @@
   },
   "model_2_dynamic_pricing": {
     "model_type": "GradientBoostingRegressor",
-    "samples_trained": 12149,
-    "samples_tested": 2144,
+    "samples_trained": 12574,
+    "samples_tested": 2219,
     "metrics": {
-      "r2_score": 0.9971,
-      "mae_inr": 66.53,
-      "rmse_inr": 131.37,
-      "mape_percent": 1.81
+      "r2_score": 0.9976,
+      "mae_inr": 68.46,
+      "rmse_inr": 131.71,
+      "mape_percent": 1.83
     },
     "feature_importances": {
-      "base_price": 0.9494,
-      "days_to_festival": 0.0112,
-      "is_weekend": 0.0091,
-      "season_demand_index": 0.0157,
-      "occupancy_rate_last_30d": 0.0112,
+      "base_price": 0.9557,
+      "days_to_festival": 0.0093,
+      "is_weekend": 0.0079,
+      "season_demand_index": 0.0155,
+      "occupancy_rate_last_30d": 0.0092,
       "category_luxury_tier": 0.0,
-      "review_rating": 0.0035
+      "review_rating": 0.0023
     }
   },
   "model_3_overtourism_classifier": {

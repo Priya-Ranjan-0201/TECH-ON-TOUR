@@ -35,6 +35,8 @@ export interface MenuItem {
 export const MENUS: Record<string, MenuItem[]> = {
   tourist: [
     { label: 'Tourist Command Center', href: '/tourist', icon: LayoutDashboard },
+    { label: 'Group Travel (Live Map & E2EE)', href: '/trips/group', icon: Users },
+    { label: 'Security & Privacy Center', href: '/privacy', icon: ShieldCheck },
     { label: 'Explore Catalog', href: '/tourist/explore', icon: Compass },
     { label: 'AI Concierge', href: '/tourist/chat', icon: Bot },
     { label: 'Smart Map', href: '/tourist/map', icon: MapPin },
@@ -65,6 +67,7 @@ export const MENUS: Record<string, MenuItem[]> = {
 interface ProfileDropdownProps {
   role?: string;
   onClose?: () => void;
+  currentUser?: any;
 }
 
 export default function ProfileDropdown({ role = 'tourist', onClose }: ProfileDropdownProps) {
@@ -109,6 +112,30 @@ export default function ProfileDropdown({ role = 'tourist', onClose }: ProfileDr
         return '🛡️ System Administrator';
       default:
         return '✓ DPI Verified Traveler';
+    }
+  };
+
+  const getLocalizedMenuLabel = (label: string) => {
+    switch (label) {
+      case 'Tourist Command Center': return t('nav.commandCenter', label);
+      case 'Group Travel (Live Map & E2EE)': return t('nav.groupTravelFull', label);
+      case 'Security & Privacy Center': return t('nav.securityPrivacy', label);
+      case 'Explore Catalog': return t('nav.exploreCatalog', label);
+      case 'AI Concierge': return t('nav.aiConcierge', label);
+      case 'Smart Map': return t('nav.smartMap', label);
+      case 'Safety Index': return t('nav.safetyIndex', label);
+      case 'Travel History': return t('nav.travelHistory', label);
+      case 'Host Command Center': return t('nav.hostCommandCenter', label);
+      case 'My Listings': return t('nav.myListings', label);
+      case 'AI Price Co-Pilot': return t('nav.aiPricing', label);
+      case 'Availability': return t('nav.availability', label);
+      case 'DigiLocker Verification': return t('nav.digiLockerVerification', label);
+      case 'DMO Intelligence': return t('nav.dmoIntelligence', label);
+      case 'Footfall & Sentiment': return t('nav.footfallSentiment', label);
+      case 'Circuit Management': return t('nav.circuitManagement', label);
+      case 'Admin Center': return t('nav.adminCenter', label);
+      case 'Users & Hosts': return t('nav.usersHosts', label);
+      default: return label;
     }
   };
 
@@ -171,7 +198,7 @@ export default function ProfileDropdown({ role = 'tourist', onClose }: ProfileDr
       {/* Role-Scoped Navigation Items — Zero cross-panel bleeding */}
       <div className="py-1 text-xs font-semibold text-neutral-700 dark:text-neutral-300" data-testid={`menu-items-${normalizedRole}`}>
         <div className="px-4 py-1 text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-          {normalizedRole === 'host' ? 'Host Operations' : normalizedRole === 'dmo' ? 'DMO Intelligence' : normalizedRole === 'admin' ? 'Administration' : 'Traveler Modules'}
+          {normalizedRole === 'host' ? t('nav.hostOperations', 'Host Operations') : normalizedRole === 'dmo' ? t('nav.dmoIntelligence', 'DMO Intelligence') : normalizedRole === 'admin' ? t('nav.administration', 'Administration') : t('nav.travelerModules', 'Traveler Modules')}
         </div>
         {items.map((item) => {
           const IconComp = item.icon || Compass;
@@ -183,7 +210,7 @@ export default function ProfileDropdown({ role = 'tourist', onClose }: ProfileDr
               onClick={handleClose}
             >
               <IconComp className="w-4 h-4 text-neutral-400 dark:text-neutral-500 shrink-0" />
-              <span>{item.label}</span>
+              <span>{getLocalizedMenuLabel(item.label)}</span>
             </Link>
           );
         })}

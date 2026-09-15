@@ -1,0 +1,274 @@
+[
+  {
+    "id": "69453a77d3e7b61e0cc2d1b7",
+    "title": "Woodwork",
+    "slug": "",
+    "status": "published",
+    "isFeatured": false,
+    "artisan": {
+      "artisanId": "000000000000000000000000",
+      "name": "Demo Artisan",
+      "workshopName": "Local Workshop",
+      "region": "India"
+    },
+    "description": {
+      "short": "Bestowed with abundant forests, woodwork is a popular craft in South India.",
+      "detailed": "",
+      "craft": ""
+    },
+    "media": {
+      "coverImage": "https://indianfolkart.org/wp-content/uploads/2022/04/Yeh-Hai-India-himachal-pradesh-1.jpg.webp",
+      "images": [
+        "https://indianfolkart.org/wp-content/uploads/2022/04/Yeh-Hai-India-punjab-1.jpg.webp"
+      ]
+    },
+    "category": {
+      "primary": "woodwork",
+      "tags": []
+    },
+    "pricing": {
+      "price": 1200,
+      "currency": "INR",
+      "discountedPrice": 1100
+    },
+    "inventory": {
+      "stock": 1,
+      "madeToOrder": false
+    },
+    "specs": {
+      "material": "wood",
+      "dimensions": "",
+      "weight": ""
+    },
+    "stats": {
+      "viewCount": 0,
+      "salesCount": 0,
+      "averageRating": 0,
+      "reviewCount": 0
+    },
+    "seo": {
+      "metaTitle": "wrefw",
+      "metaDescription": "ffwefewfewf",
+      "keywords": [],
+      "ogImage": "fwefwfwe"
+    },
+    "createdAt": "2025-12-19T11:43:51.957Z",
+    "updatedAt": "2025-12-19T11:43:51.957Z"
+  },
+  {
+    "id": "6954e6580e24973efb6572db",
+    "title": "Pottery",
+    "slug": "",
+    "status": "published",
+    "isFeatured": false,
+    "artisan": {
+      "artisanId": "000000000000000000000000",
+      "name": "Demo Artisan",
+      "workshopName": "Local Workshop",
+      "region": "India"
+    },
+    "description": {
+      "short": "The tradition of handmade pottery prevails in India since the time of Harappan Civilization.\n",
+      "detailed": "North India is known for different kinds of pottery designs.  These range from colours like orange, brown and light red in Uttar Pradesh going up to black and also dark red in the Himachal Pradesh. In Bikaner of Rajasthan there is painted pottery, Pokhran has pottery with geometrical patterns and Alwar has its Kagzi pottery. The blue pottery of Jaipur is quite famous.",
+      "craft": ""
+    },
+    "media": {
+      "coverImage": "https://indianfolkart.org/wp-content/uploads/2022/04/handicrafts-in-India-1.jpg.webp",
+      "images": []
+    },
+    "category": {
+      "primary": "pottery",
+      "tags": []
+    },
+    "pricing": {
+      "price": 1000,
+      "currency": "INR",
+      "discountedPrice": 900
+    },
+    "inventory": {
+      "stock": 1,
+      "madeToOrder": false
+    },
+    "specs": {
+      "material": "Clay",
+      "dimensions": "",
+      "weight": ""
+    },
+    "stats": {
+      "viewCount": 0,
+      "salesCount": 0,
+      "averageRating": 0,
+      "reviewCount": 0
+    },
+    "seo": {
+      "metaTitle": "wrefw",
+      "metaDescription": "ffwefewfewf",
+      "keywords": [],
+      "ogImage": "fwefwfwe"
+    },
+    "createdAt": "2025-12-19T11:43:51.957Z",
+    "updatedAt": "2025-12-19T11:43:51.957Z"
+  },
+  {
+    "id": "6954e8450e24973efb6572dc",
+    "title": "Stone Masonry ",
+    "slug": "",
+    "status": "published",
+    "isFeatured": false,
+    "artisan": {
+      "artisanId": "000000000000000000000000",
+      "name": "Demo Artisan",
+      "workshopName": "Local Workshop",
+      "region": "India"
+    },
+    "description": {
+      "short": "Idols of several Hindu and Jain deities are carved out of the marbles sourced from Makrana, Bhainslana, and Jhirri, a village in the Alwar district.",
+      "detailed": "The fascination with stones has always been prevalent in India. The traces of this royal fascination are present in the intricately carved palaces and forts. This amazing artwork on the stone is an elegant combination of carving, engraving, sculptures and undercuts.\n\nThe preparation of simple small stone utensils to the grandiose temple commissions is a tradition of stone masonry evolving over a period of time pervading the whole of the Indian subcontinent.\n\nThe early sacred texts of art and architecture does set out the desired measurements plus techniques for sculpting. The requirements concern the quality, colour, texture, maturity, and even gender of the stone.\n\nThe well-known craftsmanship of the Silavat communities of Mason near Thar district is very enlightening. Architectural features of houses, follies, and palaces in which the Jaali work to idol making, moving to stone carving flows the dexterity offering a wealth of intricately decorated surfaces.",
+      "craft": ""
+    },
+    "media": {
+      "coverImage": "https://indianfolkart.org/wp-content/uploads/2022/04/Varanasi-Soft-Stone-Jali-Work-01.jpg.webp",
+      "images": []
+    },
+    "category": {
+      "primary": "textile",
+      "tags": []
+    },
+    "pricing": {
+      "price": 1500,
+      "currency": "INR",
+      "discountedPrice": 1400
+    },
+    "inventory": {
+      "stock": 1,
+      "madeToOrder": false
+    },
+    "specs": {
+      "material": "fwfwefwe",
+      "dimensions": "",
+      "weight": ""
+    },
+    "stats": {
+      "viewCount": 0,
+      "salesCount": 0,
+      "averageRating": 0,
+      "reviewCount": 0
+    },
+    "seo": {
+      "metaTitle": "wrefw",
+      "metaDescription": "ffwefewfewf",
+      "keywords": [],
+      "ogImage": "fwefwfwe"
+    },
+    "createdAt": "2025-12-19T11:43:51.957Z",
+    "updatedAt": "2025-12-19T11:43:51.957Z"
+  },
+  {
+    "id": "695cfa1d6033463c2bd82adb",
+    "title": "baskets ",
+    "slug": "",
+    "status": "published",
+    "isFeatured": false,
+    "artisan": {
+      "artisanId": "000000000000000000000000",
+      "name": "Seema Handicraft",
+      "workshopName": "Local Workshop",
+      "region": "India"
+    },
+    "description": {
+      "short": "Basketry, art and craft of making interwoven objects, usually containers, from flexible vegetable fibres, such as twigs, grasses, osiers, bamboo, and rushes",
+      "detailed": "Basket weaving is also a rural craft. Basketry is made from a variety of fibrous or pliable materials—anything that will bend and form a shape. Examples include pine, straw, willow (esp. osier), oak, wisteria, forsythia, vines, stems, fur, hide, grasses, thread, and fine wooden splints.",
+      "craft": ""
+    },
+    "media": {
+      "coverImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjsEYgbn9GvvnsAXo2V-7gpqS9cDXGtYFbAIto7aC2MCXWuoAO3yPAQMGzUdKoQCSOx1Mb2-Iy_pad2qyIhLoaLO8tEyush1ghE-Uayg&s=10",
+      "images": []
+    },
+    "category": {
+      "primary": "textile",
+      "tags": []
+    },
+    "pricing": {
+      "price": 250,
+      "currency": "INR",
+      "discountedPrice": 230
+    },
+    "inventory": {
+      "stock": 5,
+      "madeToOrder": false
+    },
+    "specs": {
+      "material": "fiber",
+      "dimensions": "",
+      "weight": ""
+    },
+    "stats": {
+      "viewCount": 0,
+      "salesCount": 0,
+      "averageRating": 0,
+      "reviewCount": 0
+    },
+    "seo": {
+      "metaTitle": "wrefw",
+      "metaDescription": "ffwefewfewf",
+      "keywords": [],
+      "ogImage": "fwefwfwe"
+    },
+    "createdAt": "2025-12-19T11:43:51.957Z",
+    "updatedAt": "2025-12-19T11:43:51.957Z"
+  },
+  {
+    "id": "695cfb736033463c2bd82adc",
+    "title": "Pashmina shawls",
+    "slug": "",
+    "status": "published",
+    "isFeatured": false,
+    "artisan": {
+      "artisanId": "000000000000000000000000",
+      "name": "Seema Handicraft",
+      "workshopName": "Local Workshop",
+      "region": "India"
+    },
+    "description": {
+      "short": "Look no further than these exquisite pashmina shawls. Explore these stunning shawls made from soft wool to ensure that you can remain at ease.",
+      "detailed": "Our handcrafted Pashmina shawl, handwoven on the traditional wooden looms are what we bring to the world. Authentic Kashmiri Pashmina shawl are available in a variety of styles, from vibrant colors to hand embroidered. From British and French aristocrats to Hollywood celebrities, Pure Pashmina shawls hold everybody in their awe. Our handmade pieces are cruelty free, ethically traded and sustainably produced.",
+      "craft": ""
+    },
+    "media": {
+      "coverImage": "https://pashmina.vtexassets.com/arquivos/ids/158805/thumb-mantasha-maroon-pashmina-shawl.jpg?v=638515435701100000",
+      "images": []
+    },
+    "category": {
+      "primary": "textile",
+      "tags": []
+    },
+    "pricing": {
+      "price": 50000,
+      "currency": "INR",
+      "discountedPrice": 45000
+    },
+    "inventory": {
+      "stock": 5,
+      "madeToOrder": false
+    },
+    "specs": {
+      "material": "fiber",
+      "dimensions": "",
+      "weight": ""
+    },
+    "stats": {
+      "viewCount": 0,
+      "salesCount": 0,
+      "averageRating": 0,
+      "reviewCount": 0
+    },
+    "seo": {
+      "metaTitle": "wrefw",
+      "metaDescription": "ffwefewfewf",
+      "keywords": [],
+      "ogImage": "fwefwfwe"
+    },
+    "createdAt": "2025-12-19T11:43:51.957Z",
+    "updatedAt": "2025-12-19T11:43:51.957Z"
+  }
+]

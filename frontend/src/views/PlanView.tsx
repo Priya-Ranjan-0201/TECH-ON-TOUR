@@ -17,18 +17,23 @@ import {
   Clock,
   Sun,
   ShieldCheck,
-  Check
+  Check,
+  ExternalLink,
+  ChevronRight,
+  Eye,
+  MapPin
 } from 'lucide-react';
 import PlanWizard from '../components/plan/PlanWizard';
 import ItineraryTimeline from '../components/plan/ItineraryTimeline';
 import ItineraryMap from '../components/plan/ItineraryMap';
 import ItinerarySummaryCard from '../components/plan/ItinerarySummaryCard';
+import DestinationDetailModal from '../components/explore/DestinationDetailModal';
 import BookingModal from '../components/explore/BookingModal';
 import SwapStopModal from '../components/plan/SwapStopModal';
 import RFPModal from '../components/plan/RFPModal';
 import { useApp } from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
-import { getLocalizedItinerarySummary } from '../utils/summaryTranslator';
+import { getLocalizedItinerarySummary, translateText, getLocalizedCategory } from '../utils/summaryTranslator';
 
 const detectDestinationState = (destStr: string): string => {
   const d = (destStr || '').toLowerCase();
@@ -60,11 +65,12 @@ const detectDestinationState = (destStr: string): string => {
 };
 
 export default function PlanView() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { activeTrip, setActiveTrip, openCheckout, currentUser, language } = useApp();
+  const currentLang = i18n?.language || language || 'en';
 
   const [itinerary, setItinerary] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -95,6 +101,7 @@ export default function PlanView() {
   };
 
   // Modals state
+  const [selectedStopForDetail, setSelectedStopForDetail] = useState<any>(null);
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [bookingDestination, setBookingDestination] = useState(null);
   const [swapModalOpen, setSwapModalOpen] = useState(false);
@@ -204,15 +211,17 @@ export default function PlanView() {
     setIsLoading(true);
     setError(null);
     try {
+      const freshSeed = Math.floor(Math.random() * 1000000) + 1;
       const res = await axios.post('/api/itinerary/generate', {
         destination: itinerary.destination || undefined,
         state: itinerary.state || undefined,
         days: itinerary.days || 4,
         budget: (itinerary.budget || 'moderate').toLowerCase(),
-        interests: itinerary.interests || ['Nature & Wildlife', 'Heritage & Monuments']
+        interests: itinerary.interests || ['Nature & Wildlife', 'Heritage & Monuments'],
+        seed: freshSeed
       }, { timeout: 15000 });
       setItinerary(res.data);
-      setSuccessToast('Itinerary regenerated and saved to database!');
+      setSuccessToast('Fresh diverse itinerary regenerated!');
       setTimeout(() => setSuccessToast(null), 3000);
     } catch (err: any) {
       console.warn('Failed to regenerate itinerary:', err);
@@ -444,14 +453,14 @@ export default function PlanView() {
                 title="Regenerate Plan with AI"
               >
                 <RefreshCw className={`w-3.5 h-3.5 text-brand ${isLoading ? 'animate-spin' : ''}`} />
-                <span>Regenerate</span>
+                <span>{translateText('Regenerate', currentLang)}</span>
               </button>
 
               <button
                 onClick={() => setIsEditing(!isEditing)}
                 className="px-4 py-2.5 rounded-xl border border-neutral-300 dark:border-neutral-700 text-xs font-bold text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 cursor-pointer transition-colors"
               >
-                {isEditing ? 'Done Editing' : 'Edit Plan'}
+                {isEditing ? translateText('Done Editing', currentLang) : translateText('Edit Plan', currentLang)}
               </button>
 
               <button
@@ -463,7 +472,7 @@ export default function PlanView() {
                 }}
               >
                 <Check className="w-4 h-4 text-amber-200" />
-                <span>Book this trip (₹{itinerary.budget_breakdown?.total_inr.toLocaleString('en-IN')})</span>
+                <span>{t('plan.bookTrip', 'Book this trip')} (₹{itinerary.budget_breakdown?.total_inr.toLocaleString('en-IN')})</span>
               </button>
             </div>
           </div>
@@ -474,13 +483,13 @@ export default function PlanView() {
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-neutral-700 dark:text-neutral-200 flex items-center gap-1.5">
                   <Sparkles className="w-3.5 h-3.5 text-primary-800 dark:text-amber-400" />
-                  Quick AI Customization Prompts
+                  {translateText('Quick AI Customization Prompts', currentLang)}
                 </span>
                 <button
                   onClick={() => setShowWizard(true)}
                   className="text-xs font-bold text-primary-800 dark:text-amber-400 hover:underline"
                 >
-                  Adjust Duration & Budget
+                  {translateText('Adjust Duration & Budget', currentLang)}
                 </button>
               </div>
 
@@ -489,25 +498,25 @@ export default function PlanView() {
                   onClick={() => handleDynamicPrompt('cheaper')}
                   className="px-3 py-1.5 rounded-full bg-white dark:bg-darkmode-surface border border-neutral-300 dark:border-neutral-700 hover:border-brand font-semibold transition-colors"
                 >
-                  💰 "Make it cheaper."
+                  💰 "{translateText('Make it cheaper.', currentLang)}"
                 </button>
                 <button
                   onClick={() => handleDynamicPrompt('local')}
                   className="px-3 py-1.5 rounded-full bg-white dark:bg-darkmode-surface border border-neutral-300 dark:border-neutral-700 hover:border-brand font-semibold transition-colors"
                 >
-                  🏡 "Add more local experiences."
+                  🏡 "{translateText('Add more local experiences.', currentLang)}"
                 </button>
                 <button
                   onClick={() => handleDynamicPrompt('crowd')}
                   className="px-3 py-1.5 rounded-full bg-white dark:bg-darkmode-surface border border-neutral-300 dark:border-neutral-700 hover:border-brand font-semibold transition-colors"
                 >
-                  🌿 "Remove crowded places."
+                  🌿 "{translateText('Remove crowded places.', currentLang)}"
                 </button>
                 <button
                   onClick={() => handleDynamicPrompt('relax')}
                   className="px-3 py-1.5 rounded-full bg-white dark:bg-darkmode-surface border border-neutral-300 dark:border-neutral-700 hover:border-brand font-semibold transition-colors"
                 >
-                  ☕ "Make Day {selectedDay} relaxed."
+                  ☕ "{translateText('Make Day relaxed.', currentLang)}"
                 </button>
               </div>
             </div>
@@ -517,7 +526,7 @@ export default function PlanView() {
           {itinerary.weather_alert && (
             <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-800 dark:text-amber-200 text-xs font-bold flex items-center gap-2">
               <Sun className="w-4 h-4 text-amber-500 shrink-0" />
-              <span>Weather Alert: {itinerary.weather_alert}</span>
+              <span>{translateText('Weather Alert:', currentLang)} {translateText(itinerary.weather_alert, currentLang)}</span>
             </div>
           )}
 
@@ -534,59 +543,136 @@ export default function PlanView() {
 
                   return (
                     <>
-                      <div className="pb-3 border-b border-neutral-border dark:border-darkmode-border">
-                        <h3 className="text-xl font-bold text-neutral-text-primary dark:text-darkmode-text-primary">
-                          Day {selectedDay}: {currentDayData?.theme || 'Exploration & Culture'}
-                        </h3>
-                        {currentDayData?.weather_advisory && (
-                          <p className="text-xs text-neutral-muted mt-0.5">
-                            🌤️ {currentDayData.weather_advisory}
-                          </p>
-                        )}
-                      </div>
+                      {(() => {
+                        const rawTheme = currentDayData?.theme || 'Exploration & Culture';
+                        const cleanTheme = rawTheme.replace(/^Day\s*\d+\s*:\s*/i, '');
+                        const translatedTheme = translateText(cleanTheme, currentLang);
+                        const dayLabel = `${t('plan.day', { dayNum: selectedDay, defaultValue: 'Day' })} ${selectedDay}`;
+
+                        return (
+                          <div className="pb-3 border-b border-neutral-border dark:border-darkmode-border">
+                            <h3 className="text-xl font-bold text-neutral-text-primary dark:text-darkmode-text-primary">
+                              {dayLabel}: {translatedTheme}
+                            </h3>
+                            {currentDayData?.weather_advisory && (
+                              <p className="text-xs text-neutral-muted mt-0.5">
+                                🌤️ {translateText(currentDayData.weather_advisory, currentLang)}
+                              </p>
+                            )}
+                          </div>
+                        );
+                      })()}
 
                       <div className="space-y-4 text-xs">
                         {stops.length > 0 ? (
-                          stops.map((stop: any, sIdx: number) => (
-                            <div
-                              key={sIdx}
-                              className="p-4 rounded-xl bg-neutral-bg-secondary dark:bg-darkmode-elevated border border-neutral-border space-y-1.5 transition-all hover:border-brand/40 shadow-xs"
-                            >
-                              <div className="flex items-center justify-between gap-2">
-                                <span className="font-bold text-brand block text-[11px] uppercase tracking-wider">
-                                  {stop.time_slot || (sIdx === 0 ? 'Morning (09:00 AM)' : sIdx === 1 ? 'Afternoon (01:30 PM)' : 'Evening (06:30 PM)')}
-                                </span>
-                                {stop.category && (
-                                  <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[10px] font-bold capitalize">
-                                    {stop.category}
+                          stops.map((stop: any, sIdx: number) => {
+                            const destIdentifier = stop.destination_id || stop.id || stop.destination_name || stop.title;
+                            const hasValidImage = Boolean(
+                              stop.image_url && 
+                              !stop.image_url.startsWith('?') && 
+                              !stop.image_url.includes('placeholder') &&
+                              (stop.image_url.startsWith('http') || stop.image_url.startsWith('/'))
+                            );
+
+                            return (
+                              <div
+                                key={sIdx}
+                                className="p-4 rounded-xl bg-neutral-bg-secondary dark:bg-darkmode-elevated border border-neutral-border space-y-2.5 transition-all hover:border-brand/50 hover:shadow-md group shadow-xs"
+                              >
+                                <div className="flex items-center justify-between gap-2">
+                                  <span className="font-bold text-brand block text-[11px] uppercase tracking-wider">
+                                    {translateText(stop.time_slot || (sIdx === 0 ? 'Morning (09:00 AM)' : sIdx === 1 ? 'Afternoon (01:30 PM)' : 'Evening (06:30 PM)'), currentLang)}
                                   </span>
-                                )}
+                                  <div className="flex items-center gap-1.5">
+                                    {stop.category && (
+                                      <span className="px-2 py-0.5 rounded-full bg-brand/10 text-brand text-[10px] font-bold capitalize">
+                                        {getLocalizedCategory(stop.category, currentLang)}
+                                      </span>
+                                    )}
+                                    <button
+                                      type="button"
+                                      onClick={() => setSelectedStopForDetail(stop)}
+                                      className="px-2.5 py-0.5 rounded-md bg-brand/10 hover:bg-brand text-brand hover:text-white dark:text-amber-400 dark:hover:text-neutral-900 text-[10px] font-bold transition-all flex items-center gap-1 cursor-pointer"
+                                      title="Open destination modal with full details"
+                                    >
+                                      <span>{t('common.details', 'Details')}</span>
+                                      <ChevronRight className="w-3 h-3" />
+                                    </button>
+                                  </div>
+                                </div>
+
+                                <div className="flex flex-col sm:flex-row gap-3 items-start">
+                                  {hasValidImage && (
+                                    <div 
+                                      onClick={() => setSelectedStopForDetail(stop)}
+                                      className="w-full sm:w-28 h-24 rounded-lg overflow-hidden shrink-0 cursor-pointer bg-neutral-200 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 relative group/img shadow-2xs"
+                                      title={`Click to view ${stop.destination_name || stop.title}`}
+                                    >
+                                      <img 
+                                        src={stop.image_url} 
+                                        alt={stop.destination_name || stop.title} 
+                                        className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-300"
+                                      />
+                                      <div className="absolute inset-0 bg-black/25 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                                        <Eye className="w-4 h-4 text-white drop-shadow" />
+                                      </div>
+                                    </div>
+                                  )}
+
+                                  <div className="flex-1 min-w-0 space-y-1.5">
+                                    <div className="flex flex-wrap items-center justify-between gap-1">
+                                      <button
+                                        type="button"
+                                        onClick={() => setSelectedStopForDetail(stop)}
+                                        className="text-left group/title focus:outline-none cursor-pointer"
+                                        title={`View full details for ${stop.destination_name || stop.title}`}
+                                      >
+                                        <h4 className="text-neutral-text-primary dark:text-darkmode-text-primary font-bold text-base group-hover/title:text-brand dark:group-hover/title:text-amber-400 transition-colors flex items-center gap-1.5">
+                                          <span className="hover:underline">{translateText(stop.destination_name || stop.title, currentLang)}</span>
+                                          <ExternalLink className="w-3.5 h-3.5 text-brand/60 dark:text-amber-400/60 group-hover/title:text-brand dark:group-hover/title:text-amber-400 transition-transform group-hover/title:translate-x-0.5" />
+                                        </h4>
+                                      </button>
+
+                                      <button
+                                        type="button"
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          navigate(`/destinations/${destIdentifier}`);
+                                        }}
+                                        className="text-[11px] font-semibold text-neutral-500 hover:text-brand dark:hover:text-amber-400 flex items-center gap-1 transition-colors cursor-pointer"
+                                        title="Open dedicated destination page"
+                                      >
+                                        <span>{translateText('Full Page', currentLang)}</span>
+                                        <ExternalLink className="w-3 h-3" />
+                                      </button>
+                                    </div>
+
+                                    <p className="text-xs text-neutral-text-secondary dark:text-darkmode-text-secondary leading-relaxed">
+                                      {translateText(stop.description || `Explore ${stop.destination_name || 'this celebrated destination'}.`, currentLang)}
+                                    </p>
+
+                                    <div className="flex flex-wrap items-center gap-3 pt-1 text-[11px] text-neutral-muted">
+                                      {stop.estimated_duration && (
+                                        <span className="flex items-center gap-1">
+                                          <Clock className="w-3 h-3 text-brand" /> {translateText(stop.estimated_duration, currentLang)}
+                                        </span>
+                                      )}
+                                      {stop.crowd_level && (
+                                        <span className="flex items-center gap-1">
+                                          <ShieldCheck className="w-3 h-3 text-nature" /> {translateText(`${stop.crowd_level} crowd density`, currentLang)}
+                                        </span>
+                                      )}
+                                      {stop.insider_tip && (
+                                        <span className="text-amber-700 dark:text-amber-400 font-medium">
+                                          💡 {translateText(stop.insider_tip, currentLang)}
+                                        </span>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                              <p className="text-neutral-text-primary dark:text-darkmode-text-primary font-bold text-base">
-                                {stop.destination_name || stop.title}
-                              </p>
-                              <p className="text-xs text-neutral-text-secondary dark:text-darkmode-text-secondary leading-relaxed">
-                                {stop.description || `Explore ${stop.destination_name || 'this celebrated destination'}.`}
-                              </p>
-                              <div className="flex flex-wrap items-center gap-3 pt-1 text-[11px] text-neutral-muted">
-                                {stop.estimated_duration && (
-                                  <span className="flex items-center gap-1">
-                                    <Clock className="w-3 h-3 text-brand" /> {stop.estimated_duration}
-                                  </span>
-                                )}
-                                {stop.crowd_level && (
-                                  <span className="flex items-center gap-1">
-                                    <ShieldCheck className="w-3 h-3 text-nature" /> {stop.crowd_level} crowd density
-                                  </span>
-                                )}
-                                {stop.insider_tip && (
-                                  <span className="text-amber-700 dark:text-amber-400 font-medium">
-                                    💡 {stop.insider_tip}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                          ))
+                            );
+                          })
                         ) : (
                           <div className="p-4 rounded-xl bg-neutral-bg-secondary dark:bg-darkmode-elevated border border-neutral-border space-y-1">
                             <span className="font-bold text-brand block text-[11px] uppercase tracking-wider">Day Schedule</span>
@@ -601,8 +687,8 @@ export default function PlanView() {
                           <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs flex items-center gap-2">
                             <span className="text-base">🍲</span>
                             <div>
-                              <strong className="text-amber-900 dark:text-amber-300 font-bold block">Regional Culinary Highlight:</strong>
-                              <span className="text-amber-800 dark:text-amber-200">{currentDayData.culinary_highlight}</span>
+                              <strong className="text-amber-900 dark:text-amber-300 font-bold block">{translateText('Regional Culinary Highlight:', currentLang)}</strong>
+                              <span className="text-amber-800 dark:text-amber-200">{translateText(currentDayData.culinary_highlight, currentLang)}</span>
                             </div>
                           </div>
                         )}
@@ -617,7 +703,7 @@ export default function PlanView() {
                     className="px-3.5 py-2 rounded-lg border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors"
                   >
                     <Navigation className="w-3.5 h-3.5" />
-                    <span>Launch Live Navigation for Day {selectedDay}</span>
+                    <span>{translateText('Launch Live Navigation for Day', currentLang)} {selectedDay}</span>
                   </button>
                 </div>
               </div>
@@ -625,31 +711,40 @@ export default function PlanView() {
 
             {/* Right Column: Financials and Direct Booking Card */}
             <div className="lg:col-span-5 space-y-6">
+              {/* Interactive In-App Road Route Map */}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-xs font-bold text-neutral-text-primary dark:text-darkmode-text-primary">
+                  <span>Day {selectedDay} {translateText('Road Route Map', currentLang)}</span>
+                  <span className="text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold">{translateText('In-App OSM Routing', currentLang)}</span>
+                </div>
+                <ItineraryMap itinerary={itinerary} selectedDay={selectedDay} />
+              </div>
+
               <div className="ts-card p-6 space-y-4">
                 <h3 className="text-sm font-bold text-neutral-text-primary dark:text-darkmode-text-primary pb-2 border-b border-neutral-border">
-                  Cost Breakdown & Zero Commission
+                  {translateText('Cost Breakdown & Zero Commission', currentLang)}
                 </h3>
                 
                 <div className="space-y-2 text-xs">
                   <div className="flex justify-between text-neutral-muted">
-                    <span>Accommodations ({itinerary.days} Nights):</span>
+                    <span>{t('plan.accommodations', 'Accommodations')} ({itinerary.days} {t('plan.nights', 'Nights')}):</span>
                     <span>₹{itinerary.budget_breakdown?.accommodation_inr}</span>
                   </div>
                   <div className="flex justify-between text-neutral-muted">
-                    <span>Local Experiences & Entry:</span>
+                    <span>{translateText('Local Experiences & Entry:', currentLang)}</span>
                     <span>₹{itinerary.budget_breakdown?.activities_inr}</span>
                   </div>
                   <div className="flex justify-between text-neutral-muted">
-                    <span>Meals & Regional Food:</span>
+                    <span>{translateText('Meals & Regional Food:', currentLang)}</span>
                     <span>₹{itinerary.budget_breakdown?.meals_inr}</span>
                   </div>
                   <div className="flex justify-between text-neutral-muted">
-                    <span>Local Green Transport:</span>
+                    <span>{translateText('Local Green Transport:', currentLang)}</span>
                     <span>₹{itinerary.budget_breakdown?.transport_inr}</span>
                   </div>
                   <div className="flex justify-between text-nature font-bold pt-2 border-t border-neutral-border">
-                    <span>Direct Host Benefit:</span>
-                    <span>100% via UPI</span>
+                    <span>{translateText('Direct Host Benefit:', currentLang)}</span>
+                    <span>{translateText('100% via UPI', currentLang)}</span>
                   </div>
                 </div>
 
@@ -658,15 +753,40 @@ export default function PlanView() {
                     onClick={() => navigate('/stays')}
                     className="w-full py-2.5 rounded-lg border border-primary-800 text-primary-800 dark:border-amber-400 dark:text-amber-400 hover:bg-primary-50 dark:hover:bg-neutral-800 text-xs font-bold transition-colors cursor-pointer"
                   >
-                    Reserve Homestays on Route
+                    {translateText('Reserve Homestays on Route', currentLang)}
                   </button>
                 </div>
               </div>
             </div>
 
           </div>
-
         </div>
+      )}
+
+      {/* Destination Detail Modal */}
+      {selectedStopForDetail && (
+        <DestinationDetailModal
+          destinationId={
+            selectedStopForDetail.destination_id ||
+            selectedStopForDetail.id ||
+            selectedStopForDetail.destination_name ||
+            selectedStopForDetail.title
+          }
+          onClose={() => setSelectedStopForDetail(null)}
+          onDirectBook={(dest) => {
+            setSelectedStopForDetail(null);
+            if (openCheckout) {
+              openCheckout({
+                id: dest.id || `dest-${Date.now()}`,
+                title: dest.name,
+                type: 'Destination Booking',
+                price: dest.average_budget || 2500,
+                dates: 'Flexible Dates',
+                location: `${dest.name}, ${dest.state || 'India'}`
+              });
+            }
+          }}
+        />
       )}
 
     </div>

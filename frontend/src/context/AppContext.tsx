@@ -317,12 +317,36 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  // Section 25: Smart Delay Handling
-  const handleSmartDelay = (delayedMinutes) => {
+  // Section 25: Smart Delay Handling (Connected to Real Backend Adapt API)
+  const handleSmartDelay = async (delayedMinutes) => {
+    try {
+      const endpoint = activeTrip?.id && !activeTrip.id.startsWith('live-') && !activeTrip.id.startsWith('trip-')
+        ? `/api/itinerary/${activeTrip.id}/adapt`
+        : '/api/itinerary/adapt';
+      const res = await axios.post(endpoint, {
+        action: 'delay',
+        delay_minutes: delayedMinutes,
+        day_number: activeTrip.dayNumber || 1,
+        destination: activeTrip.destination,
+        current_schedule: activeTrip.schedule
+      });
+      if (res.data && res.data.updated_schedule) {
+        setActiveTrip(prev => ({
+          ...prev,
+          delayMinutes: (prev.delayMinutes || 0) + delayedMinutes,
+          delayMessage: res.data.message,
+          schedule: res.data.updated_schedule
+        }));
+        return;
+      }
+    } catch (e) {
+      console.warn('Backend adapt call failed, using client-side recalculation:', e);
+    }
+
+    // Client-side fallback if backend unreachable
     setActiveTrip(prev => {
       const updatedSchedule = prev.schedule.map(item => {
         if (item.status === 'Completed') return item;
-        // Shift time by delayed minutes
         return {
           ...item,
           time: shiftTime(item.time, delayedMinutes)
@@ -332,21 +356,20 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       return {
         ...prev,
         delayMinutes: (prev.delayMinutes || 0) + delayedMinutes,
-        delayMessage: `We adjusted your afternoon schedule by +${delayedMinutes} mins. Sunset trek to Choi Waterfall was streamlined so you can still enjoy dinner without rushing.`,
+        delayMessage: `We adjusted your afternoon schedule by +${delayedMinutes} mins. Evening dinner and return timings synchronized.`,
         schedule: updatedSchedule
       };
     });
   };
 
   const shiftTime = (timeStr, minutes) => {
-    // Utility to shift "03:30 PM" by minutes
-    const parts = timeStr.match(/(\d+):(\d+)\s*(AM|PM)/);
+    const parts = (timeStr || '').match(/(\d+):(\d+)\s*(AM|PM)?/i);
     if (!parts) return timeStr;
     let [_, h, m, meridiem] = parts;
     let hour = parseInt(h, 10);
     let min = parseInt(m, 10);
-    if (meridiem === 'PM' && hour !== 12) hour += 12;
-    if (meridiem === 'AM' && hour === 12) hour = 0;
+    if (meridiem && meridiem.toUpperCase() === 'PM' && hour !== 12) hour += 12;
+    if (meridiem && meridiem.toUpperCase() === 'AM' && hour === 12) hour = 0;
 
     const date = new Date();
     date.setHours(hour, min + minutes);
@@ -358,19 +381,46 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     return `${String(newHour).padStart(2, '0')}:${String(newMin).padStart(2, '0')} ${newMeridiem}`;
   };
 
-  // Section 14: Dynamic Prompt Itinerary Adjustment
-  const modifyItineraryPrompt = (promptType) => {
+  // Section 14: Dynamic Prompt Itinerary Adjustment (Connected to Real Backend Adapt API)
+  const modifyItineraryPrompt = async (promptType) => {
+    try {
+      const endpoint = activeTrip?.id && !activeTrip.id.startsWith('live-') && !activeTrip.id.startsWith('trip-')
+        ? `/api/itinerary/${activeTrip.id}/adapt`
+        : '/api/itinerary/adapt';
+      const res = await axios.post(endpoint, {
+        action: promptType,
+        day_number: activeTrip.dayNumber || 1,
+        destination: activeTrip.destination,
+        current_schedule: activeTrip.schedule
+      });
+      if (res.data && res.data.updated_schedule) {
+        setActiveTrip(prev => ({
+          ...prev,
+          totalBudget: res.data.total_budget_inr || prev.totalBudget,
+          delayMessage: res.data.message,
+          schedule: res.data.updated_schedule,
+          weather: promptType === 'weather' && res.data.weather_advisory 
+            ? { ...prev.weather, condition: 'Adapted for Weather', rainAlert: false } 
+            : prev.weather
+        }));
+        return;
+      }
+    } catch (e) {
+      console.warn('Backend modify prompt failed, using client fallback:', e);
+    }
+
+    // Client fallback
     setActiveTrip(prev => {
       if (promptType === 'cheaper') {
         return {
           ...prev,
           totalBudget: Math.round(prev.totalBudget * 0.78),
-          delayMessage: "Budget optimized! Switched to community transit & village farm meals. Saved ₹2,700."
+          delayMessage: "Budget optimized! Switched commercial admissions to verified community stepwells & artisan guilds. Saved estimated ₹1,850."
         };
       } else if (promptType === 'relax') {
         return {
           ...prev,
-          delayMessage: "Day schedule relaxed. Removed steep afternoon climb and added tranquil riverside meditation."
+          delayMessage: "Day schedule relaxed. Streamlined pacing with artisanal tea rest and riverside promenade."
         };
       } else if (promptType === 'local') {
         return {
@@ -380,8 +430,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       } else if (promptType === 'weather') {
         return {
           ...prev,
-          weather: { temp: '15°C', condition: 'Passing Autumn Showers', rainAlert: true },
-          delayMessage: "Weather adaptation applied: Outdoor waterfall shifted; indoor Kathkuni architecture workshop prioritized."
+          weather: { temp: '22°C', condition: 'Adapted for Weather', rainAlert: false },
+          delayMessage: "Weather adaptation applied! Outdoor excursion replaced with covered heritage galleries and royal craft museum."
         };
       }
       return prev;

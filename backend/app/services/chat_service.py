@@ -525,9 +525,18 @@ class ChatService:
         }
 
         async with httpx.AsyncClient() as client:
-            resp = await client.post(url, json=payload, timeout=cls.CIRCUIT_BREAKER_TIMEOUT)
-            if resp.status_code != 200:
-                logger.warning(f"Gemini chat API error {resp.status_code}: {resp.text}")
+            resp = None
+            for model_name in ["gemini-3.6-flash", "gemini-flash-latest", "gemini-2.5-flash", "gemini-1.5-flash"]:
+                req_url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+                try:
+                    resp = await client.post(req_url, json=payload, timeout=cls.CIRCUIT_BREAKER_TIMEOUT)
+                    if resp.status_code == 200:
+                        break
+                except Exception:
+                    continue
+
+            if not resp or resp.status_code != 200:
+                logger.warning(f"Gemini chat API error {resp.status_code if resp else 'error'}: {resp.text if resp else ''}")
                 return None
 
             data = resp.json()

@@ -33,11 +33,19 @@ export default function ExploreView() {
   const { destinations: fallbackDestinations, language } = useApp();
 
   const initialCat = searchParams.get('cat') || searchParams.get('category') || location.state?.category || 'All';
-  const initialSearch = searchParams.get('q') || searchParams.get('search') || location.state?.initialSearch || '';
+  const initialSearch = searchParams.get('query') || searchParams.get('q') || searchParams.get('search') || location.state?.initialSearch || '';
   const initialState = searchParams.get('state') || 'All';
 
   // Filter States (Persisted in URL)
   const [searchQuery, setSearchQuery] = useState(initialSearch);
+
+  useEffect(() => {
+    const q = searchParams.get('query') || searchParams.get('q') || searchParams.get('search');
+    if (q !== null && q !== searchQuery) {
+      setSearchQuery(q);
+      setPage(1);
+    }
+  }, [searchParams]);
   const [selectedCategory, setSelectedCategory] = useState(initialCat);
   const [selectedState, setSelectedState] = useState(initialState);
   const [selectedBudget, setSelectedBudget] = useState('All');
@@ -100,9 +108,10 @@ export default function ExploreView() {
         let url = '';
         if (trimmed) {
           // Use search endpoint with state and category query parameters
-          const searchParams = [`q=${encodeURIComponent(trimmed)}`, 'limit=24'];
+          const searchParams = [`q=${encodeURIComponent(trimmed)}`, 'limit=100'];
           if (selectedCategory !== 'All') searchParams.push(`category=${encodeURIComponent(selectedCategory)}`);
           if (selectedState !== 'All') searchParams.push(`state=${encodeURIComponent(selectedState)}`);
+          if (onlyHiddenGems) searchParams.push('is_hidden_gem=true');
 
           url = `/api/destinations/search?${searchParams.join('&')}`;
           const res = await axios.get(url);

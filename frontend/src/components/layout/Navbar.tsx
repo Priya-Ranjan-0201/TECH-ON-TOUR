@@ -26,7 +26,8 @@ import {
   Bot,
   Search,
   Navigation,
-  LayoutDashboard
+  LayoutDashboard,
+  Users
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useTranslation } from 'react-i18next';
@@ -85,7 +86,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 dark:bg-[#141210]/95 backdrop-blur-md border-b border-neutral-200/90 dark:border-neutral-800/90 transition-colors duration-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
           {/* Brand Logo */}
@@ -236,6 +237,17 @@ export default function Navbar() {
                 >
                   {t('nav.myTrips', 'My Trips')}
                 </Link>
+                <Link
+                  to="/trips/group"
+                  className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5 ${
+                    isActive('/trips/group')
+                      ? 'text-amber-800 dark:text-amber-400 font-bold bg-amber-50 dark:bg-neutral-800'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-amber-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
+                  }`}
+                >
+                  <Users className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+                  <span>{t('nav.groupTravel', 'Group Travel')}</span>
+                </Link>
               </>
             )}
           </nav>
@@ -271,6 +283,7 @@ export default function Navbar() {
                 <ProfileDropdown 
                   role={userRole} 
                   onClose={() => setProfileDropdownOpen(false)} 
+                  currentUser={currentUser} 
                 />
               )}
             </div>
@@ -293,6 +306,14 @@ export default function Navbar() {
           <Link to="/" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">{t('nav.home', 'Home')}</Link>
           <Link to="/plan" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">{t('nav.planTrip', 'Plan Trip')}</Link>
           <Link to="/trips" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">{t('nav.myTrips', 'My Trips')}</Link>
+          <Link to="/trips/group" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2">
+            <Users className="w-4 h-4 text-amber-600" />
+            <span>{t('nav.groupTravelFull', 'Group Travel (Live Map & E2EE)')}</span>
+          </Link>
+          <Link to="/privacy" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2">
+            <ShieldCheck className="w-4 h-4 text-emerald-600" />
+            <span>{t('nav.securityPrivacy', 'Security & Privacy Center')}</span>
+          </Link>
           <Link to="/explore" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500">{t('nav.exploreCatalog', 'Explore Catalog')}</Link>
           <Link to="/stays" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500">{t('nav.homestays', 'Homestays')}</Link>
         </div>

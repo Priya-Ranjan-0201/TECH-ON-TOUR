@@ -1,0 +1,118 @@
+event_id,event_name,status,coordinate_check,date_check,source_check,errors
+EVT-0001,Durga Puja,PASS,VALID,VALID,VERIFIED,None
+EVT-0002,Gangasagar Mela,PASS,VALID,VALID,VERIFIED,None
+EVT-0003,Pushkar Camel Fair,PASS,VALID,VALID,VERIFIED,None
+EVT-0004,Surajkund International Crafts Mela,PASS,VALID,VALID,VERIFIED,None
+EVT-0005,Hornbill Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0006,Bihu Celebrations (Rongali Bihu),PASS,VALID,VALID,VERIFIED,None
+EVT-0007,Mysuru Dasara,PASS,VALID,VALID,VERIFIED,None
+EVT-0008,Onam Celebrations,PASS,VALID,VALID,VERIFIED,None
+EVT-0009,Thrissur Pooram,PASS,VALID,VALID,VERIFIED,None
+EVT-0010,Rann Utsav,PASS,VALID,VALID,VERIFIED,None
+EVT-0011,International Kite Festival (Uttarayan),PASS,VALID,VALID,VERIFIED,None
+EVT-0012,Goa Carnival,PASS,VALID,VALID,VERIFIED,None
+EVT-0013,Khajuraho Dance Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0014,Puri Rath Yatra,PASS,VALID,VALID,VERIFIED,None
+EVT-0015,Konark Dance Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0016,Hemis Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0017,Chhath Puja,PASS,VALID,VALID,VERIFIED,None
+EVT-0018,Bathukamma Floral Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0019,Ugadi Telugu New Year,PASS,VALID,VALID,VERIFIED,None
+EVT-0020,Pongal Harvest Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0021,Madurai Chithirai Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0022,Mamallapuram Dance Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0023,Theyyam Seasonal Rituals,PASS,VALID,VALID,VERIFIED,None
+EVT-0024,Nehru Trophy Boat Race,PASS,VALID,VALID,VERIFIED,None
+EVT-0025,Ganesh Chaturthi,PASS,VALID,VALID,VERIFIED,None
+EVT-0026,Ellora Ajanta International Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0027,Desert Festival Jaisalmer,PASS,VALID,VALID,VERIFIED,None
+EVT-0028,Rajasthan International Folk Festival (RIFF),PASS,VALID,VALID,VERIFIED,None
+EVT-0029,Marwar Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0030,Teej Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0031,Kullu Dussehra,PASS,VALID,VALID,VERIFIED,None
+EVT-0032,Mandi Shivratri Fair,PASS,VALID,VALID,VERIFIED,None
+EVT-0033,Minjar Fair Chamba,PASS,VALID,VALID,VERIFIED,None
+EVT-0034,International Yoga Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0035,Kumbh Mela / Magh Mela Haridwar,PASS,VALID,VALID,VERIFIED,None
+EVT-0036,Hola Mohalla,PASS,VALID,VALID,VERIFIED,None
+EVT-0037,Lohri Harvest Celebration,PASS,VALID,VALID,VERIFIED,None
+EVT-0038,Tulip Festival Kashmir,PASS,VALID,VALID,VERIFIED,None
+EVT-0039,Shikara Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0040,Ziro Festival of Music,PASS,VALID,VALID,VERIFIED,None
+EVT-0041,Tawang Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0042,Shillong Cherry Blossom Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0043,Wangala 100 Drums Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0044,Sangai Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0045,Chapchar Kut,PASS,VALID,VALID,VERIFIED,None
+EVT-0046,Hampi Utsav,PASS,VALID,VALID,VERIFIED,None
+EVT-0047,Bengaluru Karaga,PASS,VALID,VALID,VERIFIED,None
+EVT-0048,Bastar Dussehra,PASS,VALID,VALID,VERIFIED,None
+EVT-0049,Bhagoria Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0050,Tansen Music Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0051,Lathmar Holi Barsana,PASS,VALID,VALID,VERIFIED,None
+EVT-0052,Dev Deepawali Varanasi,PASS,VALID,VALID,VERIFIED,None
+EVT-0053,Taj Mahotsav,PASS,VALID,VALID,VERIFIED,None
+EVT-0054,Rajgir Mahotsav,PASS,VALID,VALID,VERIFIED,None
+EVT-0055,Sonepur Cattle Fair,PASS,VALID,VALID,VERIFIED,None
+EVT-0056,Island Tourism Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0057,Lepakshi Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0058,Visakha Utsav,PASS,VALID,VALID,VERIFIED,None
+EVT-0059,Si-Donyi Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0060,Solung Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0061,Majuli Raas Mahotsav,PASS,VALID,VALID,VERIFIED,None
+EVT-0062,Sivasagar Rongpur Utsav,PASS,VALID,VALID,VERIFIED,None
+EVT-0063,Buddha Jayanti & Meditation Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0064,Vaishali Mahotsav,PASS,VALID,VALID,VERIFIED,None
+EVT-0065,Rose Festival Chandigarh,PASS,VALID,VALID,VERIFIED,None
+EVT-0066,Sirpur National Dance & Music Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0067,Daman Beach & Cultural Carnival,PASS,VALID,VALID,VERIFIED,None
+EVT-0068,Delhi International Arts Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0069,Qutub Festival of Classical Music,PASS,VALID,VALID,VERIFIED,None
+EVT-0070,Shigmo Spring Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0071,Modhera Dance Festival (Uttarardh Mahotsav),PASS,VALID,VALID,VERIFIED,None
+EVT-0072,Bhavnath Mahadev Fair Girnar,PASS,VALID,VALID,VERIFIED,None
+EVT-0073,International Gita Mahotsav,PASS,VALID,VALID,VERIFIED,None
+EVT-0074,Pinjore Heritage Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0075,Shimla Summer Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0076,Dharamshala International Film Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0077,Sarhul Tribal Spring Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0078,Shravani Mela Deoghar,PASS,VALID,VALID,VERIFIED,None
+EVT-0079,Pattadakal Dance Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0080,Udupi Paryaya Mahotsava,PASS,VALID,VALID,VERIFIED,None
+EVT-0081,Kumarakom Boat Race & Backwater Regatta,PASS,VALID,VALID,VERIFIED,None
+EVT-0082,Wayanad Splash Monsoon Carnival,PASS,VALID,VALID,VERIFIED,None
+EVT-0083,Zanskar Karsha Gustor,PASS,VALID,VALID,VERIFIED,None
+EVT-0084,Ladakh Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0085,Lakshadweep Coral & Maritime Fest,PASS,VALID,VALID,VERIFIED,None
+EVT-0086,Ujjain Mahakal Kartik Mela,PASS,VALID,VALID,VERIFIED,None
+EVT-0087,Mandu Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0088,Nashik Kumbh / Godavari Aarti Mahotsav,PASS,VALID,VALID,VERIFIED,None
+EVT-0089,Sawai Gandharva Bhimsen Classical Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0090,Loktak Lake Cultural Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0091,Sohra Rainforest & Living Root Bridge Fest,PASS,VALID,VALID,VERIFIED,None
+EVT-0092,Thalfavang Kut Harvest Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0093,Moatsu Mong (Ao Naga Festival),PASS,VALID,VALID,VERIFIED,None
+EVT-0094,Aoleang Monyu (Konyak Festival),PASS,VALID,VALID,VERIFIED,None
+EVT-0095,Rajarani Music Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0096,Chhau Dance Festival Baripada,PASS,VALID,VALID,VERIFIED,None
+EVT-0097,Pondicherry Heritage Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0098,Auroville International Cultural Week,PASS,VALID,VALID,VERIFIED,None
+EVT-0099,Patiala Heritage Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0100,Kila Raipur Rural Sports & Olympics,PASS,VALID,VALID,VERIFIED,None
+EVT-0101,Bikaner Camel Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0102,Mewar Festival Udaipur,PASS,VALID,VALID,VERIFIED,None
+EVT-0103,Mount Abu Summer Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0104,Losoong / Namsoong Sikkimese New Year,PASS,VALID,VALID,VERIFIED,None
+EVT-0105,Pang Lhabsol (Kanchenjunga Worship),PASS,VALID,VALID,VERIFIED,None
+EVT-0106,Brihadeeswara Natyanjali Dance Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0107,Tyagaraja Aradhana Carnatic Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0108,Kakatiya Heritage Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0109,Sammakka Saralamma Jathara,PASS,VALID,VALID,VERIFIED,None
+EVT-0110,Kharchi Puja (14 Gods Festival),PASS,VALID,VALID,VERIFIED,None
+EVT-0111,Tripura Sundari Diwali Mela,PASS,VALID,VALID,VERIFIED,None
+EVT-0112,Ayodhya Deepotsav,PASS,VALID,VALID,VERIFIED,None
+EVT-0113,Braj Phoolon Ki Holi,PASS,VALID,VALID,VERIFIED,None
+EVT-0114,Hilljatra Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0115,Nainital Autumn Festival,PASS,VALID,VALID,VERIFIED,None
+EVT-0116,Poush Mela Shantiniketan,PASS,VALID,VALID,VERIFIED,None
+EVT-0117,Bishnupur Terracotta & Music Festival,PASS,VALID,VALID,VERIFIED,None

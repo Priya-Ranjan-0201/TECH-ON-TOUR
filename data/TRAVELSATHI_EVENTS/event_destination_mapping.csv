@@ -1,0 +1,118 @@
+mapping_id,event_id,event_name,destination_name,state,distance_km,proximity_category,travel_recommendation
+EVM-0001,EVT-0001,Durga Puja,Kolkata,West Bengal,0.0,Host City,Anchor destination of festival
+EVM-0002,EVT-0002,Gangasagar Mela,Sagar Island,West Bengal,0.0,Host City,Anchor destination of festival
+EVM-0003,EVT-0003,Pushkar Camel Fair,Pushkar,Rajasthan,0.0,Host City,Anchor destination of festival
+EVM-0004,EVT-0004,Surajkund International Crafts Mela,Faridabad,Haryana,0.0,Host City,Anchor destination of festival
+EVM-0005,EVT-0005,Hornbill Festival,Kisama,Nagaland,0.0,Host City,Anchor destination of festival
+EVM-0006,EVT-0006,Bihu Celebrations (Rongali Bihu),Guwahati,Assam,0.0,Host City,Anchor destination of festival
+EVM-0007,EVT-0007,Mysuru Dasara,Mysuru,Karnataka,0.0,Host City,Anchor destination of festival
+EVM-0008,EVT-0008,Onam Celebrations,Thrikkakara / Kochi / Thiruvananthapuram,Kerala,0.0,Host City,Anchor destination of festival
+EVM-0009,EVT-0009,Thrissur Pooram,Thrissur,Kerala,0.0,Host City,Anchor destination of festival
+EVM-0010,EVT-0010,Rann Utsav,Dhordo,Gujarat,0.0,Host City,Anchor destination of festival
+EVM-0011,EVT-0011,International Kite Festival (Uttarayan),Ahmedabad,Gujarat,0.0,Host City,Anchor destination of festival
+EVM-0012,EVT-0012,Goa Carnival,Panaji,Goa,0.0,Host City,Anchor destination of festival
+EVM-0013,EVT-0013,Khajuraho Dance Festival,Khajuraho,Madhya Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0014,EVT-0014,Puri Rath Yatra,Puri,Odisha,0.0,Host City,Anchor destination of festival
+EVM-0015,EVT-0015,Konark Dance Festival,Konark,Odisha,0.0,Host City,Anchor destination of festival
+EVM-0016,EVT-0016,Hemis Festival,Hemis,Ladakh,0.0,Host City,Anchor destination of festival
+EVM-0017,EVT-0017,Chhath Puja,Patna / Bodh Gaya / Muzaffarpur,Bihar,0.0,Host City,Anchor destination of festival
+EVM-0018,EVT-0018,Bathukamma Floral Festival,Hyderabad,Telangana,0.0,Host City,Anchor destination of festival
+EVM-0019,EVT-0019,Ugadi Telugu New Year,Vijayawada,Andhra Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0020,EVT-0020,Pongal Harvest Festival,Madurai,Tamil Nadu,0.0,Host City,Anchor destination of festival
+EVM-0021,EVT-0021,Madurai Chithirai Festival,Madurai,Tamil Nadu,0.0,Host City,Anchor destination of festival
+EVM-0022,EVT-0022,Mamallapuram Dance Festival,Mamallapuram,Tamil Nadu,0.0,Host City,Anchor destination of festival
+EVM-0023,EVT-0023,Theyyam Seasonal Rituals,Kannur,Kerala,0.0,Host City,Anchor destination of festival
+EVM-0024,EVT-0024,Nehru Trophy Boat Race,Alappuzha,Kerala,0.0,Host City,Anchor destination of festival
+EVM-0025,EVT-0025,Ganesh Chaturthi,Mumbai,Maharashtra,0.0,Host City,Anchor destination of festival
+EVM-0026,EVT-0026,Ellora Ajanta International Festival,Chhatrapati Sambhajinagar,Maharashtra,0.0,Host City,Anchor destination of festival
+EVM-0027,EVT-0027,Desert Festival Jaisalmer,Jaisalmer,Rajasthan,0.0,Host City,Anchor destination of festival
+EVM-0028,EVT-0028,Rajasthan International Folk Festival (RIFF),Jodhpur,Rajasthan,0.0,Host City,Anchor destination of festival
+EVM-0029,EVT-0029,Marwar Festival,Jodhpur,Rajasthan,0.0,Host City,Anchor destination of festival
+EVM-0030,EVT-0030,Teej Festival,Jaipur,Rajasthan,0.0,Host City,Anchor destination of festival
+EVM-0031,EVT-0031,Kullu Dussehra,Kullu,Himachal Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0032,EVT-0032,Mandi Shivratri Fair,Mandi,Himachal Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0033,EVT-0033,Minjar Fair Chamba,Chamba,Himachal Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0034,EVT-0034,International Yoga Festival,Rishikesh,Uttarakhand,0.0,Host City,Anchor destination of festival
+EVM-0035,EVT-0035,Kumbh Mela / Magh Mela Haridwar,Haridwar,Uttarakhand,0.0,Host City,Anchor destination of festival
+EVM-0036,EVT-0036,Hola Mohalla,Anandpur Sahib,Punjab,0.0,Host City,Anchor destination of festival
+EVM-0037,EVT-0037,Lohri Harvest Celebration,Amritsar,Punjab,0.0,Host City,Anchor destination of festival
+EVM-0038,EVT-0038,Tulip Festival Kashmir,Srinagar,Jammu and Kashmir,0.0,Host City,Anchor destination of festival
+EVM-0039,EVT-0039,Shikara Festival,Srinagar,Jammu and Kashmir,0.0,Host City,Anchor destination of festival
+EVM-0040,EVT-0040,Ziro Festival of Music,Ziro,Arunachal Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0041,EVT-0041,Tawang Festival,Tawang,Arunachal Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0042,EVT-0042,Shillong Cherry Blossom Festival,Shillong,Meghalaya,0.0,Host City,Anchor destination of festival
+EVM-0043,EVT-0043,Wangala 100 Drums Festival,Asanang (Tura),Meghalaya,0.0,Host City,Anchor destination of festival
+EVM-0044,EVT-0044,Sangai Festival,Imphal,Manipur,0.0,Host City,Anchor destination of festival
+EVM-0045,EVT-0045,Chapchar Kut,Aizawl,Mizoram,0.0,Host City,Anchor destination of festival
+EVM-0046,EVT-0046,Hampi Utsav,Hampi,Karnataka,0.0,Host City,Anchor destination of festival
+EVM-0047,EVT-0047,Bengaluru Karaga,Bengaluru,Karnataka,0.0,Host City,Anchor destination of festival
+EVM-0048,EVT-0048,Bastar Dussehra,Jagdalpur,Chhattisgarh,0.0,Host City,Anchor destination of festival
+EVM-0049,EVT-0049,Bhagoria Festival,Jhabua,Madhya Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0050,EVT-0050,Tansen Music Festival,Gwalior,Madhya Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0051,EVT-0051,Lathmar Holi Barsana,Mathura / Barsana,Uttar Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0052,EVT-0052,Dev Deepawali Varanasi,Varanasi,Uttar Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0053,EVT-0053,Taj Mahotsav,Agra,Uttar Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0054,EVT-0054,Rajgir Mahotsav,Rajgir,Bihar,0.0,Host City,Anchor destination of festival
+EVM-0055,EVT-0055,Sonepur Cattle Fair,Sonepur,Bihar,0.0,Host City,Anchor destination of festival
+EVM-0056,EVT-0056,Island Tourism Festival,Port Blair,Andaman and Nicobar Islands,0.0,Host City,Anchor destination of festival
+EVM-0057,EVT-0057,Lepakshi Festival,Lepakshi,Andhra Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0058,EVT-0058,Visakha Utsav,Visakhapatnam,Andhra Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0059,EVT-0059,Si-Donyi Festival,Daporijo,Arunachal Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0060,EVT-0060,Solung Festival,Pasighat,Arunachal Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0061,EVT-0061,Majuli Raas Mahotsav,Majuli,Assam,0.0,Host City,Anchor destination of festival
+EVM-0062,EVT-0062,Sivasagar Rongpur Utsav,Sivasagar,Assam,0.0,Host City,Anchor destination of festival
+EVM-0063,EVT-0063,Buddha Jayanti & Meditation Festival,Bodh Gaya,Bihar,0.0,Host City,Anchor destination of festival
+EVM-0064,EVT-0064,Vaishali Mahotsav,Vaishali,Bihar,0.0,Host City,Anchor destination of festival
+EVM-0065,EVT-0065,Rose Festival Chandigarh,Chandigarh,Chandigarh,0.0,Host City,Anchor destination of festival
+EVM-0066,EVT-0066,Sirpur National Dance & Music Festival,Sirpur,Chhattisgarh,0.0,Host City,Anchor destination of festival
+EVM-0067,EVT-0067,Daman Beach & Cultural Carnival,Daman,Dadra and Nagar Haveli and Daman and Diu,0.0,Host City,Anchor destination of festival
+EVM-0068,EVT-0068,Delhi International Arts Festival,Delhi,Delhi,0.0,Host City,Anchor destination of festival
+EVM-0069,EVT-0069,Qutub Festival of Classical Music,Delhi,Delhi,0.0,Host City,Anchor destination of festival
+EVM-0070,EVT-0070,Shigmo Spring Festival,Shigmo / Panaji,Goa,0.0,Host City,Anchor destination of festival
+EVM-0071,EVT-0071,Modhera Dance Festival (Uttarardh Mahotsav),Modhera,Gujarat,0.0,Host City,Anchor destination of festival
+EVM-0072,EVT-0072,Bhavnath Mahadev Fair Girnar,Junagadh,Gujarat,0.0,Host City,Anchor destination of festival
+EVM-0073,EVT-0073,International Gita Mahotsav,Kurukshetra,Haryana,0.0,Host City,Anchor destination of festival
+EVM-0074,EVT-0074,Pinjore Heritage Festival,Pinjore,Haryana,0.0,Host City,Anchor destination of festival
+EVM-0075,EVT-0075,Shimla Summer Festival,Shimla,Himachal Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0076,EVT-0076,Dharamshala International Film Festival,Dharamshala,Himachal Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0077,EVT-0077,Sarhul Tribal Spring Festival,Ranchi,Jharkhand,0.0,Host City,Anchor destination of festival
+EVM-0078,EVT-0078,Shravani Mela Deoghar,Deoghar,Jharkhand,0.0,Host City,Anchor destination of festival
+EVM-0079,EVT-0079,Pattadakal Dance Festival,Pattadakal,Karnataka,0.0,Host City,Anchor destination of festival
+EVM-0080,EVT-0080,Udupi Paryaya Mahotsava,Udupi,Karnataka,0.0,Host City,Anchor destination of festival
+EVM-0081,EVT-0081,Kumarakom Boat Race & Backwater Regatta,Kottayam,Kerala,0.0,Host City,Anchor destination of festival
+EVM-0082,EVT-0082,Wayanad Splash Monsoon Carnival,Wayanad,Kerala,0.0,Host City,Anchor destination of festival
+EVM-0083,EVT-0083,Zanskar Karsha Gustor,Zanskar,Ladakh,0.0,Host City,Anchor destination of festival
+EVM-0084,EVT-0084,Ladakh Festival,Leh,Ladakh,0.0,Host City,Anchor destination of festival
+EVM-0085,EVT-0085,Lakshadweep Coral & Maritime Fest,Kavaratti,Lakshadweep,0.0,Host City,Anchor destination of festival
+EVM-0086,EVT-0086,Ujjain Mahakal Kartik Mela,Ujjain,Madhya Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0087,EVT-0087,Mandu Festival,Mandu,Madhya Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0088,EVT-0088,Nashik Kumbh / Godavari Aarti Mahotsav,Nashik,Maharashtra,0.0,Host City,Anchor destination of festival
+EVM-0089,EVT-0089,Sawai Gandharva Bhimsen Classical Festival,Pune,Maharashtra,0.0,Host City,Anchor destination of festival
+EVM-0090,EVT-0090,Loktak Lake Cultural Festival,Loktak,Manipur,0.0,Host City,Anchor destination of festival
+EVM-0091,EVT-0091,Sohra Rainforest & Living Root Bridge Fest,Sohra (Cherrapunji),Meghalaya,0.0,Host City,Anchor destination of festival
+EVM-0092,EVT-0092,Thalfavang Kut Harvest Festival,Lunglei,Mizoram,0.0,Host City,Anchor destination of festival
+EVM-0093,EVT-0093,Moatsu Mong (Ao Naga Festival),Mokokchung,Nagaland,0.0,Host City,Anchor destination of festival
+EVM-0094,EVT-0094,Aoleang Monyu (Konyak Festival),Mon,Nagaland,0.0,Host City,Anchor destination of festival
+EVM-0095,EVT-0095,Rajarani Music Festival,Bhubaneswar,Odisha,0.0,Host City,Anchor destination of festival
+EVM-0096,EVT-0096,Chhau Dance Festival Baripada,Baripada,Odisha,0.0,Host City,Anchor destination of festival
+EVM-0097,EVT-0097,Pondicherry Heritage Festival,Puducherry,Puducherry,0.0,Host City,Anchor destination of festival
+EVM-0098,EVT-0098,Auroville International Cultural Week,Auroville,Puducherry,0.0,Host City,Anchor destination of festival
+EVM-0099,EVT-0099,Patiala Heritage Festival,Patiala,Punjab,0.0,Host City,Anchor destination of festival
+EVM-0100,EVT-0100,Kila Raipur Rural Sports & Olympics,Kila Raipur,Punjab,0.0,Host City,Anchor destination of festival
+EVM-0101,EVT-0101,Bikaner Camel Festival,Bikaner,Rajasthan,0.0,Host City,Anchor destination of festival
+EVM-0102,EVT-0102,Mewar Festival Udaipur,Udaipur,Rajasthan,0.0,Host City,Anchor destination of festival
+EVM-0103,EVT-0103,Mount Abu Summer Festival,Mount Abu,Rajasthan,0.0,Host City,Anchor destination of festival
+EVM-0104,EVT-0104,Losoong / Namsoong Sikkimese New Year,Gangtok,Sikkim,0.0,Host City,Anchor destination of festival
+EVM-0105,EVT-0105,Pang Lhabsol (Kanchenjunga Worship),Ravangla,Sikkim,0.0,Host City,Anchor destination of festival
+EVM-0106,EVT-0106,Brihadeeswara Natyanjali Dance Festival,Thanjavur,Tamil Nadu,0.0,Host City,Anchor destination of festival
+EVM-0107,EVT-0107,Tyagaraja Aradhana Carnatic Festival,Thiruvaiyaru,Tamil Nadu,0.0,Host City,Anchor destination of festival
+EVM-0108,EVT-0108,Kakatiya Heritage Festival,Warangal,Telangana,0.0,Host City,Anchor destination of festival
+EVM-0109,EVT-0109,Sammakka Saralamma Jathara,Medaram,Telangana,0.0,Host City,Anchor destination of festival
+EVM-0110,EVT-0110,Kharchi Puja (14 Gods Festival),Agartala,Tripura,0.0,Host City,Anchor destination of festival
+EVM-0111,EVT-0111,Tripura Sundari Diwali Mela,Udaipur,Tripura,0.0,Host City,Anchor destination of festival
+EVM-0112,EVT-0112,Ayodhya Deepotsav,Ayodhya,Uttar Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0113,EVT-0113,Braj Phoolon Ki Holi,Vrindavan,Uttar Pradesh,0.0,Host City,Anchor destination of festival
+EVM-0114,EVT-0114,Hilljatra Festival,Pithoragarh,Uttarakhand,0.0,Host City,Anchor destination of festival
+EVM-0115,EVT-0115,Nainital Autumn Festival,Nainital,Uttarakhand,0.0,Host City,Anchor destination of festival
+EVM-0116,EVT-0116,Poush Mela Shantiniketan,Shantiniketan,West Bengal,0.0,Host City,Anchor destination of festival
+EVM-0117,EVT-0117,Bishnupur Terracotta & Music Festival,Bishnupur,West Bengal,0.0,Host City,Anchor destination of festival

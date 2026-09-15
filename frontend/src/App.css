@@ -59,6 +59,22 @@
   background: #B45309;
 }
 
+.custom-pin.hospital {
+  background: #DC2626;
+}
+
+.custom-pin.hotel {
+  background: #4F46E5;
+}
+
+.custom-pin.homestay {
+  background: #0D9488;
+}
+
+.custom-pin.restaurant {
+  background: #EA580C;
+}
+
 /* ==========================================================================
    THEME 1 MARKER CLUSTERING BUBBLES (Numbered bubbles at low zoom)
    ========================================================================== */

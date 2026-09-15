@@ -18,6 +18,8 @@ class ItineraryRequest(BaseModel):
     pace: str = Field(default="moderate", pattern="^(relaxed|moderate|active)$", description="Pace of travel")
     group_type: str = Field(default="solo", description="Solo, Couple, Family, Friends")
     mobility: str = Field(default="moderate", description="Easy, Moderate, Active")
+    only_hidden_gems: bool = Field(default=False, description="Filter itinerary stops strictly to verified hidden gems")
+    seed: Optional[int] = Field(default=None, description="Randomization seed/nonce for fresh non-cached regeneration")
 
 
 class ItineraryStop(BaseModel):
@@ -129,4 +131,22 @@ class ConvertToRFPRequest(BaseModel):
     target_budget_inr: Optional[int] = None
     traveler_notes: Optional[str] = None
     contact_phone: Optional[str] = None
+
+
+class AdaptItineraryRequest(BaseModel):
+    action: str = Field(..., description="'delay', 'cheaper', 'weather', or 'relax'")
+    delay_minutes: Optional[int] = Field(60, ge=10, le=240, description="Delay in minutes when action=='delay'")
+    day_number: Optional[int] = Field(1, ge=1, le=14)
+    destination: Optional[str] = None
+    state: Optional[str] = None
+    current_schedule: Optional[List[Dict[str, Any]]] = None
+
+
+class AdaptItineraryResponse(BaseModel):
+    status: str = "success"
+    action: str
+    message: str
+    updated_schedule: List[Dict[str, Any]]
+    total_budget_inr: Optional[int] = None
+    weather_advisory: Optional[str] = None
 

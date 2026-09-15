@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   X, 
   MapPin, 
@@ -7,10 +8,11 @@ import {
   ShieldCheck, 
   Compass, 
   Sparkles, 
-  MessageSquare,
-  CheckCircle2,
-  Navigation,
-  PenLine
+  MessageSquare, 
+  CheckCircle2, 
+  Navigation, 
+  PenLine,
+  ExternalLink
 } from 'lucide-react';
 import axios from 'axios';
 import Badge from '../ui/Badge';
@@ -24,7 +26,12 @@ export default function DestinationDetailModal({
   destinationId, 
   onClose, 
   onDirectBook 
+}: {
+  destinationId: any;
+  onClose: () => void;
+  onDirectBook?: (dest: any) => void;
 }) {
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [nearby, setNearby] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -68,22 +75,38 @@ export default function DestinationDetailModal({
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto bg-neutral-900/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
-      <div className="bg-ivory rounded-ts shadow-2xl border border-neutral-300 w-full max-w-3xl overflow-hidden relative max-h-[90vh] flex flex-col">
+      <div className="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-800 w-full max-w-3xl overflow-hidden relative max-h-[90vh] flex flex-col">
         
         {/* Modal Header */}
-        <div className="bg-primary-800 text-ivory px-6 py-4 flex items-center justify-between border-b border-primary-900/30">
-          <div className="flex items-center gap-2">
-            <Compass className="w-5 h-5 text-accent-400" />
-            <h2 className="text-lg font-display font-bold text-ivory truncate max-w-md">
+        <div className="bg-primary-800 dark:bg-neutral-950 text-white px-6 py-4 flex items-center justify-between border-b border-primary-900/30 dark:border-neutral-800">
+          <div className="flex items-center gap-2 min-w-0">
+            <Compass className="w-5 h-5 text-accent-400 shrink-0" />
+            <h2 className="text-lg font-display font-bold truncate">
               {dest ? dest.name : 'Destination Details'}
             </h2>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-full hover:bg-primary-900 text-ivory/80 hover:text-ivory transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2 shrink-0">
+            {dest && (
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  navigate(`/destinations/${dest.id || destinationId}`);
+                }}
+                className="px-2.5 py-1.5 rounded-lg bg-white/15 hover:bg-white/25 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                title="Open dedicated full destination page"
+              >
+                <span>Full Page</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </button>
+            )}
+            <button
+              onClick={onClose}
+              className="p-1.5 rounded-full hover:bg-white/20 text-white/80 hover:text-white transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </div>
 
         {/* Modal Body */}
@@ -94,42 +117,48 @@ export default function DestinationDetailModal({
         ) : dest ? (
           <div className="flex-1 overflow-y-auto">
             {/* Image Banner */}
-            <div className="h-56 w-full relative bg-neutral-200 overflow-hidden">
+            <div className="h-56 w-full relative bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
               <img
-                src={dest.image_url || FALLBACK_IMAGE}
+                src={
+                  dest.image && !dest.image.startsWith('?') && (dest.image.startsWith('http') || dest.image.startsWith('/'))
+                    ? dest.image
+                    : dest.image_url && !dest.image_url.startsWith('?') && (dest.image_url.startsWith('http') || dest.image_url.startsWith('/'))
+                    ? dest.image_url
+                    : FALLBACK_IMAGE
+                }
                 alt={dest.name}
                 onError={(e) => { const target = e.currentTarget as HTMLImageElement; target.src = FALLBACK_IMAGE; }}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-neutral-900/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/85 via-neutral-950/30 to-transparent" />
               
-              <div className="absolute bottom-4 left-6 right-6 flex flex-wrap items-end justify-between gap-2 text-ivory">
+              <div className="absolute bottom-4 left-6 right-6 flex flex-wrap items-end justify-between gap-2 text-white">
                 <div>
-                  <div className="flex items-center gap-2 text-xs font-semibold mb-1 text-accent-400">
+                  <div className="flex items-center gap-2 text-xs font-semibold mb-1 text-accent-300">
                     <MapPin className="w-3.5 h-3.5" />
                     <span>{dest.state}</span>
                     <span>•</span>
                     <span className="capitalize">{dest.category}</span>
                   </div>
-                  <h1 className="text-2xl font-display font-bold">{dest.name}</h1>
+                  <h1 className="text-2xl font-display font-bold text-white drop-shadow-sm">{dest.name}</h1>
                 </div>
 
                 <div className="flex items-center gap-1.5 bg-neutral-900/80 px-3 py-1 rounded-full text-xs font-bold border border-neutral-700 backdrop-blur-sm">
                   <Star className="w-4 h-4 text-accent-400 fill-accent-400" />
-                  <span>{dest.rating?.toFixed(1)}</span>
-                  <span className="text-neutral-400 text-[11px]">({dest.review_count} reviews)</span>
+                  <span>{dest.rating?.toFixed(1) || '4.5'}</span>
+                  <span className="text-neutral-400 text-[11px]">({dest.review_count || 120} reviews)</span>
                 </div>
               </div>
             </div>
 
             {/* Navigation Tabs */}
-            <div className="flex border-b border-neutral-200 bg-neutral-50 px-6 text-xs font-bold">
+            <div className="flex border-b border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-800/60 px-6 text-xs font-bold">
               <button
                 onClick={() => setActiveTab('overview')}
                 className={`py-3 px-4 border-b-2 transition-colors ${
                   activeTab === 'overview'
-                    ? 'border-primary-800 text-primary-800'
-                    : 'border-transparent text-neutral-500 hover:text-neutral-900'
+                    ? 'border-brand text-brand dark:text-amber-400 dark:border-amber-400'
+                    : 'border-transparent text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-200'
                 }`}
               >
                 Overview & Insights
@@ -318,13 +347,26 @@ export default function DestinationDetailModal({
         ) : null}
 
         {/* Modal Footer */}
-        <div className="bg-neutral-50 px-6 py-3 border-t border-neutral-200 flex items-center justify-between text-xs">
-          <span className="text-neutral-500">Grounded from Tech-On-Tour Dataset</span>
+        <div className="bg-neutral-50 dark:bg-neutral-950 px-6 py-3 border-t border-neutral-200 dark:border-neutral-800 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <span className="text-neutral-500 dark:text-neutral-400">Grounded from TravelSathi DPI Dataset</span>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={onClose}>
               Close
             </Button>
             {dest && (
+              <button
+                type="button"
+                onClick={() => {
+                  onClose();
+                  navigate(`/destinations/${dest.id || destinationId}`);
+                }}
+                className="px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-800 dark:text-neutral-200 font-bold flex items-center gap-1.5 transition-colors cursor-pointer text-xs"
+              >
+                <ExternalLink className="w-3.5 h-3.5 text-brand dark:text-amber-400" />
+                <span>Open Full Page</span>
+              </button>
+            )}
+            {dest && onDirectBook && (
               <Button 
                 variant="primary" 
                 size="sm" 

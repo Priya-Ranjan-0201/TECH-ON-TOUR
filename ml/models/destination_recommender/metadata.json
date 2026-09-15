@@ -18,12 +18,12 @@
   "n_test_samples": 3750,
   "split": "Strict temporal 70/15/15",
   "metrics": {
-    "accuracy": 0.9531,
-    "precision": 0.9542,
-    "recall": 0.9531,
-    "f1": 0.9514,
-    "roc_auc": 0.9806,
-    "ndcg_at_10": 0.9825,
+    "accuracy": 0.9533,
+    "precision": 0.9546,
+    "recall": 0.9533,
+    "f1": 0.9516,
+    "roc_auc": 0.9804,
+    "ndcg_at_10": 0.9813,
     "precision_at_10": 0.1751,
     "recall_at_10": 1.0
   }

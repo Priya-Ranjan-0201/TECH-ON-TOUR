@@ -18,12 +18,18 @@ import {
   Navigation,
   CheckSquare,
   Square,
+  ExternalLink,
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { translateText } from '../../utils/summaryTranslator';
 import Badge from '../ui/Badge';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
+import InAppNavigationModal from '../common/InAppNavigationModal';
 
 export default function ItineraryTimeline({
+
   itinerary,
   selectedDay,
   onSelectDay,
@@ -31,7 +37,13 @@ export default function ItineraryTimeline({
   onOpenSwapModal,
   onReorderStops,
 }) {
+  const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n?.language || 'en';
   const [visitedStops, setVisitedStops] = useState({});
+  const [navModalOpen, setNavModalOpen] = useState(false);
+  const [navDestination, setNavDestination] = useState<any>(null);
+  const [navOrigin, setNavOrigin] = useState<any>(null);
 
   if (!itinerary || !itinerary.days_schedule || itinerary.days_schedule.length === 0) {
     return null;
@@ -184,14 +196,26 @@ export default function ItineraryTimeline({
                       </div>
                     )}
                     {currentDay.stops[idx - 1]?.latitude && stop.latitude && (
-                      <a
-                        href={`https://www.google.com/maps/dir/?api=1&origin=${currentDay.stops[idx - 1].latitude},${currentDay.stops[idx - 1].longitude}&destination=${stop.latitude},${stop.longitude}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-2.5 py-0.5 rounded-full text-[11px] font-bold text-primary-800 bg-primary-50 border border-primary-200 hover:bg-primary-100 flex items-center gap-1"
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setNavOrigin({
+                            name: currentDay.stops[idx - 1].destination_name || currentDay.stops[idx - 1].title,
+                            latitude: currentDay.stops[idx - 1].latitude,
+                            longitude: currentDay.stops[idx - 1].longitude,
+                          });
+                          setNavDestination({
+                            name: stop.destination_name || stop.title,
+                            latitude: stop.latitude,
+                            longitude: stop.longitude,
+                          });
+                          setNavModalOpen(true);
+                        }}
+                        className="px-2.5 py-0.5 rounded-full text-[11px] font-bold text-primary-800 bg-primary-50 border border-primary-200 hover:bg-primary-100 flex items-center gap-1 cursor-pointer transition-colors"
                       >
-                        <span>Directions ↗</span>
-                      </a>
+                        <Navigation className="w-3 h-3 text-primary-700" />
+                        <span>{translateText('Directions (In-App)', currentLang)}</span>
+                      </button>
                     )}
                   </div>
                 </div>
@@ -238,13 +262,13 @@ export default function ItineraryTimeline({
                           className={`text-[11px] font-bold px-2 py-0.5 rounded-md border ${slotColor}`}
                         >
                           <Clock className="w-3 h-3 inline mr-1" />
-                          {stop.time_slot}
+                          {translateText(stop.time_slot, currentLang)}
                         </span>
 
                         {stop.crowd_level && (
                           <span className="text-[10px] px-2 py-0.5 rounded-md bg-neutral-100 text-neutral-600 font-medium">
                             <Users className="w-3 h-3 inline mr-1 text-neutral-500" />
-                            {stop.crowd_level}
+                            {translateText(`${stop.crowd_level} crowd density`, currentLang)}
                           </span>
                         )}
                       </div>
@@ -264,12 +288,12 @@ export default function ItineraryTimeline({
                           {isVisited ? (
                             <>
                               <CheckSquare className="w-3.5 h-3.5 text-forest-700" />
-                              <span>Visited</span>
+                              <span>{translateText('Visited', currentLang)}</span>
                             </>
                           ) : (
                             <>
                               <Square className="w-3.5 h-3.5 text-neutral-400" />
-                              <span>Check In</span>
+                              <span>{translateText('Check In', currentLang)}</span>
                             </>
                           )}
                         </button>
@@ -301,14 +325,38 @@ export default function ItineraryTimeline({
                     </div>
 
                     {/* Stop Title */}
-                    <h4 className={`text-base font-display font-bold text-neutral-900 group-hover:text-primary-800 transition-colors ${isVisited ? 'line-through text-neutral-500' : ''}`}>
-                      {stop.title}
-                    </h4>
+                    <div className="flex items-center justify-between gap-2">
+                      <button
+                        type="button"
+                        onClick={() => navigate(`/destinations/${stop.destination_id || encodeURIComponent(stop.destination_name || stop.title)}`)}
+                        className="text-left group/title focus:outline-none cursor-pointer"
+                        title={`View destination details for ${stop.destination_name || stop.title}`}
+                      >
+                        <h4 className={`text-base font-display font-bold text-neutral-900 group-hover/title:text-primary-800 transition-colors flex items-center gap-1.5 ${isVisited ? 'line-through text-neutral-500' : ''}`}>
+                          <span className="hover:underline">{translateText(stop.title, currentLang)}</span>
+                          <ExternalLink className="w-3.5 h-3.5 opacity-0 group-hover/title:opacity-100 text-primary-700 transition-opacity" />
+                        </h4>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => navigate(`/destinations/${stop.destination_id || encodeURIComponent(stop.destination_name || stop.title)}`)}
+                        className="px-2 py-0.5 rounded text-[11px] font-bold text-primary-800 hover:text-white bg-primary-50 hover:bg-primary-800 border border-primary-200 transition-all flex items-center gap-1 cursor-pointer"
+                      >
+                        <span>{t('common.details', 'Details')}</span>
+                        <ChevronRight className="w-3 h-3" />
+                      </button>
+                    </div>
 
                     {/* Destination Name / Coordinates */}
                     <div className="flex items-center gap-1.5 text-xs text-primary-800 font-medium mt-0.5 mb-2">
                       <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-                      <span className="truncate">{stop.destination_name}</span>
+                      <button
+                        type="button"
+                        onClick={() => navigate(`/destinations/${stop.destination_id || encodeURIComponent(stop.destination_name || stop.title)}`)}
+                        className="truncate hover:underline font-bold text-left cursor-pointer"
+                      >
+                        {stop.destination_name}
+                      </button>
                       <span className="text-neutral-400 font-mono text-[10px]">
                         ({stop.latitude.toFixed(3)}, {stop.longitude.toFixed(3)})
                       </span>
@@ -339,15 +387,31 @@ export default function ItineraryTimeline({
                     <div className="flex flex-wrap items-center justify-between gap-2 mt-3 pt-2 border-t border-neutral-100">
                       <div className="flex items-center gap-2">
                         {stop.latitude && stop.longitude && (
-                          <a
-                            href={`https://www.google.com/maps/dir/?api=1&destination=${stop.latitude},${stop.longitude}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold text-white bg-primary-800 hover:bg-primary-900 transition-colors shadow-xs"
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const prevStop = idx > 0 ? currentDay.stops[idx - 1] : null;
+                              setNavOrigin(
+                                prevStop && prevStop.latitude && prevStop.longitude
+                                  ? {
+                                      name: prevStop.destination_name || prevStop.title,
+                                      latitude: prevStop.latitude,
+                                      longitude: prevStop.longitude,
+                                    }
+                                  : null
+                              );
+                              setNavDestination({
+                                name: stop.destination_name || stop.title,
+                                latitude: stop.latitude,
+                                longitude: stop.longitude,
+                              });
+                              setNavModalOpen(true);
+                            }}
+                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold text-white bg-primary-800 hover:bg-primary-900 transition-colors shadow-xs cursor-pointer"
                           >
                             <Navigation className="w-3.5 h-3.5 text-accent-300" />
                             <span>Navigate</span>
-                          </a>
+                          </button>
                         )}
 
                         <Button
@@ -444,6 +508,14 @@ export default function ItineraryTimeline({
           </div>
         )}
       </div>
+
+      {/* In-App Road Routing Modal (OpenRouteService) */}
+      <InAppNavigationModal
+        isOpen={navModalOpen}
+        onClose={() => setNavModalOpen(false)}
+        destination={navDestination}
+        origin={navOrigin}
+      />
     </div>
   );
 }

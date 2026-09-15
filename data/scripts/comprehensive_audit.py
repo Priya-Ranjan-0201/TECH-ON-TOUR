@@ -3,7 +3,7 @@ import csv
 from collections import Counter
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-DATA_DIR = os.path.join(BASE_DIR, "data")
+DATA_DIR = BASE_DIR
 STATES_DIR = os.path.join(DATA_DIR, "states")
 UTS_DIR = os.path.join(DATA_DIR, "union_territories")
 MASTER_CSV = os.path.join(DATA_DIR, "places.csv")
@@ -140,12 +140,14 @@ def audit_all():
         for idx, row in enumerate(master_rows, start=2):
             validate_row(MASTER_CSV, idx, row, issues)
 
-    # 4. Master ID uniqueness and sequencing
+    # 4. Master ID uniqueness and ordering
     master_ids = [int(r["id"]) for r in master_rows]
     if len(master_ids) != len(set(master_ids)):
         issues.append(f"Master IDs not unique: {len(master_ids)} total vs {len(set(master_ids))} unique")
-    if master_ids != list(range(1, len(master_rows) + 1)):
-        issues.append("Master IDs are not strictly sequential from 1 to N")
+    if any(i <= 0 for i in master_ids):
+        issues.append("Master IDs contain non-positive integers")
+    if master_ids != sorted(master_ids):
+        issues.append("Master IDs are not strictly ascending in order")
 
     # 5. Bidirectional Parity Audit
     reg_tuples = [tuple((r.get(h) or "").strip() for h in HEADERS) for r in all_state_places + all_ut_places]

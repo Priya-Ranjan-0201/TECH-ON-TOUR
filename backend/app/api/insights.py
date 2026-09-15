@@ -33,14 +33,22 @@ SAFETY_DATA = {
 
 @router.get("/weather", response_model=WeatherResponse)
 async def get_weather(
-    destination: str = Query(..., description="Destination name (e.g. 'Manali', 'Hampi')"),
+    destination: Optional[str] = Query(None, description="Destination name (e.g. 'Manali', 'Hampi')"),
     lat: Optional[float] = Query(None),
-    lon: Optional[float] = Query(None)
+    lon: Optional[float] = Query(None),
+    lng: Optional[float] = Query(None),
 ):
     """
     Retrieve real-time / cached weather advisory for itinerary adjustment.
     """
-    key = destination.strip().lower()
+    dest_name = (destination or "").strip()
+    if not dest_name:
+        if lat is not None and (lon is not None or lng is not None):
+            dest_name = f"Coordinates ({lat:.2f}, {(lon or lng):.2f})"
+        else:
+            dest_name = "Manali"
+
+    key = dest_name.strip().lower()
     profile = WEATHER_PROFILES.get(key, WEATHER_PROFILES["default"])
 
     is_rain = profile.get("is_rainy", False) or profile["rain"] >= 50

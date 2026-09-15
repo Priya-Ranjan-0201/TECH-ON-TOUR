@@ -105,6 +105,7 @@ export default function PlanWizard({
   const [groupType, setGroupType] = useState('solo');
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [mobilityNeeds, setMobilityNeeds] = useState(false);
+  const [onlyHiddenGems, setOnlyHiddenGems] = useState(false);
 
   const toggleInterest = (interestId) => {
     if (interests.includes(interestId)) {
@@ -130,6 +131,7 @@ export default function PlanWizard({
       interests: presetInterests,
       pace: 'moderate',
       group_type: 'couple',
+      only_hidden_gems: false,
     });
   };
 
@@ -143,6 +145,7 @@ export default function PlanWizard({
       interests,
       pace,
       group_type: groupType,
+      only_hidden_gems: onlyHiddenGems,
     });
   };
 
@@ -374,6 +377,32 @@ export default function PlanWizard({
               </div>
             </div>
           )}
+        </div>
+
+        {/* Hidden Gems Only Toggle */}
+        <div className="p-3.5 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/50 flex items-center justify-between text-xs">
+          <div className="flex items-center gap-2.5">
+            <span className="text-xl">🌿</span>
+            <div>
+              <span className="font-bold text-emerald-900 dark:text-emerald-200 block">
+                Hidden Gems Only (Off-the-Beaten-Path)
+              </span>
+              <span className="text-[11px] text-emerald-700 dark:text-emerald-400">
+                Filter exclusively to uncrowded, pristine local heritage and nature sites.
+              </span>
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => setOnlyHiddenGems(!onlyHiddenGems)}
+            className={`px-3 py-1.5 rounded-xl border font-bold text-xs transition-all cursor-pointer ${
+              onlyHiddenGems
+                ? 'bg-emerald-700 text-white border-emerald-700 shadow-sm'
+                : 'bg-white dark:bg-[#1C1A17] text-emerald-800 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800 hover:bg-emerald-100'
+            }`}
+          >
+            {onlyHiddenGems ? '✓ Hidden Gems Active' : '+ Enable Filter'}
+          </button>
         </div>
 
         {/* Submit Button */}

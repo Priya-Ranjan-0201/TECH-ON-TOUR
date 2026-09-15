@@ -125,6 +125,8 @@ export default function App() {
                 <Route path="/trips" element={<TripsView />} />
                 <Route path="/trips/live" element={<LiveTripModeView />} />
                 <Route path="/trips/group" element={<GroupTripView />} />
+                <Route path="/group" element={<GroupTripView />} />
+                <Route path="/group-trip" element={<GroupTripView />} />
                 <Route path="/wallet" element={<WalletView />} />
                 <Route path="/bookings" element={<BookingsView />} />
                 <Route path="/saved" element={<SavedPlacesView />} />
@@ -181,6 +183,16 @@ export default function App() {
                     <HistoryView />
                   </ProtectedRoute>
                 } />
+                <Route path="/tourist/group" element={
+                  <ProtectedRoute allowedRoles={['tourist']}>
+                    <GroupTripView />
+                  </ProtectedRoute>
+                } />
+                <Route path="/tourist/privacy" element={
+                  <ProtectedRoute allowedRoles={['tourist']}>
+                    <PrivacyCenterView />
+                  </ProtectedRoute>
+                } />
                 <Route path="/tourist/*" element={
                   <ProtectedRoute allowedRoles={['tourist']}>
                     <DashboardView />
@@ -215,6 +227,21 @@ export default function App() {
                 <Route path="/app/trips/live" element={
                   <ProtectedRoute allowedRoles={['tourist']}>
                     <LiveTripModeView />
+                  </ProtectedRoute>
+                } />
+                <Route path="/app/trips/group" element={
+                  <ProtectedRoute allowedRoles={['tourist']}>
+                    <GroupTripView />
+                  </ProtectedRoute>
+                } />
+                <Route path="/app/group" element={
+                  <ProtectedRoute allowedRoles={['tourist']}>
+                    <GroupTripView />
+                  </ProtectedRoute>
+                } />
+                <Route path="/app/privacy" element={
+                  <ProtectedRoute allowedRoles={['tourist']}>
+                    <PrivacyCenterView />
                   </ProtectedRoute>
                 } />
                 <Route path="/app/wallet" element={

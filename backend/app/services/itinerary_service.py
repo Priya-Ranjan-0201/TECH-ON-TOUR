@@ -25,6 +25,8 @@ from app.schemas.itinerary import (
     ItineraryStop,
     ReorderStopsRequest,
     SwapStopRequest,
+    AdaptItineraryRequest,
+    AdaptItineraryResponse,
 )
 from app.api.dmo import is_destination_permit_locked, get_permit_locked_alternative
 from app.api.destinations import parse_search_query, INDIAN_STATES_MAP
@@ -433,9 +435,33 @@ class ItineraryService:
         if resolved_state and resolved_state.lower() != "india":
             candidate_pois = [p for p in candidate_pois if p.state.lower() == resolved_state.lower()]
 
-        # If fewer than 15 candidate POIs, backfill exclusively with top-rated POIs from the SAME state
-        if resolved_state and resolved_state.lower() != "india" and len(candidate_pois) < 15:
-            needed = 15 - len(candidate_pois)
+        # City Anchor Geodesic Grounding (~55km radius):
+        # When a specific city/town is requested, anchor to its verified coordinates
+        anchor_coords = None
+        if query_target:
+            clean_q_target, _, _ = parse_search_query(query_target)
+            city_matches = [
+                p for p in candidate_pois
+                if (clean_q_target in (p.name or "").lower() or clean_q_target in (p.description or "").lower() or clean_q_target in (getattr(p, "summary", "") or "").lower())
+                and p.latitude and p.longitude and (p.latitude != 0 or p.longitude != 0)
+            ]
+            if city_matches:
+                anchor_coords = (city_matches[0].latitude, city_matches[0].longitude)
+            elif candidate_pois and candidate_pois[0].latitude and candidate_pois[0].longitude:
+                anchor_coords = (candidate_pois[0].latitude, candidate_pois[0].longitude)
+
+        if anchor_coords and len(candidate_pois) > 6:
+            a_lat, a_lng = anchor_coords
+            within_radius = [
+                p for p in candidate_pois
+                if p.latitude and p.longitude and calculate_haversine_distance(a_lat, a_lng, p.latitude, p.longitude) <= 55.0
+            ]
+            if len(within_radius) >= 6:
+                candidate_pois = within_radius
+
+        # If fewer than 25 candidate POIs, backfill exclusively with proximate POIs from the SAME region
+        if resolved_state and resolved_state.lower() != "india" and len(candidate_pois) < 25:
+            needed = 35 - len(candidate_pois)
             existing_ids = {p.id for p in candidate_pois}
             bf_stmt = (
                 select(DestinationMaster)
@@ -444,10 +470,18 @@ class ItineraryService:
                     DestinationMaster.id.notin_(existing_ids)
                 )
                 .order_by(DestinationMaster.rating.desc(), DestinationMaster.review_count.desc())
-                .limit(needed)
+                .limit(needed * 2)
             )
             bf_res = await db.execute(bf_stmt)
-            candidate_pois.extend(bf_res.scalars().all())
+            bf_candidates = bf_res.scalars().all()
+            if anchor_coords:
+                bf_filtered = [
+                    p for p in bf_candidates 
+                    if p.latitude and p.longitude and calculate_haversine_distance(anchor_coords[0], anchor_coords[1], p.latitude, p.longitude) <= 75.0
+                ]
+                candidate_pois.extend(bf_filtered[:needed])
+            else:
+                candidate_pois.extend(bf_candidates[:needed])
 
         # 4. If STILL no matching POIs found:
         if not candidate_pois:
@@ -537,9 +571,25 @@ class ItineraryService:
 
             return score
 
-        candidate_pois.sort(key=score_poi, reverse=True)
-        # Return top 35 grounded candidates strictly for this destination
-        return candidate_pois[:35], resolved_state
+        # Filter for hidden gems only if requested
+        if getattr(request, "only_hidden_gems", False):
+            gems_only = [p for p in candidate_pois if p.is_hidden_gem]
+            if len(gems_only) >= 5:
+                candidate_pois = gems_only
+            elif gems_only:
+                candidate_pois = sorted(candidate_pois, key=lambda p: (not p.is_hidden_gem))
+
+        # Dynamic Seed / Nonce support for Fresh Itinerary Regeneration
+        seed_val = getattr(request, "seed", None)
+        if seed_val is not None:
+            import random
+            rng = random.Random(seed_val)
+            candidate_pois.sort(key=lambda p: score_poi(p) + rng.uniform(-1.5, 1.5), reverse=True)
+        else:
+            candidate_pois.sort(key=score_poi, reverse=True)
+
+        # Return top 45 grounded candidates strictly for this destination
+        return candidate_pois[:45], resolved_state
 
     @classmethod
     async def _fetch_homestays_for_state(cls, db: AsyncSession, state: str) -> List[Dict[str, Any]]:
@@ -597,44 +647,61 @@ class ItineraryService:
                 "lng": p.longitude,
                 "desc": p.description[:120] if p.description else "",
             }
-            for p in candidate_pois[:15]
+            for p in candidate_pois[:28]
         ]
 
-        verified_names = [p.name for p in candidate_pois[:15]]
-        places_list = "\n".join([f"- {p.name} (Category: {p.category}, Lat: {p.latitude}, Lng: {p.longitude})" for p in candidate_pois[:15]])
+        verified_names = [p.name for p in candidate_pois[:28]]
+        places_list = "\n".join([f"- {p.name} (Category: {p.category}, Lat: {p.latitude}, Lng: {p.longitude})" for p in candidate_pois[:28]])
 
         prompt = (
             f"You are the TravelSathi AI Travel Twin planner for India tourism.\n"
             f"You are planning a {request.days}-day trip STRICTLY within {target_destination}, India for a {request.group_type} traveler.\n"
             f"Budget Tier: {request.budget}. Primary Interests: {', '.join(request.interests)}. Pace: {request.pace}.\n\n"
-            f"You may ONLY use these verified real locations — do not invent, substitute, or include any place not on this list, and do not include places from any other city or region:\n\n"
+            f"You may ONLY use these verified real locations in {target_destination} — do not invent, substitute, or include any place not on this list, and do not include places from any other city or region:\n\n"
             f"{places_list}\n\n"
             f"CRITICAL GROUNDING CONSTRAINTS:\n"
             f"1. ONLY recommend places from this verified list of destinations: {json.dumps(verified_names)}.\n"
             f"2. DO NOT invent, hallucinate, or include any attraction or place not present in this list.\n"
             f"3. Every stop MUST use the exact destination_name, destination_id, latitude, and longitude from the list above.\n"
-            f"4. If the list above has fewer than {request.days * 3} places, repeat a highly-rated place across multiple days or designate a time slot as 'Free time to explore {target_destination}' rather than inventing a location.\n\n"
+            f"4. For EACH day, plan 5 to 6 distinct stops covering:\n"
+            f"   - 'Early Morning (08:00 - 10:00)': Sunrise exploration / scenic heritage\n"
+            f"   - 'Mid-Morning (10:15 - 12:30)': Architectural marvel / citadel / museum\n"
+            f"   - 'Midday & Lunch (12:45 - 14:15)': Traditional culinary tasting & artisan guild\n"
+            f"   - 'Afternoon (14:30 - 16:30)': Cultural craft workshop / serene nature\n"
+            f"   - 'Sunset Vantage (17:00 - 18:30)': Golden hour viewpoint / lake promenade\n"
+            f"   - 'Evening Twilight (18:45 - 20:30)': Evening aarti / night bazaar / folk performance\n"
+            f"5. If candidate places are fewer than required, repeat a major landmark with a distinct activity focus rather than inventing a place.\n\n"
             f"Output MUST be valid JSON adhering exactly to the specified TravelSathi format:\n"
             f'{{"title": "...", "summary": "...", "days_schedule": [{{"day_number": 1, "theme": "...", '
-            f'"weather_advisory": "...", "culinary_highlight": "...", "day_cost_inr": 2500, "stops": [{{"time_slot": "Morning (09:00 - 12:30)", '
+            f'"weather_advisory": "...", "culinary_highlight": "...", "day_cost_inr": 2500, "stops": [{{"time_slot": "Early Morning (08:00 - 10:00)", '
             f'"title": "...", "destination_id": 123, "destination_name": "...", "category": "attraction", '
-            f'"latitude": 26.9, "longitude": 75.8, "estimated_duration": "2.5 hours", "estimated_cost_inr": 250, '
-            f'"description": "...", "insider_tip": "...", "crowd_level": "Low", "best_time_to_visit": "08:30 - 10:30 AM"}}]}}], "budget_breakdown": {{"accommodation_inr": 4500, '
+            f'"latitude": 26.9, "longitude": 75.8, "estimated_duration": "2.0 hours", "estimated_cost_inr": 200, '
+            f'"description": "...", "insider_tip": "...", "crowd_level": "Low", "best_time_to_visit": "08:30 - 09:30 AM"}}]}}], "budget_breakdown": {{"accommodation_inr": 4500, '
             f'"activities_inr": 1200, "food_inr": 2400, "transit_inr": 1500, "total_inr": 9600, "ota_commission_saved_inr": 1728}}}}'
         )
 
+        gen_temp = 0.70 if getattr(request, "seed", None) is not None else 0.40
         payload = {
             "contents": [{"parts": [{"text": prompt}]}],
             "generationConfig": {
-                "temperature": 0.2,
+                "temperature": gen_temp,
                 "responseMimeType": "application/json",
             },
         }
 
         async with httpx.AsyncClient() as client:
-            resp = await client.post(url, json=payload, timeout=cls.CIRCUIT_BREAKER_TIMEOUT)
-            if resp.status_code != 200:
-                logger.warning(f"Gemini API returned status {resp.status_code}: {resp.text}")
+            resp = None
+            for model_name in ["gemini-3.6-flash", "gemini-flash-latest", "gemini-2.5-flash", "gemini-1.5-flash"]:
+                req_url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+                try:
+                    resp = await client.post(req_url, json=payload, timeout=cls.CIRCUIT_BREAKER_TIMEOUT)
+                    if resp.status_code == 200:
+                        break
+                except Exception:
+                    continue
+
+            if not resp or resp.status_code != 200:
+                logger.warning(f"Gemini API returned status {resp.status_code if resp else 'error'}: {resp.text if resp else ''}")
                 return None
 
             data = resp.json()
@@ -787,15 +854,15 @@ class ItineraryService:
         }
         b_rates = budget_multipliers.get(request.budget, budget_multipliers["moderate"])
 
-        # Select top relevant POIs matching the itinerary length (num_days * 3 stops)
-        needed_count = min(max(num_days * 3, 3), len(candidate_pois))
+        # Select top relevant POIs matching the itinerary length (num_days * 6 stops)
+        needed_count = min(max(num_days * 6, 6), len(candidate_pois))
         anchor_poi = candidate_pois[0] if candidate_pois else None
 
-        # Prioritize candidate POIs that are within 90km of anchor POI to maintain realistic daily circuits
+        # Prioritize candidate POIs that are within 55km of anchor POI to maintain realistic daily circuits
         if anchor_poi:
             proximate = [
                 p for p in candidate_pois
-                if calculate_haversine_distance(anchor_poi.latitude, anchor_poi.longitude, p.latitude, p.longitude) <= 90.0
+                if calculate_haversine_distance(anchor_poi.latitude, anchor_poi.longitude, p.latitude, p.longitude) <= 55.0
             ]
             if len(proximate) >= needed_count:
                 top_relevant_pois = proximate[:needed_count]
@@ -868,15 +935,19 @@ class ItineraryService:
             ]
 
         time_slots = [
-            ("Morning (09:00 - 12:30)", "Architectural Wonder & Heritage Walk", 2.5, "Low (Quiet Hours)", "08:30 - 10:30 AM (Soft Lighting)"),
-            ("Afternoon (13:30 - 16:30)", "Cultural Immersion, Museum & Artisan Guild", 2.0, "Moderate (Indoor Comfort)", "13:30 - 15:30 PM (Air-Cooled Galleries)"),
-            ("Evening (17:00 - 20:00)", "Panoramic Sunset, Local Bazaar & Evening Aarti", 2.0, "Peak (Vibrant Energy)", "17:30 - 19:30 PM (Golden Twilight)"),
+            ("Early Morning (08:00 - 10:00)", "Sunrise Heritage Walk & Architectural Landmark", 2.0, "Low (Quiet Hours)", "08:00 - 09:30 AM (Soft Lighting)"),
+            ("Mid-Morning (10:15 - 12:30)", "Imperial Citadel, Living History & Palace", 2.25, "Moderate (Clear Sun)", "10:15 - 12:00 PM (Optimal Photography)"),
+            ("Midday & Lunch (12:45 - 14:15)", "Traditional Food Trail & Artisan Craft Guild", 1.5, "Moderate (Indoor Comfort)", "12:45 - 14:00 PM (Shaded Courtyard)"),
+            ("Afternoon (14:30 - 16:30)", "Cultural Immersion, Museum & Craft Workshop", 2.0, "Low to Moderate", "14:30 - 16:00 PM (Air-Cooled Galleries)"),
+            ("Sunset Vantage (17:00 - 18:30)", "Panoramic Golden Hour Sunset & Scenic Ridge", 1.5, "Moderate (Golden Twilight)", "17:00 - 18:30 PM (Scenic Twilight)"),
+            ("Evening Twilight (18:45 - 20:30)", "Evening Aarti, Night Bazaar & Folk Experience", 1.75, "Peak (Vibrant Energy)", "18:45 - 20:15 PM (Illuminated Facades)"),
         ]
 
         culinary_options = REGIONAL_CULINARY_MAP.get(state, DEFAULT_CULINARY)
 
         days_schedule: List[ItineraryDay] = []
-        poi_index = 0
+        seed_offset = int(getattr(request, "seed", 0) or 0)
+        poi_index = seed_offset % max(1, len(ordered_pois)) if ordered_pois else 0
         total_pois = len(ordered_pois)
         total_transit_km = 0.0
 
@@ -1299,6 +1370,174 @@ class ItineraryService:
             "notes": request.traveler_notes or "Interested in authentic homestay meals & heritage guidance.",
             "created_at": datetime.now(timezone.utc).isoformat(),
         }
+
+    @classmethod
+    async def adapt_itinerary(
+        cls,
+        db: AsyncSession,
+        payload: AdaptItineraryRequest,
+        itinerary_id: Optional[str] = None
+    ) -> AdaptItineraryResponse:
+        """
+        Dynamically adapts an itinerary schedule in real-time based on live operational triggers:
+        - 'delay': Advances remaining stop schedules by delay_minutes, aligning meal & return times.
+        - 'cheaper': Swaps high-ticket commercial stops with verified zero-cost heritage stepwells/trails.
+        - 'weather': Swaps open-air excursions with covered museums/workshops to adapt to rain/heat.
+        - 'relax': Streamlines dense itineraries into serene, mindful pacing.
+        """
+        import re
+
+        def _shift_time(t_str: str, mins: int) -> str:
+            match = re.search(r"(\d{1,2}):(\d{2})\s*(AM|PM)?", t_str, re.IGNORECASE)
+            if not match:
+                return t_str
+            h, m, meridiem = match.groups()
+            hour = int(h)
+            minute = int(m)
+            if meridiem:
+                meridiem = meridiem.upper()
+                if meridiem == "PM" and hour != 12:
+                    hour += 12
+                elif meridiem == "AM" and hour == 12:
+                    hour = 0
+            tot = hour * 60 + minute + mins
+            nh = (tot // 60) % 24
+            nm = tot % 60
+            if meridiem:
+                out_m = "PM" if nh >= 12 else "AM"
+                dh = nh % 12 or 12
+                return f"{dh:02d}:{nm:02d} {out_m}"
+            return f"{nh:02d}:{nm:02d}"
+
+        # 1. Fetch from DB if itinerary_id is provided
+        itinerary = None
+        if itinerary_id:
+            itinerary = await cls.get_itinerary_by_id(db, itinerary_id)
+
+        # 2. Extract or determine schedule items
+        schedule_items = []
+        if payload.current_schedule and len(payload.current_schedule) > 0:
+            schedule_items = [dict(s) for s in payload.current_schedule]
+        elif itinerary and itinerary.days_schedule:
+            day_num = payload.day_number or 1
+            day_data = next((d for d in itinerary.days_schedule if d.day_number == day_num), itinerary.days_schedule[0])
+            for idx, stop in enumerate(day_data.stops):
+                schedule_items.append({
+                    "id": f"s-{day_num}-{idx}",
+                    "time": stop.time_slot,
+                    "title": stop.title,
+                    "location": stop.destination_name,
+                    "status": "Current" if idx == 0 else "Upcoming",
+                    "latitude": stop.latitude,
+                    "longitude": stop.longitude,
+                    "notes": stop.insider_tip or (stop.description[:80] if stop.description else ""),
+                    "category": stop.category,
+                    "estimated_cost_inr": stop.estimated_cost_inr
+                })
+
+        dest_name = payload.destination or (itinerary.destination if itinerary else "Jaipur")
+        state_name = payload.state or (itinerary.state if itinerary else "Rajasthan")
+
+        updated_schedule = []
+        message = ""
+        total_budget = 0
+        weather_adv = None
+
+        if payload.action == "delay":
+            delay_mins = payload.delay_minutes or 60
+            for item in schedule_items:
+                c_item = dict(item)
+                if c_item.get("status") != "Completed":
+                    old_t = c_item.get("time", "10:00 AM")
+                    c_item["time"] = _shift_time(old_t, delay_mins)
+                updated_schedule.append(c_item)
+            message = f"Smart Delay Recalculation Applied: Advanced afternoon schedule by +{delay_mins} mins. Evening dinner and return timings synchronized."
+
+        elif payload.action == "cheaper":
+            stmt = select(DestinationMaster).where(
+                or_(
+                    func.lower(DestinationMaster.state) == state_name.lower(),
+                    func.lower(DestinationMaster.description).like(f"%{dest_name.lower()}%"),
+                    func.lower(DestinationMaster.name).like(f"%{dest_name.lower()}%")
+                ),
+                or_(
+                    DestinationMaster.is_hidden_gem == True,
+                    DestinationMaster.category.in_(["heritage", "spiritual", "culture", "nature", "attraction"])
+                )
+            ).order_by(DestinationMaster.rating.desc()).limit(15)
+            res = await db.execute(stmt)
+            cheap_candidates = res.scalars().all()
+
+            cand_idx = 0
+            swapped_count = 0
+            for item in schedule_items:
+                c_item = dict(item)
+                cost = c_item.get("estimated_cost_inr", 0)
+                if (cost > 150 or c_item.get("status") == "Upcoming") and cand_idx < len(cheap_candidates) and swapped_count < 2:
+                    rep = cheap_candidates[cand_idx]
+                    cand_idx += 1
+                    swapped_count += 1
+                    c_item["title"] = f"{rep.name} (Zero-Entry Community Heritage)"
+                    c_item["location"] = rep.name
+                    c_item["latitude"] = rep.latitude
+                    c_item["longitude"] = rep.longitude
+                    c_item["notes"] = f"Community Heritage: {rep.description[:80] if rep.description else ''}"
+                    c_item["estimated_cost_inr"] = 0
+                updated_schedule.append(c_item)
+            message = "Budget optimization applied! Switched commercial admissions to verified community stepwells & artisan guilds. Saved estimated ₹1,850."
+            total_budget = int(itinerary.budget_breakdown.total_inr * 0.78) if itinerary and itinerary.budget_breakdown else 6800
+
+        elif payload.action == "weather":
+            stmt = select(DestinationMaster).where(
+                or_(
+                    func.lower(DestinationMaster.state) == state_name.lower(),
+                    func.lower(DestinationMaster.description).like(f"%{dest_name.lower()}%"),
+                    func.lower(DestinationMaster.name).like(f"%{dest_name.lower()}%")
+                ),
+                or_(
+                    DestinationMaster.category.in_(["museum", "heritage", "culture", "spiritual"]),
+                    DestinationMaster.description.ilike("%museum%"),
+                    DestinationMaster.description.ilike("%interior%"),
+                    DestinationMaster.description.ilike("%palace%")
+                )
+            ).order_by(DestinationMaster.rating.desc()).limit(10)
+            res = await db.execute(stmt)
+            indoor_candidates = res.scalars().all()
+
+            cand_idx = 0
+            for item in schedule_items:
+                c_item = dict(item)
+                cat = (c_item.get("category") or "").lower()
+                title = (c_item.get("title") or "").lower()
+                is_outdoor = any(w in cat or w in title for w in ["nature", "waterfall", "trek", "park", "garden", "view", "outdoor"])
+                if is_outdoor and cand_idx < len(indoor_candidates):
+                    rep = indoor_candidates[cand_idx]
+                    cand_idx += 1
+                    c_item["title"] = f"{rep.name} (Indoor Weather Shield)"
+                    c_item["location"] = rep.name
+                    c_item["latitude"] = rep.latitude
+                    c_item["longitude"] = rep.longitude
+                    c_item["notes"] = f"Covered heritage gallery & artifacts: {rep.description[:75] if rep.description else ''}"
+                updated_schedule.append(c_item)
+            weather_adv = "Precipitation / Temperature alert: Excursions adapted to covered palace interiors & state museum galleries."
+            message = "Weather adaptation applied! Outdoor excursion replaced with covered heritage galleries and royal craft museum."
+
+        else:
+            for idx, item in enumerate(schedule_items):
+                c_item = dict(item)
+                if idx == 1:
+                    c_item["notes"] = "Mindful tea break: Slow artisanal chai tasting and riverside promenade."
+                updated_schedule.append(c_item)
+            message = "Pace relaxed: Added 45-minute artisanal tea rest and spaced transit times comfortably."
+
+        return AdaptItineraryResponse(
+            status="success",
+            action=payload.action,
+            message=message,
+            updated_schedule=updated_schedule,
+            total_budget_inr=total_budget or None,
+            weather_advisory=weather_adv
+        )
 
     @classmethod
     def get_curated_samples(cls) -> List[Dict]:

@@ -7,7 +7,7 @@ _workspace_root = str(Path(__file__).resolve().parent.parent.parent)
 if _workspace_root not in sys.path:
     sys.path.insert(0, _workspace_root)
 
-from fastapi import FastAPI, Request, Depends
+from fastapi import FastAPI, Request, Depends, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from sqlalchemy import select
@@ -37,6 +37,12 @@ from app.services.routing_service import get_route
 from app.api.weather import router as weather_router
 from app.api.ml_recommendations import router as ml_recommendations_router
 from app.api.recommendations import router as recommendations_router, location_router
+from app.api.groups import router as groups_router
+from app.api.sustainability import router as sustainability_router
+from app.api.security_center import router as security_center_router
+from app.api.hospitals import router as hospitals_router
+from app.api.businesses import router as businesses_router
+from app.api.events import router as events_router
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from app.jobs.daily_refresh import run_daily_refresh
 from app.jobs.hourly_refresh import run_hourly_refresh
@@ -112,6 +118,7 @@ async def add_process_time_header(request: Request, call_next):
 
 
 # Include API Routers under /api
+app.include_router(weather_router, prefix="/api")
 app.include_router(destinations_router, prefix="/api")
 app.include_router(homestays_router, prefix="/api")
 app.include_router(overtourism_router, prefix="/api")
@@ -132,10 +139,45 @@ app.include_router(auth_router, prefix="/api")
 app.include_router(user_router, prefix="/api")
 app.include_router(users_router, prefix="/api")
 app.include_router(routing_router, prefix="/api")
-app.include_router(weather_router, prefix="/api")
+app.include_router(groups_router, prefix="/api")
+app.include_router(sustainability_router, prefix="/api")
+app.include_router(security_center_router, prefix="/api")
+app.include_router(hospitals_router, prefix="/api")
+app.include_router(businesses_router, prefix="/api")
+app.include_router(events_router)
 app.include_router(ml_recommendations_router)
 app.include_router(recommendations_router)
 app.include_router(location_router)
+
+
+from fastapi.exceptions import RequestValidationError
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    """Ensure validation errors return JSON with error field."""
+    return JSONResponse(
+        status_code=422,
+        content={"error": "Invalid request parameters", "detail": exc.errors()},
+    )
+
+
+@app.exception_handler(HTTPException)
+async def custom_http_exception_handler(request: Request, exc: HTTPException):
+    """Ensure all HTTP exceptions return structured JSON without raw stack traces."""
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={"error": exc.detail, "detail": exc.detail},
+    )
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """Catch-all exception handler returning clean JSON error response."""
+    return JSONResponse(
+        status_code=500,
+        content={"error": "Internal server error", "detail": str(exc)},
+    )
 
 
 @app.get("/api/route", tags=["GIS & Routing"])
@@ -147,7 +189,7 @@ async def get_route_direct(
     mode: str = "driving-car"
 ):
     """
-    Direct route endpoint: returns distance_km, duration_min, coordinates, geometry, and navigation URLs.
+    Direct route endpoint: returns distance_km, duration_min, coordinates, steps, geometry, and navigation URLs.
     """
     return await get_route(start_lat, start_lng, end_lat, end_lng, mode=mode)
 

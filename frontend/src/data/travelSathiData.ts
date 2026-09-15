@@ -405,28 +405,144 @@ export const EVENTS = [
 
 export const SAFETY_ALERTS = [
   {
-    region: "Himachal Pradesh - High Altitude",
-    level: "Caution",
-    headline: "Autumn Frost & Evening Black Ice on Rohtang Pass",
-    details: "Temperatures dropping to -3°C near passes after sunset. 4x4 vehicles advised past Marhi. Valleys remain open and safe.",
+    region: "Punjab (Jalandhar & Phagwara Corridor)",
+    level: "Safe / Normal",
+    headline: "Smooth GT Road (NH-44) Highway Patrol & City Transit Clearance",
+    details: "High-traffic expressway flow stable with 24/7 PCR highway interceptors active. City heritage areas and bus terminals operating with standard night safety patrols. Clear visibility recorded.",
+    lastUpdated: "Today, 09:30 AM IST",
+    source: "Punjab Highway Police & Live Telemetry",
+    distance_km: 14.0,
+    nearest_hospital: {
+      name: "Civil Hospital Phagwara (Emergency Unit)",
+      phone: "01824-229369",
+      address: "G.T. Road, Phagwara, Punjab",
+      emergency_24x7: true
+    },
+    nearest_police_station: {
+      name: "Punjab Police Tourist Assistance Wing",
+      phone: "112",
+      jurisdiction: "NH-44 Corridor, Phagwara & Jalandhar Sub-Division"
+    }
+  },
+  {
+    region: "Punjab (Amritsar & Wagah Border)",
+    level: "Safe / Normal",
+    headline: "Smooth Evening Beating Retreat Transit & Golden Temple Walkway Active",
+    details: "Golden Temple heritage corridor and Wagah Border ceremonial plaza operating with dedicated tourist police marshals. Free luggage cloakrooms available at Amritsar Central. Mild evening breeze (23°C).",
+    lastUpdated: "Today, 09:00 AM IST",
+    source: "Punjab Tourism Police & Live Telemetry",
+    distance_km: 89.0,
+    nearest_hospital: {
+      name: "Guru Nanak Dev Hospital Trauma Centre",
+      phone: "0183-2576001",
+      address: "Majitha Road, Amritsar, Punjab",
+      emergency_24x7: true
+    },
+    nearest_police_station: {
+      name: "Amritsar Golden Temple Tourist Police Post",
+      phone: "0183-2557670",
+      jurisdiction: "Heritage Street & Wagah Highway"
+    }
+  },
+  {
+    region: "Chandigarh & Shivalik Foothills",
+    level: "Safe / Normal",
+    headline: "Himalayan Expressway Smooth Flow & Visitor Promenade Clearance",
+    details: "Smooth flow on NH-5 corridor heading toward Shimla foothills with automated speed tracking active. Sukhna Lake and Rock Garden facilities operating under standard comfort capacity. Fair skies (26°C).",
+    lastUpdated: "Today, 08:45 AM IST",
+    source: "Chandigarh Tourism Security & IMD",
+    distance_km: 118.2,
+    nearest_hospital: {
+      name: "PGIMER Emergency & Trauma Centre",
+      phone: "0172-2756565",
+      address: "Sector 12, Chandigarh",
+      emergency_24x7: true
+    },
+    nearest_police_station: {
+      name: "Chandigarh Tourist Police Assistance Hub",
+      phone: "0172-2741900",
+      jurisdiction: "Sukhna Lake & Shivalik Foothills"
+    }
+  },
+  {
+    region: "Himachal Pradesh (Kangra & Dharamshala)",
+    level: "Safe / Normal",
+    headline: "Clear Skies Along Triund Trail & Dalai Lama Temple Corridor",
+    details: "Pleasant Himalayan weather (18°C). Triund trail registered open for day hiking with forest checkposts issuing eco-passes. Evening windbreakers advised above Bhagsunag.",
     lastUpdated: "Today, 08:30 AM IST",
-    source: "Himachal State Disaster Management Authority"
+    source: "Himachal Tourism Security & IMD",
+    distance_km: 121.5,
+    nearest_hospital: {
+      name: "Zonal Hospital Dharamshala Emergency",
+      phone: "01892-224888",
+      address: "Civil Lines, Dharamshala, HP",
+      emergency_24x7: true
+    },
+    nearest_police_station: {
+      name: "McLeod Ganj Tourist Police Post",
+      phone: "01892-221483",
+      jurisdiction: "Temple Road & Triund Trek Base"
+    }
   },
   {
-    region: "Rajasthan Heritage Hotspots",
-    level: "Safe",
-    headline: "Clear Weather Across Jaipur, Udaipur, and Jodhpur",
-    details: "All monuments open with regular hours. High daytime UV; carry sun protection and stay hydrated.",
-    lastUpdated: "Today, 06:00 AM IST",
-    source: "Rajasthan Tourism Security Wing"
+    region: "Himachal Pradesh (Shimla Ridge & Kufri)",
+    level: "Safe / Normal",
+    headline: "Favorable Ridge Promenade Conditions & Toy Train Running on Schedule",
+    details: "Clear skies and moderate temperatures (16°C). The Mall Road pedestrian zone strictly enforced for visitor comfort. Evening light woolens recommended for Jakhoo Temple ropeway.",
+    lastUpdated: "Today, 08:15 AM IST",
+    source: "HP State Disaster Management Authority",
+    distance_km: 141.0,
+    nearest_hospital: {
+      name: "Indira Gandhi Medical College (IGMC) Trauma Centre",
+      phone: "0177-2804251",
+      address: "Ridge Road, Lakkar Bazaar, Shimla, HP",
+      emergency_24x7: true
+    },
+    nearest_police_station: {
+      name: "Shimla Tourist Police Cell Mall Road",
+      phone: "0177-2652123",
+      jurisdiction: "The Ridge & Kufri Bypass"
+    }
   },
   {
-    region: "Western Ghats High Ranges",
-    level: "Safe",
-    headline: "Green Clear Routes through Munnar & Wayanad",
-    details: "Clear road conditions along NH 85. Light morning fog around tea estates between 5:00 AM and 7:30 AM.",
-    lastUpdated: "Yesterday, 09:00 PM IST",
-    source: "Kerala Highway Police Command"
+    region: "Himachal Pradesh (Kullu & Manali)",
+    level: "Caution",
+    headline: "Atal Tunnel & Solang Valley Open (Evening Frost Precaution)",
+    details: "Atal Tunnel North & South Portals clear with dry pavement. Afternoon temperatures 14°C dropping to 3°C at night. Solang paragliding operators strictly verified by HP Tourism Safety Board.",
+    lastUpdated: "Today, 08:00 AM IST",
+    source: "OpenWeatherMap Live Telemetry",
+    distance_km: 177.9,
+    nearest_hospital: {
+      name: "Regional Hospital Kullu (Emergency Trauma Care)",
+      phone: "01902-222350",
+      address: "Dhalpur, Kullu, Himachal Pradesh",
+      emergency_24x7: true
+    },
+    nearest_police_station: {
+      name: "Manali Tourist Police Station",
+      phone: "01902-252326",
+      jurisdiction: "Kullu Valley & Solang Pass"
+    }
+  },
+  {
+    region: "Jammu & Kashmir (Katra & Vaishno Devi)",
+    level: "Safe / Normal",
+    headline: "Vaishno Devi Yatra Track Smooth — RFID Tracking & Battery Carts Active",
+    details: "Clear mountain weather on Trikuta hills (19°C). Himkoti new track and Sanjichhat ropeway operating smoothly. Shrine Board medical posts stationed every 800m along the track.",
+    lastUpdated: "Today, 07:45 AM IST",
+    source: "SMVD Shrine Board & J&K Police",
+    distance_km: 205.7,
+    nearest_hospital: {
+      name: "Shri Mata Vaishno Devi Narayana Super Speciality Hospital",
+      phone: "01991-285656",
+      address: "Kakryal, Katra, Jammu & Kashmir",
+      emergency_24x7: true
+    },
+    nearest_police_station: {
+      name: "Katra Tourist Police Assistance Post",
+      phone: "01991-232010",
+      jurisdiction: "Ban Ganga & Bhawan Track"
+    }
   }
 ];
 

@@ -17,9 +17,11 @@ import {
 import Card from '../ui/Card';
 import Button from '../ui/Button';
 import { useTranslation } from 'react-i18next';
+import { translateText } from '../../utils/summaryTranslator';
 
 export default function ItinerarySummaryCard({ itinerary, onOpenBooking, onOpenRFP }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n?.language || 'en';
   const [copied, setCopied] = useState(false);
 
   if (!itinerary || !itinerary.budget_breakdown) return null;
@@ -74,25 +76,25 @@ export default function ItinerarySummaryCard({ itinerary, onOpenBooking, onOpenR
       {/* Cost Breakdown Grid */}
       <div className="space-y-3 pb-4 border-b border-neutral-200 text-xs">
         <div className="flex items-center justify-between text-neutral-700">
-          <span>Verified Homestays / Stays ({itinerary.days} Nights)</span>
+          <span>{t('plan.accommodations', 'Verified Homestays / Stays')} ({itinerary.days} {t('plan.nights', 'Nights')})</span>
           <span className="font-bold text-neutral-900">
             ₹{b.accommodation_inr.toLocaleString('en-IN')}
           </span>
         </div>
         <div className="flex items-center justify-between text-neutral-700">
-          <span>Monuments & Activity Entry Fees</span>
+          <span>{translateText('Monuments & Activity Entry Fees', currentLang)}</span>
           <span className="font-bold text-neutral-900">
             ₹{b.activities_inr.toLocaleString('en-IN')}
           </span>
         </div>
         <div className="flex items-center justify-between text-neutral-700">
-          <span>Authentic Regional Food & Dining</span>
+          <span>{translateText('Authentic Regional Food & Dining', currentLang)}</span>
           <span className="font-bold text-neutral-900">
             ₹{b.food_inr.toLocaleString('en-IN')}
           </span>
         </div>
         <div className="flex items-center justify-between text-neutral-700">
-          <span>TransitGuard Commute & Station Transfers</span>
+          <span>{translateText('TransitGuard Commute & Station Transfers', currentLang)}</span>
           <span className="font-bold text-neutral-900">
             ₹{b.transit_inr.toLocaleString('en-IN')}
           </span>
@@ -111,14 +113,14 @@ export default function ItinerarySummaryCard({ itinerary, onOpenBooking, onOpenR
       <div className="p-4 rounded-xl bg-forest-50 border border-forest-200 space-y-2">
         <div className="flex items-center gap-2 text-forest-900 font-bold text-xs">
           <TrendingDown className="w-4 h-4 text-forest-700" />
-          <span>Zero-Commission DPI Dividend</span>
+          <span>{translateText('Zero-Commission DPI Dividend', currentLang)}</span>
         </div>
         <div className="text-lg font-bold text-forest-900">
           ₹{b.ota_commission_saved_inr.toLocaleString('en-IN')}{' '}
           <span className="text-xs font-normal text-forest-700">{t('plan.otaSaved', 'saved vs. Commercial OTAs')}</span>
         </div>
         <p className="text-[11px] text-forest-800 leading-relaxed">
-          Traditional platforms take 15% to 30% commission. Under TravelSathi DPI, 97% of payments flow straight to community homestay hosts and certified local guides via direct UPI settlement.
+          {translateText('Traditional platforms take 15% to 30% commission. Under TravelSathi DPI, 97% of payments flow straight to community homestay hosts and certified local guides via direct UPI settlement.', currentLang)}
         </p>
       </div>
 
@@ -128,7 +130,7 @@ export default function ItinerarySummaryCard({ itinerary, onOpenBooking, onOpenR
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-950">
               <Leaf className="w-4 h-4 text-emerald-600" />
-              <span>EcoFootprint & Carbon Savings</span>
+              <span>{translateText('EcoFootprint & Carbon Savings', currentLang)}</span>
             </div>
             <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-200/80 text-emerald-900 font-bold">
               -{eco.carbon_saved_pct}% Carbon
@@ -184,7 +186,7 @@ export default function ItinerarySummaryCard({ itinerary, onOpenBooking, onOpenR
             className="w-full py-2 text-xs font-bold flex items-center justify-center gap-1.5 border border-forest-300 text-forest-900 bg-forest-50 hover:bg-forest-100"
           >
             <Send className="w-3.5 h-3.5 text-forest-700" />
-            Broadcast Itinerary to Local Hosts (Get Direct Bids)
+            {translateText('Broadcast Itinerary to Local Hosts (Get Direct Bids)', currentLang)}
           </Button>
         )}
 

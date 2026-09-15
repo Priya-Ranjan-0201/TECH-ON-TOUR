@@ -153,7 +153,7 @@ export default function HomeView() {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
-    navigate('/explore', { state: { initialSearch: searchQuery } });
+    navigate(`/explore?query=${encodeURIComponent(searchQuery.trim())}`);
   };
 
   const handleQuickPlan = (e) => {
@@ -290,7 +290,7 @@ export default function HomeView() {
                 </div>
                 <div className="flex items-center gap-2 text-xs font-bold text-secondary-800 bg-secondary-50 px-3 py-1 rounded-full w-fit border border-secondary-800/20">
                   <CheckCircle2 className="w-4 h-4 text-secondary-800" />
-                  <span>{t('home.groundedIn', 'Grounded in {{count}} Verified Indian POIs', { count: totalDestinationCount.toLocaleString('en-IN') })}</span>
+                  <span>{t('home.groundedIn', 'Grounded in {{count}} Verified Indian POIs', { count: totalDestinationCount })}</span>
                 </div>
               </div>
 

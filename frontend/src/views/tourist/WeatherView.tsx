@@ -170,7 +170,13 @@ export default function WeatherView() {
             <div className="lg:col-span-2 p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-neutral-surface via-neutral-surface to-brand/5 dark:from-darkmode-surface dark:via-darkmode-surface dark:to-brand/10 border border-neutral-border dark:border-darkmode-border relative overflow-hidden shadow-sm">
               <div className="flex items-start justify-between">
                 <div>
-                  <span className="text-xs font-bold tracking-wider uppercase text-brand">Current Weather Conditions</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold tracking-wider uppercase text-brand">Current Weather Conditions</span>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                      Live (Hourly Refreshed)
+                    </span>
+                  </div>
                   <h2 className="text-3xl sm:text-4xl font-extrabold mt-1">{weatherData.destination}</h2>
                   <p className="text-sm text-neutral-text-secondary mt-1 flex items-center gap-1.5">
                     {weatherData.condition}

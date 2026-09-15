@@ -1,0 +1,216 @@
+user_destination,user_start_date,user_end_date,event_id,event_start_date,event_end_date,distance_km,importance_tier,event_category,user_interest,date_confidence,event_status,date_overlap_days,days_until_event,days_since_event,relevance_label
+Kolkata,2026-10-17,2026-10-21,EVT-0001,2026-10-17,2026-10-21,0.0,Tier 1 - National / International,Culture,Culture,HIGH,Upcoming,4,0,0,5
+Kolkata,2026-10-15,2026-10-19,EVT-0001,2026-10-17,2026-10-21,0.0,Tier 1 - National / International,Culture,Culture,HIGH,Upcoming,4,0,0,4
+Kolkata,2026-10-01,2026-10-07,EVT-0001,2026-10-17,2026-10-21,0.0,Tier 1 - National / International,Culture,Culture,HIGH,Upcoming,0,10,0,3
+Kolkata,2026-11-10,2026-11-15,EVT-0001,2026-10-17,2026-10-21,0.0,Tier 1 - National / International,Culture,Culture,HIGH,Upcoming,0,120,0,0
+Jaipur,2026-11-15,2026-11-25,EVT-0003,2026-11-17,2026-11-24,145.0,Tier 1 - National / International,Livestock / Melas,Culture,HIGH,Upcoming,4,0,0,4
+Mumbai,2026-07-10,2026-07-15,EVT-0005,2026-12-01,2026-12-10,1200.0,Tier 1 - National / International,Tribal,Tribal,HIGH,Upcoming,0,120,0,0
+Kohima,2026-12-01,2026-12-05,EVT-0005,2026-12-01,2026-12-10,1200.0,Tier 1 - National / International,Tribal,Tribal,HIGH,Upcoming,4,0,0,5
+Mysuru,2026-10-11,2026-10-21,EVT-0007,2026-10-11,2026-10-21,0.0,Tier 1 - National / International,Heritage,Heritage,HIGH,Upcoming,4,0,0,5
+Kochi,2026-09-15,2026-09-25,EVT-0008,2026-09-15,2026-09-25,0.0,Tier 1 - National / International,Harvest,Harvest,HIGH,Upcoming,4,0,0,5
+Thrissur,2026-04-26,2026-04-29,EVT-0009,2026-04-27,2026-04-28,0.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Upcoming,4,0,0,5
+Bhuj,2026-12-10,2026-12-15,EVT-0010,2026-11-01,2027-02-28,1200.0,Tier 1 - National / International,Tourism,Tourism,HIGH,Upcoming,4,0,0,4
+Panaji,2026-02-14,2026-02-17,EVT-0012,2026-02-14,2026-02-17,0.0,Tier 1 - National / International,Culture,Culture,HIGH,Upcoming,4,0,0,5
+Khajuraho,2026-02-20,2026-02-26,EVT-0013,2026-02-20,2026-02-26,0.0,Tier 1 - National / International,Culture,Culture,HIGH,Upcoming,4,0,0,5
+Puri,2026-07-16,2026-07-20,EVT-0014,2026-07-16,2026-07-27,0.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Upcoming,4,0,0,5
+Leh,2026-06-25,2026-06-27,EVT-0016,2026-06-25,2026-06-26,1200.0,Tier 1 - National / International,Culture,Culture,HIGH,Upcoming,4,0,0,5
+Patna,2026-11-13,2026-11-16,EVT-0017,2026-11-13,2026-11-16,0.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Upcoming,4,0,0,5
+Sagar Island,2026-01-13,2026-01-16,EVT-0002,2026-01-13,2026-01-16,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Pushkar,2026-11-17,2026-11-24,EVT-0003,2026-11-17,2026-11-24,15.0,Tier 1 - National / International,Livestock / Melas,Livestock / Melas,HIGH,Active,4,0,0,5
+Faridabad,2026-02-06,2026-02-22,EVT-0004,2026-02-06,2026-02-22,15.0,Tier 1 - National / International,Arts & Crafts,Arts & Crafts,HIGH,Active,4,0,0,5
+Kisama,2026-12-01,2026-12-10,EVT-0005,2026-12-01,2026-12-10,15.0,Tier 1 - National / International,Tribal,Tribal,HIGH,Active,4,0,0,5
+Guwahati,2026-04-14,2026-04-20,EVT-0006,2026-04-14,2026-04-20,15.0,Tier 1 - National / International,Harvest,Harvest,HIGH,Active,4,0,0,5
+Mysuru,2026-10-11,2026-10-21,EVT-0007,2026-10-11,2026-10-21,15.0,Tier 1 - National / International,Heritage,Heritage,HIGH,Active,4,0,0,5
+Thrikkakara / Kochi / Thiruvananthapuram,2026-09-15,2026-09-25,EVT-0008,2026-09-15,2026-09-25,15.0,Tier 1 - National / International,Harvest,Harvest,HIGH,Active,4,0,0,5
+Thrissur,2026-04-27,2026-04-28,EVT-0009,2026-04-27,2026-04-28,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Dhordo,2026-11-01,2027-02-28,EVT-0010,2026-11-01,2027-02-28,15.0,Tier 1 - National / International,Tourism,Tourism,HIGH,Active,4,0,0,5
+Ahmedabad,2026-01-08,2026-01-15,EVT-0011,2026-01-08,2026-01-15,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Panaji,2026-02-14,2026-02-17,EVT-0012,2026-02-14,2026-02-17,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Khajuraho,2026-02-20,2026-02-26,EVT-0013,2026-02-20,2026-02-26,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Puri,2026-07-16,2026-07-27,EVT-0014,2026-07-16,2026-07-27,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Konark,2026-12-01,2026-12-05,EVT-0015,2026-12-01,2026-12-05,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Hemis,2026-06-25,2026-06-26,EVT-0016,2026-06-25,2026-06-26,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Patna / Bodh Gaya / Muzaffarpur,2026-11-13,2026-11-16,EVT-0017,2026-11-13,2026-11-16,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Hyderabad,2026-10-01,2026-10-09,EVT-0018,2026-10-01,2026-10-09,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Vijayawada,2026-03-20,2026-03-21,EVT-0019,2026-03-20,2026-03-21,15.0,Tier 1 - National / International,Harvest,Harvest,HIGH,Active,4,0,0,5
+Madurai,2026-01-14,2026-01-17,EVT-0020,2026-01-14,2026-01-17,15.0,Tier 1 - National / International,Harvest,Harvest,HIGH,Active,4,0,0,5
+Madurai,2026-04-25,2026-05-05,EVT-0021,2026-04-25,2026-05-05,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Mamallapuram,2026-12-20,2026-01-15,EVT-0022,2026-12-20,2026-01-15,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Kannur,2026-11-15,2026-05-15,EVT-0023,2026-11-15,2026-05-15,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Alappuzha,2026-08-08,2026-08-08,EVT-0024,2026-08-08,2026-08-08,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Mumbai,2026-09-14,2026-09-24,EVT-0025,2026-09-14,2026-09-24,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Chhatrapati Sambhajinagar,2026-01-23,2026-01-25,EVT-0026,2026-01-23,2026-01-25,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Jaisalmer,2026-02-08,2026-02-10,EVT-0027,2026-02-08,2026-02-10,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Jodhpur,2026-10-22,2026-10-26,EVT-0028,2026-10-22,2026-10-26,15.0,Tier 2 - State / Regional Significance,Music,Music,HIGH,Active,4,0,0,5
+Jodhpur,2026-10-25,2026-10-26,EVT-0029,2026-10-25,2026-10-26,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Jaipur,2026-08-15,2026-08-16,EVT-0030,2026-08-15,2026-08-16,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Kullu,2026-10-21,2026-10-27,EVT-0031,2026-10-21,2026-10-27,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Mandi,2026-02-16,2026-02-23,EVT-0032,2026-02-16,2026-02-23,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Chamba,2026-07-26,2026-08-02,EVT-0033,2026-07-26,2026-08-02,15.0,Tier 2 - State / Regional Significance,Harvest,Harvest,HIGH,Active,4,0,0,5
+Rishikesh,2026-03-01,2026-03-07,EVT-0034,2026-03-01,2026-03-07,15.0,Tier 2 - State / Regional Significance,Wellness,Wellness,HIGH,Active,4,0,0,5
+Haridwar,2026-01-14,2026-04-14,EVT-0035,2026-01-14,2026-04-14,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Anandpur Sahib,2026-03-04,2026-03-06,EVT-0036,2026-03-04,2026-03-06,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Amritsar,2026-01-13,2026-01-13,EVT-0037,2026-01-13,2026-01-13,15.0,Tier 2 - State / Regional Significance,Harvest,Harvest,HIGH,Active,4,0,0,5
+Srinagar,2026-03-25,2026-04-15,EVT-0038,2026-03-25,2026-04-15,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Srinagar,2026-07-10,2026-07-12,EVT-0039,2026-07-10,2026-07-12,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Ziro,2026-09-24,2026-09-27,EVT-0040,2026-09-24,2026-09-27,15.0,Tier 2 - State / Regional Significance,Music,Music,HIGH,Active,4,0,0,5
+Tawang,2026-10-28,2026-10-31,EVT-0041,2026-10-28,2026-10-31,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Shillong,2026-11-15,2026-11-18,EVT-0042,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Asanang (Tura),2026-11-12,2026-11-14,EVT-0043,2026-11-12,2026-11-14,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Imphal,2026-11-21,2026-11-30,EVT-0044,2026-11-21,2026-11-30,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Aizawl,2026-03-06,2026-03-07,EVT-0045,2026-03-06,2026-03-07,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Hampi,2026-11-03,2026-11-05,EVT-0046,2026-11-03,2026-11-05,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Bengaluru,2026-04-11,2026-04-12,EVT-0047,2026-04-11,2026-04-12,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Jagdalpur,2026-08-15,2026-10-23,EVT-0048,2026-08-15,2026-10-23,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Jhabua,2026-03-18,2026-03-24,EVT-0049,2026-03-18,2026-03-24,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Gwalior,2026-12-22,2026-12-26,EVT-0050,2026-12-22,2026-12-26,15.0,Tier 2 - State / Regional Significance,Music,Music,HIGH,Active,4,0,0,5
+Mathura / Barsana,2026-03-15,2026-03-16,EVT-0051,2026-03-15,2026-03-16,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Varanasi,2026-11-24,2026-11-24,EVT-0052,2026-11-24,2026-11-24,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Agra,2026-02-18,2026-02-27,EVT-0053,2026-02-18,2026-02-27,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Rajgir,2026-11-28,2026-11-30,EVT-0054,2026-11-28,2026-11-30,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Sonepur,2026-11-20,2026-12-20,EVT-0055,2026-11-20,2026-12-20,15.0,Tier 2 - State / Regional Significance,Livestock / Melas,Livestock / Melas,HIGH,Active,4,0,0,5
+Port Blair,2026-01-15,2026-01-18,EVT-0056,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Lepakshi,2026-02-15,2026-02-18,EVT-0057,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Visakhapatnam,2026-12-15,2026-12-18,EVT-0058,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Daporijo,2026-01-15,2026-01-18,EVT-0059,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Pasighat,2026-09-15,2026-09-18,EVT-0060,2026-09-15,2026-09-18,15.0,Tier 2 - State / Regional Significance,Harvest,Harvest,HIGH,Active,4,0,0,5
+Majuli,2026-11-15,2026-11-18,EVT-0061,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Sivasagar,2026-01-15,2026-01-18,EVT-0062,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Bodh Gaya,2026-05-15,2026-05-18,EVT-0063,2026-05-15,2026-05-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Vaishali,2026-04-15,2026-04-18,EVT-0064,2026-04-15,2026-04-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Chandigarh,2026-02-15,2026-02-18,EVT-0065,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Nature,Nature,HIGH,Active,4,0,0,5
+Sirpur,2026-01-15,2026-01-18,EVT-0066,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Daman,2026-12-15,2026-12-18,EVT-0067,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Delhi,2026-11-15,2026-11-18,EVT-0068,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Delhi,2026-11-15,2026-11-18,EVT-0069,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Music,Music,HIGH,Active,4,0,0,5
+Shigmo / Panaji,2026-03-15,2026-03-18,EVT-0070,2026-03-15,2026-03-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Modhera,2026-01-15,2026-01-18,EVT-0071,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Junagadh,2026-02-15,2026-02-18,EVT-0072,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Kurukshetra,2026-12-15,2026-12-18,EVT-0073,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Pinjore,2026-12-15,2026-12-18,EVT-0074,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Shimla,2026-06-15,2026-06-18,EVT-0075,2026-06-15,2026-06-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Dharamshala,2026-11-15,2026-11-18,EVT-0076,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Ranchi,2026-04-15,2026-04-18,EVT-0077,2026-04-15,2026-04-18,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Deoghar,2026-07-15,2026-07-18,EVT-0078,2026-07-15,2026-07-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Pattadakal,2026-01-15,2026-01-18,EVT-0079,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Udupi,2026-01-15,2026-01-18,EVT-0080,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Kottayam,2026-09-15,2026-09-18,EVT-0081,2026-09-15,2026-09-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Wayanad,2026-07-15,2026-07-18,EVT-0082,2026-07-15,2026-07-18,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Zanskar,2026-07-15,2026-07-18,EVT-0083,2026-07-15,2026-07-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Leh,2026-09-15,2026-09-18,EVT-0084,2026-09-15,2026-09-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Kavaratti,2026-11-15,2026-11-18,EVT-0085,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Ujjain,2026-11-15,2026-11-18,EVT-0086,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Mandu,2026-12-15,2026-12-18,EVT-0087,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Nashik,2026-09-15,2026-09-18,EVT-0088,2026-09-15,2026-09-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Pune,2026-12-15,2026-12-18,EVT-0089,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Music,Music,HIGH,Active,4,0,0,5
+Loktak,2026-10-15,2026-10-18,EVT-0090,2026-10-15,2026-10-18,15.0,Tier 2 - State / Regional Significance,Nature,Nature,HIGH,Active,4,0,0,5
+Sohra (Cherrapunji),2026-10-15,2026-10-18,EVT-0091,2026-10-15,2026-10-18,15.0,Tier 2 - State / Regional Significance,Nature,Nature,HIGH,Active,4,0,0,5
+Lunglei,2026-11-15,2026-11-18,EVT-0092,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Harvest,Harvest,HIGH,Active,4,0,0,5
+Mokokchung,2026-05-15,2026-05-18,EVT-0093,2026-05-15,2026-05-18,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Mon,2026-04-15,2026-04-18,EVT-0094,2026-04-15,2026-04-18,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Bhubaneswar,2026-01-15,2026-01-18,EVT-0095,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Music,Music,HIGH,Active,4,0,0,5
+Baripada,2026-04-15,2026-04-18,EVT-0096,2026-04-15,2026-04-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Puducherry,2026-02-15,2026-02-18,EVT-0097,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Auroville,2026-02-15,2026-02-18,EVT-0098,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Patiala,2026-02-15,2026-02-18,EVT-0099,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Kila Raipur,2026-02-15,2026-02-18,EVT-0100,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Adventure,Adventure,HIGH,Active,4,0,0,5
+Bikaner,2026-01-15,2026-01-18,EVT-0101,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Livestock / Melas,Livestock / Melas,HIGH,Active,4,0,0,5
+Udaipur,2026-03-15,2026-03-18,EVT-0102,2026-03-15,2026-03-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Mount Abu,2026-05-15,2026-05-18,EVT-0103,2026-05-15,2026-05-18,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Gangtok,2026-12-15,2026-12-18,EVT-0104,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Ravangla,2026-09-15,2026-09-18,EVT-0105,2026-09-15,2026-09-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Thanjavur,2026-02-15,2026-02-18,EVT-0106,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Thiruvaiyaru,2026-01-15,2026-01-18,EVT-0107,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Music,Music,HIGH,Active,4,0,0,5
+Warangal,2026-12-15,2026-12-18,EVT-0108,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Medaram,2026-02-15,2026-02-18,EVT-0109,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Agartala,2026-07-15,2026-07-18,EVT-0110,2026-07-15,2026-07-18,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Udaipur,2026-10-15,2026-10-18,EVT-0111,2026-10-15,2026-10-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Ayodhya,2026-10-15,2026-10-18,EVT-0112,2026-10-15,2026-10-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Vrindavan,2026-03-15,2026-03-18,EVT-0113,2026-03-15,2026-03-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Pithoragarh,2026-09-15,2026-09-18,EVT-0114,2026-09-15,2026-09-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Nainital,2026-10-15,2026-10-18,EVT-0115,2026-10-15,2026-10-18,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Shantiniketan,2026-12-15,2026-12-18,EVT-0116,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Bishnupur,2026-12-15,2026-12-18,EVT-0117,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Kolkata,2026-10-17,2026-10-21,EVT-0001,2026-10-17,2026-10-21,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Sagar Island,2026-01-13,2026-01-16,EVT-0002,2026-01-13,2026-01-16,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Pushkar,2026-11-17,2026-11-24,EVT-0003,2026-11-17,2026-11-24,15.0,Tier 1 - National / International,Livestock / Melas,Livestock / Melas,HIGH,Active,4,0,0,5
+Faridabad,2026-02-06,2026-02-22,EVT-0004,2026-02-06,2026-02-22,15.0,Tier 1 - National / International,Arts & Crafts,Arts & Crafts,HIGH,Active,4,0,0,5
+Kisama,2026-12-01,2026-12-10,EVT-0005,2026-12-01,2026-12-10,15.0,Tier 1 - National / International,Tribal,Tribal,HIGH,Active,4,0,0,5
+Guwahati,2026-04-14,2026-04-20,EVT-0006,2026-04-14,2026-04-20,15.0,Tier 1 - National / International,Harvest,Harvest,HIGH,Active,4,0,0,5
+Mysuru,2026-10-11,2026-10-21,EVT-0007,2026-10-11,2026-10-21,15.0,Tier 1 - National / International,Heritage,Heritage,HIGH,Active,4,0,0,5
+Thrikkakara / Kochi / Thiruvananthapuram,2026-09-15,2026-09-25,EVT-0008,2026-09-15,2026-09-25,15.0,Tier 1 - National / International,Harvest,Harvest,HIGH,Active,4,0,0,5
+Thrissur,2026-04-27,2026-04-28,EVT-0009,2026-04-27,2026-04-28,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Dhordo,2026-11-01,2027-02-28,EVT-0010,2026-11-01,2027-02-28,15.0,Tier 1 - National / International,Tourism,Tourism,HIGH,Active,4,0,0,5
+Ahmedabad,2026-01-08,2026-01-15,EVT-0011,2026-01-08,2026-01-15,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Panaji,2026-02-14,2026-02-17,EVT-0012,2026-02-14,2026-02-17,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Khajuraho,2026-02-20,2026-02-26,EVT-0013,2026-02-20,2026-02-26,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Puri,2026-07-16,2026-07-27,EVT-0014,2026-07-16,2026-07-27,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Konark,2026-12-01,2026-12-05,EVT-0015,2026-12-01,2026-12-05,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Hemis,2026-06-25,2026-06-26,EVT-0016,2026-06-25,2026-06-26,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Patna / Bodh Gaya / Muzaffarpur,2026-11-13,2026-11-16,EVT-0017,2026-11-13,2026-11-16,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Hyderabad,2026-10-01,2026-10-09,EVT-0018,2026-10-01,2026-10-09,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Vijayawada,2026-03-20,2026-03-21,EVT-0019,2026-03-20,2026-03-21,15.0,Tier 1 - National / International,Harvest,Harvest,HIGH,Active,4,0,0,5
+Madurai,2026-01-14,2026-01-17,EVT-0020,2026-01-14,2026-01-17,15.0,Tier 1 - National / International,Harvest,Harvest,HIGH,Active,4,0,0,5
+Madurai,2026-04-25,2026-05-05,EVT-0021,2026-04-25,2026-05-05,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Mamallapuram,2026-12-20,2026-01-15,EVT-0022,2026-12-20,2026-01-15,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Kannur,2026-11-15,2026-05-15,EVT-0023,2026-11-15,2026-05-15,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Alappuzha,2026-08-08,2026-08-08,EVT-0024,2026-08-08,2026-08-08,15.0,Tier 1 - National / International,Culture,Culture,HIGH,Active,4,0,0,5
+Mumbai,2026-09-14,2026-09-24,EVT-0025,2026-09-14,2026-09-24,15.0,Tier 1 - National / International,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Chhatrapati Sambhajinagar,2026-01-23,2026-01-25,EVT-0026,2026-01-23,2026-01-25,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Jaisalmer,2026-02-08,2026-02-10,EVT-0027,2026-02-08,2026-02-10,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Jodhpur,2026-10-22,2026-10-26,EVT-0028,2026-10-22,2026-10-26,15.0,Tier 2 - State / Regional Significance,Music,Music,HIGH,Active,4,0,0,5
+Jodhpur,2026-10-25,2026-10-26,EVT-0029,2026-10-25,2026-10-26,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Jaipur,2026-08-15,2026-08-16,EVT-0030,2026-08-15,2026-08-16,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Kullu,2026-10-21,2026-10-27,EVT-0031,2026-10-21,2026-10-27,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Mandi,2026-02-16,2026-02-23,EVT-0032,2026-02-16,2026-02-23,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Chamba,2026-07-26,2026-08-02,EVT-0033,2026-07-26,2026-08-02,15.0,Tier 2 - State / Regional Significance,Harvest,Harvest,HIGH,Active,4,0,0,5
+Rishikesh,2026-03-01,2026-03-07,EVT-0034,2026-03-01,2026-03-07,15.0,Tier 2 - State / Regional Significance,Wellness,Wellness,HIGH,Active,4,0,0,5
+Haridwar,2026-01-14,2026-04-14,EVT-0035,2026-01-14,2026-04-14,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Anandpur Sahib,2026-03-04,2026-03-06,EVT-0036,2026-03-04,2026-03-06,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Amritsar,2026-01-13,2026-01-13,EVT-0037,2026-01-13,2026-01-13,15.0,Tier 2 - State / Regional Significance,Harvest,Harvest,HIGH,Active,4,0,0,5
+Srinagar,2026-03-25,2026-04-15,EVT-0038,2026-03-25,2026-04-15,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Srinagar,2026-07-10,2026-07-12,EVT-0039,2026-07-10,2026-07-12,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Ziro,2026-09-24,2026-09-27,EVT-0040,2026-09-24,2026-09-27,15.0,Tier 2 - State / Regional Significance,Music,Music,HIGH,Active,4,0,0,5
+Tawang,2026-10-28,2026-10-31,EVT-0041,2026-10-28,2026-10-31,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Shillong,2026-11-15,2026-11-18,EVT-0042,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Asanang (Tura),2026-11-12,2026-11-14,EVT-0043,2026-11-12,2026-11-14,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Imphal,2026-11-21,2026-11-30,EVT-0044,2026-11-21,2026-11-30,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Aizawl,2026-03-06,2026-03-07,EVT-0045,2026-03-06,2026-03-07,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Hampi,2026-11-03,2026-11-05,EVT-0046,2026-11-03,2026-11-05,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Bengaluru,2026-04-11,2026-04-12,EVT-0047,2026-04-11,2026-04-12,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Jagdalpur,2026-08-15,2026-10-23,EVT-0048,2026-08-15,2026-10-23,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Jhabua,2026-03-18,2026-03-24,EVT-0049,2026-03-18,2026-03-24,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Gwalior,2026-12-22,2026-12-26,EVT-0050,2026-12-22,2026-12-26,15.0,Tier 2 - State / Regional Significance,Music,Music,HIGH,Active,4,0,0,5
+Mathura / Barsana,2026-03-15,2026-03-16,EVT-0051,2026-03-15,2026-03-16,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Varanasi,2026-11-24,2026-11-24,EVT-0052,2026-11-24,2026-11-24,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Agra,2026-02-18,2026-02-27,EVT-0053,2026-02-18,2026-02-27,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Rajgir,2026-11-28,2026-11-30,EVT-0054,2026-11-28,2026-11-30,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Sonepur,2026-11-20,2026-12-20,EVT-0055,2026-11-20,2026-12-20,15.0,Tier 2 - State / Regional Significance,Livestock / Melas,Livestock / Melas,HIGH,Active,4,0,0,5
+Port Blair,2026-01-15,2026-01-18,EVT-0056,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Lepakshi,2026-02-15,2026-02-18,EVT-0057,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Visakhapatnam,2026-12-15,2026-12-18,EVT-0058,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Daporijo,2026-01-15,2026-01-18,EVT-0059,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Pasighat,2026-09-15,2026-09-18,EVT-0060,2026-09-15,2026-09-18,15.0,Tier 2 - State / Regional Significance,Harvest,Harvest,HIGH,Active,4,0,0,5
+Majuli,2026-11-15,2026-11-18,EVT-0061,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Sivasagar,2026-01-15,2026-01-18,EVT-0062,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Bodh Gaya,2026-05-15,2026-05-18,EVT-0063,2026-05-15,2026-05-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Vaishali,2026-04-15,2026-04-18,EVT-0064,2026-04-15,2026-04-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Chandigarh,2026-02-15,2026-02-18,EVT-0065,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Nature,Nature,HIGH,Active,4,0,0,5
+Sirpur,2026-01-15,2026-01-18,EVT-0066,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Daman,2026-12-15,2026-12-18,EVT-0067,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Delhi,2026-11-15,2026-11-18,EVT-0068,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Delhi,2026-11-15,2026-11-18,EVT-0069,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Music,Music,HIGH,Active,4,0,0,5
+Shigmo / Panaji,2026-03-15,2026-03-18,EVT-0070,2026-03-15,2026-03-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Modhera,2026-01-15,2026-01-18,EVT-0071,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Junagadh,2026-02-15,2026-02-18,EVT-0072,2026-02-15,2026-02-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Kurukshetra,2026-12-15,2026-12-18,EVT-0073,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Pinjore,2026-12-15,2026-12-18,EVT-0074,2026-12-15,2026-12-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Shimla,2026-06-15,2026-06-18,EVT-0075,2026-06-15,2026-06-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Dharamshala,2026-11-15,2026-11-18,EVT-0076,2026-11-15,2026-11-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Ranchi,2026-04-15,2026-04-18,EVT-0077,2026-04-15,2026-04-18,15.0,Tier 2 - State / Regional Significance,Tribal,Tribal,HIGH,Active,4,0,0,5
+Deoghar,2026-07-15,2026-07-18,EVT-0078,2026-07-15,2026-07-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Pattadakal,2026-01-15,2026-01-18,EVT-0079,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Heritage,Heritage,HIGH,Active,4,0,0,5
+Udupi,2026-01-15,2026-01-18,EVT-0080,2026-01-15,2026-01-18,15.0,Tier 2 - State / Regional Significance,Spiritual,Spiritual,HIGH,Active,4,0,0,5
+Kottayam,2026-09-15,2026-09-18,EVT-0081,2026-09-15,2026-09-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5
+Wayanad,2026-07-15,2026-07-18,EVT-0082,2026-07-15,2026-07-18,15.0,Tier 2 - State / Regional Significance,Tourism,Tourism,HIGH,Active,4,0,0,5
+Zanskar,2026-07-15,2026-07-18,EVT-0083,2026-07-15,2026-07-18,15.0,Tier 2 - State / Regional Significance,Culture,Culture,HIGH,Active,4,0,0,5

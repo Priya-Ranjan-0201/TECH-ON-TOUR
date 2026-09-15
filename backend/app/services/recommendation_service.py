@@ -6,7 +6,7 @@ TravelSathi Two-Stage Recommendation Engine (V2.0 Master Upgrade).
 
 import math
 import logging
-from datetime import datetime, date
+from datetime import datetime, date, timezone
 from typing import List, Dict, Any, Optional
 from sqlalchemy import select, or_, and_, desc
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,6 +16,11 @@ from app.services.graph_recommender import graph_recommender
 from app.services.external_data import fetch_weather_forecast, fetch_upcoming_festivals
 
 logger = logging.getLogger("recommendation_service")
+
+
+def get_current_hourly_token() -> str:
+    """Generate active synchronized hourly token for real-time live data refresh."""
+    return f"tok_hourly_{datetime.now(timezone.utc).strftime('%Y%m%d_%H00')}"
 
 
 def haversine_distance_km(lat1: float, lon1: float, lat2: float, lon2: float) -> float:
@@ -128,6 +133,7 @@ class RecommendationEngine:
         dest_text = f"{cat_lower} {dest.name or ''} {dest.description or ''}".lower()
         interest_overlap_score = round(sum(1 for s in pref_styles if s in dest_text) / max(len(pref_styles), 1), 3) if pref_styles else 0.0
         past_category_affinity = 0.85 if (pref_styles and any(s in cat_lower for s in pref_styles)) else 0.20
+        price_str = str(dest.price_range or "").lower()
         user_tier = (user_pref.budget_tier or "mid").lower() if user_pref else "mid"
         price_tier_match = 1 if user_tier in price_str else (1 if price_str == "" else 0)
 
@@ -137,7 +143,6 @@ class RecommendationEngine:
         d_km = float(distance_km if distance_km is not None else 65.0)
         rating_val = float(dest.rating or 4.0)
         rev_count = int(dest.review_count or 50)
-        price_str = str(dest.price_range or "").lower()
 
         feature_registry: Dict[str, Any] = {
             "interest_overlap_score": interest_overlap_score,
@@ -166,14 +171,13 @@ class RecommendationEngine:
             "is_mid": 1 if price_str == "mid" else 0,
         }
 
-        if self.ml_feature_names:
-            row = {col: feature_registry.get(col, 0.0) for col in self.ml_feature_names}
-            return pd.DataFrame([row], columns=self.ml_feature_names)
-
-        # Fallback to model's expected feature count if feature_names_in_ not set
-        n_feats = getattr(self.ml_model, "n_features_in_", 7)
-        fallback_vals = [interest_overlap_score, d_km, s_match, past_category_affinity, rating_val, price_tier_match, min(rev_count, 1000)][:n_feats]
-        return pd.DataFrame([fallback_vals])
+        feature_cols = self.ml_feature_names or [
+            "interest_overlap_score", "distance_km", "season_match",
+            "past_category_affinity", "avg_rating", "price_tier_match",
+            "global_popularity_30d"
+        ]
+        row = {col: feature_registry.get(col, 0.0) for col in feature_cols}
+        return pd.DataFrame([row], columns=feature_cols)
 
     def rank_destinations(self, candidate_df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -227,6 +231,19 @@ class RecommendationEngine:
             "keywords": season_keywords
         }
 
+    @staticmethod
+    def _get_base_tourist_filters():
+        """Strict quality and tourist destination validation filters."""
+        non_tourist_cats = ["hospital", "clinic", "dispensary", "medical", "police", "emergency", "healthcare", "pharmacy"]
+        non_tourist_names = ["%hospital%", "%clinic%", "%dispensary%", "%medical college%", "%police%"]
+        return [
+            DestinationMaster.image_url.isnot(None),
+            DestinationMaster.image_url.like("http%"),
+            ~DestinationMaster.image_url.like("?%"),
+            ~DestinationMaster.category.in_(non_tourist_cats),
+            and_(*[~DestinationMaster.name.ilike(kw) for kw in non_tourist_names])
+        ]
+
     async def generate_candidates(
         self,
         session: AsyncSession,
@@ -235,31 +252,38 @@ class RecommendationEngine:
         user_pref: Optional[UserPreference] = None,
         limit_pool: int = 150
     ) -> List[DestinationMaster]:
-        """Stage 1: Candidate Generation across multiple diverse channels."""
+        """Stage 1: Candidate Generation across multiple diverse channels with strict quality validation."""
         candidates = {}
         season_info = self.get_current_season_info()
+        cur_m = season_info.get("month") or date.today().month
+        base_filters = self._get_base_tourist_filters()
 
-        # 1. Seasonal Candidate Slice
+        # 1. Seasonal Candidate Slice (prioritize current season match)
         stmt_season = (
             select(DestinationMaster)
             .where(
-                DestinationMaster.image_url.isnot(None),
-                DestinationMaster.image_url != "",
+                *base_filters,
                 DestinationMaster.rating >= 4.0
             )
             .order_by(desc(DestinationMaster.rating), desc(DestinationMaster.review_count))
-            .limit(60)
+            .limit(100)
         )
         res_season = await session.execute(stmt_season)
-        for dest in res_season.scalars().all():
+        season_dests = res_season.scalars().all()
+        # Sort so currently active season matches come first
+        season_dests_sorted = sorted(
+            season_dests,
+            key=lambda d: (season_match(cur_m, d.best_season or ""), d.rating or 0.0),
+            reverse=True
+        )
+        for dest in season_dests_sorted[:60]:
             candidates[dest.id] = dest
 
         # 2. Hidden Gems Slice (Anti-overtourism verified)
         stmt_hidden = (
             select(DestinationMaster)
             .where(
-                DestinationMaster.image_url.isnot(None),
-                DestinationMaster.image_url != "",
+                *base_filters,
                 DestinationMaster.is_hidden_gem == True
             )
             .order_by(desc(DestinationMaster.safety_score), desc(DestinationMaster.rating))
@@ -275,8 +299,7 @@ class RecommendationEngine:
             stmt_near = (
                 select(DestinationMaster)
                 .where(
-                    DestinationMaster.image_url.isnot(None),
-                    DestinationMaster.image_url != "",
+                    *base_filters,
                     DestinationMaster.latitude.between(lat - 2.5, lat + 2.5),
                     DestinationMaster.longitude.between(lng - 2.5, lng + 2.5)
                 )
@@ -295,8 +318,7 @@ class RecommendationEngine:
                 stmt_pref = (
                     select(DestinationMaster)
                     .where(
-                        DestinationMaster.image_url.isnot(None),
-                        DestinationMaster.image_url != "",
+                        *base_filters,
                         or_(*conditions)
                     )
                     .order_by(desc(DestinationMaster.rating))
@@ -309,8 +331,7 @@ class RecommendationEngine:
         # Fallback if pool is small - only pick destinations with verified photos
         if len(candidates) < 30:
             stmt_fallback = select(DestinationMaster).where(
-                DestinationMaster.image_url.isnot(None),
-                DestinationMaster.image_url != ""
+                *base_filters
             ).limit(80)
             res_fallback = await session.execute(stmt_fallback)
             for dest in res_fallback.scalars().all():
@@ -405,7 +426,7 @@ class RecommendationEngine:
                     dest=dest,
                     distance_km=distance_km,
                     user_pref=user_pref,
-                    season_match=season_match,
+                    season_match=bool(is_s_match),
                     weather_condition=weather_condition,
                     cat_lower=cat_lower,
                     is_indoor=is_indoor,
@@ -506,11 +527,13 @@ class RecommendationEngine:
                     "is_hidden_gem": d.is_hidden_gem,
                     "safety_score": d.safety_score,
                     "crowd_density_score": d.crowd_density_score,
+                    "hourly_token": get_current_hourly_token(),
                     "description": d.description[:180] + "..." if len(d.description) > 180 else d.description
                 },
                 "score": s_data["score"],
                 "distance_km": s_data["distance_km"],
                 "drive_time_min": s_data["drive_time_min"],
+                "hourly_token": get_current_hourly_token(),
                 "reason": s_data["reason"],
                 "all_reasons": s_data["all_reasons"]
             })
@@ -522,19 +545,17 @@ class RecommendationEngine:
         allocated_ids = set()
 
         def pick_distinct_rail(pool: List[Dict[str, Any]], target_k: int = 6) -> List[Dict[str, Any]]:
-            # Candidates not yet allocated in earlier rails
+            # Candidates strictly not yet allocated in earlier rails
             available = [it for it in pool if it["destination"]["id"] not in allocated_ids]
             if len(available) < target_k:
                 # Top-up from general scored candidates not yet allocated
                 for it in scored:
-                    if it["destination"]["id"] not in allocated_ids and it not in available:
+                    if it["destination"]["id"] not in allocated_ids and not any(a["destination"]["id"] == it["destination"]["id"] for a in available):
                         available.append(it)
                     if len(available) >= target_k:
                         break
-            # Fallback if inventory is completely exhausted
-            if len(available) < target_k:
-                available = pool
             chosen = self.apply_diversity(available, target_k)
+            # Mark all chosen as allocated
             for ch in chosen:
                 allocated_ids.add(ch["destination"]["id"])
             return chosen
@@ -555,69 +576,93 @@ class RecommendationEngine:
         rail_seasonal = pick_distinct_rail(seasonal_items or scored, 6)
 
         # 3. Near You Right Now Rail - DEDICATED SPATIAL QUERY (bypasses shared candidate pool)
-        has_valid_gps = (
-            lat is not None and lng is not None 
-            and 6.5 <= lat <= 37.5 and 68.0 <= lng <= 97.5
-        )
-
-        rail_near = []
-        if has_valid_gps:
-            # Dedicated spatial query: fetch places within ~0.5° bounding box (~55km)
-            # This bypasses the shared candidate pool to ensure local places are always found
-            stmt_nearby = (
-                select(DestinationMaster)
-                .where(
-                    DestinationMaster.image_url.isnot(None),
-                    DestinationMaster.image_url != "",
-                    DestinationMaster.latitude.between(lat - 0.5, lat + 0.5),
-                    DestinationMaster.longitude.between(lng - 0.5, lng + 0.5)
+        # Check user live location if lat/lng not provided in request
+        if not (lat is not None and lng is not None and 6.5 <= lat <= 37.5 and 68.0 <= lng <= 97.5):
+            if user_id:
+                res_loc = await session.execute(
+                    select(LiveLocation).where(LiveLocation.user_id == user_id)
                 )
-                .order_by(desc(DestinationMaster.rating))
-                .limit(80)
+                user_loc = res_loc.scalar_one_or_none()
+                if user_loc and user_loc.latitude and user_loc.longitude:
+                    lat = user_loc.latitude
+                    lng = user_loc.longitude
+
+        if not (lat is not None and lng is not None and 6.5 <= lat <= 37.5 and 68.0 <= lng <= 97.5):
+            res_any_loc = await session.execute(
+                select(LiveLocation).order_by(LiveLocation.updated_at.desc()).limit(1)
             )
-            res_nearby = await session.execute(stmt_nearby)
-            nearby_dests = res_nearby.scalars().all()
+            any_loc = res_any_loc.scalar_one_or_none()
+            if any_loc and any_loc.latitude and any_loc.longitude:
+                lat = any_loc.latitude
+                lng = any_loc.longitude
+            else:
+                lat = 31.2619
+                lng = 75.7030
 
-            # Calculate real haversine distances and filter to strict 45km
-            near_scored = []
-            for nd in nearby_dests:
-                if nd.latitude and nd.longitude:
-                    dist = haversine_distance_km(lat, lng, nd.latitude, nd.longitude)
-                    if dist <= 45.0:
-                        drive_min = estimate_drive_time_minutes(dist)
-                        near_scored.append({
-                            "destination": {
-                                "id": nd.id,
-                                "name": nd.name,
-                                "state": nd.state,
-                                "category": nd.category,
-                                "latitude": nd.latitude,
-                                "longitude": nd.longitude,
-                                "rating": nd.rating,
-                                "review_count": nd.review_count,
-                                "price_range": nd.price_range,
-                                "best_season": nd.best_season,
-                                "image_url": nd.image_url,
-                                "is_hidden_gem": nd.is_hidden_gem,
-                                "safety_score": nd.safety_score,
-                                "crowd_density_score": nd.crowd_density_score,
-                                "description": nd.description[:180] + "..." if len(nd.description or "") > 180 else (nd.description or "")
-                            },
-                            "score": round((nd.rating / 5.0) * 50 + max(0, 25 * (1 - dist / 45.0)), 2),
-                            "distance_km": dist,
-                            "drive_time_min": drive_min,
-                            "reason": f"Only {int(dist)} km away (~{drive_min} min drive)",
-                            "all_reasons": [f"Only {int(dist)} km away (~{drive_min} min drive)"]
-                        })
+        has_valid_gps = bool(lat is not None and lng is not None and 6.5 <= lat <= 37.5 and 68.0 <= lng <= 97.5)
+        eff_lat = lat
+        eff_lng = lng
 
-            # Sort by distance (closest first) and take top 6
-            near_scored.sort(key=lambda x: x["distance_km"])
-            if len(near_scored) >= 2:
-                for it in near_scored[:6]:
-                    dist_val = it["distance_km"]
-                    dist_str = f"{dist_val:.1f}" if dist_val < 10 else f"{int(round(dist_val))}"
-                    it["hook"] = f"{dist_str} km away · {it['destination']['rating']}★"
-                rail_near = near_scored[:6]
+        # Query genuine nearby destinations within 100km (~0.9 deg latitude)
+        stmt_nearby = (
+            select(DestinationMaster)
+            .where(
+                *self._get_base_tourist_filters(),
+                DestinationMaster.latitude.between(eff_lat - 1.0, eff_lat + 1.0),
+                DestinationMaster.longitude.between(eff_lng - 1.2, eff_lng + 1.2)
+            )
+            .order_by(desc(DestinationMaster.rating))
+            .limit(150)
+        )
+        res_nearby = await session.execute(stmt_nearby)
+        nearby_dests = res_nearby.scalars().all()
+
+        near_scored = []
+        for nd in nearby_dests:
+            if nd.latitude and nd.longitude and nd.id not in allocated_ids:
+                dist = haversine_distance_km(eff_lat, eff_lng, nd.latitude, nd.longitude)
+                # STRICT REQUIREMENT: Only places genuinely under 100 km from user
+                if dist <= 100.0:
+                    drive_min = estimate_drive_time_minutes(dist)
+                    near_scored.append({
+                        "destination": {
+                            "id": nd.id,
+                            "name": nd.name,
+                            "state": nd.state,
+                            "category": nd.category,
+                            "latitude": nd.latitude,
+                            "longitude": nd.longitude,
+                            "rating": nd.rating,
+                            "review_count": nd.review_count,
+                            "price_range": nd.price_range,
+                            "best_season": nd.best_season,
+                            "image_url": nd.image_url,
+                            "is_hidden_gem": nd.is_hidden_gem,
+                            "safety_score": nd.safety_score,
+                            "crowd_density_score": nd.crowd_density_score,
+                            "hourly_token": get_current_hourly_token(),
+                            "description": nd.description[:180] + "..." if len(nd.description or "") > 180 else (nd.description or "")
+                        },
+                        "score": round((nd.rating / 5.0) * 50 + max(0, 50 * (1 - dist / 100.0)), 2),
+                        "distance_km": dist,
+                        "drive_time_min": drive_min,
+                        "hourly_token": get_current_hourly_token(),
+                        "reason": f"Only {dist:.1f} km away (~{drive_min} min drive)",
+                        "all_reasons": [f"Only {dist:.1f} km away (~{drive_min} min drive)"]
+                    })
+
+        # Sort strictly by genuine geographic distance ascending
+        near_scored.sort(key=lambda x: x["distance_km"])
+        rail_near = []
+        for it in near_scored:
+            if it["destination"]["id"] not in allocated_ids:
+                dist_val = it["distance_km"]
+                dist_str = f"{dist_val:.1f}" if dist_val < 10 else f"{int(round(dist_val))}"
+                it["hook"] = f"{dist_str} km away · {it['drive_time_min']}m drive"
+                rail_near.append(it)
+                allocated_ids.add(it["destination"]["id"])
+                if len(rail_near) >= 6:
+                    break
 
         # 4. Because You Liked... Rail (Grounded in search graph & heritage)
         heritage_items = [item for item in scored if "heritage" in item["destination"]["category"].lower() or item["destination"]["rating"] >= 4.4]
@@ -635,17 +680,24 @@ class RecommendationEngine:
         rail_popular = pick_distinct_rail(popular_items, 6)
 
         for it in rail_seasonal:
-            it["hook"] = f"Best in {season_info['season_name'].lower()} · {it['destination']['rating']}★"
+            b_season = it["destination"].get("best_season")
+            if b_season and b_season != "All Season":
+                it["hook"] = f"Peak season: {b_season} weather"
+            else:
+                it["hook"] = f"Prime {season_info['season_name']} conditions"
         for it in rail_recommended:
-            it["hook"] = f"Curated for you · {it['destination']['rating']}★"
+            if it.get("reason") and not it["reason"].startswith("Highly rated"):
+                it["hook"] = it["reason"]
+            else:
+                it["hook"] = f"Matches your love for {user_pref.travel_style.capitalize()}"
         for it in rail_because_liked:
-            it["hook"] = f"Top heritage wonder · {it['destination']['rating']}★"
+            it["hook"] = f"Architectural wonder · {it['destination']['state']}"
         for it in rail_popular:
-            it["hook"] = f"Trending · {it['destination']['rating']}★"
+            it["hook"] = f"Trending destination · {it['destination']['review_count']} reviews"
         for it in rail_hidden:
-            it["hook"] = f"Peaceful hidden gem · {it['destination']['rating']}★"
+            it["hook"] = f"Peaceful hidden gem · Low crowds"
         for it in rail_today:
-            it["hook"] = f"Ideal today · {it['destination']['rating']}★"
+            it["hook"] = f"Pleasant conditions today"
 
         rails_list = [
             {
@@ -659,19 +711,13 @@ class RecommendationEngine:
                 "title": f"Because it's {season_info['season_name']} in India",
                 "subtitle": f"Curated destinations experiencing prime weather and active seasonal flora right now",
                 "items": rail_seasonal
-            }
-        ]
-
-        # STRICT: Only include "Near you" if user GPS is available AND accurate real places are found nearby
-        if rail_near:
-            rails_list.append({
+            },
+            {
                 "id": "near_you",
                 "title": "Near your current location",
                 "subtitle": "Calculated by live GPS distance and estimated travel drive time",
                 "items": rail_near
-            })
-
-        rails_list.extend([
+            },
             {
                 "id": "because_you_liked",
                 "title": "Because you explored Cultural & Heritage places",
@@ -696,12 +742,13 @@ class RecommendationEngine:
                 "subtitle": "Highest booked and actively explored destinations across India this month",
                 "items": rail_popular
             }
-        ])
+        ]
 
         return {
             "status": "success",
             "season": season_info["season_name"],
             "has_gps": bool(has_valid_gps and rail_near),
+            "hourly_token": get_current_hourly_token(),
             "rails": rails_list
         }
 
@@ -766,9 +813,7 @@ class RecommendationEngine:
             row_subtitle = f"Curated destinations experiencing prime weather and active seasonal flora right now"
             # 2.1 Seasonal row: Filter to destinations where season_match == 1 FIRST
             cur_month = season_info.get("month") or date.today().month
-            where_clauses = [
-                DestinationMaster.image_url.isnot(None),
-                DestinationMaster.image_url != "",
+            where_clauses = list(self._get_base_tourist_filters()) + [
                 DestinationMaster.best_season.isnot(None),
                 DestinationMaster.best_season != ""
             ]
@@ -785,17 +830,14 @@ class RecommendationEngine:
             # Per-row evaluation wrapping year
             matched_cands = [d for d in all_cands if season_match(cur_month, d.best_season) == 1]
             candidates = matched_cands[:40] if matched_cands else all_cands[:40]
-            hook_pattern = f"Best in {season_name.lower()} · {{rating}}★"
+            hook_pattern = f"Peak {season_name.lower()} weather · {{rating}}★"
 
         elif norm_type in ["nearby", "near"]:
             if lat is not None and lng is not None:
                 row_title = "Near your current location"
                 row_subtitle = "High-rated attractions and natural getaways within easy road journey distance"
                 # 2.1 Nearby row: Filter to destinations within real distance radius (<150km) FIRST
-                where_clauses = [
-                    DestinationMaster.image_url.isnot(None),
-                    DestinationMaster.image_url != ""
-                ]
+                where_clauses = list(self._get_base_tourist_filters())
                 if excluded_set:
                     where_clauses.append(DestinationMaster.id.notin_(list(excluded_set)))
                 all_res = await session.execute(select(DestinationMaster).where(*where_clauses))
@@ -826,10 +868,7 @@ class RecommendationEngine:
                 # Cold-start fallback: Popular regional transit escapes
                 row_title = "Near popular travel hubs"
                 row_subtitle = "Top weekend getaways easily accessible from major transit centers"
-                where_clauses = [
-                    DestinationMaster.image_url.isnot(None),
-                    DestinationMaster.image_url != ""
-                ]
+                where_clauses = list(self._get_base_tourist_filters())
                 if excluded_set:
                     where_clauses.append(DestinationMaster.id.notin_(list(excluded_set)))
                 stmt = (
@@ -868,9 +907,7 @@ class RecommendationEngine:
             if top_category:
                 row_title = f"Because you explored {top_category.replace('_', ' ').capitalize()} places"
                 row_subtitle = f"Handpicked similar destinations tailored to your demonstrated interest in {top_category}"
-                where_clauses = [
-                    DestinationMaster.image_url.isnot(None),
-                    DestinationMaster.image_url != "",
+                where_clauses = list(self._get_base_tourist_filters()) + [
                     DestinationMaster.category.ilike(f"%{top_category}%")
                 ]
                 if excluded_set:
@@ -888,10 +925,7 @@ class RecommendationEngine:
                 # If user has zero history, this row falls back to trending, not silently showing unfiltered list
                 row_title = "Trending with travelers like you"
                 row_subtitle = "Highest booked and actively explored destinations across India this month"
-                where_clauses = [
-                    DestinationMaster.image_url.isnot(None),
-                    DestinationMaster.image_url != ""
-                ]
+                where_clauses = list(self._get_base_tourist_filters())
                 if excluded_set:
                     where_clauses.append(DestinationMaster.id.notin_(list(excluded_set)))
                 stmt = (
@@ -908,10 +942,7 @@ class RecommendationEngine:
             # 2.1 Trending row: Rank by global_popularity_30d as the PRIMARY sort key
             row_title = "Trending with travelers like you"
             row_subtitle = "Highest booked and actively explored destinations across India this month"
-            where_clauses = [
-                DestinationMaster.image_url.isnot(None),
-                DestinationMaster.image_url != ""
-            ]
+            where_clauses = list(self._get_base_tourist_filters())
             if excluded_set:
                 where_clauses.append(DestinationMaster.id.notin_(list(excluded_set)))
             stmt = (
@@ -927,10 +958,7 @@ class RecommendationEngine:
         else:  # 'personal' / 'for_you' / default
             row_title = f"Here's what's calling you this {season_name.lower()}"
             row_subtitle = f"AI Personalized for your travel twin style and current season in India"
-            where_clauses = [
-                DestinationMaster.image_url.isnot(None),
-                DestinationMaster.image_url != ""
-            ]
+            where_clauses = list(self._get_base_tourist_filters())
             if user_travel_style:
                 where_clauses.append(or_(
                     DestinationMaster.category.ilike(f"%{user_travel_style}%"),
@@ -950,10 +978,7 @@ class RecommendationEngine:
 
         # Cold-start safety guard: If candidates is empty or sparse, fill from general catalog
         if len(candidates) < limit:
-            fb_clauses = [
-                DestinationMaster.image_url.isnot(None),
-                DestinationMaster.image_url != ""
-            ]
+            fb_clauses = list(self._get_base_tourist_filters())
             if excluded_set:
                 fb_clauses.append(DestinationMaster.id.notin_(list(excluded_set)))
             fallback_res = await session.execute(
@@ -1032,7 +1057,8 @@ class RecommendationEngine:
                 "distance_km": dist_km,
                 "hook": hook,
                 "score": round(score, 4),
-                "is_hidden_gem": dest.is_hidden_gem or False
+                "is_hidden_gem": dest.is_hidden_gem or False,
+                "hourly_token": get_current_hourly_token()
             })
 
         # Sort by score descending
@@ -1062,6 +1088,7 @@ class RecommendationEngine:
             "title": row_title,
             "subtitle": row_subtitle,
             "count": len(diverse_top),
+            "hourly_token": get_current_hourly_token(),
             "destinations": diverse_top
         }
 

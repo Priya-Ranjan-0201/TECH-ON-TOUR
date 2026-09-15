@@ -241,9 +241,34 @@ All 7 models have automated unit tests verifying execution, edge cases, and grac
 TravelSathi operates an unattended data pipeline to ensure real-time responsiveness to weather events, holiday surges, and tourism pressures:
 
 1. **Lifespan Startup Trigger**: `backend/app/main.py` kicks off `run_hourly_refresh()` asynchronously at server initialization and schedules a recurring 60-minute background job.
-2. **Hourly Token Ingestion**: Generates tokens following the `tok_hourly_YYYYMMDD_HH00` specification (e.g. `tok_hourly_20260912_0900`), attaching the token to catalog queries and cache headers.
+2. **Hourly Token Ingestion**: Generates tokens following the `tok_hourly_YYYYMMDD_HH00` specification (e.g. `tok_hourly_20260915_0400`), attaching the token to catalog queries and cache headers.
 3. **External Cron Ingestion**: GitHub Actions workflow [`.github/workflows/hourly_pipeline.yml`](file:///c:/Users/PRIYE%20RANJAN/OneDrive/Desktop/SIH/.github/workflows/hourly_pipeline.yml) triggers `POST /api/jobs/hourly` at minute 0 of every hour.
 4. **Execution Audit**: Every run logs duration, status, and candidate metrics to the `pipeline_runs` table (`GET /api/pipeline_runs`).
+
+---
+
+## 12. Multilingual Internationalization (i18n) Architecture
+
+TravelSathi achieves complete localization across 7 official Indic languages:
+* **Languages**: Hindi (hi), Marathi (mr), Bengali (bn), Tamil (ta), Telugu (te), Gujarati (gu), and English (en).
+* **Two-Layer Translation**:
+  1. *Static UI Dictionary*: `frontend/src/locales/*.json` managed via `i18next` for buttons, navigation, headers, forms, and alerts.
+  2. *Dynamic Linguistic Engine*: [`summaryTranslator.ts`](file:///c:/Users/PRIYE%20RANJAN/OneDrive/Desktop/SIH/frontend/src/utils/summaryTranslator.ts) featuring parametric regex translation for live distances (`X km away`), event durations, confidence tiers, festival names, and dossier fields (significance, traditional foods, local crafts, transit guidance).
+
+---
+
+## 13. Emergency & Tourist Essentials Spatial Mesh Architecture
+
+A dedicated geospatial services layer built directly on the Leaflet/PostGIS coordinate grid:
+* **Coverage**: 548+ verified health and tourism establishments across all 36 States and Union Territories.
+* **Service Tiers**:
+  * Level-1 Trauma Emergency Hospitals with direct `tel:108` ambulance dispatch.
+  * Verified Hotels & Certified Homestays with verified host pricing and amenities.
+  * Regional Dining & Dhabas with hygiene classifications and cuisine specialties.
+* **Spatial Interactive Controls**:
+  * One-click `tel:` emergency call links embedded directly in Leaflet popup bubbles and side cards.
+  * Client-side Sub-Category Filter pills (`All`, `Hospitals`, `Hotels`, `Homestays`, `Dining`) with live cluster updates.
+  * In-app OpenRouteService road routing with external Google Maps navigation fallback.
 
 ---
 *Technical Architecture finalized for TravelSathi V3.0 Production & SIH National Grand Finale.*

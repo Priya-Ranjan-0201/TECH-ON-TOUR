@@ -1,0 +1,13 @@
+category_id,category_name,description,color_code,icon
+CAT-01,Culture,"Folk, Theatre, Literature, and Heritage Melas",#0d9488,Sparkles
+CAT-02,Spiritual,"Sacred Temple Melas, Pilgrimages, and Ceremonies",#d97706,Flame
+CAT-03,Tribal,"Indigenous Traditions, Tribal Dances, and Folklore",#8C3618,Users
+CAT-04,Harvest,Agricultural Thanksgiving and Seasonal New Years,#16a34a,Leaf
+CAT-05,Heritage,"Fort, Palace, and Archaeological Celebrations",#2563eb,Landmark
+CAT-06,Livestock / Melas,"Historic Camel, Cattle, and Trade Fairs",#ea580c,Compass
+CAT-07,Tourism,Destination Festivals and Tourism Showcases,#0284c7,MapPin
+CAT-08,Food,Culinary Fairs and Regional Taste Trails,#c2410c,Utensils
+CAT-09,Music,"Classical, Folk, and Indie Music Gatherings",#7c3aed,Music
+CAT-10,Arts & Crafts,"Handicrafts, Handlooms, and Artisan Fairs",#db2777,Palette
+CAT-11,Wellness,"Yoga, Ayurveda, and Meditation Retreats",#059669,HeartPulse
+CAT-12,Adventure,"High-altitude Sports, Boat Races, and Expeditions",#b45309,Trophy

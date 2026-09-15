@@ -398,7 +398,7 @@ export default function AdminDashboardView() {
                 className="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs flex items-center gap-1.5 font-bold shadow-md cursor-pointer disabled:opacity-50 transition-colors"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${refreshingHourly ? 'animate-spin' : ''}`} />
-                <span>{refreshingHourly ? 'Refreshing Live Signals...' : '⚡ Refresh Live Signals (Hourly)'}</span>
+                <span>{refreshingHourly ? 'Refreshing Live Signals...' : '⚡ Refresh Now (Hourly Signals)'}</span>
               </button>
               <button
                 onClick={handleTriggerPipeline}

@@ -287,4 +287,56 @@ For the TravelSathi platform, exactly 3 specialized models are trained and deplo
 * **Serving & Fallback:** Built into `backend/app/services/review_service.py`. If the model is unavailable or fails, **no trust badge is displayed** (`has_badge=False, authenticity_label=None`). An absent badge is honest; an invented badge is not.
 
 ---
-*Technical Architecture finalized for TravelSathi V2.0 Production & SIH National Grand Finale.*
+
+### 8.4 Multilingual Internationalization Engine (7 Indic Languages)
+
+* **Coverage**: English, Hindi (hi), Marathi (mr), Bengali (bn), Tamil (ta), Telugu (te), Gujarati (gu).
+* **Architecture**:
+  - Two-tier localization system: Static JSON dictionaries for core navigational UI controls and a dynamic parametric engine (`summaryTranslator.ts`).
+  - Dynamic parametric translation for distances (`X km away`), event durations (`X Hours`), confidence scores, and festival dossiers (history, cultural etiquette, transit, traditional food).
+  - Cultural event modal dossier support for canonical festivals (Durga Puja, Hornbill, Pushkar, Bihu, Mysuru Dasara, etc.).
+
+---
+
+### 8.5 Emergency & Tourist Essentials Spatial Mesh (548+ Facilities)
+
+* **Coverage**: 548+ verified facilities distributed across all 36 States and Union Territories.
+* **Architecture**:
+  - 4 primary categories: Level-1 Emergency Hospitals, Verified Star Hotels, Certified Community Homestays, and Authentic Regional Dining/Dhabas.
+  - Interactive Leaflet.js pins and popups with 1-click `tel:` direct emergency calling (`tel:108` / `tel:...`), operational hours, star ratings, price tiers, and rich descriptions.
+  - Real-time category filter pills (`[All]`, `[🏥 Hospitals]`, `[🏨 Hotels]`, `[🏡 Homestays]`, `[🍽️ Dining]`) with instant cluster re-aggregation.
+
+---
+
+## 9. Destination Potential Scoring Engine & Cold-Start Telemetry
+
+### 9.1 Mathematical Formulation
+The Destination Potential Score is a normalized 0–100 index evaluated across 6 weighted factors:
+$$\text{Score} = 100 \times \left( 0.30 \cdot F_{\text{attraction}} + 0.20 \cdot F_{\text{demand}} + 0.15 \cdot F_{\text{significance}} + 0.15 \cdot F_{\text{growth}} + 0.10 \cdot F_{\text{access}} + 0.10 \cdot F_{\text{season}} \right)$$
+
+1. **Attraction Strength (30%)**: Agglomeration density of heritage/cultural POIs within the district/state plus a 0.20 uniqueness bonus for hidden gems, clamped to $[0, 1.0]$.
+2. **Tourism Demand (20%)**: 30-day interaction velocity from `destination_interactions` relative to peak platform destination velocity.
+3. **Cultural/Natural Significance (15%)**: Heritage status grading:
+   - `unesco`: $1.0$
+   - `asi_protected`: $0.7$
+   - `state_recognized`: $0.4$
+   - `unlisted`: $0.1$
+4. **Growth Opportunity (15%)**: Disparity between current saturation and search trend velocity: $(1 - \text{demand}) \times \text{trend\_normalized}$.
+5. **Accessibility Potential (10%)**: Proximity to nearest airport, railway junction, and national highway: $\max(0, 1 - \frac{\min(d_{\text{air}}, d_{\text{rail}}, d_{\text{hw}})}{200\text{ km}})$.
+6. **Seasonality Evenness (10%)**: Year-round distribution stability computed as the inverse coefficient of variation from 12-month visit indices: $\max(0, 1 - \min(\text{CV}, 1.0))$.
+
+### 9.2 Data Confidence & Cold-Start Telemetry Status
+* **Current Score Confidence**: `bootstrap`
+* **Audit Rationale**: In accordance with Part 5 Cold-Start specifications, because platform deployment currently records $< 50$ aggregate live telemetry interactions in `destination_interactions`, the Demand and Growth factors utilize neutral defaults ($0.50$). All 12,601 destinations have been scored and stamped with `score_confidence = 'bootstrap'`.
+* **Transition Plan**: As user traffic and itinerary generation accumulate $> 50$ interaction rows per cluster, the pipeline transitions confidence dynamically to `partial` (where transport/heritage flags are present) and ultimately `full` (full empirical convergence).
+* **Database Schema Support**:
+  - `destinations_master.potential_score` (`FLOAT`, indexed)
+  - `destinations_master.score_breakdown` (`JSON`)
+  - `destinations_master.score_confidence` (`VARCHAR`)
+  - `destinations_master.score_computed_at` (`TIMESTAMP`)
+  - `destination_transport` table (12,601 records mapped to multi-modal transit networks)
+  - `destination_monthly_visits` table (151,212 records across 12 calendar months)
+* **DMO Integration**: Available via `/api/dmo/investment-priorities` and synchronized with `/api/dmo/hidden-gems`, carrying real-time telemetry tokens in `tok_hourly_YYYYMMDD_HH00` format.
+
+---
+*Technical Architecture finalized for TravelSathi V3.0 Production & SIH National Grand Finale.*

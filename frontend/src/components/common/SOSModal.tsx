@@ -17,6 +17,7 @@ import axios from 'axios';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { EMERGENCY_NUMBERS } from '../../data/travelSathiData';
+import NearbyHospitals from '../safety/NearbyHospitals';
 
 export default function SOSModal() {
   const { isSosModalOpen, setIsSosModalOpen, setEmergencyActive, currentUser } = useApp();
@@ -24,6 +25,7 @@ export default function SOSModal() {
   const [locationShared, setLocationShared] = useState(false);
   const [sosEventData, setSosEventData] = useState(null);
   const [sosLoading, setSosLoading] = useState(false);
+  const [showNearbyHospitals, setShowNearbyHospitals] = useState(false);
   
   // Geolocation state
   const [geoCoords, setGeoCoords] = useState({ lat: 31.6425, lng: 77.3481 });
@@ -274,6 +276,32 @@ export default function SOSModal() {
                 </p>
               </div>
 
+              {/* Quick Hospital Finder in Confirm Step */}
+              <div className="pt-1">
+                <button
+                  type="button"
+                  onClick={() => setShowNearbyHospitals(!showNearbyHospitals)}
+                  className="w-full py-2 px-3 rounded-xl border border-rose-300 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/30 text-rose-800 dark:text-rose-200 text-xs font-bold flex items-center justify-between hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-colors"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <Hospital className="w-4 h-4 text-semantic-sos" />
+                    <span>{showNearbyHospitals ? 'Hide Nearest Hospitals & Clinics' : '🏥 Find Nearest Hospitals & Clinics (< 10km)'}</span>
+                  </span>
+                  <span className="text-[11px] underline font-semibold">
+                    {showNearbyHospitals ? 'Hide' : 'Locate Now'}
+                  </span>
+                </button>
+
+                {showNearbyHospitals && (
+                  <div className="mt-3 p-3 bg-neutral-bg-secondary dark:bg-darkmode-elevated rounded-xl border border-neutral-border dark:border-darkmode-border max-h-96 overflow-y-auto">
+                    <NearbyHospitals
+                      initialCoords={{ lat: geoCoords.lat, lng: geoCoords.lng }}
+                      compact={true}
+                    />
+                  </div>
+                )}
+              </div>
+
               <div className="pt-2 flex flex-col sm:flex-row gap-3">
                 <button
                   onClick={handleTriggerEmergency}
@@ -392,6 +420,32 @@ export default function SOSModal() {
                   <div className="text-[11px] font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 shrink-0" />
                     <span>Alert copied! Ready to paste directly into WhatsApp, SMS, or Telegram.</span>
+                  </div>
+                )}
+              </div>
+
+              {/* Nearest Hospitals in Active SOS Mode */}
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={() => setShowNearbyHospitals(!showNearbyHospitals)}
+                  className="w-full py-2.5 px-3.5 rounded-xl border border-rose-300 dark:border-rose-900 bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-200 text-xs font-bold flex items-center justify-between hover:bg-rose-100 dark:hover:bg-rose-900/50 transition-colors shadow-sm"
+                >
+                  <span className="flex items-center gap-2">
+                    <Hospital className="w-4 h-4 text-semantic-sos" />
+                    <span>{showNearbyHospitals ? 'Hide Nearest Hospitals & Clinics' : '🏥 View Nearest Hospitals & Clinics (< 10km)'}</span>
+                  </span>
+                  <span className="text-[11px] underline font-semibold">
+                    {showNearbyHospitals ? 'Hide' : 'Locate Medical Care'}
+                  </span>
+                </button>
+
+                {showNearbyHospitals && (
+                  <div className="mt-3 p-3 bg-neutral-bg-secondary dark:bg-darkmode-elevated rounded-xl border border-neutral-border dark:border-darkmode-border max-h-96 overflow-y-auto">
+                    <NearbyHospitals
+                      initialCoords={{ lat: geoCoords.lat, lng: geoCoords.lng }}
+                      compact={true}
+                    />
                   </div>
                 )}
               </div>

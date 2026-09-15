@@ -122,6 +122,7 @@ function CatalogClusterGroup({ places, onSelectPlace }: { places: any[]; onSelec
     map.addLayer(clusterGroup);
 
     return () => {
+      clusterGroup.clearLayers();
       map.removeLayer(clusterGroup);
     };
   }, [map, places, onSelectPlace]);

@@ -16,6 +16,7 @@ declare module 'react-leaflet' {
   export const Popup: any;
   export const Polyline: any;
   export const CircleMarker: any;
+  export const Circle: any;
   export const Tooltip: any;
   export const useMap: any;
   export const useMapEvents: any;

@@ -91,6 +91,9 @@ export default function ItineraryMap({ itinerary, selectedDay }) {
               <div style="font-size: 11px; color: #64748b; margin-top: 2px;">
                 ${stop.category} • Est. ₹${stop.estimated_cost_inr}
               </div>
+              <a href="#/destinations/${stop.destination_id || encodeURIComponent(stop.destination_name)}" style="display: inline-block; margin-top: 6px; font-size: 11px; font-weight: bold; color: #8C3618; text-decoration: none;">
+                View Details →
+              </a>
             </div>
           `;
 
@@ -187,9 +190,15 @@ export default function ItineraryMap({ itinerary, selectedDay }) {
                 TransitGuard Fare: ₹${stop.transit_guard_fare_inr} (${stop.transit_mode || 'Auto'})
               </div>
             ` : ''}
-            <div style="margin-top: 8px; border-top: 1px solid #e2e8f0; padding-top: 6px;">
-              <a href="${navUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 4px; background: #1e3a8a; color: #ffffff; padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; text-decoration: none; width: 100%; justify-content: center; box-sizing: border-box;">
-                🧭 Open in Google Maps Navigation ↗
+            <div style="margin-top: 8px; border-top: 1px solid #e2e8f0; padding-top: 6px; display: flex; flex-direction: column; gap: 5px;">
+              <a href="#/destinations/${stop.destination_id || encodeURIComponent(stop.destination_name)}" style="display: inline-flex; align-items: center; gap: 4px; background: #712B13; color: #ffffff; padding: 5px 8px; border-radius: 5px; font-size: 11px; font-weight: 700; text-decoration: none; width: 100%; justify-content: center; box-sizing: border-box;">
+                View Destination Details →
+              </a>
+              <div style="font-size: 10.5px; font-weight: 700; color: #15803d; display: flex; align-items: center; gap: 4px; background: #f0fdf4; padding: 4px 6px; border-radius: 4px; border: 1px solid #bbf7d0;">
+                <span>🛣️ In-App Road Route (OpenRouteService)</span>
+              </div>
+              <a href="${navUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 4px; background: #f8fafc; color: #64748b; padding: 4px 8px; border-radius: 5px; font-size: 10px; font-weight: 600; text-decoration: none; width: 100%; justify-content: center; box-sizing: border-box; border: 1px solid #cbd5e1;">
+                Google Maps (Fallback) ↗
               </a>
             </div>
           </div>
