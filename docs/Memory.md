@@ -160,3 +160,28 @@ If asked by competition evaluators or technical judges about trade-offs and limi
 - **`run.bat` Suite**: Options [12] and [13] verified for 508-district intelligence inspection and test execution.
 - **Hourly Token Coherence**: All responses carry `tok_hourly_YYYYMMDD_HH00`.
 
+---
+
+## 6. Security Audit Remediation (2026-09-16)
+
+> **Audit Token**: `tok_hourly_20260916_0400`  
+> **Auditor**: Cloudflare security-audit skill + manual exploit verification  
+> **Commit**: Post-remediation commit on `main`
+
+### 6.1 Vulnerabilities Fixed
+
+| ID | Severity | File(s) | Description | Fix Applied | Exploit Verification |
+|---|---|---|---|---|---|
+| **TS-VULN-001** | Critical | `backend/app/api/auth.py` | `/api/auth/switch-token` had no auth guard — any unauthenticated caller could obtain an admin JWT | Added `get_current_user` dependency + admin role check. Non-admin callers receive 403. | ✅ Unauthenticated POST → 401; Tourist token → 403; Admin token → 200 |
+| **TS-VULN-002** | Critical | `backend/app/core/auth_dependencies.py` | Path-based fallback returned a fake gov user (`usr-gov-1`) for any unauthenticated `/api/dmo/*` or `/api/government/*` request | Deleted the entire path-check fallback block (lines 39-48). All requests require a valid JWT. | ✅ Unauthenticated `/api/government/tourism/overview` → 401; `/api/dmo/booking-stats` → 401 |
+| **TS-VULN-003** | High | `frontend/src/views/ExploreView.tsx` | DOM XSS via `placeholderDiv.innerHTML` with unescaped `${d.name}` and `${d.state}` interpolation | Replaced `innerHTML` with safe `createElement`/`textContent` pattern | ✅ Only one `innerHTML` with interpolated data existed (verified via grep sweep); now uses `textContent` |
+| **TS-VULN-004** | High | `backend/app/core/security.py`, `config.py`, `.env` | Hardcoded JWT secret fallback `"travelsathi-super-secret-key-2026-production"` was always active | Added `jwt_secret` to `Settings`, generated cryptographic random secret in `.env`, runtime assertion rejects known-bad defaults | ✅ Token forged with old secret → 401 Unauthorized; App crashes on startup with old default |
+| **TS-VULN-005** | Medium | `frontend/src/lib/e2ee.ts` | Deterministic E2EE fallback key derived from public `groupId` — anyone with the ID could decrypt messages | Removed deterministic fallback; added `generateGroupSecret()` for random key generation; ephemeral key warning if no secret provided | ✅ Two groups produce cryptographically random, non-derivable keys |
+| **TS-VULN-006** | Medium | `frontend/src/context/AppContext.tsx`, `views/tourist/AuthView.tsx` | JWT access token stored in `localStorage`, exposable via XSS despite backend issuing HttpOnly cookies | Removed all `localStorage.setItem('travelsathi_token',...)` calls; enabled `axios.defaults.withCredentials = true` for cookie-based auth | ✅ Token no longer appears in localStorage; auth via HttpOnly cookie only |
+| **TS-VULN-007** | Low | `backend/app/core/auth_dependencies.py` | `verify_user_ownership` exempted `usr-901`, `guest`, and `default` from ownership checks — any user could tamper with these accounts | Removed the exemption list; only exact `resource_user_id == current_user.id` or admin role passes | ✅ No user ID is exempt from ownership checks |
+
+### 6.2 Post-Remediation Build Verification
+- **Backend**: Starts successfully with new JWT secret, all API endpoints functional.
+- **Frontend**: `npm run build` → 2060 modules, 0 errors, clean compilation.
+- **Hourly Token**: `tok_hourly_20260916_0400` used across all verification artifacts.
+

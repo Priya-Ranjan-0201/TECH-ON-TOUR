@@ -1,7 +1,7 @@
 import json
 import uuid
 from typing import Optional, List
-from fastapi import APIRouter, Depends, HTTPException, Header, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Header, Request, Response, status
 from pydantic import BaseModel, EmailStr, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, or_
@@ -304,13 +304,23 @@ class SwitchRolePayload(BaseModel):
 @router.post("/switch-token")
 async def switch_token(
     payload: SwitchRolePayload,
+    request: Request,
     response: Response,
+    authorization: Optional[str] = Header(None),
     db: AsyncSession = Depends(get_db)
 ):
     """
     Issue cryptographically signed JWT and HTTP-only session cookie for the requested role persona.
-    Used for seamless, verifiable demo role switching with server-enforced RBAC.
+    Requires authentication and admin role. Non-admin users are forbidden from switching personas.
     """
+    # Authenticate the caller first
+    from app.core.auth_dependencies import get_current_user as _get_user
+    current_user = await _get_user(request, authorization, db)
+    if current_user.role != "admin":
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Only admins may switch persona view."
+        )
     role = payload.role.lower().strip()
     if role not in ["tourist", "host", "dmo", "gov", "government", "admin"]:
         role = "tourist"

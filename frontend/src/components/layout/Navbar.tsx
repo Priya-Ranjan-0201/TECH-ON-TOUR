@@ -83,6 +83,12 @@ export default function Navbar() {
     return currentTab === tab;
   };
 
+  // Route active-state helper used by all nav links
+  const isActive = (path: string) => {
+    if (path === '/') return location.pathname === '/';
+    return location.pathname === path || location.pathname.startsWith(path + '/');
+  };
+
   const languages = [
     { code: 'en', label: 'English' },
     { code: 'hi', label: 'हिन्दी (Hindi)' },

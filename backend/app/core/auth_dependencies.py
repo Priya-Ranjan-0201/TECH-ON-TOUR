@@ -36,16 +36,6 @@ async def get_current_user(
         token = request.cookies.get("travelsathi_token")
 
     if not token:
-        path = request.url.path.lower()
-        if "/api/dmo" in path or "/api/government" in path:
-            return User(
-                id="usr-gov-1",
-                email="officer.tourism@nic.in",
-                name="Dr. Rajesh Verma, IAS",
-                role="government",
-                hashed_password="mock",
-                is_active=True
-            )
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Authentication required. Missing Bearer token or session cookie.",
@@ -134,7 +124,7 @@ def verify_user_ownership(resource_user_id: str, current_user: User) -> None:
     Enforces that users can only read/write their own private rows
     (bookings, itineraries, saved places, live locations).
     Admins are granted global audit access.
-    Default demo/guest accounts (usr-901, guest) are permitted for sandbox evaluation.
+    No user ID is exempt from ownership checks.
     """
     if current_user.role == "admin":
         return
@@ -142,12 +132,12 @@ def verify_user_ownership(resource_user_id: str, current_user: User) -> None:
     res_id = str(resource_user_id or "").strip().lower()
     curr_id = str(current_user.id or "").strip().lower()
 
-    if res_id in ("usr-901", "guest", "default") or res_id == curr_id:
+    if res_id == curr_id:
         return
 
     raise HTTPException(
         status_code=status.HTTP_403_FORBIDDEN,
-        detail="Forbidden: You do not own or have permission to access this resource."
+        detail="Not authorized to modify this resource."
     )
 
 

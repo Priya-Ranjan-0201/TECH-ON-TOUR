@@ -17,6 +17,9 @@ class Settings(BaseSettings):
     debug: bool = True
     port: int = 8000
 
+    # JWT Secret — MUST be set via JWT_SECRET env var. No hardcoded default.
+    jwt_secret: str = Field(default="CHANGE-ME-SET-JWT-SECRET-IN-ENV")
+
     # Supabase / PostgreSQL
     supabase_url: str = Field(default="https://mock-ref.supabase.co")
     supabase_key: str = Field(default="mock-anon-key")

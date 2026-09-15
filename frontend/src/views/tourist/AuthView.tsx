@@ -92,8 +92,8 @@ export default function AuthView() {
     try {
       if (authMode === 'login') {
         const res = await axios.post('/api/auth/login', { email, password });
-        if (res.data?.success && res.data.token) {
-          localStorage.setItem('travelsathi_token', res.data.token);
+        if (res.data?.success) {
+          // Token is set as HTTP-only cookie by the backend response
           const userData = res.data.user;
           localStorage.setItem('travelsathi_user', JSON.stringify(userData));
           if (setCurrentUser) setCurrentUser(userData);
@@ -109,8 +109,8 @@ export default function AuthView() {
           password,
           role: selectedRole
         });
-        if (res.data?.success && res.data.token) {
-          localStorage.setItem('travelsathi_token', res.data.token);
+        if (res.data?.success) {
+          // Token is set as HTTP-only cookie by the backend response
           const userData = res.data.user;
           localStorage.setItem('travelsathi_user', JSON.stringify(userData));
           if (setCurrentUser) setCurrentUser(userData);

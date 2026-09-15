@@ -111,21 +111,14 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.setAttribute('data-panel', userRole);
   }, [userRole]);
 
-  // Synchronize authenticated JWT token with backend for RBAC authorization
+  // Synchronize authenticated session with backend using HTTP-only cookies (no localStorage token)
   useEffect(() => {
-    const existingToken = localStorage.getItem('travelsathi_token');
-    if (existingToken) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${existingToken}`;
-    } else {
-      axios.post('/api/auth/switch-token', { role: userRole }, { withCredentials: true })
-        .then(res => {
-          if (res.data?.token) {
-            localStorage.setItem('travelsathi_token', res.data.token);
-            axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-          }
-        })
-        .catch(() => {});
-    }
+    // Enable cookie-based auth for all axios requests
+    axios.defaults.withCredentials = true;
+    // Request initial session cookie from backend
+    axios.post('/api/auth/switch-token', { role: userRole })
+      .then(() => {})
+      .catch(() => {});
   }, []);
 
   const switchRole = (newRole: string) => {
@@ -166,13 +159,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
 
     // Call backend to issue authentic role-derived JWT & set HTTP-only session cookie
-    axios.post('/api/auth/switch-token', { role }, { withCredentials: true })
-      .then(res => {
-        if (res.data?.token) {
-          localStorage.setItem('travelsathi_token', res.data.token);
-          axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
-        }
-      })
+    axios.post('/api/auth/switch-token', { role })
+      .then(() => {})
       .catch(() => {});
 
     let updated = null;

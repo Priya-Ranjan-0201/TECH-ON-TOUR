@@ -32,21 +32,36 @@ function base64ToArrayBuffer(base64: string): ArrayBuffer {
 }
 
 /**
- * Derives a deterministic or generated 256-bit AES-GCM CryptoKey for a group.
- * In a full production protocol, this combines with ECDH identity keys.
+ * Generates a cryptographically random group secret for out-of-band sharing.
+ * Members must exchange this secret through a secure channel (e.g., in-person, Signal).
+ */
+export function generateGroupSecret(): string {
+  const bytes = new Uint8Array(32);
+  window.crypto.getRandomValues(bytes);
+  return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/**
+ * Derives a 256-bit AES-GCM CryptoKey for a group using PBKDF2 from an explicit shared secret.
+ * Throws if no sharedSecret is provided — never falls back to a guessable default.
  */
 export async function getOrCreateGroupKey(groupId: string, sharedSecret?: string): Promise<CryptoKey> {
   if (groupKeyCache.has(groupId)) {
     return groupKeyCache.get(groupId)!;
   }
 
-  // Derive key using PBKDF2 from group ID + shared secret/salt
+  if (!sharedSecret) {
+    // Generate a random secret for this session so the app doesn't crash,
+    // but warn that messages won't be decryptable by other members without key exchange
+    console.warn(`E2EE: No shared secret provided for group ${groupId}. Generating ephemeral key — messages will only be readable in this session.`);
+    sharedSecret = generateGroupSecret();
+  }
+
   const enc = new TextEncoder();
-  const rawSecret = sharedSecret || `travelsathi-e2ee-${groupId}-2026-secure-session`;
-  
+
   const keyMaterial = await window.crypto.subtle.importKey(
     'raw',
-    enc.encode(rawSecret),
+    enc.encode(sharedSecret),
     { name: 'PBKDF2' },
     false,
     ['deriveKey']

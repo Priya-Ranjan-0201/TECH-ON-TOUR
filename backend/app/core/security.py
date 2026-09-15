@@ -6,8 +6,17 @@ from typing import Optional, Dict, Any
 import jwt
 from app.core.config import settings
 
-# Secret key for signing tokens
-JWT_SECRET = getattr(settings, "jwt_secret", "travelsathi-super-secret-key-2026-production")
+# Secret key for signing tokens — loaded from environment via settings, never hardcoded
+_KNOWN_BAD_SECRETS = {
+    "travelsathi-super-secret-key-2026-production",
+    "CHANGE-ME-SET-JWT-SECRET-IN-ENV",
+}
+JWT_SECRET = settings.jwt_secret
+if JWT_SECRET in _KNOWN_BAD_SECRETS:
+    raise RuntimeError(
+        "FATAL: JWT_SECRET is set to a known-insecure default. "
+        "Set a real random secret via the JWT_SECRET environment variable in backend/.env before starting."
+    )
 JWT_ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 

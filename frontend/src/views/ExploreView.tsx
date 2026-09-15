@@ -414,7 +414,16 @@ export default function ExploreView() {
                               e.currentTarget.style.display = 'none';
                               const placeholderDiv = document.createElement('div');
                               placeholderDiv.className = 'w-full h-full bg-gradient-to-br from-[#1E5C43] via-[#2A805E] to-[#19523B] flex flex-col items-center justify-center p-4 text-center text-white';
-                              placeholderDiv.innerHTML = `<span class="text-xs font-bold font-display text-white/95">${d.name}</span><span class="text-[10px] text-emerald-100/70 font-medium">${d.state}</span><span class="mt-2 text-[9px] px-2 py-0.5 rounded-full bg-emerald-950/70 border border-emerald-400/30 text-emerald-200 font-mono">Theme 1 Grounded</span>`;
+                              const nameSpan = document.createElement('span');
+                              nameSpan.className = 'text-xs font-bold font-display text-white/95';
+                              nameSpan.textContent = d.name;
+                              const stateSpan = document.createElement('span');
+                              stateSpan.className = 'text-[10px] text-emerald-100/70 font-medium';
+                              stateSpan.textContent = d.state;
+                              const badgeSpan = document.createElement('span');
+                              badgeSpan.className = 'mt-2 text-[9px] px-2 py-0.5 rounded-full bg-emerald-950/70 border border-emerald-400/30 text-emerald-200 font-mono';
+                              badgeSpan.textContent = 'Theme 1 Grounded';
+                              placeholderDiv.replaceChildren(nameSpan, stateSpan, badgeSpan);
                               parent.appendChild(placeholderDiv);
                             }
                           }}
