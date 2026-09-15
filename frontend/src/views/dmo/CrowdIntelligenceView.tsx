@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import {
   Users,
   Shield,
@@ -24,6 +25,7 @@ interface CrowdIntelligenceViewProps {
 }
 
 export default function CrowdIntelligenceView({ onNavigateToFlow }: CrowdIntelligenceViewProps) {
+  const { t } = useTranslation();
   const [forecasts, setForecasts] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [selectedForecast, setSelectedForecast] = useState<any>(null);
@@ -62,25 +64,25 @@ export default function CrowdIntelligenceView({ onNavigateToFlow }: CrowdIntelli
       case 'low':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300 border border-emerald-300">
-            🟢 Normal Footfall (Low)
+            🟢 {t('dmo.crowd.sustainable', 'Sustainable / Normal')}
           </span>
         );
       case 'moderate':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-300">
-            🟡 Elevated (Moderate)
+            🟡 {t('dmo.crowd.high', 'High Traffic')}
           </span>
         );
       case 'high':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-orange-100 text-orange-800 dark:bg-orange-950/60 dark:text-orange-300 border border-orange-300">
-            🟠 High Congestion Alert
+            🟠 {t('dmo.crowd.near_capacity', 'Near Capacity Alert')}
           </span>
         );
       case 'critical':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-red-100 text-red-800 dark:bg-red-950/60 dark:text-red-300 border border-red-300 animate-pulse">
-            🔴 CRITICAL BREACH (&gt;Capacity)
+            🔴 {t('dmo.crowd.critical', 'Critical Overcapacity')}
           </span>
         );
       default:
@@ -96,7 +98,7 @@ export default function CrowdIntelligenceView({ onNavigateToFlow }: CrowdIntelli
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-600 text-white flex items-center gap-1.5">
               <Users className="w-3.5 h-3.5" />
-              Module 2 • Festival & Event Crowd Management
+              Module 2 • {t('dmo.tabs.crowd', 'Crowd & Festival AI')}
             </span>
             {hourlyToken && (
               <span className="text-[11px] font-mono text-neutral-500 bg-white dark:bg-neutral-800 px-2 py-0.5 rounded-md border border-neutral-200 dark:border-neutral-700">
@@ -105,10 +107,10 @@ export default function CrowdIntelligenceView({ onNavigateToFlow }: CrowdIntelli
             )}
           </div>
           <h2 className="text-xl sm:text-2xl font-display font-extrabold text-[#712B13] dark:text-amber-200">
-            AI Footfall & Festival Crowd Command
+            {t('dmo.crowd.title', 'AI Footfall & Festival Crowd Command')}
           </h2>
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-            Real-time carrying capacity threshold analysis, automated resource requirements (police, medical, sanitation, transit), and peak hour timelines.
+            {t('dmo.crowd.subtitle', '45-day predictive surge forecasting with dynamic resource pre-positioning')}
           </p>
         </div>
 

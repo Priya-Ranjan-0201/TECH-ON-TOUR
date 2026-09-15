@@ -28,6 +28,7 @@ from app.core.auth_dependencies import require_role
 router = APIRouter(
     prefix="/dmo",
     tags=["DMO Command Center"],
+    dependencies=[Depends(require_role(["dmo", "gov", "admin"]))]
 )
 
 

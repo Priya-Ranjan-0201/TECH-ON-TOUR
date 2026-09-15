@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import {
   TrendingUp,
   DollarSign,
@@ -19,6 +20,7 @@ import { DataBadge } from '../../components/common/DataBadge';
 import { OSM_TILE_URL, OSM_ATTRIBUTION } from '../../lib/mapConstants';
 
 export default function InvestmentIntelligenceView() {
+  const { t } = useTranslation();
   const [budget, setBudget] = useState<number>(25.0);
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<any>(null);
@@ -69,7 +71,7 @@ export default function InvestmentIntelligenceView() {
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#712B13] text-white flex items-center gap-1.5">
               <TrendingUp className="w-3.5 h-3.5" />
-              Module 1 • Capital Allocation Engine
+              Module 1 • {t('dmo.tabs.investment', 'AI Investment Intelligence')}
             </span>
             {data?.hourly_token && (
               <span className="text-[11px] font-mono text-neutral-500 bg-white dark:bg-neutral-800 px-2 py-0.5 rounded-md border border-neutral-200 dark:border-neutral-700">
@@ -78,17 +80,19 @@ export default function InvestmentIntelligenceView() {
             )}
           </div>
           <h2 className="text-xl sm:text-2xl font-display font-extrabold text-[#712B13] dark:text-amber-200">
-            AI Tourism Investment Prioritization
+            {t('dmo.investment.title', 'AI Tourism Infrastructure Investment Allocator')}
           </h2>
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-            Simulates capital deployment across districts combining the 6-factor Tourism Potential score with infrastructure gap multipliers to optimize ROI.
+            {t('dmo.investment.subtitle', 'Predictive ROI ranking driven by the 6-factor Tourism Potential score & Infrastructure Gap index')}
           </p>
         </div>
 
         {/* Budget Controller */}
         <div className="bg-white dark:bg-[#1A1816] p-4 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm space-y-2 shrink-0 min-w-[280px]">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-neutral-700 dark:text-neutral-300">Capital Allocation</span>
+            <span className="text-xs font-bold text-neutral-700 dark:text-neutral-300">
+              {t('dmo.investment.budget_slider_label', 'National Tourism Infrastructure Budget')}
+            </span>
             <DataBadge label="Estimated Data" size="xs" />
           </div>
           <div className="flex items-baseline gap-1 text-2xl font-extrabold font-display text-[#712B13] dark:text-[#E5A93C]">

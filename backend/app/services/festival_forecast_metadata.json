@@ -1,7 +1,7 @@
 {
   "model_name": "FestivalFootfallForecastModel",
   "version": "1.0.0",
-  "trained_at": "2026-09-15T07:56:12.893121+00:00",
+  "trained_at": "2026-09-15T18:13:38.448242+00:00",
   "rows_trained": 2000,
   "mae": 66.278,
   "r2_score": 0.9802,

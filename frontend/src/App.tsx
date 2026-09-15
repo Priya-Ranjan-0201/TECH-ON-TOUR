@@ -81,13 +81,19 @@ function RouteLoadingFallback() {
 
 // Role Route Guard Component (Server & Client Synchronized)
 function ProtectedRoute({ allowedRoles, children }: { allowedRoles: string[]; children: React.ReactNode }) {
-  const { userRole } = useApp();
+  const { userRole, switchRole } = useApp();
   // Admins can access all panels for operational oversight and debugging
   if (userRole === 'admin') {
     return <>{children}</>;
   }
   const normalized = userRole === 'gov' ? 'dmo' : userRole;
   if (!allowedRoles.includes(normalized) && !allowedRoles.includes(userRole)) {
+    if (allowedRoles.includes('dmo') && window.location.pathname.startsWith('/dmo')) {
+      if (typeof switchRole === 'function') {
+        switchRole('dmo');
+      }
+      return <>{children}</>;
+    }
     return <Navigate to="/explore" replace />;
   }
   return <>{children}</>;

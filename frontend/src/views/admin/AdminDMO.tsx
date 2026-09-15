@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useApp } from '../../context/AppContext';
 import { 
   ShieldAlert, 
   Activity, 
@@ -27,7 +29,8 @@ import {
   Clock,
   Shield,
   Award,
-  Search
+  Search,
+  Globe
 } from 'lucide-react';
 import { MapContainer, TileLayer, CircleMarker, Popup, Tooltip } from 'react-leaflet';
 import axios from 'axios';
@@ -41,8 +44,11 @@ const FlowRedistributionView = React.lazy(() => import('../dmo/FlowRedistributio
 export type DMOTabType = 'overview' | 'analytics' | 'investment' | 'crowd' | 'flow' | 'potential' | 'circuits' | 'safety' | 'forecasts';
 
 export default function AdminDMO() {
+  const { t, i18n } = useTranslation();
+  const { currentLanguage, changeLanguage } = useApp();
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
+  const [hourlyToken, setHourlyToken] = useState<string>('');
   const [heatmapNodes, setHeatmapNodes] = useState<any[]>([]);
   const [activeLocks, setActiveLocks] = useState({});
   const [platformMetrics, setPlatformMetrics] = useState({
@@ -310,6 +316,7 @@ export default function AdminDMO() {
         if (d.heatmap_data) setHeatmapNodes(d.heatmap_data);
         if (d.eco_permit_locks) setActiveLocks(d.eco_permit_locks);
         if (d.platform_metrics) setPlatformMetrics(d.platform_metrics);
+        if (d.hourly_token) setHourlyToken(d.hourly_token);
       }
 
       // Sentiment
@@ -513,47 +520,79 @@ export default function AdminDMO() {
         </div>
       )}
 
-      {/* DMO Mode Navigation Tabs */}
-      <div className="max-w-7xl mx-auto flex items-center gap-2 border-b border-neutral-200 dark:border-neutral-800 pb-3 text-xs font-bold overflow-x-auto">
-        {[
-          { id: 'overview', label: '🏛️ Tourism Overview' },
-          { id: 'investment', label: '💰 Investment Intelligence' },
-          { id: 'crowd', label: '🎪 Crowd Intelligence' },
-          { id: 'flow', label: '🔀 Tourist Flow Redistribution' },
-          { id: 'analytics', label: '📊 Footfall & Sentiment' },
-          { id: 'circuits', label: '🧭 Circuits & Hidden Gems' },
-          { id: 'safety', label: '🛡️ Safety Scores & Audit Log' },
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => handleTabChange(tab.id as any)}
-            className={`px-4 py-2 rounded-xl transition-all cursor-pointer ${
-              dmoTab === tab.id
-                ? 'bg-[#712B13] text-white shadow-sm font-bold'
-                : 'bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300 hover:text-[#712B13]'
-            }`}
+      {/* DMO Mode Navigation Tabs & Multilingual Selector */}
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-neutral-200 dark:border-neutral-800 pb-3">
+        <div className="flex items-center gap-2 text-xs font-bold overflow-x-auto pb-1 sm:pb-0">
+          {[
+            { id: 'overview', icon: '🏛️', label: t('dmo.tabs.overview', 'Command Center') },
+            { id: 'investment', icon: '💰', label: t('dmo.tabs.investment', 'AI Investment Intelligence') },
+            { id: 'crowd', icon: '🎪', label: t('dmo.tabs.crowd', 'Crowd & Festival AI') },
+            { id: 'flow', icon: '🔀', label: t('dmo.tabs.flow', 'Smart Flow Redistribution') },
+            { id: 'analytics', icon: '📊', label: t('dmo.tabs.analytics', 'Footfall & Sentiment') },
+            { id: 'circuits', icon: '🧭', label: t('dmo.tabs.circuits', 'Circuits & Hidden Gems') },
+            { id: 'safety', icon: '🛡️', label: t('dmo.tabs.safety', 'Safety Scores & Audit Log') },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => handleTabChange(tab.id as any)}
+              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
+                dmoTab === tab.id
+                  ? 'bg-[#712B13] text-white shadow-sm font-bold'
+                  : 'bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300 hover:text-[#712B13]'
+              }`}
+            >
+              <span>{tab.icon}</span>
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Multilingual Selector for DMO */}
+        <div className="flex items-center gap-2 shrink-0 bg-white dark:bg-neutral-800 px-3 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-700 shadow-2xs">
+          <Globe className="w-3.5 h-3.5 text-[#712B13] dark:text-[#E5A93C]" />
+          <span className="text-xs font-bold text-neutral-500 dark:text-neutral-400">
+            {t('dmo.language', 'Language')}:
+          </span>
+          <select
+            value={currentLanguage || i18n.language || 'en'}
+            onChange={(e) => {
+              const selectedLang = e.target.value;
+              changeLanguage(selectedLang);
+              i18n.changeLanguage(selectedLang);
+            }}
+            className="text-xs font-bold bg-transparent text-[#712B13] dark:text-[#E5A93C] outline-none cursor-pointer"
+            aria-label="DMO Language Selector"
           >
-            {tab.label}
-          </button>
-        ))}
+            <option value="en">English (EN)</option>
+            <option value="hi">हिन्दी (HI)</option>
+            <option value="mr">मराठी (MR)</option>
+            <option value="bn">বাংলা (BN)</option>
+            <option value="ta">தமிழ் (TA)</option>
+            <option value="te">తెలుగు (TE)</option>
+            <option value="gu">ગુજરાતી (GU)</option>
+          </select>
+        </div>
       </div>
 
       {/* DMO Command Center Header */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-200 dark:border-neutral-800">
         <div>
-          <div className="flex items-center gap-2 mb-2">
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#712B13]/10 dark:bg-[#E5A93C]/20 text-[#712B13] dark:text-[#E5A93C] border border-[#712B13]/20 dark:border-[#E5A93C]/30 flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-[#712B13] dark:bg-[#E5A93C] animate-ping" />
               Swadesh Darshan 2.0 • B2G Analytics Engine
             </span>
-            <span className="text-xs font-mono text-neutral-500">Live Telemetry</span>
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700/60">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              {t('dmo.live_telemetry', 'Live Hourly Telemetry')}: {hourlyToken || 'tok_hourly_active'}
+            </span>
           </div>
-          {/* Exactly 1 Headline Stat */}
+          {/* Headline Stat & Titles */}
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-[#712B13] dark:text-amber-100 tracking-tight">
-            {(platformMetrics.total_destinations > 0 ? platformMetrics.total_destinations : 12293).toLocaleString()} National POIs Monitored • {platformMetrics.diverted_tourist_volume > 0 ? platformMetrics.diverted_tourist_volume.toLocaleString() : '36,900+'} Tourists Diverted
+            {t('dmo.title', 'DMO Command & Intelligence Suite')}
           </h1>
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-1 max-w-3xl">
-            Real-time carrying capacity monitoring, automated visitor diversion to secondary cultural circuits, and administrative Eco-Permit throttling for State Tourism Boards.
+            {t('dmo.subtitle', 'National Destination Management, AI Crowd Forecasting & Smart Flow Control')}
           </p>
         </div>
 

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 import {
   Share2,
   MapPin,
@@ -22,6 +23,7 @@ interface FlowRedistributionViewProps {
 }
 
 export default function FlowRedistributionView({ initialDestinationId = 1 }: FlowRedistributionViewProps) {
+  const { t } = useTranslation();
   const [destinationId, setDestinationId] = useState<number>(initialDestinationId);
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -77,7 +79,7 @@ export default function FlowRedistributionView({ initialDestinationId = 1 }: Flo
           <div className="flex items-center gap-2 mb-1.5">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-600 text-white flex items-center gap-1.5">
               <Share2 className="w-3.5 h-3.5" />
-              Module 3 • Dynamic Tourist Flow Redistribution
+              Module 3 • {t('dmo.tabs.flow', 'Smart Flow Redistribution')}
             </span>
             {hourlyToken && (
               <span className="text-[11px] font-mono text-neutral-500 bg-white dark:bg-neutral-800 px-2 py-0.5 rounded-md border border-neutral-200 dark:border-neutral-700">
@@ -86,10 +88,10 @@ export default function FlowRedistributionView({ initialDestinationId = 1 }: Flo
             )}
           </div>
           <h2 className="text-xl sm:text-2xl font-display font-extrabold text-[#712B13] dark:text-amber-200">
-            Smart Tourist Flow Diversion & Carrying Capacity Rebalance
+            {t('dmo.flow.title', 'Smart Tourist Flow Diversion & Carrying Capacity Rebalance')}
           </h2>
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-            Detects high and critical crowd congestion, finds under-utilized heritage alternatives within 50km radius, and calculates optimal visitor dispersion to boost local economies.
+            {t('dmo.flow.subtitle', 'Haversine 50km under-visited satellite dispersal to de-saturate critical hotspots')}
           </p>
         </div>
 
