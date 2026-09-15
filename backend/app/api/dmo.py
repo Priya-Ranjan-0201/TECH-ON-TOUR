@@ -58,17 +58,25 @@ def get_permit_locked_alternative(dest_name: str) -> Optional[dict]:
         return None
     key = dest_name.strip().lower()
     alternatives = {
-        "manali": {"alternative": "Tirthan Valley & Jibhi", "state": "Himachal Pradesh", "crowd_reduction_pct": 65},
-        "shimla": {"alternative": "Chail & Narkanda", "state": "Himachal Pradesh", "crowd_reduction_pct": 70},
-        "goa": {"alternative": "Gokarna & Divar Island", "state": "Goa", "crowd_reduction_pct": 55},
-        "jaipur": {"alternative": "Bundi & Shekhawati", "state": "Rajasthan", "crowd_reduction_pct": 70},
-        "varanasi": {"alternative": "Chunar & Sarnath Rural", "state": "Uttar Pradesh", "crowd_reduction_pct": 60},
-        "ooty": {"alternative": "Valparai & Coonoor", "state": "Tamil Nadu", "crowd_reduction_pct": 75},
+        "manali": {"destination": "Manali", "alternative": "Tirthan Valley & Jibhi", "state": "Himachal Pradesh", "crowd_reduction_pct": 65, "saturation_pct": 98},
+        "shimla": {"destination": "Shimla", "alternative": "Chail & Narkanda", "state": "Himachal Pradesh", "crowd_reduction_pct": 70, "saturation_pct": 95},
+        "goa": {"destination": "Goa", "alternative": "Gokarna & Divar Island", "state": "Goa", "crowd_reduction_pct": 55, "saturation_pct": 92},
+        "jaipur": {"destination": "Jaipur", "alternative": "Bundi & Shekhawati", "state": "Rajasthan", "crowd_reduction_pct": 70, "saturation_pct": 94},
+        "varanasi": {"destination": "Varanasi", "alternative": "Chunar & Sarnath Rural", "state": "Uttar Pradesh", "crowd_reduction_pct": 60, "saturation_pct": 96},
+        "ooty": {"destination": "Ooty", "alternative": "Valparai & Coonoor", "state": "Tamil Nadu", "crowd_reduction_pct": 75, "saturation_pct": 93},
     }
     for k, v in alternatives.items():
         if k in key or key in k:
-            return v
-    return {"alternative": "Secondary Cultural Circuit", "state": "India", "crowd_reduction_pct": 60}
+            res = dict(v)
+            res["destination"] = dest_name
+            return res
+    return {
+        "destination": dest_name,
+        "alternative": "Secondary Cultural Circuit",
+        "state": "India",
+        "crowd_reduction_pct": 60,
+        "saturation_pct": 90
+    }
 
 
 @router.get("/analytics")
@@ -199,7 +207,7 @@ async def get_dmo_analytics(db: AsyncSession = Depends(get_db)):
         pop_stmt = select(DestinationMaster).where(
             func.lower(DestinationMaster.name).contains(pair.popular_name.lower())
         ).order_by(DestinationMaster.crowd_density_score.desc()).limit(1)
-        pop_dest = (await db.execute(pop_stmt)).scalar_one_or_none()
+        pop_dest = (await db.execute(pop_stmt)).scalars().first()
 
         crowd = pop_dest.crowd_density_score if pop_dest else 75
         # Estimate carrying capacity and footfall from crowd score
@@ -287,7 +295,7 @@ async def toggle_eco_permit(payload: PermitToggleRequest, db: AsyncSession = Dep
     alt_stmt = select(AntiOvertourismPair).where(
         func.lower(AntiOvertourismPair.popular_name).contains(key)
     )
-    alt_pair = (await db.execute(alt_stmt)).scalar_one_or_none()
+    alt_pair = (await db.execute(alt_stmt)).scalars().first()
     alt_name = alt_pair.alternative_name if alt_pair else "Tirthan Valley & Jibhi"
 
     # Persist carrying capacity lock status directly in DestinationMaster
@@ -356,7 +364,7 @@ async def list_circuits(db: AsyncSession = Depends(get_db)):
         pop_stmt = select(DestinationMaster).where(
             func.lower(DestinationMaster.name).contains(pair.popular_name.lower())
         ).order_by(DestinationMaster.crowd_density_score.desc()).limit(1)
-        pop_dest = (await db.execute(pop_stmt)).scalar_one_or_none()
+        pop_dest = (await db.execute(pop_stmt)).scalars().first()
 
         crowd = pop_dest.crowd_density_score if pop_dest else 65
         carrying_cap = max(30000, 120000 - crowd * 800)

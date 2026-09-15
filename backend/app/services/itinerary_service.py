@@ -211,16 +211,22 @@ class ItineraryService:
 
         # 4b. If diverted by Eco-Permit Gatekeeper, inject transparent carrying-capacity advisory
         if permit_locked and permit_alt:
-            response.destination = f"{permit_alt['alternative']} (Eco-Permit Diverted from {permit_alt['destination']})"
-            response.title = f"Sustainable Eco-Circuit: {permit_alt['alternative']}"
+            alt_name = permit_alt.get("alternative", "Secondary Cultural Circuit")
+            orig_dest = permit_alt.get("destination", original_query_target)
+            sat_pct = permit_alt.get("saturation_pct", 98)
+            crowd_red = permit_alt.get("crowd_reduction_pct", 65)
+            reason_text = permit_alt.get("reason", f"Carrying capacity for {orig_dest} exceeded. Redirected to mitigate overtourism.")
+
+            response.destination = f"{alt_name} (Eco-Permit Diverted from {orig_dest})"
+            response.title = f"Sustainable Eco-Circuit: {alt_name}"
             response.summary = (
-                f"🚨 Eco-Permit Throttling Active: Carrying capacity for {permit_alt['destination']} exceeded "
-                f"({permit_alt['saturation_pct']}% saturation). Itinerary automatically rerouted to pristine secondary "
-                f"heritage circuit {permit_alt['alternative']} ({permit_alt['crowd_reduction_pct']}% less crowd)."
+                f"🚨 Eco-Permit Throttling Active: Carrying capacity for {orig_dest} exceeded "
+                f"({sat_pct}% saturation). Itinerary automatically rerouted to pristine secondary "
+                f"heritage circuit {alt_name} ({crowd_red}% less crowd)."
             )
             response.eco_permit_rerouted = True
-            response.original_destination = permit_alt["destination"]
-            response.diversion_advisory = permit_alt["reason"]
+            response.original_destination = orig_dest
+            response.diversion_advisory = reason_text
 
         # 5. Persist to database
         db_record = Itinerary(

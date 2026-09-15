@@ -683,13 +683,15 @@ export default function AdminDMO() {
         </div>
       )}
 
-      {/* 4 Executive KPI Tiles (Visible in Analytics, Potential, or when expanded) */}
-      {(dmoTab === 'analytics' || dmoTab === 'potential' || showFullAnalytics) && (
+      {/* 4 Executive KPI Tiles (Visible in Overview, Analytics, Potential) */}
+      {(dmoTab === 'overview' || dmoTab === 'analytics' || dmoTab === 'potential') && (
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-fadeIn">
           {/* KPI 1: Monitored Destinations */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Total POIs Mapped</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                {t('dmo.kpis.total_destinations', 'Total POIs Mapped')}
+              </span>
               <DataBadge label="Actual Data" size="xs" />
             </div>
             <div className="mt-3 flex items-baseline gap-2">
@@ -704,7 +706,9 @@ export default function AdminDMO() {
           {/* KPI 2: Critical Hotspots */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Critical Hotspots</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                {t('dmo.kpis.critical_hotspots', 'Critical Hotspots')}
+              </span>
               <DataBadge label="Predicted Data" size="xs" />
             </div>
             <div className="mt-3 flex items-baseline gap-2">
@@ -719,7 +723,9 @@ export default function AdminDMO() {
           {/* KPI 3: Active Eco-Permit Locks */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Active Gatekeepers</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                {t('dmo.kpis.active_locks', 'Active Gatekeepers')}
+              </span>
               <DataBadge label="Actual Data" size="xs" />
             </div>
             <div className="mt-3 flex items-baseline gap-2">
@@ -734,7 +740,9 @@ export default function AdminDMO() {
           {/* KPI 4: Diverted Tourist Volume & CO2 Abatement */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">Decentralized Footfall</span>
+              <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
+                {t('dmo.kpis.diverted_volume', 'Decentralized Footfall')}
+              </span>
               <DataBadge label="Estimated Data" size="xs" />
             </div>
             <div className="mt-3 flex items-baseline gap-2">
@@ -1426,7 +1434,7 @@ export default function AdminDMO() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         {/* Left Column: Leaflet Tourist Density Heatmap (7 cols) */}
-        <div className={`${showFullAnalytics ? 'lg:col-span-7' : 'col-span-12'} space-y-4`}>
+        <div className="lg:col-span-7 col-span-12 space-y-4">
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
             
             {/* Map Header */}
@@ -1587,10 +1595,9 @@ export default function AdminDMO() {
           </div>
         </div>
 
-        {/* Right Column: Dynamic Eco-Permit Gatekeeper Control Grid (Visible when showFullAnalytics is true) */}
-        {showFullAnalytics && (
-          <div className="lg:col-span-5 space-y-4 animate-fadeIn">
-            <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
+        {/* Right Column: Dynamic Eco-Permit Gatekeeper Control Grid */}
+        <div className="lg:col-span-5 col-span-12 space-y-4 animate-fadeIn">
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
               
               {/* Control Header & Tabs */}
               <div className="flex items-center justify-between gap-2 pb-3 border-b border-neutral-200 dark:border-neutral-800">
@@ -1741,13 +1748,12 @@ export default function AdminDMO() {
 
             </div>
           </div>
-        )}
 
       </div>
       )}
 
       {/* Section 4: National Carrying Capacity vs. Heritage Circuit Balance Table */}
-      {showFullAnalytics && (
+      {(dmoTab === 'analytics' || showFullAnalytics) && (
         <div className="max-w-7xl mx-auto p-6 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4 animate-fadeIn">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
