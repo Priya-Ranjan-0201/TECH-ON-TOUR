@@ -1,0 +1,509 @@
+district,state,city,domestic_tourists,international_tourists,total_tourists,tourist_growth_rate,average_stay_days,average_spend_per_tourist,hotel_rooms,homestay_capacity,occupancy_rate,seasonal_occupancy,tourism_employment,tourism_revenue,government_tourism_revenue,road_capacity_score,rail_capacity_score,airport_capacity_score,parking_capacity_score,sanitation_score,public_transport_score,tourist_facility_score,current_tourism_investment,planned_tourism_investment,estimated_infrastructure_cost,year,source,source_url,data_year,data_confidence
+,Andaman and Nicobar Islands,Port Blair,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Adoni,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Amaravati,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Anantapur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Chandragiri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Chittoor,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Dowlaiswaram,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Eluru,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Guntur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Kadapa,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Kakinada,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Kurnool,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Machilipatnam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Nagarjunakoṇḍa,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Rajahmundry,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Srikakulam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Tirupati,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Vijayawada,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Visakhapatnam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Vizianagaram,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Andhra Pradesh,Yemmiganur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Arunachal Pradesh,Itanagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Assam,Dhuburi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Assam,Dibrugarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Assam,Dispur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Assam,Guwahati,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Assam,Jorhat,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Assam,Nagaon,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Assam,Sivasagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Assam,Silchar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Assam,Tezpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Assam,Tinsukia,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Ara,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Barauni,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Begusarai,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Bettiah,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Bhagalpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Bihar Sharif,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Bodh Gaya,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Buxar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Chapra,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Darbhanga,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Dehri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Dinapur Nizamat,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Gaya,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Hajipur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Jamalpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Katihar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Madhubani,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Motihari,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Munger,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Muzaffarpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Patna,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Purnia,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Pusa,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Saharsa,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Samastipur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Sasaram,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Sitamarhi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Bihar,Siwan,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Chandigarh,Chandigarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Chhattisgarh,Ambikapur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Chhattisgarh,Bhilai,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Chhattisgarh,Bilaspur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Chhattisgarh,Dhamtari,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Chhattisgarh,Durg,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Chhattisgarh,Jagdalpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Chhattisgarh,Raipur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Chhattisgarh,Rajnandgaon,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Dadra and Nagar Haveli and Daman and Diu,Daman,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Dadra and Nagar Haveli and Daman and Diu,Diu,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Dadra and Nagar Haveli and Daman and Diu,Silvassa,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Delhi,Delhi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Delhi,New Delhi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Goa,Madgaon,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Goa,Panaji,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Ahmadabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Amreli,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Bharuch,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Bhavnagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Bhuj,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Dwarka,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Gandhinagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Godhra,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Jamnagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Junagadh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Kandla,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Khambhat,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Kheda,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Mahesana,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Morbi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Nadiad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Navsari,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Okha,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Palanpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Patan,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Porbandar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Rajkot,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Surat,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Surendranagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Valsad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Gujarat,Veraval,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Ambala,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Bhiwani,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Chandigarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Faridabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Firozpur Jhirka,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Gurugram,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Hansi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Hisar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Jind,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Kaithal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Karnal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Kurukshetra,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Panipat,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Pehowa,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Rewari,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Rohtak,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Sirsa,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Haryana,Sonipat,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Himachal Pradesh,Bilaspur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Himachal Pradesh,Chamba,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Himachal Pradesh,Dalhousie,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Himachal Pradesh,Dharmshala,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Himachal Pradesh,Hamirpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Himachal Pradesh,Kangra,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Himachal Pradesh,Kullu,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Himachal Pradesh,Mandi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Himachal Pradesh,Nahan,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Himachal Pradesh,Shimla,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Himachal Pradesh,Una,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jammu and Kashmir,Anantnag,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jammu and Kashmir,Baramula,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jammu and Kashmir,Doda,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jammu and Kashmir,Gulmarg,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jammu and Kashmir,Jammu,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jammu and Kashmir,Kathua,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jammu and Kashmir,Punch,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jammu and Kashmir,Rajouri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jammu and Kashmir,Srinagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jammu and Kashmir,Udhampur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Bokaro,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Chaibasa,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Deoghar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Dhanbad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Dumka,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Giridih,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Hazaribag,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Jamshedpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Jharia,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Rajmahal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Ranchi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Jharkhand,Saraikela,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Badami,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Ballari,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Bengaluru,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Belagavi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Bhadravati,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Bidar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Chikkamagaluru,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Chitradurga,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Davangere,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Halebid,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Hassan,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Hubballi-Dharwad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Kalaburagi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Kolar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Madikeri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Mandya,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Mangaluru,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Mysuru,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Raichur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Shivamogga,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Shravanabelagola,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Shrirangapattana,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Tumakuru,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Karnataka,Vijayapura,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Alappuzha,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Vatakara,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Idukki,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Kannur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Kochi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Kollam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Kottayam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Kozhikode,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Mattancheri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Palakkad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Thalassery,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Thiruvananthapuram,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Kerala,Thrissur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Ladakh,Kargil,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Ladakh,Leh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Balaghat,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Barwani,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Betul,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Bharhut,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Bhind,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Bhojpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Bhopal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Burhanpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Chhatarpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Chhindwara,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Damoh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Datia,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Dewas,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Dhar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Dr. Ambedkar Nagar (Mhow),,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Guna,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Gwalior,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Hoshangabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Indore,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Itarsi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Jabalpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Jhabua,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Khajuraho,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Khandwa,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Khargone,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Maheshwar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Mandla,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Mandsaur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Morena,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Murwara,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Narsimhapur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Narsinghgarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Narwar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Neemuch,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Nowgong,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Orchha,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Panna,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Raisen,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Rajgarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Ratlam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Rewa,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Sagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Sarangpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Satna,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Sehore,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Seoni,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Shahdol,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Shajapur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Sheopur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Shivpuri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Ujjain,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Madhya Pradesh,Vidisha,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Ahmadnagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Akola,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Amravati,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Aurangabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Bhandara,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Bhusawal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Bid,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Buldhana,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Chandrapur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Daulatabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Dhule,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Jalgaon,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Kalyan,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Karli,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Kolhapur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Mahabaleshwar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Malegaon,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Matheran,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Mumbai,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Nagpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Nanded,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Nashik,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Osmanabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Pandharpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Parbhani,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Pune,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Ratnagiri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Sangli,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Satara,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Sevagram,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Solapur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Thane,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Ulhasnagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Vasai-Virar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Wardha,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Maharashtra,Yavatmal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Manipur,Imphal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Meghalaya,Cherrapunji,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Meghalaya,Shillong,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Mizoram,Aizawl,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Mizoram,Lunglei,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Nagaland,Kohima,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Nagaland,Mon,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Nagaland,Phek,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Nagaland,Wokha,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Nagaland,Zunheboto,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Balangir,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Baleshwar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Baripada,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Bhubaneshwar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Brahmapur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Cuttack,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Dhenkanal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Kendujhar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Konark,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Koraput,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Paradip,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Phulabani,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Puri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Sambalpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Odisha,Udayagiri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Puducherry,Karaikal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Puducherry,Mahe,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Puducherry,Puducherry,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Puducherry,Yanam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Amritsar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Batala,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Chandigarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Faridkot,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Firozpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Gurdaspur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Hoshiarpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Jalandhar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Kapurthala,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Ludhiana,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Nabha,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Patiala,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Rupnagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Punjab,Sangrur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Abu,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Ajmer,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Alwar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Amer,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Barmer,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Beawar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Bharatpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Bhilwara,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Bikaner,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Bundi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Chittaurgarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Churu,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Dhaulpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Dungarpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Ganganagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Hanumangarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Jaipur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Jaisalmer,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Jalor,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Jhalawar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Jhunjhunu,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Jodhpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Kishangarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Kota,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Merta,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Nagaur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Nathdwara,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Pali,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Phalodi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Pushkar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Sawai Madhopur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Shahpura,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Sikar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Sirohi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Tonk,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Rajasthan,Udaipur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Sikkim,Gangtok,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Sikkim,Gyalshing,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Sikkim,Lachung,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Sikkim,Mangan,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Arcot,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Chengalpattu,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Chennai,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Chidambaram,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Coimbatore,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Cuddalore,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Dharmapuri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Dindigul,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Erode,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Kanchipuram,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Kanniyakumari,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Kodaikanal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Kumbakonam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Madurai,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Mamallapuram,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Nagappattinam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Nagercoil,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Palayamkottai,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Pudukkottai,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Rajapalayam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Ramanathapuram,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Salem,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Thanjavur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Tiruchchirappalli,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Tirunelveli,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Tiruppur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Thoothukudi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Udhagamandalam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tamil Nadu,Vellore,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Telangana,Hyderabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Telangana,Karimnagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Telangana,Khammam,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Telangana,Mahbubnagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Telangana,Nizamabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Telangana,Sangareddi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Telangana,Warangal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Tripura,Agartala,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Agra,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Aligarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Amroha,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Ayodhya,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Azamgarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Bahraich,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Ballia,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Banda,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Bara Banki,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Bareilly,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Basti,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Bijnor,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Bithur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Budaun,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Bulandshahr,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Deoria,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Etah,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Etawah,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Faizabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Farrukhabad-cum-Fatehgarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Fatehpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Fatehpur Sikri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Ghaziabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Ghazipur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Gonda,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Gorakhpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Hamirpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Hardoi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Hathras,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Jalaun,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Jaunpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Jhansi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Kannauj,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Kanpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Lakhimpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Lalitpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Lucknow,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Mainpuri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Mathura,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Meerut,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Mirzapur-Vindhyachal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Moradabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Muzaffarnagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Partapgarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Pilibhit,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Prayagraj,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Rae Bareli,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Rampur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Saharanpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Sambhal,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Shahjahanpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Sitapur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Sultanpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Tehri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttar Pradesh,Varanasi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttarakhand,Almora,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttarakhand,Dehra Dun,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttarakhand,Haridwar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttarakhand,Mussoorie,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttarakhand,Nainital,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,Uttarakhand,Pithoragarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Alipore,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Alipur Duar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Asansol,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Baharampur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Bally,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Balurghat,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Bankura,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Baranagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Barasat,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Barrackpore,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Basirhat,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Bhatpara,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Bishnupur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Budge Budge,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Burdwan,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Chandernagore,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Darjeeling,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Diamond Harbour,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Dum Dum,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Durgapur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Halisahar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Haora,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Hugli,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Ingraj Bazar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Jalpaiguri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Kalimpong,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Kamarhati,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Kanchrapara,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Kharagpur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Cooch Behar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Kolkata,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Krishnanagar,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Malda,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Midnapore,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Murshidabad,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Nabadwip,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Palashi,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Panihati,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Purulia,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Raiganj,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Santipur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Shantiniketan,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Shrirampur,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Siliguri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Siuri,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Tamluk,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified
+,West Bengal,Titagarh,,,,,,,,,,,,,,,,,,,,,,,,2026,Unverified - Prototype Mode,https://tourism.gov.in/,2026,Unverified

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useApp } from '../../context/AppContext';
 import { 
@@ -219,7 +219,8 @@ export default function AdminDMO() {
   useEffect(() => {
     const path = location.pathname.toLowerCase();
     if (path.includes('/investment')) {
-      setDmoTab('investment');
+      navigate('/gov/tourism-intelligence', { replace: true });
+      return;
     } else if (path.includes('/crowd') || path.includes('/forecasts')) {
       setDmoTab('crowd');
     } else if (path.includes('/flow')) {
@@ -520,244 +521,154 @@ export default function AdminDMO() {
         </div>
       )}
 
-      {/* DMO Mode Navigation Tabs & Multilingual Selector */}
-      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 border-b border-neutral-200 dark:border-neutral-800 pb-3">
-        <div className="flex items-center gap-2 text-xs font-bold overflow-x-auto pb-1 sm:pb-0">
-          {[
-            { id: 'overview', icon: '🏛️', label: t('dmo.tabs.overview', 'Command Center') },
-            { id: 'investment', icon: '💰', label: t('dmo.tabs.investment', 'AI Investment Intelligence') },
-            { id: 'crowd', icon: '🎪', label: t('dmo.tabs.crowd', 'Crowd & Festival AI') },
-            { id: 'flow', icon: '🔀', label: t('dmo.tabs.flow', 'Smart Flow Redistribution') },
-            { id: 'analytics', icon: '📊', label: t('dmo.tabs.analytics', 'Footfall & Sentiment') },
-            { id: 'circuits', icon: '🧭', label: t('dmo.tabs.circuits', 'Circuits & Hidden Gems') },
-            { id: 'safety', icon: '🛡️', label: t('dmo.tabs.safety', 'Safety Scores & Audit Log') },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => handleTabChange(tab.id as any)}
-              className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer shrink-0 flex items-center gap-1.5 ${
-                dmoTab === tab.id
-                  ? 'bg-[#712B13] text-white shadow-sm font-bold'
-                  : 'bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300 hover:text-[#712B13]'
-              }`}
-            >
-              <span>{tab.icon}</span>
-              <span>{tab.label}</span>
-            </button>
-          ))}
-        </div>
-
-        {/* Multilingual Selector for DMO */}
-        <div className="flex items-center gap-2 shrink-0 bg-white dark:bg-neutral-800 px-3 py-1.5 rounded-xl border border-neutral-200 dark:border-neutral-700 shadow-2xs">
-          <Globe className="w-3.5 h-3.5 text-[#712B13] dark:text-[#E5A93C]" />
-          <span className="text-xs font-bold text-neutral-500 dark:text-neutral-400">
-            {t('dmo.language', 'Language')}:
-          </span>
-          <select
-            value={currentLanguage || i18n.language || 'en'}
-            onChange={(e) => {
-              const selectedLang = e.target.value;
-              changeLanguage(selectedLang);
-              i18n.changeLanguage(selectedLang);
-            }}
-            className="text-xs font-bold bg-transparent text-[#712B13] dark:text-[#E5A93C] outline-none cursor-pointer"
-            aria-label="DMO Language Selector"
-          >
-            <option value="en">English (EN)</option>
-            <option value="hi">हिन्दी (HI)</option>
-            <option value="mr">मराठी (MR)</option>
-            <option value="bn">বাংলা (BN)</option>
-            <option value="ta">தமிழ் (TA)</option>
-            <option value="te">తెలుగు (TE)</option>
-            <option value="gu">ગુજરાતી (GU)</option>
-          </select>
-        </div>
-      </div>
-
       {/* DMO Command Center Header */}
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-neutral-200 dark:border-neutral-800">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-neutral-200 dark:border-neutral-800">
         <div>
-          <div className="flex items-center gap-2 mb-2 flex-wrap">
-            <span className="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-[#712B13]/10 dark:bg-[#E5A93C]/20 text-[#712B13] dark:text-[#E5A93C] border border-[#712B13]/20 dark:border-[#E5A93C]/30 flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#712B13] dark:bg-[#E5A93C] animate-ping" />
-              Swadesh Darshan 2.0 • B2G Analytics Engine
-            </span>
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700/60">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              {t('dmo.live_telemetry', 'Live Hourly Telemetry')}: {hourlyToken || 'tok_hourly_active'}
+          <div className="flex items-center gap-2 mb-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 border border-teal-300 dark:border-teal-700/60 shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
+              Live Hourly Telemetry: {hourlyToken || 'tok_hourly_active'}
             </span>
           </div>
-          {/* Headline Stat & Titles */}
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-display font-extrabold text-[#712B13] dark:text-amber-100 tracking-tight">
-            {t('dmo.title', 'DMO Command & Intelligence Suite')}
+          <h1 className="text-2xl sm:text-3xl font-display font-extrabold text-neutral-900 dark:text-white tracking-tight">
+            DMO Command Center
           </h1>
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-1 max-w-3xl">
-            {t('dmo.subtitle', 'National Destination Management, AI Crowd Forecasting & Smart Flow Control')}
+            National destination management, AI crowd forecasting, carrying capacity throttling, and green circuit redistribution.
           </p>
         </div>
 
-        {/* Exactly 1 Link / Action Button by default: View full analytics */}
-        <div className="flex items-center gap-2.5 shrink-0 flex-wrap">
-          <button
-            onClick={() => setShowFullAnalytics(!showFullAnalytics)}
-            className="px-4 py-2.5 rounded-xl text-xs font-bold bg-[#712B13] hover:bg-[#5A220F] text-white flex items-center gap-2 shadow-sm transition-all cursor-pointer"
+        {/* Header Actions: Language Selector, Government Portal Gateway, and Sync */}
+        <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+          {/* Multilingual Selector for DMO */}
+          <div className="flex items-center gap-2 bg-white dark:bg-neutral-800 px-3 py-2 rounded-xl border border-neutral-200 dark:border-neutral-700 shadow-2xs">
+            <Globe className="w-3.5 h-3.5 text-teal-700 dark:text-teal-400" />
+            <span className="text-xs font-bold text-neutral-500 dark:text-neutral-400">
+              {t('dmo.language', 'Language')}:
+            </span>
+            <select
+              value={currentLanguage || i18n.language || 'en'}
+              onChange={(e) => {
+                const selectedLang = e.target.value;
+                changeLanguage(selectedLang);
+                i18n.changeLanguage(selectedLang);
+              }}
+              className="text-xs font-bold bg-transparent text-teal-700 dark:text-teal-400 outline-none cursor-pointer"
+              aria-label="DMO Language Selector"
+            >
+              <option value="en">English (EN)</option>
+              <option value="hi">हिन्दी (HI)</option>
+              <option value="mr">मराठी (MR)</option>
+              <option value="bn">বাংলা (BN)</option>
+              <option value="ta">தமிழ் (TA)</option>
+              <option value="te">తెలుగు (TE)</option>
+              <option value="gu">ગુજરાતી (GU)</option>
+            </select>
+          </div>
+
+          {/* Fully separated link to dedicated Government Tourism Investment Intelligence Portal */}
+          <Link
+            to="/gov/tourism-intelligence"
+            className="px-3.5 py-2 rounded-xl text-xs font-bold bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/50 dark:hover:bg-amber-900/60 text-amber-900 dark:text-amber-200 border border-amber-300 dark:border-amber-700/60 transition-all flex items-center gap-1.5 shadow-2xs"
+            title="Open dedicated Government Tourism Investment Intelligence Suite"
           >
-            <span>{showFullAnalytics ? 'Hide full analytics' : 'View full analytics'}</span>
-            <ChevronRight className={`w-4 h-4 transition-transform ${showFullAnalytics ? 'rotate-90' : ''}`} />
+            <span>💎</span>
+            <span>Tourism Investment Intelligence ↗</span>
+          </Link>
+
+          <button
+            onClick={fetchDMOData}
+            disabled={loading}
+            className="px-4 py-2 rounded-xl text-xs font-bold bg-teal-700 hover:bg-teal-800 text-white flex items-center gap-2 shadow-sm transition-all cursor-pointer"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+            <span>Sync Live Telemetry</span>
           </button>
-
-          {showFullAnalytics && (
-            <>
-              <button
-                onClick={fetchDMOData}
-                disabled={loading}
-                className="px-3.5 py-2 rounded-xl text-xs font-bold bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:bg-neutral-50 text-neutral-700 dark:text-neutral-200 flex items-center gap-1.5 shadow-2xs transition-colors cursor-pointer"
-                title="Refresh Live Sensor Telemetry"
-              >
-                <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin text-[#712B13]' : ''}`} />
-                <span>Sync Telemetry</span>
-              </button>
-
-              <button
-                onClick={handleExportReport}
-                className="px-3.5 py-2 rounded-xl text-xs font-bold bg-[#27500A] hover:bg-[#1E3D07] text-white flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span>Export Report (CSV)</span>
-              </button>
-
-              <button
-                onClick={handleTestItineraryRedirection}
-                disabled={testingItinerary}
-                className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#712B13] to-[#8C3618] hover:from-[#5A220F] hover:to-[#712B13] text-white flex items-center gap-1.5 shadow-md shadow-amber-900/10 transition-all cursor-pointer"
-                title="Simulate a tourist itinerary request for Manali to test gatekeeper redirection"
-              >
-                <Zap className={`w-3.5 h-3.5 text-[#E5A93C] ${testingItinerary ? 'animate-bounce' : ''}`} />
-                <span>{testingItinerary ? 'Testing Redirection...' : 'Test Gatekeeper (Manali)'}</span>
-              </button>
-            </>
-          )}
         </div>
       </div>
-
-      {/* Real-time Overtourism Alerts Banner */}
-      {overtourismAlerts.length > 0 && (
-        <div className="max-w-7xl mx-auto p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-800/60 shadow-2xs space-y-3 animate-fadeIn">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-600 animate-ping" />
-              <h3 className="font-bold text-xs uppercase tracking-wider text-amber-900 dark:text-amber-200 flex items-center gap-1.5">
-                <AlertTriangle className="w-4 h-4 text-amber-600" />
-                <span>Active Overtourism Alerts ({overtourismAlerts.length} High-Stress Corridors)</span>
-              </h3>
-            </div>
-            <span className="text-[11px] font-mono text-amber-700 dark:text-amber-300">Live Carrying Capacity Threshold &gt; 70</span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-            {overtourismAlerts.slice(0, 3).map((a: any) => (
-              <div key={a.destination_id} className="p-3 rounded-xl bg-white dark:bg-[#1A1816] border border-amber-200 dark:border-amber-900/50 flex flex-col justify-between space-y-2">
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-bold text-xs text-neutral-900 dark:text-white">{a.name} ({a.state})</span>
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold ${
-                      a.severity === 'CRITICAL' ? 'bg-red-100 text-red-700 dark:bg-red-950/50 dark:text-red-300' : 'bg-amber-100 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300'
-                    }`}>
-                      {a.severity} ({a.saturation_pct}%)
-                    </span>
-                  </div>
-                  <p className="text-[11px] text-neutral-500 mt-1 line-clamp-2">{a.advisory}</p>
-                </div>
-                <div className="flex items-center justify-between pt-2 border-t border-neutral-100 dark:border-neutral-800 text-[11px]">
-                  <span className="text-emerald-600 font-semibold truncate">→ {a.recommended_alternative}</span>
-                  <button
-                    onClick={() => handleToggleEcoPermit({ name: a.name, state: a.state, alternative: a.recommended_alternative })}
-                    className="px-2.5 py-1 rounded-md bg-[#712B13] text-white text-[10px] font-bold hover:bg-[#5A220F] shrink-0 cursor-pointer"
-                  >
-                    {activeLocks[a.name.toLowerCase()] ? 'Unlock Gate' : 'Lock Gate'}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 4 Executive KPI Tiles (Visible in Overview, Analytics, Potential) */}
-      {(dmoTab === 'overview' || dmoTab === 'analytics' || dmoTab === 'potential') && (
+      {/* 4 Executive KPI Tiles */}
+      {dmoTab === 'overview' && (
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-fadeIn">
           {/* KPI 1: Monitored Destinations */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                {t('dmo.kpis.total_destinations', 'Total POIs Mapped')}
+                Destinations Tracked
               </span>
-              <DataBadge label="Actual Data" size="xs" />
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-50 text-teal-700 dark:bg-teal-950/40 dark:text-teal-300">
+                Verified
+              </span>
             </div>
             <div className="mt-3 flex items-baseline gap-2">
-              <span className="text-2xl sm:text-3xl font-display font-extrabold text-neutral-900 dark:text-white">
+              <span className="text-3xl font-display font-extrabold text-neutral-900 dark:text-white">
                 {platformMetrics.total_destinations.toLocaleString()}
               </span>
-              <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">36 States/UTs</span>
+              <span className="text-xs font-bold text-teal-600 dark:text-teal-400">36 States/UTs</span>
             </div>
-            <p className="text-[11px] text-neutral-500 mt-1">Grounding verified destination master registry</p>
+            <p className="text-xs text-neutral-500 mt-1">Grounding verified destination registry</p>
           </div>
 
           {/* KPI 2: Critical Hotspots */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                {t('dmo.kpis.critical_hotspots', 'Critical Hotspots')}
+                Critical Saturated Nodes
               </span>
-              <DataBadge label="Predicted Data" size="xs" />
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-50 text-red-700 dark:bg-red-950/40 dark:text-red-300">
+                &gt;85% Cap
+              </span>
             </div>
             <div className="mt-3 flex items-baseline gap-2">
-              <span className="text-2xl sm:text-3xl font-display font-extrabold text-red-600 dark:text-red-400">
+              <span className="text-3xl font-display font-extrabold text-red-600 dark:text-red-400">
                 {heatmapNodes.filter(n => n.status === 'CRITICAL').length}
               </span>
-              <span className="text-[11px] font-bold text-red-500">Saturation &gt; 85%</span>
+              <span className="text-xs font-bold text-red-500">Over-Capacity</span>
             </div>
-            <p className="text-[11px] text-neutral-500 mt-1">Manali, Shimla, Goa, Varanasi exceeding capacity</p>
+            <p className="text-xs text-neutral-500 mt-1">Exceeding safe carrying thresholds</p>
           </div>
 
           {/* KPI 3: Active Eco-Permit Locks */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                {t('dmo.kpis.active_locks', 'Active Gatekeepers')}
+                Active Eco-Permit Locks
               </span>
-              <DataBadge label="Actual Data" size="xs" />
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 dark:bg-amber-950/40 dark:text-amber-300">
+                Gatekeeper
+              </span>
             </div>
             <div className="mt-3 flex items-baseline gap-2">
-              <span className="text-2xl sm:text-3xl font-display font-extrabold text-[#712B13] dark:text-[#E5A93C]">
+              <span className="text-3xl font-display font-extrabold text-amber-600 dark:text-amber-400">
                 {totalActiveLocks}
               </span>
-              <span className="text-[11px] font-bold text-amber-600">Throttling Active</span>
+              <span className="text-xs font-bold text-amber-600">{totalActiveLocks > 0 ? 'Throttling Active' : 'All Clear'}</span>
             </div>
-            <p className="text-[11px] text-neutral-500 mt-1">Dynamic rerouting to pristine secondary circuits</p>
+            <p className="text-xs text-neutral-500 mt-1">Autonomous rerouting to secondary circuits</p>
           </div>
 
-          {/* KPI 4: Diverted Tourist Volume & CO2 Abatement */}
+          {/* KPI 4: Diverted Tourist Volume */}
           <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
-                {t('dmo.kpis.diverted_volume', 'Decentralized Footfall')}
+                Diverted Tourist Volume
               </span>
-              <DataBadge label="Estimated Data" size="xs" />
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300">
+                Decentralized
+              </span>
             </div>
             <div className="mt-3 flex items-baseline gap-2">
-              <span className="text-2xl sm:text-3xl font-display font-extrabold text-emerald-700 dark:text-emerald-400">
-                {platformMetrics.diverted_tourist_volume > 0 ? platformMetrics.diverted_tourist_volume.toLocaleString() : '36,900+'}
+              <span className="text-3xl font-display font-extrabold text-emerald-600 dark:text-emerald-400">
+                {platformMetrics.diverted_tourist_volume > 0 ? platformMetrics.diverted_tourist_volume.toLocaleString() : '36,900'}
               </span>
-              <span className="text-[11px] font-bold text-emerald-600">Tourists</span>
+              <span className="text-xs font-bold text-emerald-600">Tourists</span>
             </div>
-            <p className="text-[11px] text-neutral-500 mt-1">Distributed to Jibhi, Tirthan & Bastar homestays</p>
+            <p className="text-xs text-neutral-500 mt-1">Distributed to pristine rural homestays</p>
           </div>
         </div>
       )}
 
       {/* ═══ LIVE DATA PANELS (Sentiment, Bookings, Pipeline) ═══ */}
-      {(dmoTab === 'analytics' || dmoTab === 'potential' || showFullAnalytics) && (
+      {dmoTab === 'analytics' && (
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 animate-fadeIn">
 
           {/* Panel 1: Real Sentiment from reviews_training */}
@@ -925,7 +836,7 @@ export default function AdminDMO() {
       )}
 
       {/* ═══════════ Destination Potential & DMO Investment Priority Panel ═══════════ */}
-      {(dmoTab === 'potential' || dmoTab === 'analytics' || showFullAnalytics) && (
+      {dmoTab === 'analytics' && (
         <div className="max-w-7xl mx-auto space-y-4 animate-fadeIn">
           <div className="p-6 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
             <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-neutral-200 dark:border-neutral-800 pb-4">
@@ -1429,9 +1340,303 @@ export default function AdminDMO() {
         </div>
       )}
 
-      {/* Main Grid: Interactive Leaflet Heatmap + Gatekeeper Switchboard */}
+
+
+      {/* Section 4: National Carrying Capacity vs. Heritage Circuit Balance Table */}
+      {dmoTab === 'analytics' && (
+        <div className="max-w-7xl mx-auto p-6 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4 animate-fadeIn">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 className="font-display font-bold text-lg text-neutral-900 dark:text-white">
+                National Carrying Capacity vs. Secondary Circuit Balancing
+              </h3>
+              <p className="text-xs text-neutral-500">
+                Direct telemetry mapping primary high-stress corridors to designated sustainable tribal & heritage clusters.
+              </p>
+            </div>
+            <span className="text-xs font-mono font-bold text-teal-700 dark:text-teal-400">
+              Swadesh Darshan 2.0 Spec #SD2-OT-902
+            </span>
+          </div>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs text-neutral-600 dark:text-neutral-300">
+              <thead className="text-[11px] font-bold uppercase tracking-wider bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border-b border-neutral-200 dark:border-neutral-700">
+                <tr>
+                  <th className="py-3 px-4">Primary Tourist Hub</th>
+                  <th className="py-3 px-4">State</th>
+                  <th className="py-3 px-4">Saturation Index</th>
+                  <th className="py-3 px-4">Gatekeeper Lock</th>
+                  <th className="py-3 px-4">Matched Secondary Circuit</th>
+                  <th className="py-3 px-4">Decentralized Benefit</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800 font-medium">
+                {[
+                  { primary: "Manali", state: "Himachal Pradesh", saturation: "92%", lock: !!activeLocks["manali"], alt: "Tirthan Valley & Jibhi", benefit: "UNESCO Great Himalayan Park gateway, trout rivers, wooden homestays (-65% crowd)" },
+                  { primary: "Shimla", state: "Himachal Pradesh", saturation: "88%", lock: !!activeLocks["shimla"], alt: "Chail & Narkanda", benefit: "World's highest cricket pitch, quiet deodar forests (-70% crowd)" },
+                  { primary: "Goa Beaches", state: "Goa", saturation: "95%", lock: !!activeLocks["goa"] || !!activeLocks["goa beaches"], alt: "Gokarna & Divar Island", benefit: "Pristine cliffside beaches, spiritual heritage temples (-55% crowd)" },
+                  { primary: "Jaipur", state: "Rajasthan", saturation: "82%", lock: !!activeLocks["jaipur"], alt: "Bundi & Shekhawati", benefit: "Taragarh Fort, Rajput frescoes, authentic stepwells (-70% crowd)" },
+                  { primary: "Varanasi", state: "Uttar Pradesh", saturation: "86%", lock: !!activeLocks["varanasi"], alt: "Chunar & Sarnath Rural", benefit: "Ancient Ganga fortress, Buddhist monastic peace (-60% crowd)" },
+                  { primary: "Ooty", state: "Tamil Nadu", saturation: "79%", lock: !!activeLocks["ooty"], alt: "Valparai & Coonoor", benefit: "Anamalai Tiger Reserve, emerald tea slopes, zero plastic (-75% crowd)" },
+                ].map((row, idx) => (
+                  <tr key={idx} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/40 transition-colors">
+                    <td className="py-3 px-4 font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
+                      <MapPin className="w-3.5 h-3.5 text-[#712B13] dark:text-[#E5A93C]" />
+                      <span>{row.primary}</span>
+                    </td>
+                    <td className="py-3 px-4">{row.state}</td>
+                    <td className="py-3 px-4">
+                      <span className="font-bold text-red-600">{row.saturation}</span>
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                        row.lock ? 'bg-red-100 text-red-800 font-extrabold' : 'bg-emerald-100 text-emerald-800'
+                      }`}>
+                        {row.lock ? '🛡️ THROTTLED' : '🟢 OPEN'}
+                      </span>
+                    </td>
+                    <td className="py-3 px-4 font-bold text-emerald-700 dark:text-emerald-400">
+                      {row.alt}
+                    </td>
+                    <td className="py-3 px-4 text-neutral-500 max-w-xs">
+                      {row.benefit}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+
+      {/* ═══════════ Safety Scores & Security Audit Log Panel ═══════════ */}
+      {dmoTab === 'safety' && (
+        <div className="max-w-7xl mx-auto space-y-6 animate-fadeIn">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-display font-extrabold text-[#712B13] dark:text-amber-100 flex items-center gap-2">
+                <Shield className="w-5 h-5 text-[#712B13] dark:text-[#E5A93C]" />
+                Destination Safety Score Review & Compliance Audit Log
+              </h2>
+              <p className="text-xs text-neutral-500 mt-0.5">
+                Official safety score indexing across national destinations with permanent cryptographic audit trails.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <input
+                type="text"
+                placeholder="Search destination..."
+                value={safetySearch}
+                onChange={(e) => setSafetySearch(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && fetchSafetyData()}
+                className="px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs"
+              />
+              <button
+                onClick={fetchSafetyData}
+                className="px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 text-xs font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-1.5 cursor-pointer"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 ${safetyLoading ? 'animate-spin' : ''}`} />
+                <span>Refresh</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Safety Scores Table */}
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
+            <h3 className="font-bold text-sm text-neutral-900 dark:text-white flex items-center justify-between">
+              <span>National Safety Score Catalog ({safetyScores.length} Destinations)</span>
+              <span className="text-xs font-mono font-normal text-neutral-500">Live DB: destinations_master</span>
+            </h3>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs text-neutral-600 dark:text-neutral-300">
+                <thead className="text-[11px] font-bold uppercase tracking-wider bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border-b border-neutral-200 dark:border-neutral-700">
+                  <tr>
+                    <th className="py-3 px-4">Destination</th>
+                    <th className="py-3 px-4">State</th>
+                    <th className="py-3 px-4">Category</th>
+                    <th className="py-3 px-4">Safety Score</th>
+                    <th className="py-3 px-4">Crowd Score</th>
+                    <th className="py-3 px-4">Rating</th>
+                    <th className="py-3 px-4 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800 font-medium">
+                  {safetyScores.map((d: any) => {
+                    const score = d.safety_score ?? 85;
+                    const badgeClass = score >= 80 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400'
+                      : score >= 60 ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-400'
+                      : 'bg-red-100 text-red-800 dark:bg-red-950/40 dark:text-red-400';
+                    return (
+                      <tr key={d.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/40 transition-colors">
+                        <td className="py-3 px-4 font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5 text-[#712B13] dark:text-[#E5A93C]" />
+                          <span>{d.name}</span>
+                        </td>
+                        <td className="py-3 px-4">{d.state}</td>
+                        <td className="py-3 px-4 capitalize">{d.category}</td>
+                        <td className="py-3 px-4">
+                          <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${badgeClass}`}>
+                            {score}/100
+                          </span>
+                        </td>
+                        <td className="py-3 px-4 font-bold text-neutral-700 dark:text-neutral-300">
+                          {d.crowd_density_score}/100
+                        </td>
+                        <td className="py-3 px-4">⭐ {d.rating} ({d.review_count})</td>
+                        <td className="py-3 px-4 text-right">
+                          <button
+                            onClick={() => {
+                              setEditingSafety(d);
+                              setSafetyForm({ score: d.safety_score ?? 85, reason: '' });
+                            }}
+                            className="px-3 py-1 rounded-lg text-xs font-bold bg-[#712B13] text-white hover:bg-[#5A220F] transition-colors cursor-pointer"
+                          >
+                            Review & Edit
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Safety Audit Log History */}
+          <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
+            <h3 className="font-bold text-sm text-neutral-900 dark:text-white flex items-center justify-between">
+              <span>Security Audit Log (audit_logs table)</span>
+              <span className="text-xs font-mono font-normal text-emerald-600">✓ Immutable Telemetry Record</span>
+            </h3>
+
+            {safetyAuditLogs.length === 0 ? (
+              <p className="text-xs text-neutral-400 py-4 text-center">No safety score changes recorded yet in audit log.</p>
+            ) : (
+              <div className="overflow-x-auto">
+                <table className="w-full text-left text-xs text-neutral-600 dark:text-neutral-300">
+                  <thead className="text-[11px] font-bold uppercase tracking-wider bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border-b border-neutral-200 dark:border-neutral-700">
+                    <tr>
+                      <th className="py-2.5 px-3">Timestamp</th>
+                      <th className="py-2.5 px-3">Officer</th>
+                      <th className="py-2.5 px-3">Destination</th>
+                      <th className="py-2.5 px-3">Old Score</th>
+                      <th className="py-2.5 px-3">New Score</th>
+                      <th className="py-2.5 px-3">Audit Justification</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800 font-medium">
+                    {safetyAuditLogs.map((log: any) => (
+                      <tr key={log.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/40">
+                        <td className="py-2.5 px-3 font-mono text-[11px] text-neutral-500">{log.timestamp ? new Date(log.timestamp).toLocaleString() : 'Recent'}</td>
+                        <td className="py-2.5 px-3 font-semibold">{log.actor_email}</td>
+                        <td className="py-2.5 px-3 font-bold text-neutral-900 dark:text-white">{log.details?.destination || `POI #${log.target_id}`}</td>
+                        <td className="py-2.5 px-3 text-neutral-500 font-bold">{log.details?.old_safety_score ?? '--'}</td>
+                        <td className="py-2.5 px-3 font-bold text-emerald-600">{log.details?.new_safety_score ?? '--'}</td>
+                        <td className="py-2.5 px-3 text-neutral-600 dark:text-neutral-300 italic">{log.details?.reason || 'Compliance review'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+
+          {/* Edit Safety Score Modal */}
+          {editingSafety && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
+              <div className="w-full max-w-md bg-white dark:bg-[#1A1816] border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 space-y-4 shadow-2xl">
+                <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-3">
+                  <div>
+                    <h3 className="font-bold text-base text-neutral-900 dark:text-white">
+                      Adjust Safety Score: {editingSafety.name}
+                    </h3>
+                    <p className="text-xs text-neutral-500">{editingSafety.state} • Current Score: {editingSafety.safety_score}/100</p>
+                  </div>
+                  <button onClick={() => setEditingSafety(null)} className="text-xs font-bold text-neutral-400 hover:text-neutral-600 cursor-pointer">✕</button>
+                </div>
+
+                <form onSubmit={handleSaveSafety} className="space-y-4 text-xs">
+                  <div>
+                    <label className="font-semibold block mb-1">New Safety Score (0 - 100)</label>
+                    <input
+                      type="number"
+                      min={0}
+                      max={100}
+                      value={safetyForm.score}
+                      onChange={(e) => setSafetyForm({ ...safetyForm, score: Number(e.target.value) })}
+                      className="w-full p-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 font-bold text-base"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="font-semibold block mb-1">Mandatory Audit Justification</label>
+                    <textarea
+                      rows={3}
+                      placeholder="e.g. State Police safety inspection completed; new high-capacity lighting installed along ghats."
+                      value={safetyForm.reason}
+                      onChange={(e) => setSafetyForm({ ...safetyForm, reason: e.target.value })}
+                      className="w-full p-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-xs"
+                      required
+                    />
+                  </div>
+
+                  <div className="flex items-center justify-end gap-2 pt-2 border-t border-neutral-200 dark:border-neutral-800">
+                    <button
+                      type="button"
+                      onClick={() => setEditingSafety(null)}
+                      className="px-3.5 py-2 rounded-lg border border-neutral-300 dark:border-neutral-700 text-xs font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={savingSafety}
+                      className="px-4 py-2 rounded-lg bg-[#712B13] hover:bg-[#5A220F] text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                    >
+                      {savingSafety ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                      <span>Commit to Audit Log</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ═══════════ Module 1: AI Tourism Investment Recommendation ═══════════ */}
+      {dmoTab === 'investment' && (
+        <div className="max-w-7xl mx-auto animate-fadeIn">
+          <React.Suspense fallback={<div className="p-12 text-center text-xs text-neutral-400">Loading Investment Intelligence Engine...</div>}>
+            <InvestmentIntelligenceView />
+          </React.Suspense>
+        </div>
+      )}
+
+      {/* ═══════════ Module 2: AI Footfall & Festival Crowd Management ═══════════ */}
+      {(dmoTab === 'crowd' || dmoTab === 'forecasts') && (
+        <div className="max-w-7xl mx-auto animate-fadeIn">
+          <React.Suspense fallback={<div className="p-12 text-center text-xs text-neutral-400">Loading Crowd Intelligence Engine...</div>}>
+            <CrowdIntelligenceView onNavigateToFlow={() => handleTabChange('flow')} />
+          </React.Suspense>
+        </div>
+      )}
+
+      {/* ═══════════ Module 3: Smart Tourist Flow Redistribution ═══════════ */}
+      {dmoTab === 'flow' && (
+        <div className="max-w-7xl mx-auto animate-fadeIn">
+          <React.Suspense fallback={<div className="p-12 text-center text-xs text-neutral-400">Loading Tourist Flow Redistribution Engine...</div>}>
+            <FlowRedistributionView />
+          </React.Suspense>
+        </div>
+      )}
+
+      {/* Main Grid: Interactive Leaflet Heatmap + Gatekeeper Switchboard (Relocated to End of Page) */}
       {(dmoTab === 'overview' || showFullAnalytics) && (
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fadeIn">
         
         {/* Left Column: Leaflet Tourist Density Heatmap (7 cols) */}
         <div className="lg:col-span-7 col-span-12 space-y-4">
@@ -1750,298 +1955,6 @@ export default function AdminDMO() {
           </div>
 
       </div>
-      )}
-
-      {/* Section 4: National Carrying Capacity vs. Heritage Circuit Balance Table */}
-      {(dmoTab === 'analytics' || showFullAnalytics) && (
-        <div className="max-w-7xl mx-auto p-6 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4 animate-fadeIn">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-            <div>
-              <h3 className="font-display font-bold text-lg text-neutral-900 dark:text-white">
-                National Carrying Capacity vs. Secondary Circuit Balancing
-              </h3>
-              <p className="text-xs text-neutral-500">
-                Direct telemetry mapping primary high-stress corridors to designated sustainable tribal & heritage clusters.
-              </p>
-            </div>
-            <span className="text-xs font-mono font-bold text-[#712B13] dark:text-[#E5A93C]">
-              Swadesh Darshan 2.0 Spec #SD2-OT-902
-            </span>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-neutral-600 dark:text-neutral-300">
-              <thead className="text-[11px] font-bold uppercase tracking-wider bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border-b border-neutral-200 dark:border-neutral-700">
-                <tr>
-                  <th className="py-3 px-4">Primary Tourist Hub</th>
-                  <th className="py-3 px-4">State</th>
-                  <th className="py-3 px-4">Saturation Index</th>
-                  <th className="py-3 px-4">Gatekeeper Lock</th>
-                  <th className="py-3 px-4">Matched Secondary Circuit</th>
-                  <th className="py-3 px-4">Decentralized Benefit</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800 font-medium">
-                {[
-                  { primary: "Manali", state: "Himachal Pradesh", saturation: "92%", lock: !!activeLocks["manali"], alt: "Tirthan Valley & Jibhi", benefit: "UNESCO Great Himalayan Park gateway, trout rivers, wooden homestays (-65% crowd)" },
-                  { primary: "Shimla", state: "Himachal Pradesh", saturation: "88%", lock: !!activeLocks["shimla"], alt: "Chail & Narkanda", benefit: "World's highest cricket pitch, quiet deodar forests (-70% crowd)" },
-                  { primary: "Goa Beaches", state: "Goa", saturation: "95%", lock: !!activeLocks["goa"] || !!activeLocks["goa beaches"], alt: "Gokarna & Divar Island", benefit: "Pristine cliffside beaches, spiritual heritage temples (-55% crowd)" },
-                  { primary: "Jaipur", state: "Rajasthan", saturation: "82%", lock: !!activeLocks["jaipur"], alt: "Bundi & Shekhawati", benefit: "Taragarh Fort, Rajput frescoes, authentic stepwells (-70% crowd)" },
-                  { primary: "Varanasi", state: "Uttar Pradesh", saturation: "86%", lock: !!activeLocks["varanasi"], alt: "Chunar & Sarnath Rural", benefit: "Ancient Ganga fortress, Buddhist monastic peace (-60% crowd)" },
-                  { primary: "Ooty", state: "Tamil Nadu", saturation: "79%", lock: !!activeLocks["ooty"], alt: "Valparai & Coonoor", benefit: "Anamalai Tiger Reserve, emerald tea slopes, zero plastic (-75% crowd)" },
-                ].map((row, idx) => (
-                  <tr key={idx} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/40 transition-colors">
-                    <td className="py-3 px-4 font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-[#712B13] dark:text-[#E5A93C]" />
-                      <span>{row.primary}</span>
-                    </td>
-                    <td className="py-3 px-4">{row.state}</td>
-                    <td className="py-3 px-4">
-                      <span className="font-bold text-red-600">{row.saturation}</span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        row.lock ? 'bg-red-100 text-red-800 font-extrabold' : 'bg-emerald-100 text-emerald-800'
-                      }`}>
-                        {row.lock ? '🛡️ THROTTLED' : '🟢 OPEN'}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 font-bold text-emerald-700 dark:text-emerald-400">
-                      {row.alt}
-                    </td>
-                    <td className="py-3 px-4 text-neutral-500 max-w-xs">
-                      {row.benefit}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      {/* ═══════════ Safety Scores & Security Audit Log Panel ═══════════ */}
-      {dmoTab === 'safety' && (
-        <div className="max-w-7xl mx-auto space-y-6 animate-fadeIn">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
-              <h2 className="text-xl font-display font-extrabold text-[#712B13] dark:text-amber-100 flex items-center gap-2">
-                <Shield className="w-5 h-5 text-[#712B13] dark:text-[#E5A93C]" />
-                Destination Safety Score Review & Compliance Audit Log
-              </h2>
-              <p className="text-xs text-neutral-500 mt-0.5">
-                Official safety score indexing across national destinations with permanent cryptographic audit trails.
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <input
-                type="text"
-                placeholder="Search destination..."
-                value={safetySearch}
-                onChange={(e) => setSafetySearch(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && fetchSafetyData()}
-                className="px-3 py-1.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-800 text-xs"
-              />
-              <button
-                onClick={fetchSafetyData}
-                className="px-3 py-1.5 rounded-lg border border-neutral-200 dark:border-neutral-700 text-xs font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-1.5 cursor-pointer"
-              >
-                <RefreshCw className={`w-3.5 h-3.5 ${safetyLoading ? 'animate-spin' : ''}`} />
-                <span>Refresh</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Safety Scores Table */}
-          <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
-            <h3 className="font-bold text-sm text-neutral-900 dark:text-white flex items-center justify-between">
-              <span>National Safety Score Catalog ({safetyScores.length} Destinations)</span>
-              <span className="text-xs font-mono font-normal text-neutral-500">Live DB: destinations_master</span>
-            </h3>
-
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-neutral-600 dark:text-neutral-300">
-                <thead className="text-[11px] font-bold uppercase tracking-wider bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border-b border-neutral-200 dark:border-neutral-700">
-                  <tr>
-                    <th className="py-3 px-4">Destination</th>
-                    <th className="py-3 px-4">State</th>
-                    <th className="py-3 px-4">Category</th>
-                    <th className="py-3 px-4">Safety Score</th>
-                    <th className="py-3 px-4">Crowd Score</th>
-                    <th className="py-3 px-4">Rating</th>
-                    <th className="py-3 px-4 text-right">Action</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800 font-medium">
-                  {safetyScores.map((d: any) => {
-                    const score = d.safety_score ?? 85;
-                    const badgeClass = score >= 80 ? 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-400'
-                      : score >= 60 ? 'bg-amber-100 text-amber-800 dark:bg-amber-950/40 dark:text-amber-400'
-                      : 'bg-red-100 text-red-800 dark:bg-red-950/40 dark:text-red-400';
-                    return (
-                      <tr key={d.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/40 transition-colors">
-                        <td className="py-3 px-4 font-bold text-neutral-900 dark:text-white flex items-center gap-1.5">
-                          <MapPin className="w-3.5 h-3.5 text-[#712B13] dark:text-[#E5A93C]" />
-                          <span>{d.name}</span>
-                        </td>
-                        <td className="py-3 px-4">{d.state}</td>
-                        <td className="py-3 px-4 capitalize">{d.category}</td>
-                        <td className="py-3 px-4">
-                          <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${badgeClass}`}>
-                            {score}/100
-                          </span>
-                        </td>
-                        <td className="py-3 px-4 font-bold text-neutral-700 dark:text-neutral-300">
-                          {d.crowd_density_score}/100
-                        </td>
-                        <td className="py-3 px-4">⭐ {d.rating} ({d.review_count})</td>
-                        <td className="py-3 px-4 text-right">
-                          <button
-                            onClick={() => {
-                              setEditingSafety(d);
-                              setSafetyForm({ score: d.safety_score ?? 85, reason: '' });
-                            }}
-                            className="px-3 py-1 rounded-lg text-xs font-bold bg-[#712B13] text-white hover:bg-[#5A220F] transition-colors cursor-pointer"
-                          >
-                            Review & Edit
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Safety Audit Log History */}
-          <div className="p-5 rounded-2xl bg-white dark:bg-[#1A1816] border border-neutral-200/80 dark:border-neutral-800 shadow-2xs space-y-4">
-            <h3 className="font-bold text-sm text-neutral-900 dark:text-white flex items-center justify-between">
-              <span>Security Audit Log (audit_logs table)</span>
-              <span className="text-xs font-mono font-normal text-emerald-600">✓ Immutable Telemetry Record</span>
-            </h3>
-
-            {safetyAuditLogs.length === 0 ? (
-              <p className="text-xs text-neutral-400 py-4 text-center">No safety score changes recorded yet in audit log.</p>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs text-neutral-600 dark:text-neutral-300">
-                  <thead className="text-[11px] font-bold uppercase tracking-wider bg-neutral-50 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-200 border-b border-neutral-200 dark:border-neutral-700">
-                    <tr>
-                      <th className="py-2.5 px-3">Timestamp</th>
-                      <th className="py-2.5 px-3">Officer</th>
-                      <th className="py-2.5 px-3">Destination</th>
-                      <th className="py-2.5 px-3">Old Score</th>
-                      <th className="py-2.5 px-3">New Score</th>
-                      <th className="py-2.5 px-3">Audit Justification</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800 font-medium">
-                    {safetyAuditLogs.map((log: any) => (
-                      <tr key={log.id} className="hover:bg-neutral-50 dark:hover:bg-neutral-800/40">
-                        <td className="py-2.5 px-3 font-mono text-[11px] text-neutral-500">{log.timestamp ? new Date(log.timestamp).toLocaleString() : 'Recent'}</td>
-                        <td className="py-2.5 px-3 font-semibold">{log.actor_email}</td>
-                        <td className="py-2.5 px-3 font-bold text-neutral-900 dark:text-white">{log.details?.destination || `POI #${log.target_id}`}</td>
-                        <td className="py-2.5 px-3 text-neutral-500 font-bold">{log.details?.old_safety_score ?? '--'}</td>
-                        <td className="py-2.5 px-3 font-bold text-emerald-600">{log.details?.new_safety_score ?? '--'}</td>
-                        <td className="py-2.5 px-3 text-neutral-600 dark:text-neutral-300 italic">{log.details?.reason || 'Compliance review'}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-
-          {/* Edit Safety Score Modal */}
-          {editingSafety && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-fadeIn">
-              <div className="w-full max-w-md bg-white dark:bg-[#1A1816] border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 space-y-4 shadow-2xl">
-                <div className="flex items-center justify-between border-b border-neutral-200 dark:border-neutral-800 pb-3">
-                  <div>
-                    <h3 className="font-bold text-base text-neutral-900 dark:text-white">
-                      Adjust Safety Score: {editingSafety.name}
-                    </h3>
-                    <p className="text-xs text-neutral-500">{editingSafety.state} • Current Score: {editingSafety.safety_score}/100</p>
-                  </div>
-                  <button onClick={() => setEditingSafety(null)} className="text-xs font-bold text-neutral-400 hover:text-neutral-600 cursor-pointer">✕</button>
-                </div>
-
-                <form onSubmit={handleSaveSafety} className="space-y-4 text-xs">
-                  <div>
-                    <label className="font-semibold block mb-1">New Safety Score (0 - 100)</label>
-                    <input
-                      type="number"
-                      min={0}
-                      max={100}
-                      value={safetyForm.score}
-                      onChange={(e) => setSafetyForm({ ...safetyForm, score: Number(e.target.value) })}
-                      className="w-full p-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 font-bold text-base"
-                      required
-                    />
-                  </div>
-
-                  <div>
-                    <label className="font-semibold block mb-1">Mandatory Audit Justification</label>
-                    <textarea
-                      rows={3}
-                      placeholder="e.g. State Police safety inspection completed; new high-capacity lighting installed along ghats."
-                      value={safetyForm.reason}
-                      onChange={(e) => setSafetyForm({ ...safetyForm, reason: e.target.value })}
-                      className="w-full p-2.5 rounded-lg border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-xs"
-                      required
-                    />
-                  </div>
-
-                  <div className="flex items-center justify-end gap-2 pt-2 border-t border-neutral-200 dark:border-neutral-800">
-                    <button
-                      type="button"
-                      onClick={() => setEditingSafety(null)}
-                      className="px-3.5 py-2 rounded-lg border border-neutral-300 dark:border-neutral-700 text-xs font-bold hover:bg-neutral-100 dark:hover:bg-neutral-800"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      type="submit"
-                      disabled={savingSafety}
-                      className="px-4 py-2 rounded-lg bg-[#712B13] hover:bg-[#5A220F] text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer"
-                    >
-                      {savingSafety ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
-                      <span>Commit to Audit Log</span>
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* ═══════════ Module 1: AI Tourism Investment Recommendation ═══════════ */}
-      {dmoTab === 'investment' && (
-        <div className="max-w-7xl mx-auto animate-fadeIn">
-          <React.Suspense fallback={<div className="p-12 text-center text-xs text-neutral-400">Loading Investment Intelligence Engine...</div>}>
-            <InvestmentIntelligenceView />
-          </React.Suspense>
-        </div>
-      )}
-
-      {/* ═══════════ Module 2: AI Footfall & Festival Crowd Management ═══════════ */}
-      {(dmoTab === 'crowd' || dmoTab === 'forecasts') && (
-        <div className="max-w-7xl mx-auto animate-fadeIn">
-          <React.Suspense fallback={<div className="p-12 text-center text-xs text-neutral-400">Loading Crowd Intelligence Engine...</div>}>
-            <CrowdIntelligenceView onNavigateToFlow={() => handleTabChange('flow')} />
-          </React.Suspense>
-        </div>
-      )}
-
-      {/* ═══════════ Module 3: Smart Tourist Flow Redistribution ═══════════ */}
-      {dmoTab === 'flow' && (
-        <div className="max-w-7xl mx-auto animate-fadeIn">
-          <React.Suspense fallback={<div className="p-12 text-center text-xs text-neutral-400">Loading Tourist Flow Redistribution Engine...</div>}>
-            <FlowRedistributionView />
-          </React.Suspense>
-        </div>
       )}
     </div>
   );

@@ -27,7 +27,8 @@ import {
   Search,
   Navigation,
   LayoutDashboard,
-  Users
+  Users,
+  Landmark
 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { useTranslation } from 'react-i18next';
@@ -72,7 +73,15 @@ export default function Navbar() {
     setProfileDropdownOpen(false);
   }, [location.pathname]);
 
-  const isActive = (path) => location.pathname === path;
+  const isGovTabActive = (tab: string) => {
+    if (!location.pathname.startsWith('/gov') && !location.pathname.startsWith('/government')) return false;
+    const searchParams = new URLSearchParams(location.search);
+    const currentTab = searchParams.get('tab') || (location.hash ? location.hash.replace('#', '') : '');
+    if (tab === 'overview') {
+      return !currentTab || currentTab === 'overview';
+    }
+    return currentTab === tab;
+  };
 
   const languages = [
     { code: 'en', label: 'English' },
@@ -139,27 +148,37 @@ export default function Navbar() {
                   Price Co-Pilot
                 </Link>
               </>
-            ) : (userRole === 'dmo' || userRole === 'gov') ? (
+            ) : userRole === 'dmo' ? (
               <>
                 <Link
                   to="/dmo"
                   className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
-                    isActive('/dmo')
+                    isActive('/dmo') && !isActive('/dmo/analytics') && !isActive('/dmo/circuits') && !isActive('/dmo/crowd') && !isActive('/dmo/flow')
                       ? 'text-blue-800 dark:text-blue-400 font-bold bg-blue-50 dark:bg-neutral-800'
                       : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
                   }`}
                 >
-                  DMO Intelligence
+                  Command Center
                 </Link>
                 <Link
-                  to="/dmo/analytics"
+                  to="/dmo/crowd"
                   className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
-                    isActive('/dmo/analytics')
+                    isActive('/dmo/crowd')
                       ? 'text-blue-800 dark:text-blue-400 font-bold bg-blue-50 dark:bg-neutral-800'
                       : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
                   }`}
                 >
-                  Analytics & Heatmap
+                  Crowd & Festivals
+                </Link>
+                <Link
+                  to="/dmo/flow"
+                  className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isActive('/dmo/flow')
+                      ? 'text-blue-800 dark:text-blue-400 font-bold bg-blue-50 dark:bg-neutral-800'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
+                  }`}
+                >
+                  Flow Diversion
                 </Link>
                 <Link
                   to="/dmo/circuits"
@@ -169,7 +188,61 @@ export default function Navbar() {
                       : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
                   }`}
                 >
-                  Circuit Management
+                  Circuits
+                </Link>
+                <Link
+                  to="/dmo/analytics"
+                  className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isActive('/dmo/analytics')
+                      ? 'text-blue-800 dark:text-blue-400 font-bold bg-blue-50 dark:bg-neutral-800'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
+                  }`}
+                >
+                  Analytics
+                </Link>
+              </>
+            ) : (userRole === 'gov' || userRole === 'government') ? (
+              <>
+                <Link
+                  to="/gov/tourism-intelligence?tab=overview"
+                  className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5 ${
+                    isGovTabActive('overview')
+                      ? 'text-emerald-800 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-neutral-800'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
+                  }`}
+                >
+                  <Landmark className="w-3.5 h-3.5" />
+                  Tourism Investment Intelligence
+                </Link>
+                <Link
+                  to="/gov/tourism-intelligence?tab=rankings"
+                  className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isGovTabActive('rankings')
+                      ? 'text-emerald-800 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-neutral-800'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
+                  }`}
+                >
+                  508 Districts
+                </Link>
+                <Link
+                  to="/gov/tourism-intelligence?tab=simulator"
+                  className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isGovTabActive('simulator')
+                      ? 'text-emerald-800 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-neutral-800'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
+                  }`}
+                >
+                  Scenario Simulator
+                </Link>
+                <Link
+                  to="/gov/tourism-intelligence?tab=compare"
+                  className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isGovTabActive('compare')
+                      ? 'text-emerald-800 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-neutral-800'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
+                  }`}
+                >
+                  Compare
                 </Link>
               </>
             ) : userRole === 'admin' ? (
@@ -303,19 +376,34 @@ export default function Navbar() {
       {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden border-b border-neutral-200 dark:border-neutral-800 bg-white dark:bg-[#141210] px-4 py-3 space-y-2 animate-fadeIn text-sm font-semibold">
-          <Link to="/" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">{t('nav.home', 'Home')}</Link>
-          <Link to="/plan" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">{t('nav.planTrip', 'Plan Trip')}</Link>
-          <Link to="/trips" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">{t('nav.myTrips', 'My Trips')}</Link>
-          <Link to="/trips/group" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2">
-            <Users className="w-4 h-4 text-amber-600" />
-            <span>{t('nav.groupTravelFull', 'Group Travel (Live Map & E2EE)')}</span>
-          </Link>
-          <Link to="/privacy" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-600" />
-            <span>{t('nav.securityPrivacy', 'Security & Privacy Center')}</span>
-          </Link>
-          <Link to="/explore" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500">{t('nav.exploreCatalog', 'Explore Catalog')}</Link>
-          <Link to="/stays" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500">{t('nav.homestays', 'Homestays')}</Link>
+          {(userRole === 'dmo' || userRole === 'gov' || userRole === 'government') ? (
+            <>
+              <Link to="/dmo" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">Command Center</Link>
+              <Link to="/dmo/investment" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2">
+                <Landmark className="w-4 h-4 text-emerald-600" />
+                <span>Tourism Intelligence</span>
+              </Link>
+              <Link to="/dmo/crowd" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">Crowd & Festivals</Link>
+              <Link to="/dmo/circuits" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">Circuit Management</Link>
+              <Link to="/dmo/analytics" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">Analytics & Heatmap</Link>
+            </>
+          ) : (
+            <>
+              <Link to="/" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">{t('nav.home', 'Home')}</Link>
+              <Link to="/plan" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">{t('nav.planTrip', 'Plan Trip')}</Link>
+              <Link to="/trips" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800">{t('nav.myTrips', 'My Trips')}</Link>
+              <Link to="/trips/group" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2">
+                <Users className="w-4 h-4 text-amber-600" />
+                <span>{t('nav.groupTravelFull', 'Group Travel (Live Map & E2EE)')}</span>
+              </Link>
+              <Link to="/privacy" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                <span>{t('nav.securityPrivacy', 'Security & Privacy Center')}</span>
+              </Link>
+              <Link to="/explore" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500">{t('nav.exploreCatalog', 'Explore Catalog')}</Link>
+              <Link to="/stays" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500">{t('nav.homestays', 'Homestays')}</Link>
+            </>
+          )}
         </div>
       )}
     </header>

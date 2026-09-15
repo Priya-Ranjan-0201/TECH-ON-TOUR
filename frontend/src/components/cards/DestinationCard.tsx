@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Star, MapPin, Clock, Bookmark, Compass, Navigation, ShieldCheck, Sparkles } from 'lucide-react';
+import Badge from '../ui/Badge';
 import { useApp } from '../../context/AppContext';
 import { getLocalizedHiddenGemReason } from '../../utils/summaryTranslator';
 import axios from 'axios';
@@ -29,6 +30,16 @@ export default function DestinationCard({ item, isCinematic = false }) {
   } else if (dest.isHiddenGem) {
     reason = getLocalizedHiddenGemReason(dest, language);
   }
+
+  const levelColor = (lvl) => {
+    const l = (lvl || '').toLowerCase();
+    if (l === 'critical') return 'critical';
+    if (l === 'high') return 'high';
+    if (l === 'moderate') return 'moderate';
+    return 'low';
+  };
+  const crowdLevel = dest.crowd_level || (dest.crowd_density_score > 80 ? 'critical' : dest.crowd_density_score > 60 ? 'high' : dest.crowd_density_score > 30 ? 'moderate' : 'low');
+  const crowdIndex = dest.crowd_index !== undefined && dest.crowd_index !== null ? dest.crowd_index : Math.round((dest.crowd_density_score || 50) * 0.9);
 
   const handleSaveToggle = async (e) => {
     e.stopPropagation();
@@ -73,7 +84,7 @@ export default function DestinationCard({ item, isCinematic = false }) {
   return (
     <div 
       onClick={handleCardClick}
-      className={`group relative flex flex-col justify-between bg-neutral-card dark:bg-darkmode-surface rounded-ts-lg border border-neutral-border dark:border-darkmode-border overflow-hidden transition-all duration-300 hover:shadow-ts-hover hover:-translate-y-1 cursor-pointer select-none h-[380px] ${
+      className={`group relative flex flex-col justify-between bg-neutral-card dark:bg-darkmode-surface rounded-ts-lg border border-neutral-border dark:border-darkmode-border overflow-hidden transition-all duration-300 hover:shadow-ts-hover hover:-translate-y-1 cursor-pointer select-none min-h-[420px] h-auto ${
         isCinematic ? 'w-80 sm:w-96 flex-shrink-0' : 'w-72 sm:w-80 flex-shrink-0'
       }`}
     >
@@ -165,6 +176,16 @@ export default function DestinationCard({ item, isCinematic = false }) {
             <span className="text-accent-600 font-bold">“</span>
             <span className="italic truncate font-medium">{reason}</span>
             <span className="text-accent-600 font-bold">”</span>
+          </div>
+
+          {/* TravelSathi Crowd Index Badge & Verbatim Honest Signal */}
+          <div className="mt-2.5 space-y-1">
+            <Badge color={levelColor(crowdLevel)} size="sm">
+              Crowd Index: {crowdLevel} ({crowdIndex}/100)
+            </Badge>
+            <p className="text-xs text-neutral-600 dark:text-neutral-400">
+              TravelSathi Crowd Index — derived from platform activity + search trend data, refreshed hourly
+            </p>
           </div>
         </div>
 

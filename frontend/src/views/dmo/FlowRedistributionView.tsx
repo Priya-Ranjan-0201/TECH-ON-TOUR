@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { MapContainer, TileLayer, CircleMarker, Polyline, Tooltip, Popup } from 'react-leaflet';
 import { DataBadge } from '../../components/common/DataBadge';
+import Badge from '../../components/ui/Badge';
 import { OSM_TILE_URL, OSM_ATTRIBUTION } from '../../lib/mapConstants';
 
 interface FlowRedistributionViewProps {
@@ -68,6 +69,14 @@ export default function FlowRedistributionView({ initialDestinationId = 1 }: Flo
     fetchRedistribution(destinationId);
   }, [destinationId, fetchRedistribution]);
 
+  const levelColor = (lvl?: string) => {
+    const l = (lvl || '').toLowerCase();
+    if (l === 'critical') return 'critical';
+    if (l === 'high') return 'high';
+    if (l === 'moderate') return 'moderate';
+    return 'low';
+  };
+
   const primary = data?.primary_destination;
   const alternatives = data?.recommended_alternatives || [];
 
@@ -93,6 +102,14 @@ export default function FlowRedistributionView({ initialDestinationId = 1 }: Flo
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-1">
             {t('dmo.flow.subtitle', 'Haversine 50km under-visited satellite dispersal to de-saturate critical hotspots')}
           </p>
+          <div className="mt-2.5 flex flex-col sm:flex-row sm:items-center gap-2">
+            <Badge color={levelColor(primary?.crowd_level || primary?.crowd_status)}>
+              Crowd Index: {primary?.crowd_level || primary?.crowd_status || 'high'} ({primary?.crowd_index || primary?.crowd_density_score || 78}/100)
+            </Badge>
+            <p className="text-xs text-neutral-600 dark:text-neutral-400">
+              TravelSathi Crowd Index — derived from platform activity + search trend data, refreshed hourly
+            </p>
+          </div>
         </div>
 
         {/* Hotspot Presets */}
@@ -278,6 +295,16 @@ export default function FlowRedistributionView({ initialDestinationId = 1 }: Flo
                 </p>
               </div>
               <DataBadge label="AI Recommendation" size="xs" />
+            </div>
+
+            {/* TravelSathi Crowd Index — Verbatim Badge & Label */}
+            <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-800/40 border border-neutral-200 dark:border-neutral-700 space-y-1">
+              <Badge color={levelColor(primary?.crowd_level || primary?.crowd_status)}>
+                Crowd Index: {primary?.crowd_level || primary?.crowd_status || 'high'} ({primary?.crowd_index || primary?.crowd_density_score || 78}/100)
+              </Badge>
+              <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                TravelSathi Crowd Index — derived from platform activity + search trend data, refreshed hourly
+              </p>
             </div>
 
             {/* Before Distribution Bar */}

@@ -635,6 +635,9 @@ async def list_destinations(
             opening_hours=r.opening_hours or "06:00 AM – 06:00 PM",
             last_field_verification=r.last_field_verification or "June 2026"
         )
+        ds = r.crowd_density_score or 50
+        item.crowd_index = round(ds * 0.9, 1)
+        item.crowd_level = 'critical' if ds > 80 else 'high' if ds > 60 else 'moderate' if ds > 30 else 'low'
         enriched_results.append(item)
 
     resp = DestinationListResponse(
@@ -1371,6 +1374,31 @@ async def get_destination_detail(
     ))
     rec_days = int(extra.get("recommended_days") or 3)
 
+    # 1. Record real-time user view interaction for hourly crowd tracking
+    target_dest_id = dest.id
+    fallback_crowd_score = dest.crowd_density_score or 50
+    try:
+        from app.database.models import DestinationInteraction
+        db.add(DestinationInteraction(
+            user_id="anonymous",
+            destination_id=target_dest_id,
+            interaction_type="view",
+            created_at=datetime.now(timezone.utc)
+        ))
+        await db.commit()
+    except Exception:
+        await db.rollback()
+
+    # 2. Query latest TravelSathi Crowd Index
+    from app.services.crowd_index_service import get_latest_crowd_index
+    crowd_info = await get_latest_crowd_index(db, target_dest_id)
+    c_idx = crowd_info["crowd_index"] if crowd_info else round(fallback_crowd_score * 0.9, 1)
+    c_lvl = crowd_info["crowd_level"] if crowd_info else (
+        "critical" if fallback_crowd_score > 80 else
+        "high" if fallback_crowd_score > 60 else
+        "moderate" if fallback_crowd_score > 30 else "low"
+    )
+
     dest_dict = {
         "id": dest.id,
         "name": dest.name,
@@ -1401,6 +1429,8 @@ async def get_destination_detail(
         "recommendedDays": rec_days,
         "is_hidden_gem": dest.is_hidden_gem,
         "crowd_density_score": dest.crowd_density_score,
+        "crowd_index": c_idx,
+        "crowd_level": c_lvl,
         "safety_score": dest.safety_score,
         "summary": localize_destination_summary(dest.name, dest.state, dest.category, district_val, dest.summary or dest.description, lang),
         "image_source": dest.image_source or ("wikimedia_commons" if "wikimedia.org" in (dest.image_url or "") else ("wikipedia" if "wikipedia.org" in (dest.image_url or "") else ("verified" if dest.image_url else "placeholder"))),

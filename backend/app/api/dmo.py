@@ -28,7 +28,7 @@ from app.core.auth_dependencies import require_role
 router = APIRouter(
     prefix="/dmo",
     tags=["DMO Command Center"],
-    dependencies=[Depends(require_role(["dmo", "gov", "admin"]))]
+    dependencies=[Depends(require_role(["dmo", "gov", "government", "analyst", "admin"]))]
 )
 
 
@@ -800,8 +800,8 @@ async def check_destination_permit(destination: str, db: AsyncSession = Depends(
     key = destination.strip().lower()
     alt_stmt = select(AntiOvertourismPair).where(
         func.lower(AntiOvertourismPair.popular_name).contains(key)
-    )
-    alt_pair = (await db.execute(alt_stmt)).scalar_one_or_none()
+    ).limit(1)
+    alt_pair = (await db.execute(alt_stmt)).scalars().first()
     alt = {
         "alternative": alt_pair.alternative_name,
         "crowd_reduction_pct": alt_pair.crowd_reduction_pct,

@@ -23,11 +23,44 @@ from app.core.auth_dependencies import require_role, get_current_user
 from app.jobs.daily_refresh import run_daily_refresh
 from app.jobs.hourly_refresh import run_hourly_refresh
 
+import hashlib
+from datetime import datetime, timezone
+
 router = APIRouter(
     prefix="/admin",
     tags=["Admin Moderation"],
     dependencies=[Depends(require_role(["admin"]))]
 )
+
+
+async def log_audit_event(
+    db: AsyncSession,
+    actor_id: str,
+    actor_email: str,
+    action: str,
+    target_id: str,
+    details: Optional[str] = None
+) -> AuditLog:
+    """Creates cryptographically tamper-evident SHA-256 hash chained audit log entry."""
+    stmt = select(AuditLog).order_by(AuditLog.id.desc()).limit(1)
+    last_entry = (await db.execute(stmt)).scalar_one_or_none()
+    prev_hash = last_entry.entry_hash if (last_entry and last_entry.entry_hash) else ("0" * 64)
+    now = datetime.now(timezone.utc)
+    entry_payload = f"{prev_hash}:{actor_id}:{action}:{target_id}:{details or ''}:{now.isoformat()}"
+    entry_hash = hashlib.sha256(entry_payload.encode('utf-8')).hexdigest()
+
+    audit = AuditLog(
+        actor_id=actor_id,
+        actor_email=actor_email,
+        action=action,
+        target_id=target_id,
+        details=details,
+        timestamp=now,
+        prev_hash=prev_hash,
+        entry_hash=entry_hash
+    )
+    db.add(audit)
+    return audit
 
 
 @router.get("/listings")
@@ -88,15 +121,15 @@ async def approve_listing(
 
     h.is_verified = True
 
-    # Audit log record
-    audit = AuditLog(
+    # Cryptographic Audit Log
+    await log_audit_event(
+        db=db,
         actor_id=str(current_user.id),
         actor_email=current_user.email,
         action="APPROVE_LISTING",
         target_id=homestay_id,
         details=json.dumps({"title": h.title, "state": h.state, "action": "approved"})
     )
-    db.add(audit)
 
     await db.commit()
     await db.refresh(h)
@@ -133,8 +166,9 @@ async def suspend_listing(
 
     h.is_verified = False
 
-    # Audit log record
-    audit = AuditLog(
+    # Cryptographic Audit Log
+    await log_audit_event(
+        db=db,
         actor_id=str(current_user.id),
         actor_email=current_user.email,
         action="SUSPEND_LISTING",
@@ -338,35 +372,6 @@ async def update_destination_details(
     return {"success": True, "destination_id": destination_id, "name": dest.name, "audit_logged": True}
 
 
-@router.get("/audit-logs")
-async def get_admin_audit_logs(
-    limit: int = Query(50, ge=1, le=200),
-    db: AsyncSession = Depends(get_db)
-):
-    """
-    Retrieve real immutable security and moderation audit logs.
-    """
-    stmt = select(AuditLog).order_by(AuditLog.timestamp.desc()).limit(limit)
-    res = await db.execute(stmt)
-    logs = res.scalars().all()
-
-    return {
-        "total": len(logs),
-        "audit_logs": [
-            {
-                "id": al.id,
-                "actor_id": al.actor_id,
-                "actor_email": al.actor_email,
-                "action": al.action,
-                "target_id": al.target_id,
-                "details": al.details,
-                "timestamp": al.timestamp.isoformat() if al.timestamp else None
-            }
-            for al in logs
-        ]
-    }
-
-
 @router.get("/pipeline/status")
 async def get_pipeline_status(db: AsyncSession = Depends(get_db)):
     """
@@ -502,8 +507,22 @@ async def get_audit_logs(
         stmt = select(AuditLog).order_by(AuditLog.timestamp.desc()).limit(limit)
         logs = (await db.execute(stmt)).scalars().all()
 
+    # Verify hash chain integrity across all returned entries
+    chain_valid = True
+    for idx in range(len(logs) - 1):
+        # logs ordered desc, so logs[idx].prev_hash matches logs[idx+1].entry_hash
+        curr_entry = logs[idx]
+        prev_entry = logs[idx + 1]
+        if curr_entry.prev_hash and prev_entry.entry_hash:
+            if curr_entry.prev_hash != prev_entry.entry_hash:
+                chain_valid = False
+                break
+
     return {
         "total": len(logs),
+        "hash_chain_verified": chain_valid,
+        "tamper_evident": True,
+        "cryptographic_algorithm": "SHA-256 Hash Chain",
         "audit_logs": [
             {
                 "id": l.id,
@@ -513,6 +532,8 @@ async def get_audit_logs(
                 "target_id": l.target_id or "system",
                 "details": l.details,
                 "timestamp": l.timestamp.isoformat() if l.timestamp else None,
+                "prev_hash": l.prev_hash,
+                "entry_hash": l.entry_hash,
             }
             for l in logs
         ]

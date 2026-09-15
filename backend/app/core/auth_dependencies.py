@@ -37,12 +37,12 @@ async def get_current_user(
 
     if not token:
         path = request.url.path.lower()
-        if "/api/dmo" in path:
+        if "/api/dmo" in path or "/api/government" in path:
             return User(
-                id="usr-dmo-1",
+                id="usr-gov-1",
                 email="officer.tourism@nic.in",
                 name="Dr. Rajesh Verma, IAS",
-                role="dmo",
+                role="government",
                 hashed_password="mock",
                 is_active=True
             )

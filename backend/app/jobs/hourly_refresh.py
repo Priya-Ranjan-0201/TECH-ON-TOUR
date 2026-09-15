@@ -29,6 +29,7 @@ from app.services.external_data import (
     fetch_trend_scores,
     fetch_weather_forecast,
 )
+from app.services.crowd_index_service import compute_and_persist_crowd_index
 
 logger = logging.getLogger("hourly_refresh")
 
@@ -285,6 +286,10 @@ async def run_hourly_refresh() -> Dict[str, Any]:
             dest_stats = await refresh_hourly_destination_signals(session, trends, demand_velocity_tier, hourly_token)
             total_cache_entries += 1
 
+            # H. TravelSathi Crowd Index (Derived from destination_interactions 6h + pytrends with 0.5 fallback)
+            crowd_stats = await compute_and_persist_crowd_index(session, run_start)
+            total_cache_entries += crowd_stats.get("total_destinations", 0)
+
             # 4. Log successful execution to pipeline_runs audit table
             run_record = PipelineRun(
                 run_at=run_iso,
@@ -311,6 +316,7 @@ async def run_hourly_refresh() -> Dict[str, Any]:
             "destinations_analyzed": dest_stats.get("total_destinations", 12293),
             "hidden_gems_count": dest_stats.get("hidden_gems_count", 0),
             "crowd_warnings_count": dest_stats.get("crowd_warnings_count", 0),
+            "crowd_indices_computed": crowd_stats.get("total_destinations", 0),
             "pricing_features_recomputed": True,
             "schedule": "Hourly interval (APScheduler)"
         }
@@ -396,7 +402,8 @@ async def refresh_hourly_destination_signals(session, trends: List[Dict[str, Any
             DestinationMaster.rating,
             DestinationMaster.review_count,
             DestinationMaster.is_famous,
-            DestinationMaster.is_hidden_gem
+            DestinationMaster.is_hidden_gem,
+            DestinationMaster.crowd_density_score
         )
         res = await session.execute(stmt)
         rows = res.all()
@@ -409,7 +416,7 @@ async def refresh_hourly_destination_signals(session, trends: List[Dict[str, Any
             if dest:
                 trending_names.add(dest.lower())
 
-        df = pd.DataFrame(rows, columns=['id', 'name', 'state', 'category', 'latitude', 'longitude', 'rating', 'review_count', 'is_famous', 'is_hidden_gem'])
+        df = pd.DataFrame(rows, columns=['id', 'name', 'state', 'category', 'latitude', 'longitude', 'rating', 'review_count', 'is_famous', 'is_hidden_gem', 'crowd_density_score'])
         df['rating'] = df['rating'].clip(lower=1.0, upper=5.0).fillna(4.0)
         df['review_count'] = df['review_count'].clip(lower=0).fillna(500)
 
@@ -481,13 +488,22 @@ async def refresh_hourly_destination_signals(session, trends: List[Dict[str, Any
 
         gem_bools = is_gem.astype(int)
 
-        # Batch update via SQLAlchemy session (non-blocking vectorized write)
+        # Batch update only rows that actually changed (avoiding massive full-table writes)
         from sqlalchemy import text
-        update_data = [{"gem": int(gem_bools[i]), "crowd": int(crowd_scores[i]), "id": int(df['id'].iloc[i])} for i in range(len(df))]
-        await session.execute(
-            text("UPDATE destinations_master SET is_hidden_gem = :gem, crowd_density_score = :crowd WHERE id = :id"),
-            update_data
-        )
+        changed_data = []
+        for i in range(len(df)):
+            g_new = int(gem_bools[i])
+            c_new = int(crowd_scores[i])
+            g_old = int(df['is_hidden_gem'].iloc[i] or 0)
+            c_old = int(df['crowd_density_score'].iloc[i] or 50)
+            if g_new != g_old or abs(c_new - c_old) >= 3:
+                changed_data.append({"gem": g_new, "crowd": c_new, "id": int(df['id'].iloc[i])})
+        
+        if changed_data:
+            await session.execute(
+                text("UPDATE destinations_master SET is_hidden_gem = :gem, crowd_density_score = :crowd WHERE id = :id"),
+                changed_data
+            )
 
         # Cache hourly token snapshot
         payload = {

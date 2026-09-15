@@ -1,16 +1,84 @@
-# React + Vite
+# 🇮🇳 TravelSathi — Frontend Architecture & Component Suite
+### *High-Performance React 19 + Vite Client for India's Digital Public Infrastructure for Smart Tourism*
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+---
 
-Currently, two official plugins are available:
+## 🌟 Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The **TravelSathi Frontend** is a modern, mobile-responsive, role-governed web application powering all 5 ecosystem portals:
+1. **Tourist Portal** (`/`): Multilingual Travel Twin, seasonal recommendations, interactive Smart Map, group travel with client-side Web Crypto AES-GCM encryption, and split-UPI checkout.
+2. **Host Hub** (`/host`): 11-step homestay wizard, AI Tariff Co-Pilot, real-time booking approvals, and direct guest communication.
+3. **DMO Command Center** (`/dmo`): Live carrying capacity telemetry, overtourism gatekeeper, green circuit diversion switchboard, and festival arrival forecaster.
+4. **Government Tourism Investment Intelligence** (`/gov/tourism-intelligence`): 508-district investment prioritization, Calibrated 90.0% Empirical Confidence Model, Infrastructure Readiness Index, capital scenario simulator, multi-district comparison workspace, and grounded AI policy advisor.
+5. **National Admin Center** (`/admin`): 12,601 destination catalog manager, homestay listing moderation, role manager, and cryptographic SHA-256 tamper-evident audit log explorer.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🏛️ Government Tourism Investment Intelligence Workspaces
 
-## Expanding the Oxlint configuration
+The Government Suite (`/gov/tourism-intelligence`) features separated, dedicated workspace tabs:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+| Workspace / Tab | Query Parameter | Highlights |
+|:---|:---|:---|
+| **Strategic Overview & Readiness Matrix** | `?tab=overview` | Strategic KPIs with 90.0% confidence & hourly token, 4-Quadrant Priority Matrix, and 7-layer National Geography Map. |
+| **508 Districts Prioritization Table** | `?tab=rankings` | Searchable & filterable table of all 508 districts with Infrastructure Readiness scores, bottleneck tags, and CSV export. |
+| **Scenario Simulator & AI Advisor** | `?tab=simulator` | Multi-pillar capital intervention simulation (₹5 Cr – ₹100 Cr) with visitor uplift & job projections, plus interactive AI Policy Advisor. |
+| **Multi-District Strategic Comparison** | `?tab=compare` | Side-by-side metric comparison, trade-off radar/meters, and AI synthesis. |
+| **Full Continuous Briefing** | `?tab=all` | Unified continuous briefing of all sections. |
+
+---
+
+## 🌐 Multilingual Localization (7 Indic Languages)
+
+Managed through `i18next` and custom parametric regex translator (`summaryTranslator.ts`):
+* **English** (en)
+* **Hindi** (hi)
+* **Marathi** (mr)
+* **Bengali** (bn)
+* **Tamil** (ta)
+* **Telugu** (te)
+* **Gujarati** (gu)
+
+---
+
+## 🛠️ Technology Stack
+
+* **Core Framework**: React 19 + TypeScript
+* **Build Tool**: Vite 6.x (Ultra-fast HMR and optimized Rollup code-splitting)
+* **Styling**: Tailwind CSS + Custom Design System Tokens (`theme.css`)
+* **Icons**: `lucide-react`
+* **Maps & GIS**: Leaflet.js + OpenStreetMap tiles + OpenRouteService routing
+* **State & Routing**: React Context (`AppContext.tsx`) + React Router v7
+* **Security & Cryptography**: Native Web Crypto API (`crypto.subtle` AES-GCM + PBKDF2)
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+* Node.js 18.x or higher
+* npm 9.x or higher
+
+### Installation
+```bash
+cd frontend
+npm install
+```
+
+### Development Server
+```bash
+npm run dev
+```
+Runs at `http://localhost:5173` with Hot Module Replacement.
+
+### Production Build
+```bash
+npm run build
+```
+Generates an optimized, tree-shaken, code-split bundle in `dist/`.
+
+### Preview Production Build
+```bash
+npm run preview
+```
+Previews the production bundle locally at `http://localhost:4173`.

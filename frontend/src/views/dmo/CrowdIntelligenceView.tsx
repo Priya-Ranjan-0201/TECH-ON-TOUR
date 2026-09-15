@@ -19,6 +19,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { DataBadge } from '../../components/common/DataBadge';
+import Badge from '../../components/ui/Badge';
 
 interface CrowdIntelligenceViewProps {
   onNavigateToFlow?: (destinationId?: number) => void;
@@ -90,6 +91,14 @@ export default function CrowdIntelligenceView({ onNavigateToFlow }: CrowdIntelli
     }
   };
 
+  const levelColor = (lvl: string) => {
+    const l = (lvl || '').toLowerCase();
+    if (l === 'critical') return 'critical';
+    if (l === 'high') return 'high';
+    if (l === 'moderate') return 'moderate';
+    return 'low';
+  };
+
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Header Banner */}
@@ -112,6 +121,14 @@ export default function CrowdIntelligenceView({ onNavigateToFlow }: CrowdIntelli
           <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 mt-1">
             {t('dmo.crowd.subtitle', '45-day predictive surge forecasting with dynamic resource pre-positioning')}
           </p>
+          <div className="mt-2.5 flex flex-col sm:flex-row sm:items-center gap-2">
+            <Badge color="amber" size="sm">
+              Live Stream Signal
+            </Badge>
+            <p className="text-xs text-neutral-600 dark:text-neutral-400">
+              TravelSathi Crowd Index — derived from platform activity + search trend data, refreshed hourly
+            </p>
+          </div>
         </div>
 
         {/* Region Filter */}
@@ -237,6 +254,16 @@ export default function CrowdIntelligenceView({ onNavigateToFlow }: CrowdIntelli
                       style={{ width: `${Math.min(100, selectedForecast.saturation_ratio * 100)}%` }}
                     />
                   </div>
+                </div>
+
+                {/* TravelSathi Crowd Index — Verbatim Exact Copy */}
+                <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800 space-y-1">
+                  <Badge color={levelColor(selectedForecast.crowd_status)}>
+                    Crowd Index: {selectedForecast.crowd_status} ({Math.round(selectedForecast.saturation_ratio * 100)}/100)
+                  </Badge>
+                  <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                    TravelSathi Crowd Index — derived from platform activity + search trend data, refreshed hourly
+                  </p>
                 </div>
               </div>
 

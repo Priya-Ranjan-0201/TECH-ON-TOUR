@@ -12,11 +12,14 @@ if DB_URL.startswith("sqlite"):
 
 from sqlalchemy import event
 
+connect_args = {"timeout": 30} if DB_URL.startswith("sqlite") else {}
+
 # Create async engine with robust pooling
 engine = create_async_engine(
     DB_URL,
     echo=False,
     future=True,
+    connect_args=connect_args,
 )
 
 # High-Performance SQLite Pragmas (WAL, Memory Cache, MMAP)
@@ -25,6 +28,7 @@ if DB_URL.startswith("sqlite"):
     def set_sqlite_pragma(dbapi_connection, connection_record):
         try:
             cursor = dbapi_connection.cursor()
+            cursor.execute("PRAGMA busy_timeout = 30000")
             cursor.execute("PRAGMA journal_mode = WAL")
             cursor.execute("PRAGMA synchronous = NORMAL")
             cursor.execute("PRAGMA cache_size = -64000")  # 64MB RAM page cache

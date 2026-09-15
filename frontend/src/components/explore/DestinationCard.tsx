@@ -18,6 +18,16 @@ export default function DestinationCard({
     luxury: 'alert',
   }[destination.price_range?.toLowerCase()] || 'neutral';
 
+  const levelColor = (lvl) => {
+    const l = (lvl || '').toLowerCase();
+    if (l === 'critical') return 'critical';
+    if (l === 'high') return 'high';
+    if (l === 'moderate') return 'moderate';
+    return 'low';
+  };
+  const crowdLevel = destination.crowd_level || (destination.crowd_density_score > 80 ? 'critical' : destination.crowd_density_score > 60 ? 'high' : destination.crowd_density_score > 30 ? 'moderate' : 'low');
+  const crowdIndex = destination.crowd_index !== undefined && destination.crowd_index !== null ? destination.crowd_index : Math.round((destination.crowd_density_score || 50) * 0.9);
+
   return (
     <Card variant="default" hover className="flex flex-col h-full overflow-hidden group">
       {/* Thumbnail Container */}
@@ -92,6 +102,16 @@ export default function DestinationCard({
           <p className="text-xs text-neutral-600 line-clamp-2 mt-1.5 leading-relaxed">
             {destination.description}
           </p>
+
+          {/* TravelSathi Crowd Index — Verbatim Exact Copy */}
+          <div className="mt-2.5 space-y-1">
+            <Badge color={levelColor(crowdLevel)} size="sm">
+              Crowd Index: {crowdLevel} ({crowdIndex}/100)
+            </Badge>
+            <p className="text-xs text-neutral-600">
+              TravelSathi Crowd Index — derived from platform activity + search trend data, refreshed hourly
+            </p>
+          </div>
         </div>
 
         {/* Card Footer with Safety Score and Season */}

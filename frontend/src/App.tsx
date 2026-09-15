@@ -60,9 +60,11 @@ const AIAssistantView = lazy(() => import('./views/tourist/AIAssistantView'));
 // Host Panel Views (Isolated Chunk: never shipped to Tourist clients)
 const HostDashboardView = lazy(() => import('./views/host/HostDashboardView'));
 
-// Government / DMO Panel Views (Isolated Chunk)
-const GovDashboardView = lazy(() => import('./views/gov/GovDashboardView'));
+// DMO Command Center Panel View (Isolated Chunk)
 const AdminDMO = lazy(() => import('./views/admin/AdminDMO'));
+
+// Government Tourism Investment Intelligence Panel View (Isolated Chunk: 508 Districts)
+const TourismInvestmentIntelligenceView = lazy(() => import('./views/gov/TourismInvestmentIntelligenceView'));
 
 // Admin Panel Views (Isolated Chunk: strictly guarded, never shipped in public bundle)
 const AdminDashboardView = lazy(() => import('./views/admin/AdminDashboardView'));
@@ -86,11 +88,19 @@ function ProtectedRoute({ allowedRoles, children }: { allowedRoles: string[]; ch
   if (userRole === 'admin') {
     return <>{children}</>;
   }
-  const normalized = userRole === 'gov' ? 'dmo' : userRole;
-  if (!allowedRoles.includes(normalized) && !allowedRoles.includes(userRole)) {
+  const isAllowed = allowedRoles.includes(userRole) || 
+    ((userRole === 'government' || userRole === 'analyst') && allowedRoles.includes('gov'));
+
+  if (!isAllowed) {
     if (allowedRoles.includes('dmo') && window.location.pathname.startsWith('/dmo')) {
       if (typeof switchRole === 'function') {
         switchRole('dmo');
+      }
+      return <>{children}</>;
+    }
+    if ((allowedRoles.includes('gov') || allowedRoles.includes('government')) && (window.location.pathname.startsWith('/gov') || window.location.pathname.startsWith('/government'))) {
+      if (typeof switchRole === 'function') {
+        switchRole('gov');
       }
       return <>{children}</>;
     }
@@ -296,31 +306,49 @@ export default function App() {
                 } />
 
                 {/* ========================================================== */}
-                {/* PANEL ISOLATION: DMO / GOV PREFIXED ROUTES (/dmo/* & /gov/*) */}
+                {/* PANEL 3: DMO COMMAND CENTER (/dmo/*) */}
+                {/* Strictly guarded: role 'dmo' */}
                 {/* ========================================================== */}
                 <Route path="/dmo" element={
-                  <ProtectedRoute allowedRoles={['dmo', 'gov']}>
+                  <ProtectedRoute allowedRoles={['dmo']}>
                     <AdminDMO />
                   </ProtectedRoute>
                 } />
+                <Route path="/dmo/investment" element={<Navigate to="/gov/tourism-intelligence" replace />} />
                 <Route path="/dmo/*" element={
-                  <ProtectedRoute allowedRoles={['dmo', 'gov']}>
+                  <ProtectedRoute allowedRoles={['dmo']}>
                     <AdminDMO />
                   </ProtectedRoute>
                 } />
+
+                {/* ========================================================== */}
+                {/* PANEL 4: GOVERNMENT TOURISM INVESTMENT INTELLIGENCE (/gov/*) */}
+                {/* Dedicated Standalone Panel: 508-District Investment Intelligence */}
+                {/* Strictly guarded: role 'gov', 'government', 'analyst' */}
+                {/* ========================================================== */}
                 <Route path="/gov" element={
-                  <ProtectedRoute allowedRoles={['dmo', 'gov']}>
-                    <GovDashboardView />
+                  <ProtectedRoute allowedRoles={['gov', 'government', 'analyst']}>
+                    <TourismInvestmentIntelligenceView />
                   </ProtectedRoute>
                 } />
-                <Route path="/gov/dashboard" element={
-                  <ProtectedRoute allowedRoles={['dmo', 'gov']}>
-                    <GovDashboardView />
+                <Route path="/gov/tourism-intelligence" element={
+                  <ProtectedRoute allowedRoles={['gov', 'government', 'analyst']}>
+                    <TourismInvestmentIntelligenceView />
+                  </ProtectedRoute>
+                } />
+                <Route path="/government/tourism-intelligence" element={
+                  <ProtectedRoute allowedRoles={['gov', 'government', 'analyst']}>
+                    <TourismInvestmentIntelligenceView />
                   </ProtectedRoute>
                 } />
                 <Route path="/gov/*" element={
-                  <ProtectedRoute allowedRoles={['dmo', 'gov']}>
-                    <GovDashboardView />
+                  <ProtectedRoute allowedRoles={['gov', 'government', 'analyst']}>
+                    <TourismInvestmentIntelligenceView />
+                  </ProtectedRoute>
+                } />
+                <Route path="/government/*" element={
+                  <ProtectedRoute allowedRoles={['gov', 'government', 'analyst']}>
+                    <TourismInvestmentIntelligenceView />
                   </ProtectedRoute>
                 } />
 

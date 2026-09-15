@@ -458,6 +458,21 @@ class DestinationInteraction(Base):
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
 
 
+class CrowdIndex(Base):
+    """
+    TravelSathi Crowd Index — derived from platform activity + search trend data, refreshed hourly.
+    Exact Schema per specification.
+    """
+    __tablename__ = "crowd_index"
+
+    destination_id = Column(Integer, ForeignKey("destinations_master.id"), primary_key=True, index=True)
+    computed_at = Column(DateTime, primary_key=True, default=lambda: datetime.now(timezone.utc), index=True)
+    interaction_count_6h = Column(Integer, default=0)
+    trend_score = Column(Float, default=0.5)
+    crowd_index = Column(Float, nullable=False)
+    crowd_level = Column(String(20), nullable=False)  # CHECK: 'low', 'moderate', 'high', 'critical'
+
+
 class LiveLocation(Base):
     """
     Ephemeral live GPS coordinates per user with 8-hour retention limit.
@@ -502,6 +517,8 @@ class AuditLog(Base):
     target_id = Column(String(100), nullable=False, index=True)
     details = Column(Text, nullable=True)  # JSON description of changes
     timestamp = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    prev_hash = Column(String(64), nullable=True)  # Cryptographic SHA-256 hash of previous audit log
+    entry_hash = Column(String(64), nullable=True)  # SHA-256(prev_hash + actor_id + action + target_id + timestamp)
 
 
 class HourlySignalCache(Base):
@@ -973,4 +990,227 @@ class FlowRedistribution(Base):
 
     primary_destination = relationship("DestinationMaster", foreign_keys=[primary_destination_id])
     alternative_destination = relationship("DestinationMaster", foreign_keys=[alternative_destination_id])
+
+
+# ============================================================================
+# GOVERNMENT TOURISM INVESTMENT INTELLIGENCE MODELS (Section 69)
+# Normalized database design for evidence, scoring, scenarios & audit
+# ============================================================================
+
+class GovDestination(Base):
+    """Canonical 508 District Destinations for Government Decision Support."""
+    __tablename__ = "gov_destinations"
+
+    destination_id = Column(String(50), primary_key=True, index=True)
+    city_name = Column(String(100), nullable=False, index=True)
+    district_name = Column(String(100), nullable=False, index=True)
+    state_name = Column(String(100), nullable=False, index=True)
+    canonical_name = Column(String(255), nullable=False)
+    latitude = Column(Float, nullable=False)
+    longitude = Column(Float, nullable=False)
+    coordinate_status = Column(String(50), default="Verified")
+    is_duplicate_name = Column(Boolean, default=False)
+    resolution_confidence = Column(String(50), default="High")
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class GovTourismAsset(Base):
+    """Verified Ground Truth Attraction Evidence."""
+    __tablename__ = "gov_tourism_assets"
+
+    attraction_id = Column(String(50), primary_key=True, index=True)
+    attraction_name = Column(String(255), nullable=False)
+    destination_id = Column(String(50), ForeignKey("gov_destinations.destination_id"), nullable=False, index=True)
+    attraction_type = Column(String(100), nullable=False)
+    category = Column(String(100), nullable=True)
+    tourism_type = Column(String(100), nullable=True)
+    significance = Column(String(100), nullable=True)
+    unesco_status = Column(String(100), nullable=True)
+    asi_status = Column(String(100), nullable=True)
+    ramsar_status = Column(String(100), nullable=True)
+    source_name = Column(String(255), nullable=True)
+    source_url = Column(String(500), nullable=True)
+    evidence_notes = Column(Text, nullable=True)
+
+
+class GovCulturalAsset(Base):
+    """Verified Cultural, Handicraft & Intangible Heritage Evidence."""
+    __tablename__ = "gov_cultural_assets"
+
+    cultural_id = Column(String(50), primary_key=True, index=True)
+    cultural_asset_name = Column(String(255), nullable=False)
+    destination_id = Column(String(50), ForeignKey("gov_destinations.destination_id"), nullable=False, index=True)
+    cultural_category = Column(String(100), nullable=False)
+    cultural_subcategory = Column(String(100), nullable=True)
+    tourism_type = Column(String(100), nullable=True)
+    recognition_status = Column(String(100), nullable=True)
+    unesco_ich_status = Column(String(100), nullable=True)
+    gi_status = Column(String(100), nullable=True)
+    official_recognition = Column(String(50), default="Yes")
+    source_name = Column(String(255), nullable=True)
+    source_url = Column(String(500), nullable=True)
+    evidence_notes = Column(Text, nullable=True)
+
+
+class GovTravelActivity(Base):
+    """Verified Experiential & Travel Activities."""
+    __tablename__ = "gov_travel_activities"
+
+    activity_id = Column(String(50), primary_key=True, index=True)
+    activity_name = Column(String(255), nullable=False)
+    destination_id = Column(String(50), ForeignKey("gov_destinations.destination_id"), nullable=False, index=True)
+    activity_category = Column(String(100), nullable=False)
+    activity_subcategory = Column(String(100), nullable=True)
+    tourism_type = Column(String(100), nullable=True)
+    experience_level = Column(String(50), nullable=True)
+    seasonality = Column(String(50), nullable=True)
+    officially_recognized = Column(String(50), default="Yes")
+    source_name = Column(String(255), nullable=True)
+    source_url = Column(String(500), nullable=True)
+
+
+class GovConnectivity(Base):
+    """Multi-Modal Road, Rail, Air Transit Indicators."""
+    __tablename__ = "gov_connectivity"
+
+    destination_id = Column(String(50), ForeignKey("gov_destinations.destination_id"), primary_key=True)
+    road_connectivity_score = Column(Float, nullable=False)
+    train_connectivity_score = Column(Float, nullable=False)
+    flight_connectivity_score = Column(Float, nullable=False)
+    overall_connectivity_score = Column(Float, nullable=False)
+    road_access_indicator = Column(String(255), nullable=True)
+    train_access_indicator = Column(String(255), nullable=True)
+    flight_access_indicator = Column(String(255), nullable=True)
+    connectivity_confidence = Column(String(50), default="Medium")
+
+
+class GovTourismDemand(Base):
+    """Future-Ready Empirical Tourism Demand Telemetry (Section 11)."""
+    __tablename__ = "gov_tourism_demand"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    destination_id = Column(String(50), ForeignKey("gov_destinations.destination_id"), nullable=False, index=True)
+    year = Column(Integer, nullable=False)
+    domestic_tourists = Column(Float, nullable=True)
+    international_tourists = Column(Float, nullable=True)
+    total_tourists = Column(Float, nullable=True)
+    tourist_growth_rate = Column(Float, nullable=True)
+    average_stay_days = Column(Float, nullable=True)
+    average_spend_per_tourist = Column(Float, nullable=True)
+    hotel_rooms = Column(Integer, nullable=True)
+    homestay_capacity = Column(Integer, nullable=True)
+    occupancy_rate = Column(Float, nullable=True)
+    seasonal_occupancy = Column(Float, nullable=True)
+    source = Column(String(255), nullable=True)
+    source_url = Column(String(500), nullable=True)
+    data_confidence = Column(String(50), default="Unverified")
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class GovTourismEconomics(Base):
+    """Fiscal Receipts & Direct/Indirect Tourism Economics."""
+    __tablename__ = "gov_tourism_economics"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    destination_id = Column(String(50), ForeignKey("gov_destinations.destination_id"), nullable=False, index=True)
+    year = Column(Integer, nullable=False)
+    tourism_revenue_crore = Column(Float, nullable=True)
+    government_tourism_revenue_crore = Column(Float, nullable=True)
+    tourism_employment_direct = Column(Integer, nullable=True)
+    tourism_employment_indirect = Column(Integer, nullable=True)
+    source = Column(String(255), nullable=True)
+    is_verified = Column(Boolean, default=False)
+
+
+class GovInfrastructureCapacity(Base):
+    """Civic Amenities, Mobility & Environmental Thresholds."""
+    __tablename__ = "gov_infrastructure_capacity"
+
+    destination_id = Column(String(50), ForeignKey("gov_destinations.destination_id"), primary_key=True)
+    road_capacity_score = Column(Float, nullable=True)
+    rail_capacity_score = Column(Float, nullable=True)
+    airport_capacity_score = Column(Float, nullable=True)
+    parking_capacity_score = Column(Float, nullable=True)
+    sanitation_score = Column(Float, nullable=True)
+    public_transport_score = Column(Float, nullable=True)
+    tourist_facility_score = Column(Float, nullable=True)
+    carrying_capacity_daily = Column(Integer, nullable=True)
+    environmental_sensitivity = Column(String(50), default="Moderate")
+
+
+class GovInvestmentScenario(Base):
+    """Scenario Simulations Executed by Government Users."""
+    __tablename__ = "gov_investment_scenarios"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    destination_id = Column(String(50), ForeignKey("gov_destinations.destination_id"), nullable=False, index=True)
+    investment_crore = Column(Float, nullable=False)
+    scenario_type = Column(String(50), nullable=False)
+    time_horizon_years = Column(Integer, default=3)
+    projected_potential_score = Column(Float, nullable=False)
+    projected_priority_score = Column(Float, nullable=False)
+    simulated_by_user_id = Column(String(50), nullable=True)
+    hourly_token = Column(String(50), nullable=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class GovTourismScore(Base):
+    """Precomputed Scores, Ranks & Provenance Snapshots."""
+    __tablename__ = "gov_tourism_scores"
+
+    destination_id = Column(String(50), ForeignKey("gov_destinations.destination_id"), primary_key=True)
+    tourism_potential = Column(Float, nullable=False, index=True)
+    tourism_opportunity = Column(Float, nullable=False, index=True)
+    investment_priority = Column(Float, nullable=False, index=True)
+    national_rank = Column(Integer, nullable=False, index=True)
+    classification = Column(String(100), nullable=False)
+    priority_tier = Column(String(50), nullable=False)
+    data_confidence_score = Column(Float, nullable=False)
+    data_quality_score = Column(Float, nullable=False)
+    mode = Column(String(50), default="prototype")
+    hourly_token = Column(String(50), nullable=True)
+    computed_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class GovTourismRecommendation(Base):
+    """Ranked Government Interventions & Action Plan."""
+    __tablename__ = "gov_tourism_recommendations"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    destination_id = Column(String(50), ForeignKey("gov_destinations.destination_id"), nullable=False, index=True)
+    priority_rank = Column(Integer, nullable=False)
+    action_title = Column(String(255), nullable=False)
+    category = Column(String(100), nullable=False)
+    reason = Column(Text, nullable=False)
+    severity = Column(String(50), nullable=False)
+    expected_objective = Column(Text, nullable=False)
+    hourly_token = Column(String(50), nullable=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class GovModelVersion(Base):
+    """Model Metadata, Versioning & Audit Registry."""
+    __tablename__ = "gov_model_versions"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    version_tag = Column(String(50), nullable=False, unique=True)
+    feature_version = Column(String(50), nullable=False)
+    mode = Column(String(50), nullable=False, default="prototype")
+    records_count = Column(Integer, default=508)
+    training_period = Column(String(100), default="2020-2026")
+    hourly_token = Column(String(50), nullable=True)
+    registered_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+
+class GovDataSource(Base):
+    """Data Provenance & Verified Authority Catalog."""
+    __tablename__ = "gov_data_sources"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    dataset_name = Column(String(100), nullable=False)
+    source_name = Column(String(255), nullable=False)
+    source_url = Column(String(500), nullable=False)
+    verification_tier = Column(String(50), default="Government of India")
+    last_verified_year = Column(Integer, default=2026)
+
 

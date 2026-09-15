@@ -46,6 +46,8 @@ class DestinationBase(BaseModel):
     is_hidden_gem: bool = False
     crowd_density_score: int = 50
     safety_score: int = 85
+    crowd_index: Optional[float] = None
+    crowd_level: Optional[str] = None
 
     # Enriched fields
     summary: Optional[str] = None
@@ -101,6 +103,8 @@ class SearchDestinationItem(BaseModel):
     price_range: str = "mid"
     description: str = ""
     is_hidden_gem: bool = False
+    crowd_index: Optional[float] = None
+    crowd_level: Optional[str] = None
 
 
 class DestinationSearchResponse(BaseModel):

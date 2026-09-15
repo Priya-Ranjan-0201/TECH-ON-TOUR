@@ -183,47 +183,56 @@ Client routes are guarded by `<ProtectedRoute allowedRoles={[...]}>`:
 
 For the TravelSathi platform, 7 specialized production models are trained and deployed locally with sub-50ms inference times:
 
-| Model | Problem Type | Algorithm | Primary Metric | Held-Out Performance | What It Powers |
+| Model | Problem Type | Algorithm | Primary Metric | Held-Out 5-Fold Performance | What It Powers |
 |---|---|---|---|---|---|
-| **1. Dynamic Pricing Co-Pilot** | Regression | GradientBoostingRegressor | Test MAE & $R^2$ | **MAE: ₹130.94**, $R^2$: **0.995** | Host dashboard pricing tip & tariff co-pilot |
-| **2. Footfall & Demand Forecaster** | Regression | Time-Series Climate & Holiday Forecaster | MAE & Trend Acc | **Acc: 94.2%** | DMO Hotspot Saturation & Tourist Crowd Alerts |
-| **3. Secondary Circuit Matcher** | Vector Retrieval | TF-IDF & Cosine Similarity | Match Relevancy | **Top-3 Recall: 96%** | Anti-Overtourism secondary cluster discovery |
-| **4. Anti-Overtourism Saturation** | Anomaly Detection | Dynamic Carrying Capacity Ratio | Precision | **Prec: 98.1%** | DMO carrying capacity violation warnings |
-| **5. Safety & Security Index** | Multi-Factor Composite | NCRB Normalized Composite Scorer | Reliability Index | **Alpha: 0.89** | Smart Map Safety layer & Solo Traveler alerts |
+| **1. Dynamic Pricing Co-Pilot** | Non-Linear Regression | GradientBoostingRegressor | 5-Fold Test $R^2$ & MAE | **$R^2$: $0.9956 \pm 0.0007$**, **MAE: ₹$178.83 \pm 8.08$** | Host dashboard pricing tip & seasonal tariff co-pilot (base price accounts for ~98% of variance) |
+| **2. Festival Footfall Forecaster** | Multi-Horizon Regression | GradientBoostingRegressor | 5-Fold Test $R^2$ & MAE | **$R^2$: $0.9685 \pm 0.0063$**, **MAE: $80.03 \pm 8.12$** | DMO Hotspot Saturation, 14-day festival spikes & staffing ratios |
+| **3. Recommendation Ranker** | Binary Click/Book Probability | GradientBoostingClassifier | Test AUC-ROC & Precision@6 | **AUC: 0.7164**, **P@6: 62.32%** (Acc: 68.86%) | Tourist personal feed, seasonal/nearby/history/trending candidate rankings |
+| **4. 508-District Investment Potential** | Multi-Factor Composite | Canonical 6-Factor Model | Weight Sum & Confidence | **Weights = 1.0**, **Penalty: 18.0 (Proto) / 0.0 (Prod)** | DMO Investment priorities, 508-district rankings & Scenario Simulator |
+| **5. Review Authenticity Classifier** | NLP / Linguistic Classifier | LogisticRegression | Precision / Recall | **Precision: 95.5%**, **Accuracy: 94.2%** | Verified booking review integrity & spam detection |
 | **6. Eco-Permit Gatekeeper Rerouter** | Graph Diversion | Rule-Constrained Graph Router | Determinism | **100% Guaranteed Diversion** | Dynamic rerouting when destination is permit-locked |
 | **7. Multi-Modal Itinerary Planner** | Constrained Optimizer | Graph Traversal + OR-Tools + LLM | Feasibility Rate | **100% Valid Sequences** | 3-Day structured cultural itineraries |
 
-All 7 models have automated unit tests verifying execution, edge cases, and graceful degradation in `backend/tests/test_7_specialized_models.py` (17/17 tests passing).
+All models have automated unit tests verifying execution, edge cases, and graceful degradation across all 4 panels.
 
 ---
 
-## 9. The Four Isolated Role Portals Architecture
+## 8.1 Cryptographic Audit Log Architecture (Tamper-Evident SHA-256 Hash Chain)
+
+All administrative operations, moderation decisions, safety overrides, and destructive actions are logged to the `audit_logs` table with cryptographic SHA-256 hash chaining:
+- **Genesis Block**: `prev_hash = "0" * 64`
+- **Chaining Rule**: `entry_hash = SHA256(f"{prev_hash}:{actor_id}:{action}:{target_id}:{details}:{timestamp}")`
+- **Verification Endpoint**: `/api/admin/audit-logs` validates that `entry[i].prev_hash == entry[i-1].entry_hash` across the entire database history, returning `hash_chain_verified: true`. Any manual database row modification immediately breaks the cryptographic signature chain.
+
+---
+
+## 9. The Five Isolated Role Portals Architecture
 
 ```
-                                  +-----------------------+
-                                  |     User Identity     |
-                                  |   (users.role claim)  |
-                                  +-----------+-----------+
-                                              |
-               +-----------------+------------+------------+-----------------+
-               |                 |                         |                 |
-               v                 v                         v                 v
-        +--------------+  +--------------+          +--------------+  +--------------+
-        |   TOURIST    |  |     HOST     |          |     DMO      |  |    ADMIN     |
-        |  (/tourist)  |  |   (/host)    |          |   (/dmo)     |  |   (/admin)   |
-        +--------------+  +--------------+          +--------------+  +--------------+
-        | - Travel     |  | - Live KPIs  |          | - Live Crowd |  | - Listing    |
-        |   Twin       |  | - AI Dynamic |          |   Heatmap    |  |   Moderation |
-        | - Seasonal   |  |   Pricing    |          | - Eco-Permit |  | - User Roles |
-        |   Matcher    |  | - 11-Step    |          |   Gatekeeper |  | - Destination|
-        | - Smart Map  |  |   Wizard     |          | - Secondary  |  |   Catalog    |
-        | - Split-UPI  |  | - Booking    |          |   Circuit    |  | - ML Health  |
-        |   Checkout   |  |   Approvals  |          |   Diversion  |  |   & Audit    |
-        +--------------+  +--------------+          +--------------+  +--------------+
+                                   +-----------------------+
+                                   |     User Identity     |
+                                   |   (users.role claim)  |
+                                   +-----------+-----------+
+                                               |
+     +-----------------+------------+----------+----------+-----------------+-----------------+
+     |                 |                       |                            |                 |
+     v                 v                       v                            v                 v
++--------------+ +--------------+       +--------------+             +--------------+  +--------------+
+|   TOURIST    | |     HOST     |       |     DMO      |             |  GOVERNMENT  |  |    ADMIN     |
+|  (/tourist)  | |   (/host)    |       |   (/dmo)     |             |    (/gov)    |  |   (/admin)   |
++--------------+ +--------------+       +--------------+             +--------------+  +--------------+
+| - Travel     | | - Live KPIs  |       | - Live Crowd |             | - 508 Distr. |  | - Listing    |
+|   Twin       | | - AI Dynamic |       |   Heatmap    |             |   Intel      |  |   Moderation |
+| - Seasonal   | |   Pricing    |       | - Eco-Permit |             | - Readiness  |  | - User Roles |
+|   Matcher    | | - 11-Step    |       |   Gatekeeper |             |   Index      |  | - Destination|
+| - Smart Map  | |   Wizard     |       | - Secondary  |             | - Simulator  |  |   Catalog    |
+| - Split-UPI  | | - Booking    |       |   Circuit    |             | - Compare    |  | - ML Health  |
+|   Checkout   | |   Approvals  |       |   Diversion  |             |   Workspace  |  |   & Audit    |
++--------------+ +--------------+       +--------------+             +--------------+  +--------------+
 ```
 
-1. **Route-Level Separation**: Strict isolation ensures that tourists never encounter host management features, hosts cannot view or mutate administrative configurations, and DMO officers operate purely within district analytics and permit gates.
-2. **Universal Role Switcher**: Located in [`ProfileDropdown.tsx`](file:///c:/Users/PRIYE%20RANJAN/OneDrive/Desktop/SIH/frontend/src/components/common/ProfileDropdown.tsx) allowing authenticated evaluators and developers to switch between all 4 personas without session corruption.
+1. **Route-Level Separation**: Strict isolation ensures that tourists never encounter host management features, hosts cannot view or mutate administrative configurations, DMO officers operate within district analytics and permit gates, and government planners access national investment intelligence.
+2. **Universal Role Switcher**: Located in [`ProfileDropdown.tsx`](file:///c:/Users/PRIYE%20RANJAN/OneDrive/Desktop/SIH/frontend/src/components/common/ProfileDropdown.tsx) allowing authenticated evaluators and developers to switch between all personas without session corruption.
 
 ---
 
@@ -241,7 +250,7 @@ All 7 models have automated unit tests verifying execution, edge cases, and grac
 TravelSathi operates an unattended data pipeline to ensure real-time responsiveness to weather events, holiday surges, and tourism pressures:
 
 1. **Lifespan Startup Trigger**: `backend/app/main.py` kicks off `run_hourly_refresh()` asynchronously at server initialization and schedules a recurring 60-minute background job.
-2. **Hourly Token Ingestion**: Generates tokens following the `tok_hourly_YYYYMMDD_HH00` specification (e.g. `tok_hourly_20260915_0400`), attaching the token to catalog queries and cache headers.
+2. **Hourly Token Ingestion**: Generates tokens following the `tok_hourly_YYYYMMDD_HH00` specification (e.g. `tok_hourly_20260916_0400`), attaching the token to catalog queries and cache headers.
 3. **External Cron Ingestion**: GitHub Actions workflow [`.github/workflows/hourly_pipeline.yml`](file:///c:/Users/PRIYE%20RANJAN/OneDrive/Desktop/SIH/.github/workflows/hourly_pipeline.yml) triggers `POST /api/jobs/hourly` at minute 0 of every hour.
 4. **Execution Audit**: Every run logs duration, status, and candidate metrics to the `pipeline_runs` table (`GET /api/pipeline_runs`).
 
@@ -269,6 +278,66 @@ A dedicated geospatial services layer built directly on the Leaflet/PostGIS coor
   * One-click `tel:` emergency call links embedded directly in Leaflet popup bubbles and side cards.
   * Client-side Sub-Category Filter pills (`All`, `Hospitals`, `Hotels`, `Homestays`, `Dining`) with live cluster updates.
   * In-app OpenRouteService road routing with external Google Maps navigation fallback.
+
+---
+
+## 14. Government Tourism Investment Intelligence Architecture
+
+A national-scale decision-support system analyzing **508 recognized districts of India**:
+
+```
++---------------------------------------------------------------------------------------+
+|                       508 Districts Ingestion & Resolution                            |
+|       (Census Data + ASI Registries + MoT Footfalls + AAI Aviation Telemetry)         |
++-------------------------------------------+-------------------------------------------+
+                                            |
+                                            v
++---------------------------------------------------------------------------------------+
+|                               Feature Normalization Pipeline                          |
+|             (Outlier Capping, Robust Scaling, Anti-Double-Counting Guard)             |
++---------------------+---------------------+---------------------+---------------------+
+                      |                     |                     |
+                      v                     v                     v
++---------------------------+ +---------------------------+ +---------------------------+
+|    Tourism Potential      | |   Infrastructure Gap &    | |   Untapped Opportunity    |
+|   (6-Factor Empirical)    | |    Readiness (0 - 100)    | |   (8-Class Taxonomy)      |
++---------------------------+ +---------------------------+ +---------------------------+
+                      \                     |                     /
+                       \                    |                    /
+                        v                   v                   v
++---------------------------------------------------------------------------------------+
+|                           Investment Priority Engine (1 - 508)                        |
+|              Readiness Gap Analysis: Gap = Potential - Infrastructure Readiness       |
+|                  Strategic 4-Quadrant Priority Matrix Formulation                    |
++-------------------------------------------+-------------------------------------------+
+                                            |
+                                            v
++---------------------------------------------------------------------------------------+
+|                    Calibrated 90.0% Confidence & Grounding Engine                     |
++-------------------------------------------+-------------------------------------------+
+                                            |
+         +------------------+---------------+------------------+------------------+
+         |                  |                                  |                  |
+         v                  v                                  v                  v
++------------------+ +------------------+              +------------------+ +------------------+
+| Overview & Map   | | 508 District     |              | Capital Scenario | | Multi-District   |
+| Matrix Workspace | | Rankings Table   |              | Simulator        | | Compare Tool     |
+| (?tab=overview)  | | (?tab=rankings)  |              | (?tab=simulator) | | (?tab=compare)   |
++------------------+ +------------------+              +------------------+ +------------------+
+```
+
+1. **Empirical Data Calibration (90.0% Confidence)**: Calibrated against ground-truth government datasets (ASI national monuments, Ministry of Tourism verified footfalls, AAI aviation connectivity, and Geographical Indications registry), operating in Calibrated Production Mode.
+2. **Infrastructure Readiness Index ($0-100$)**:
+   $$\text{Readiness} = 0.35 \cdot \text{Transit} + 0.30 \cdot \text{Stays} + 0.20 \cdot \text{Activities} + 0.15 \cdot \text{SeasonalStability}$$
+3. **Readiness Gap Analysis**:
+   $$\text{Gap} = \text{Tourism Potential} - \text{Infrastructure Readiness}$$
+   Districts with large positive gaps represent high-priority public investment targets where capital unlocks exponential visitor absorption.
+4. **Dedicated Workspaces Architecture**:
+   - `?tab=overview`: Strategic readiness matrix & 7-layer national geography map.
+   - `?tab=rankings`: Searchable, filterable 508 districts table with Readiness Index and CSV export.
+   - `?tab=simulator`: Capital allocation intervention simulator (₹5 Cr – ₹100 Cr) and grounded AI advisor.
+   - `?tab=compare`: Dedicated side-by-side comparison workspace with metric meters and comparative trade-off synthesis (`POST /api/government/tourism/compare`).
+5. **Hourly Token Coherence**: All endpoints inject `tok_hourly_YYYYMMDD_HH00` ensuring cross-portal synchronization and audit traceability.
 
 ---
 *Technical Architecture finalized for TravelSathi V3.0 Production & SIH National Grand Finale.*

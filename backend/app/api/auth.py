@@ -312,14 +312,15 @@ async def switch_token(
     Used for seamless, verifiable demo role switching with server-enforced RBAC.
     """
     role = payload.role.lower().strip()
-    if role == "gov":
-        role = "dmo"
-    if role not in ["tourist", "host", "dmo", "admin"]:
+    if role not in ["tourist", "host", "dmo", "gov", "government", "admin"]:
         role = "tourist"
+    if role == "government":
+        role = "gov"
 
     user_map = {
         "host": ("usr-host-1", "sunil.thakur@pineshade.in", "Sunil Thakur"),
         "dmo": ("usr-dmo-1", "officer.tourism@nic.in", "Dr. Rajesh Verma, IAS"),
+        "gov": ("usr-gov-1", "secretary.tourism@nic.in", "Smt. Ananya Sen, IAS (Ministry of Tourism)"),
         "admin": ("usr-admin-1", "admin.ops@travelsathi.gov.in", "Chief Security Officer"),
         "tourist": ("usr-901", "aarav.sharma@travelsathi.in", "Aarav Sharma")
     }

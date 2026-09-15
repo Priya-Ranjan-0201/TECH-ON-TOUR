@@ -1,0 +1,509 @@
+city_id,city_name,state_name,natural_potential_score,cultural_potential_score,heritage_potential_score,uniqueness_score,experience_potential_score,overall_potential_score,data_completeness_percentage,score_confidence,natural_attraction_count,cultural_attraction_count,historical_site_count,asi_protected_site_count,unesco_world_heritage_site_count,ramsar_site_count
+CT0001,Port Blair,Andaman and Nicobar Islands,76.16,61.08,46.71,96.00,82.57,72.50,100.0,High,5,4,6,0,0,0
+CT0002,Adoni,Andhra Pradesh,21.64,42.90,17.75,27.00,46.77,31.21,77.3,Low,NA,NA,NA,0,0,0
+CT0003,Amaravati,Andhra Pradesh,33.75,68.51,52.79,96.00,59.70,62.15,100.0,Medium,2,5,7,0,0,0
+CT0004,Anantapur,Andhra Pradesh,21.64,64.78,17.75,58.00,54.18,43.27,86.4,Medium,NA,1,NA,0,0,0
+CT0005,Chandragiri,Andhra Pradesh,33.75,61.08,49.08,96.00,53.53,58.69,95.5,Medium,2,4,5,0,0,0
+CT0006,Chittoor,Andhra Pradesh,21.64,42.90,17.75,27.00,46.77,31.21,77.3,Low,NA,NA,NA,0,0,0
+CT0007,Dowlaiswaram,Andhra Pradesh,21.64,42.90,17.75,27.00,46.77,31.21,77.3,Low,NA,NA,NA,0,0,0
+CT0008,Eluru,Andhra Pradesh,57.75,42.90,17.75,78.00,65.08,52.30,81.8,Medium,1,NA,NA,0,0,1
+CT0009,Guntur,Andhra Pradesh,21.64,64.78,17.75,58.00,54.18,43.27,86.4,Medium,NA,1,NA,0,0,0
+CT0010,Kadapa,Andhra Pradesh,21.64,64.78,17.75,58.00,54.18,43.27,86.4,Medium,NA,1,NA,0,0,0
+CT0011,Kakinada,Andhra Pradesh,21.64,68.66,17.75,59.00,54.18,44.25,86.4,Medium,NA,2,NA,0,0,0
+CT0012,Kurnool,Andhra Pradesh,48.51,56.08,43.16,81.00,54.09,56.57,95.5,Medium,3,4,5,0,0,0
+CT0013,Machilipatnam,Andhra Pradesh,21.64,68.66,17.75,59.00,54.18,44.25,86.4,Medium,NA,2,NA,0,0,0
+CT0014,Nagarjunakoṇḍa,Andhra Pradesh,53.82,66.34,56.24,93.00,76.11,69.10,100.0,Medium,3,6,12,0,0,0
+CT0015,Rajahmundry,Andhra Pradesh,21.64,42.90,17.75,27.00,46.77,31.21,77.3,Low,NA,NA,NA,0,0,0
+CT0016,Srikakulam,Andhra Pradesh,21.64,64.78,17.75,58.00,54.18,43.27,86.4,Medium,NA,1,NA,0,0,0
+CT0017,Tirupati,Andhra Pradesh,58.72,80.97,43.53,96.00,67.11,69.27,100.0,High,4,8,5,0,0,0
+CT0018,Vijayawada,Andhra Pradesh,21.64,68.66,17.75,59.00,54.18,44.25,86.4,Medium,NA,2,NA,0,0,0
+CT0019,Visakhapatnam,Andhra Pradesh,59.65,61.76,46.32,81.00,60.82,61.91,95.5,Medium,6,5,6,0,0,0
+CT0020,Vizianagaram,Andhra Pradesh,21.64,64.78,17.75,58.00,54.18,43.27,86.4,Medium,NA,1,NA,0,0,0
+CT0021,Yemmiganur,Andhra Pradesh,21.64,42.90,17.75,27.00,46.77,31.21,77.3,Low,NA,NA,NA,0,0,0
+CT0022,Itanagar,Arunachal Pradesh,23.50,67.66,23.15,93.00,65.14,54.49,86.4,High,NA,2,NA,0,0,0
+CT0023,Dhuburi,Assam,22.57,42.90,17.75,27.00,48.73,31.79,77.3,Low,NA,NA,NA,0,0,0
+CT0024,Dibrugarh,Assam,63.93,67.66,17.75,78.00,71.54,59.78,90.9,High,1,2,NA,0,0,0
+CT0025,Dispur,Assam,22.57,42.90,17.75,27.00,48.73,31.79,77.3,Low,NA,NA,NA,0,0,0
+CT0026,Guwahati,Assam,85.99,84.33,50.91,96.00,81.73,79.79,100.0,High,5,8,7,0,0,1
+CT0027,Jorhat,Assam,59.26,67.66,17.75,78.00,70.42,58.62,90.9,High,1,2,NA,0,0,0
+CT0028,Nagaon,Assam,72.20,42.90,30.89,93.00,74.14,62.63,81.8,High,2,NA,NA,0,1,0
+CT0029,Sivasagar,Assam,48.69,78.78,70.07,96.00,74.71,73.65,100.0,High,3,7,14,0,1,0
+CT0030,Silchar,Assam,22.57,42.90,17.75,27.00,48.73,31.79,77.3,Low,NA,NA,NA,0,0,0
+CT0031,Tezpur,Assam,71.44,67.66,17.75,79.00,71.54,61.48,90.9,High,2,2,NA,0,0,0
+CT0032,Tinsukia,Assam,71.78,63.78,17.75,79.00,71.54,60.77,90.9,High,2,1,NA,0,0,0
+CT0033,Ara,Bihar,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0034,Barauni,Bihar,55.38,46.71,17.75,78.00,67.04,52.98,81.8,Medium,1,NA,NA,0,0,1
+CT0035,Begusarai,Bihar,76.17,46.71,17.75,78.00,70.14,57.75,81.8,High,2,NA,NA,0,0,1
+CT0036,Bettiah,Bihar,72.16,68.59,54.26,79.00,74.64,69.73,100.0,High,2,1,5,5,0,0
+CT0037,Bhagalpur,Bihar,59.73,75.92,64.29,93.00,77.51,74.09,100.0,High,1,3,8,8,0,0
+CT0038,Bihar Sharif,Bihar,33.75,81.59,80.82,96.00,69.65,72.36,100.0,High,2,7,8,18,1,0
+CT0039,Bodh Gaya,Bihar,42.91,74.60,78.99,96.00,76.10,73.72,100.0,High,3,12,10,8,1,0
+CT0040,Buxar,Bihar,21.64,46.71,52.62,81.00,62.82,52.96,86.4,Medium,NA,NA,4,4,0,0
+CT0041,Chapra,Bihar,21.64,46.71,45.86,79.00,62.82,51.21,86.4,Medium,NA,NA,3,3,0,0
+CT0042,Darbhanga,Bihar,21.64,46.71,52.62,81.00,62.82,52.96,86.4,Medium,NA,NA,4,4,0,0
+CT0043,Dehri,Bihar,61.53,46.71,52.62,78.00,72.10,62.19,90.9,High,1,NA,4,4,0,0
+CT0044,Dinapur Nizamat,Bihar,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0045,Gaya,Bihar,45.72,83.78,76.04,96.00,72.74,74.86,100.0,High,3,8,7,12,1,0
+CT0046,Hajipur,Bihar,21.64,46.71,63.23,93.00,66.82,58.28,86.4,High,NA,NA,7,7,0,0
+CT0047,Jamalpur,Bihar,61.16,46.71,17.75,78.00,69.01,54.53,81.8,Medium,1,NA,NA,0,0,0
+CT0048,Katihar,Bihar,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0049,Madhubani,Bihar,21.64,68.59,17.75,58.00,56.14,44.42,86.4,Medium,NA,1,NA,0,0,0
+CT0050,Motihari,Bihar,21.64,46.71,52.62,79.00,62.82,52.56,86.4,Medium,NA,NA,4,4,0,0
+CT0051,Munger,Bihar,61.16,46.71,56.19,78.00,72.10,62.83,90.9,High,1,NA,6,6,0,0
+CT0052,Muzaffarpur,Bihar,21.64,68.59,17.75,58.00,56.14,44.42,86.4,Medium,NA,1,NA,0,0,0
+CT0053,Patna,Bihar,47.75,82.79,69.04,96.00,78.77,74.87,100.0,High,3,10,12,15,0,0
+CT0054,Purnia,Bihar,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0055,Pusa,Bihar,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0056,Saharsa,Bihar,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0057,Samastipur,Bihar,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0058,Sasaram,Bihar,55.73,67.15,63.76,94.00,69.58,70.04,100.0,High,3,6,7,9,0,0
+CT0059,Sitamarhi,Bihar,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0060,Siwan,Bihar,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0061,Chandigarh,Chandigarh,21.64,42.90,30.89,93.00,62.04,50.09,77.3,Medium,NA,NA,NA,0,1,0
+CT0062,Ambikapur,Chhattisgarh,73.54,43.90,17.75,79.00,70.14,56.87,81.8,Medium,2,NA,NA,0,0,0
+CT0063,Bhilai,Chhattisgarh,23.50,43.90,17.75,27.00,48.73,32.18,77.3,Low,NA,NA,NA,0,0,0
+CT0064,Bilaspur,Chhattisgarh,62.26,43.90,17.75,78.00,69.01,54.18,81.8,Medium,1,NA,NA,0,0,0
+CT0065,Dhamtari,Chhattisgarh,61.98,43.90,17.75,78.00,69.01,54.13,81.8,Medium,1,NA,NA,0,0,0
+CT0066,Durg,Chhattisgarh,23.50,43.90,17.75,27.00,48.73,32.18,77.3,Low,NA,NA,NA,0,0,0
+CT0067,Jagdalpur,Chhattisgarh,73.36,43.90,17.75,79.00,70.14,56.83,81.8,Medium,2,NA,NA,0,0,0
+CT0068,Raipur,Chhattisgarh,23.50,43.90,17.75,27.00,48.73,32.18,77.3,Low,NA,NA,NA,0,0,0
+CT0069,Rajnandgaon,Chhattisgarh,23.50,43.90,17.75,27.00,48.73,32.18,77.3,Low,NA,NA,NA,0,0,0
+CT0070,Daman,Dadra and Nagar Haveli and Daman and Diu,21.64,42.90,17.75,27.00,46.77,31.21,77.3,Low,NA,NA,NA,0,0,0
+CT0071,Diu,Dadra and Nagar Haveli and Daman and Diu,21.64,42.90,17.75,27.00,46.77,31.21,77.3,Low,NA,NA,NA,0,0,0
+CT0072,Silvassa,Dadra and Nagar Haveli and Daman and Diu,21.64,42.90,17.75,27.00,46.77,31.21,77.3,Low,NA,NA,NA,0,0,0
+CT0073,Delhi,Delhi,51.72,81.42,91.10,96.00,80.73,80.19,100.0,High,4,15,25,174,3,0
+CT0074,New Delhi,Delhi,51.72,80.42,89.56,96.00,78.77,79.29,100.0,High,4,14,20,174,3,0
+CT0075,Madgaon,Goa,23.50,76.30,17.75,61.00,56.14,46.94,86.4,Medium,NA,4,NA,0,0,0
+CT0076,Panaji,Goa,23.50,76.30,30.89,93.00,65.14,57.77,86.4,High,NA,4,NA,0,1,0
+CT0077,Ahmadabad,Gujarat,65.86,85.15,71.62,96.00,78.77,79.48,100.0,High,3,12,18,0,1,1
+CT0078,Amreli,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0079,Bharuch,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0080,Bhavnagar,Gujarat,63.60,47.71,17.75,78.00,70.14,55.44,81.8,Medium,1,NA,NA,0,0,0
+CT0081,Bhuj,Gujarat,76.22,87.51,66.50,96.00,80.60,81.37,100.0,High,4,10,8,0,1,0
+CT0082,Dwarka,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0083,Gandhinagar,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0084,Godhra,Gujarat,22.57,47.71,30.89,93.00,63.73,51.58,77.3,Medium,NA,NA,NA,0,1,0
+CT0085,Jamnagar,Gujarat,87.70,67.59,17.75,78.00,72.67,64.74,90.9,High,3,1,NA,0,0,1
+CT0086,Junagadh,Gujarat,73.35,67.59,17.75,79.00,71.54,61.85,90.9,High,2,1,NA,0,0,0
+CT0087,Kandla,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0088,Khambhat,Gujarat,22.57,67.59,17.75,58.00,56.14,44.41,86.4,Medium,NA,1,NA,0,0,0
+CT0089,Kheda,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0090,Mahesana,Gujarat,75.31,47.71,17.75,78.00,70.14,57.78,81.8,High,2,NA,NA,0,0,1
+CT0091,Morbi,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0092,Nadiad,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0093,Navsari,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0094,Okha,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0095,Palanpur,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0096,Patan,Gujarat,33.75,79.23,66.82,96.00,71.61,69.48,100.0,High,2,7,8,0,1,0
+CT0097,Porbandar,Gujarat,22.57,47.71,17.75,27.00,48.73,32.75,77.3,Low,NA,NA,NA,0,0,0
+CT0098,Rajkot,Gujarat,22.57,71.47,17.75,59.00,56.14,45.39,86.4,Medium,NA,2,NA,0,0,0
+CT0099,Surat,Gujarat,22.57,67.59,17.75,58.00,56.14,44.41,86.4,Medium,NA,1,NA,0,0,0
+CT0100,Surendranagar,Gujarat,57.05,67.59,17.75,78.00,68.45,57.77,90.9,High,1,1,NA,0,0,1
+CT0101,Valsad,Gujarat,63.42,47.71,17.75,78.00,70.14,55.40,81.8,Medium,1,NA,NA,0,0,0
+CT0102,Veraval,Gujarat,65.65,67.59,17.75,78.00,71.54,60.11,90.9,High,1,1,NA,0,0,0
+CT0103,Ambala,Haryana,63.33,65.78,17.75,78.00,69.85,58.94,90.9,High,1,1,NA,0,0,0
+CT0104,Bhiwani,Haryana,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0105,Chandigarh,Haryana,21.64,43.90,30.89,93.00,62.04,50.29,77.3,Medium,NA,NA,NA,0,1,0
+CT0106,Faridabad,Haryana,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0107,Firozpur Jhirka,Haryana,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0108,Gurugram,Haryana,76.11,43.90,17.75,78.00,69.57,57.07,81.8,High,2,NA,NA,0,0,1
+CT0109,Hansi,Haryana,21.64,43.90,56.19,81.00,61.14,52.77,86.4,Medium,NA,NA,6,6,0,0
+CT0110,Hisar,Haryana,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0111,Jind,Haryana,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0112,Kaithal,Haryana,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0113,Karnal,Haryana,21.64,65.78,17.75,58.00,54.45,43.52,86.4,Medium,NA,1,NA,0,0,0
+CT0114,Kurukshetra,Haryana,21.64,65.78,69.72,81.00,63.67,60.36,95.5,High,NA,1,14,14,0,0
+CT0115,Panipat,Haryana,21.64,69.66,57.83,81.00,62.54,58.53,95.5,High,NA,2,7,7,0,0
+CT0116,Pehowa,Haryana,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0117,Rewari,Haryana,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0118,Rohtak,Haryana,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0119,Sirsa,Haryana,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0120,Sonipat,Haryana,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0121,Bilaspur,Himachal Pradesh,23.50,43.90,17.75,27.00,50.69,32.57,77.3,Low,NA,NA,NA,0,0,0
+CT0122,Chamba,Himachal Pradesh,72.02,71.10,72.57,93.00,81.72,78.08,100.0,High,2,3,11,11,0,0
+CT0123,Dalhousie,Himachal Pradesh,60.16,43.90,17.75,78.00,70.97,54.16,81.8,Medium,1,NA,NA,0,0,0
+CT0124,Dharmshala,Himachal Pradesh,62.27,67.66,17.75,78.00,72.38,59.61,90.9,High,1,2,NA,0,0,0
+CT0125,Hamirpur,Himachal Pradesh,23.50,43.90,17.75,27.00,50.69,32.57,77.3,Low,NA,NA,NA,0,0,0
+CT0126,Kangra,Himachal Pradesh,78.47,67.66,73.58,93.00,81.72,78.89,100.0,High,2,2,12,12,0,1
+CT0127,Kullu,Himachal Pradesh,75.34,63.78,30.89,93.00,77.50,68.10,90.9,High,3,1,NA,0,1,0
+CT0128,Mandi,Himachal Pradesh,23.50,43.90,17.75,27.00,50.69,32.57,77.3,Low,NA,NA,NA,0,0,0
+CT0129,Nahan,Himachal Pradesh,85.24,43.90,17.75,78.00,73.22,59.62,81.8,High,3,NA,NA,0,0,1
+CT0130,Shimla,Himachal Pradesh,71.99,67.66,30.89,93.00,77.50,68.21,90.9,High,2,2,NA,0,1,0
+CT0131,Una,Himachal Pradesh,23.50,43.90,17.75,27.00,50.69,32.57,77.3,Low,NA,NA,NA,0,0,0
+CT0132,Anantnag,Jammu and Kashmir,61.93,68.66,58.89,78.00,75.47,68.59,100.0,High,1,2,8,8,0,0
+CT0133,Baramula,Jammu and Kashmir,81.36,44.90,56.19,79.00,75.19,67.33,90.9,High,2,NA,6,6,0,2
+CT0134,Doda,Jammu and Kashmir,23.50,44.90,17.75,27.00,50.69,32.77,77.3,Low,NA,NA,NA,0,0,0
+CT0135,Gulmarg,Jammu and Kashmir,61.36,44.90,17.75,78.00,70.97,54.60,81.8,Medium,1,NA,NA,0,0,0
+CT0136,Jammu,Jammu and Kashmir,87.04,68.66,66.06,78.00,78.85,75.72,100.0,High,3,2,10,10,0,1
+CT0137,Kathua,Jammu and Kashmir,23.50,64.78,17.75,58.00,58.10,44.43,86.4,Medium,NA,1,NA,0,0,0
+CT0138,Punch,Jammu and Kashmir,23.50,44.90,17.75,27.00,50.69,32.77,77.3,Low,NA,NA,NA,0,0,0
+CT0139,Rajouri,Jammu and Kashmir,23.50,44.90,17.75,27.00,50.69,32.77,77.3,Low,NA,NA,NA,0,0,0
+CT0140,Srinagar,Jammu and Kashmir,91.67,77.07,71.07,79.00,78.85,79.53,100.0,High,3,7,16,16,0,2
+CT0141,Udhampur,Jammu and Kashmir,57.21,44.90,58.89,78.00,72.10,62.22,90.9,High,1,NA,8,8,0,1
+CT0142,Bokaro,Jharkhand,22.57,45.71,17.75,27.00,48.73,32.35,77.3,Low,NA,NA,NA,0,0,0
+CT0143,Chaibasa,Jharkhand,22.57,45.71,17.75,27.00,48.73,32.35,77.3,Low,NA,NA,NA,0,0,0
+CT0144,Deoghar,Jharkhand,59.09,45.71,17.75,78.00,69.01,53.91,81.8,Medium,1,NA,NA,0,0,0
+CT0145,Dhanbad,Jharkhand,22.57,45.71,17.75,27.00,48.73,32.35,77.3,Low,NA,NA,NA,0,0,0
+CT0146,Dumka,Jharkhand,22.57,45.71,17.75,27.00,48.73,32.35,77.3,Low,NA,NA,NA,0,0,0
+CT0147,Giridih,Jharkhand,59.72,45.71,17.75,78.00,69.01,54.04,81.8,Medium,1,NA,NA,0,0,0
+CT0148,Hazaribag,Jharkhand,60.45,66.59,17.75,78.00,70.42,58.64,90.9,High,1,1,NA,0,0,0
+CT0149,Jamshedpur,Jharkhand,60.47,45.71,17.75,78.00,69.01,54.19,81.8,Medium,1,NA,NA,0,0,0
+CT0150,Jharia,Jharkhand,22.57,45.71,17.75,27.00,48.73,32.35,77.3,Low,NA,NA,NA,0,0,0
+CT0151,Rajmahal,Jharkhand,75.11,45.71,17.75,78.00,70.14,57.34,81.8,High,2,NA,NA,0,0,1
+CT0152,Ranchi,Jharkhand,22.57,70.47,17.75,59.00,56.14,45.19,86.4,Medium,NA,2,NA,0,0,0
+CT0153,Saraikela,Jharkhand,22.57,66.59,17.75,58.00,56.14,44.21,86.4,Medium,NA,1,NA,0,0,0
+CT0154,Badami,Karnataka,23.50,43.90,90.82,93.00,69.91,64.23,86.4,High,NA,NA,18,18,1,0
+CT0155,Ballari,Karnataka,75.66,43.90,88.94,93.00,80.31,76.36,90.9,High,2,NA,36,36,1,1
+CT0156,Bengaluru,Karnataka,64.71,72.10,69.72,78.00,77.72,72.45,100.0,High,1,3,14,14,0,0
+CT0157,Belagavi,Karnataka,23.50,64.78,67.17,81.00,67.31,60.75,95.5,High,NA,1,11,11,0,0
+CT0158,Bhadravati,Karnataka,61.91,43.90,52.62,78.00,74.06,62.10,90.9,High,1,NA,4,4,0,0
+CT0159,Bidar,Karnataka,23.50,64.78,77.68,93.00,71.31,66.05,95.5,High,NA,1,18,18,0,0
+CT0160,Chikkamagaluru,Karnataka,73.20,68.66,72.03,93.00,80.60,77.50,100.0,High,2,2,8,8,1,0
+CT0161,Chitradurga,Karnataka,23.50,43.90,66.06,81.00,65.91,56.07,86.4,Medium,NA,NA,10,10,0,0
+CT0162,Davangere,Karnataka,23.50,43.90,56.19,81.00,64.78,53.87,86.4,Medium,NA,NA,6,6,0,0
+CT0163,Halebid,Karnataka,23.50,43.90,72.03,93.00,68.78,60.24,86.4,High,NA,NA,8,8,1,0
+CT0164,Hassan,Karnataka,23.50,68.66,84.21,93.00,71.31,68.14,95.5,High,NA,2,16,16,1,0
+CT0165,Hubballi-Dharwad,Karnataka,23.50,68.66,60.21,81.00,66.19,59.91,95.5,High,NA,2,9,9,0,0
+CT0166,Kalaburagi,Karnataka,23.50,64.78,75.70,93.00,71.31,65.66,95.5,High,NA,1,15,15,0,0
+CT0167,Kolar,Karnataka,23.50,43.90,58.89,81.00,64.78,54.41,86.4,Medium,NA,NA,8,8,0,0
+CT0168,Madikeri,Karnataka,75.24,68.66,70.97,93.00,80.60,77.69,100.0,High,3,2,7,7,1,0
+CT0169,Mandya,Karnataka,57.40,43.90,68.18,78.00,73.22,64.14,90.9,High,1,NA,12,12,0,1
+CT0170,Mangaluru,Karnataka,23.50,68.66,58.89,81.00,66.19,59.65,95.5,High,NA,2,8,8,0,0
+CT0171,Mysuru,Karnataka,75.48,77.07,75.45,81.00,77.72,77.34,100.0,High,3,7,24,24,0,0
+CT0172,Raichur,Karnataka,23.50,43.90,58.89,81.00,64.78,54.41,86.4,Medium,NA,NA,8,8,0,0
+CT0173,Shivamogga,Karnataka,73.11,43.90,66.06,79.00,76.31,67.68,90.9,High,2,NA,10,10,0,0
+CT0174,Shravanabelagola,Karnataka,23.50,43.90,60.21,81.00,64.78,54.68,86.4,Medium,NA,NA,9,9,0,0
+CT0175,Shrirangapattana,Karnataka,75.03,43.90,75.12,93.00,80.31,73.47,90.9,High,2,NA,14,14,0,1
+CT0176,Tumakuru,Karnataka,23.50,43.90,57.83,81.00,64.78,54.20,86.4,Medium,NA,NA,7,7,0,0
+CT0177,Vijayapura,Karnataka,23.50,43.90,81.20,93.00,69.91,62.30,86.4,High,NA,NA,28,28,0,0
+CT0178,Alappuzha,Kerala,58.68,75.29,17.75,78.00,68.45,59.63,90.9,High,1,2,NA,0,0,1
+CT0179,Vatakara,Kerala,23.50,50.53,17.75,27.00,48.73,33.50,77.3,Low,NA,NA,NA,0,0,0
+CT0180,Idukki,Kerala,77.47,50.53,30.89,93.00,74.14,65.21,81.8,High,4,NA,NA,0,1,0
+CT0181,Kannur,Kerala,23.50,75.29,17.75,59.00,56.14,46.34,86.4,Medium,NA,2,NA,0,0,0
+CT0182,Kochi,Kerala,58.68,50.53,23.15,93.00,71.04,59.28,81.8,High,1,NA,NA,0,0,1
+CT0183,Kollam,Kerala,81.24,71.40,17.75,79.00,71.54,64.19,90.9,High,2,1,NA,0,0,2
+CT0184,Kottayam,Kerala,77.73,50.53,17.75,78.00,70.14,58.83,81.8,High,2,NA,NA,0,0,1
+CT0185,Kozhikode,Kerala,23.50,71.40,17.75,58.00,56.14,45.36,86.4,Medium,NA,1,NA,0,0,0
+CT0186,Mattancheri,Kerala,23.50,50.53,23.15,93.00,63.73,50.78,77.3,Medium,NA,NA,NA,0,0,0
+CT0187,Palakkad,Kerala,72.54,71.40,17.75,79.00,71.54,62.45,90.9,High,2,1,NA,0,0,0
+CT0188,Thalassery,Kerala,23.50,71.40,17.75,58.00,56.14,45.36,86.4,Medium,NA,1,NA,0,0,0
+CT0189,Thiruvananthapuram,Kerala,72.21,75.29,30.89,93.00,75.54,69.39,90.9,High,2,2,NA,0,1,0
+CT0190,Thrissur,Kerala,72.29,71.40,17.75,79.00,71.54,62.40,90.9,High,2,1,NA,0,0,0
+CT0191,Kargil,Ladakh,62.22,67.59,17.75,78.00,70.42,59.20,90.9,High,1,1,NA,0,0,0
+CT0192,Leh,Ladakh,94.03,71.47,23.15,93.00,76.67,71.66,90.9,High,3,2,NA,0,0,2
+CT0193,Balaghat,Madhya Pradesh,64.49,70.40,17.75,78.00,71.54,60.44,90.9,High,1,1,NA,0,0,0
+CT0194,Barwani,Madhya Pradesh,23.50,49.53,17.75,27.00,48.73,33.30,77.3,Low,NA,NA,NA,0,0,0
+CT0195,Betul,Madhya Pradesh,23.50,49.53,17.75,27.00,48.73,33.30,77.3,Low,NA,NA,NA,0,0,0
+CT0196,Bharhut,Madhya Pradesh,23.50,49.53,52.62,81.00,62.82,53.89,86.4,Medium,NA,NA,4,4,0,0
+CT0197,Bhind,Madhya Pradesh,60.33,49.53,17.75,78.00,69.01,54.92,81.8,Medium,1,NA,NA,0,0,0
+CT0198,Bhojpur,Madhya Pradesh,23.50,49.53,45.86,79.00,62.82,52.14,86.4,Medium,NA,NA,3,3,0,0
+CT0199,Bhopal,Madhya Pradesh,78.99,70.40,73.29,94.00,79.76,79.29,100.0,High,2,1,8,8,2,1
+CT0200,Burhanpur,Madhya Pradesh,23.50,49.53,75.12,93.00,67.95,61.82,86.4,High,NA,NA,14,14,0,0
+CT0201,Chhatarpur,Madhya Pradesh,61.08,49.53,68.18,79.00,73.23,66.20,90.9,High,1,NA,12,12,0,0
+CT0202,Chhindwara,Madhya Pradesh,64.03,49.53,17.75,78.00,70.14,55.89,81.8,Medium,1,NA,NA,0,0,0
+CT0203,Damoh,Madhya Pradesh,61.47,49.53,56.19,78.00,72.10,63.46,90.9,High,1,NA,6,6,0,0
+CT0204,Datia,Madhya Pradesh,23.50,49.53,58.89,81.00,62.82,55.15,86.4,Medium,NA,NA,8,8,0,0
+CT0205,Dewas,Madhya Pradesh,23.50,49.53,17.75,27.00,48.73,33.30,77.3,Low,NA,NA,NA,0,0,0
+CT0206,Dhar,Madhya Pradesh,23.50,70.40,80.85,93.00,69.35,67.42,95.5,High,NA,1,24,24,0,0
+CT0207,Dr. Ambedkar Nagar (Mhow),Madhya Pradesh,57.62,49.53,17.75,78.00,67.04,53.99,81.8,Medium,1,NA,NA,0,0,1
+CT0208,Guna,Madhya Pradesh,23.50,70.40,17.75,58.00,56.14,45.16,86.4,Medium,NA,1,NA,0,0,0
+CT0209,Gwalior,Madhya Pradesh,23.50,74.29,76.47,93.00,69.35,67.32,95.5,High,NA,2,16,16,0,0
+CT0210,Hoshangabad,Madhya Pradesh,72.42,49.53,61.59,93.00,77.23,70.75,90.9,High,2,NA,6,6,0,0
+CT0211,Indore,Madhya Pradesh,60.86,74.29,17.75,79.00,68.45,60.07,90.9,High,1,2,NA,0,0,2
+CT0212,Itarsi,Madhya Pradesh,23.50,49.53,17.75,27.00,48.73,33.30,77.3,Low,NA,NA,NA,0,0,0
+CT0213,Jabalpur,Madhya Pradesh,23.50,70.40,65.61,93.00,68.23,64.15,95.5,High,NA,1,9,9,0,0
+CT0214,Jhabua,Madhya Pradesh,23.50,70.40,17.75,58.00,56.14,45.16,86.4,Medium,NA,1,NA,0,0,0
+CT0215,Khajuraho,Madhya Pradesh,71.93,49.53,88.94,93.00,78.35,76.35,90.9,High,2,NA,25,25,1,0
+CT0216,Khandwa,Madhya Pradesh,23.50,49.53,57.83,81.00,62.82,54.94,86.4,Medium,NA,NA,7,7,0,0
+CT0217,Khargone,Madhya Pradesh,23.50,49.53,58.89,81.00,62.82,55.15,86.4,Medium,NA,NA,8,8,0,0
+CT0218,Maheshwar,Madhya Pradesh,23.50,49.53,58.89,81.00,62.82,55.15,86.4,Medium,NA,NA,8,8,0,0
+CT0219,Mandla,Madhya Pradesh,72.19,70.40,56.19,79.00,74.64,70.48,100.0,High,2,1,6,6,0,0
+CT0220,Mandsaur,Madhya Pradesh,23.50,49.53,57.83,81.00,62.82,54.94,86.4,Medium,NA,NA,7,7,0,0
+CT0221,Morena,Madhya Pradesh,60.91,70.40,67.17,78.00,74.64,70.22,100.0,High,1,1,11,11,0,0
+CT0222,Murwara,Madhya Pradesh,23.50,49.53,17.75,27.00,48.73,33.30,77.3,Low,NA,NA,NA,0,0,0
+CT0223,Narsimhapur,Madhya Pradesh,23.50,49.53,17.75,27.00,48.73,33.30,77.3,Low,NA,NA,NA,0,0,0
+CT0224,Narsinghgarh,Madhya Pradesh,59.80,49.53,17.75,78.00,69.01,54.82,81.8,Medium,1,NA,NA,0,0,0
+CT0225,Narwar,Madhya Pradesh,23.50,49.53,54.26,81.00,62.82,54.22,86.4,Medium,NA,NA,5,5,0,0
+CT0226,Neemuch,Madhya Pradesh,23.50,49.53,52.62,81.00,62.82,53.89,86.4,Medium,NA,NA,4,4,0,0
+CT0227,Nowgong,Madhya Pradesh,23.50,49.53,17.75,27.00,48.73,33.30,77.3,Low,NA,NA,NA,0,0,0
+CT0228,Orchha,Madhya Pradesh,23.50,49.53,75.70,93.00,67.95,61.94,86.4,High,NA,NA,15,15,0,0
+CT0229,Panna,Madhya Pradesh,71.88,49.53,57.83,79.00,73.23,66.29,90.9,High,2,NA,7,7,0,0
+CT0230,Raisen,Madhya Pradesh,23.50,49.53,90.20,94.00,67.95,65.04,86.4,High,NA,NA,28,28,2,0
+CT0231,Rajgarh,Madhya Pradesh,23.50,49.53,17.75,27.00,48.73,33.30,77.3,Low,NA,NA,NA,0,0,0
+CT0232,Ratlam,Madhya Pradesh,23.50,70.40,17.75,58.00,56.14,45.16,86.4,Medium,NA,1,NA,0,0,0
+CT0233,Rewa,Madhya Pradesh,59.35,74.29,58.89,78.00,73.51,68.81,100.0,High,1,2,8,8,0,0
+CT0234,Sagar,Madhya Pradesh,61.47,49.53,58.89,78.00,72.10,64.00,90.9,High,1,NA,8,8,0,0
+CT0235,Sarangpur,Madhya Pradesh,23.50,49.53,17.75,27.00,48.73,33.30,77.3,Low,NA,NA,NA,0,0,0
+CT0236,Satna,Madhya Pradesh,23.50,49.53,68.18,81.00,63.95,57.23,86.4,Medium,NA,NA,12,12,0,0
+CT0237,Sehore,Madhya Pradesh,23.50,49.53,54.26,81.00,62.82,54.22,86.4,Medium,NA,NA,5,5,0,0
+CT0238,Seoni,Madhya Pradesh,64.37,70.40,17.75,78.00,71.54,60.41,90.9,High,1,1,NA,0,0,0
+CT0239,Shahdol,Madhya Pradesh,64.08,49.53,17.75,78.00,70.14,55.90,81.8,Medium,1,NA,NA,0,0,0
+CT0240,Shajapur,Madhya Pradesh,23.50,49.53,17.75,27.00,48.73,33.30,77.3,Low,NA,NA,NA,0,0,0
+CT0241,Sheopur,Madhya Pradesh,64.36,49.53,17.75,78.00,70.14,55.96,81.8,Medium,1,NA,NA,0,0,0
+CT0242,Shivpuri,Madhya Pradesh,87.79,49.53,60.21,78.00,74.35,69.98,90.9,High,3,NA,9,9,0,1
+CT0243,Ujjain,Madhya Pradesh,23.50,70.40,66.06,81.00,65.35,61.26,95.5,High,NA,1,10,10,0,0
+CT0244,Vidisha,Madhya Pradesh,23.50,49.53,86.08,93.00,67.95,64.01,86.4,High,NA,NA,19,19,1,0
+CT0245,Ahmadnagar,Maharashtra,23.50,46.71,68.18,81.00,63.95,56.67,86.4,Medium,NA,NA,12,12,0,0
+CT0246,Akola,Maharashtra,23.50,46.71,17.75,27.00,48.73,32.74,77.3,Low,NA,NA,NA,0,0,0
+CT0247,Amravati,Maharashtra,73.44,68.59,17.75,79.00,71.54,62.06,90.9,High,2,1,NA,0,0,0
+CT0248,Aurangabad,Maharashtra,23.50,72.47,90.20,94.00,69.35,69.90,95.5,High,NA,2,35,35,2,0
+CT0249,Bhandara,Maharashtra,72.92,68.59,54.26,79.00,74.64,69.88,100.0,High,2,1,5,5,0,0
+CT0250,Bhusawal,Maharashtra,23.50,46.71,52.62,79.00,62.82,52.93,86.4,Medium,NA,NA,4,4,0,0
+CT0251,Bid,Maharashtra,23.50,46.71,17.75,27.00,48.73,32.74,77.3,Low,NA,NA,NA,0,0,0
+CT0252,Buldhana,Maharashtra,57.30,46.71,17.75,78.00,67.04,53.36,81.8,Medium,1,NA,NA,0,0,1
+CT0253,Chandrapur,Maharashtra,72.90,46.71,57.83,79.00,73.23,65.93,90.9,High,2,NA,7,7,0,0
+CT0254,Daulatabad,Maharashtra,23.50,46.71,58.89,81.00,62.82,54.58,86.4,Medium,NA,NA,8,8,0,0
+CT0255,Dhule,Maharashtra,23.50,46.71,54.26,81.00,62.82,53.66,86.4,Medium,NA,NA,5,5,0,0
+CT0256,Jalgaon,Maharashtra,23.50,72.47,57.83,81.00,64.23,59.81,95.5,High,NA,2,7,7,0,0
+CT0257,Kalyan,Maharashtra,23.50,46.71,56.19,81.00,62.82,54.04,86.4,Medium,NA,NA,6,6,0,0
+CT0258,Karli,Maharashtra,23.50,46.71,56.19,81.00,62.82,54.04,86.4,Medium,NA,NA,6,6,0,0
+CT0259,Kolhapur,Maharashtra,72.93,72.47,66.06,79.00,75.76,73.24,100.0,High,2,2,10,10,0,0
+CT0260,Mahabaleshwar,Maharashtra,61.83,46.71,67.40,93.00,76.10,69.01,90.9,High,1,NA,5,5,1,0
+CT0261,Malegaon,Maharashtra,23.50,46.71,52.62,81.00,62.82,53.33,86.4,Medium,NA,NA,4,4,0,0
+CT0262,Matheran,Maharashtra,23.50,46.71,17.75,27.00,48.73,32.74,77.3,Low,NA,NA,NA,0,0,0
+CT0263,Mumbai,Maharashtra,80.87,46.71,91.10,96.00,79.48,78.83,90.9,High,2,NA,28,28,3,1
+CT0264,Nagpur,Maharashtra,75.09,68.59,67.17,81.00,75.76,73.52,100.0,High,3,1,11,11,0,0
+CT0265,Nanded,Maharashtra,23.50,46.71,58.89,81.00,62.82,54.58,86.4,Medium,NA,NA,8,8,0,0
+CT0266,Nashik,Maharashtra,57.89,72.47,69.72,78.00,72.67,70.15,100.0,High,1,2,14,14,0,1
+CT0267,Osmanabad,Maharashtra,23.50,46.71,57.83,81.00,62.82,54.37,86.4,Medium,NA,NA,7,7,0,0
+CT0268,Pandharpur,Maharashtra,23.50,46.71,56.19,81.00,62.82,54.04,86.4,Medium,NA,NA,6,6,0,0
+CT0269,Parbhani,Maharashtra,23.50,46.71,17.75,27.00,48.73,32.74,77.3,Low,NA,NA,NA,0,0,0
+CT0270,Pune,Maharashtra,23.50,72.47,72.28,81.00,65.35,62.92,95.5,High,NA,2,18,18,0,0
+CT0271,Ratnagiri,Maharashtra,23.50,68.59,60.21,81.00,64.23,59.51,95.5,High,NA,1,9,9,0,0
+CT0272,Sangli,Maharashtra,23.50,68.59,17.75,58.00,56.14,44.80,86.4,Medium,NA,1,NA,0,0,0
+CT0273,Satara,Maharashtra,72.99,46.71,68.18,79.00,74.35,68.25,90.9,High,2,NA,12,12,0,0
+CT0274,Sevagram,Maharashtra,23.50,46.71,52.62,81.00,62.82,53.33,86.4,Medium,NA,NA,4,4,0,0
+CT0275,Solapur,Maharashtra,62.42,72.47,58.89,78.00,73.51,69.06,100.0,High,1,2,8,8,0,0
+CT0276,Thane,Maharashtra,88.95,46.71,58.89,78.00,74.35,69.38,90.9,High,3,NA,8,8,0,1
+CT0277,Ulhasnagar,Maharashtra,23.50,46.71,17.75,27.00,48.73,32.74,77.3,Low,NA,NA,NA,0,0,0
+CT0278,Vasai-Virar,Maharashtra,23.50,46.71,57.83,81.00,62.82,54.37,86.4,Medium,NA,NA,7,7,0,0
+CT0279,Wardha,Maharashtra,23.50,46.71,56.19,81.00,62.82,54.04,86.4,Medium,NA,NA,6,6,0,0
+CT0280,Yavatmal,Maharashtra,23.50,46.71,17.75,27.00,48.73,32.74,77.3,Low,NA,NA,NA,0,0,0
+CT0281,Imphal,Manipur,57.44,73.92,23.15,93.00,68.80,63.26,90.9,High,1,3,NA,0,0,1
+CT0282,Cherrapunji,Meghalaya,23.50,64.78,23.15,93.00,65.14,53.91,86.4,High,NA,1,NA,0,0,0
+CT0283,Shillong,Meghalaya,23.50,68.66,23.15,93.00,65.14,54.69,86.4,High,NA,2,NA,0,0,0
+CT0284,Aizawl,Mizoram,22.57,71.10,17.75,61.00,54.18,45.32,86.4,Medium,NA,3,NA,0,0,0
+CT0285,Lunglei,Mizoram,22.57,67.66,17.75,59.00,54.18,44.23,86.4,Medium,NA,2,NA,0,0,0
+CT0286,Kohima,Nagaland,22.57,72.10,17.75,61.00,56.14,45.91,86.4,Medium,NA,3,NA,0,0,0
+CT0287,Mon,Nagaland,22.57,68.66,17.75,59.00,56.14,44.82,86.4,Medium,NA,2,NA,0,0,0
+CT0288,Phek,Nagaland,22.57,68.66,17.75,59.00,56.14,44.82,86.4,Medium,NA,2,NA,0,0,0
+CT0289,Wokha,Nagaland,22.57,68.66,17.75,59.00,56.14,44.82,86.4,Medium,NA,2,NA,0,0,0
+CT0290,Zunheboto,Nagaland,22.57,68.66,17.75,59.00,56.14,44.82,86.4,Medium,NA,2,NA,0,0,0
+CT0291,Balangir,Odisha,23.50,46.71,17.75,27.00,48.73,32.74,77.3,Low,NA,NA,NA,0,0,0
+CT0292,Baleshwar,Odisha,23.50,46.71,57.83,81.00,62.82,54.37,86.4,Medium,NA,NA,7,7,0,0
+CT0293,Baripada,Odisha,73.54,67.59,56.19,79.00,74.64,70.19,100.0,High,2,1,6,6,0,0
+CT0294,Bhubaneshwar,Odisha,23.50,71.47,81.20,93.00,69.35,67.70,95.5,High,NA,2,28,28,0,0
+CT0295,Brahmapur,Odisha,56.20,71.47,17.75,78.00,68.45,58.37,90.9,High,1,2,NA,0,0,1
+CT0296,Cuttack,Odisha,83.20,71.47,68.18,79.00,75.76,75.52,100.0,High,2,2,12,12,0,2
+CT0297,Dhenkanal,Odisha,23.50,67.59,58.89,81.00,64.23,59.04,95.5,High,NA,1,8,8,0,0
+CT0298,Kendujhar,Odisha,23.50,46.71,17.75,27.00,48.73,32.74,77.3,Low,NA,NA,NA,0,0,0
+CT0299,Konark,Odisha,60.86,46.71,69.33,93.00,76.10,69.20,90.9,High,1,NA,6,6,1,0
+CT0300,Koraput,Odisha,23.50,67.59,17.75,58.00,56.14,44.60,86.4,Medium,NA,1,NA,0,0,0
+CT0301,Paradip,Odisha,23.50,46.71,17.75,27.00,48.73,32.74,77.3,Low,NA,NA,NA,0,0,0
+CT0302,Phulabani,Odisha,23.50,46.71,17.75,27.00,48.73,32.74,77.3,Low,NA,NA,NA,0,0,0
+CT0303,Puri,Odisha,89.56,74.92,75.12,93.00,80.89,82.70,100.0,High,3,3,14,14,0,1
+CT0304,Sambalpur,Odisha,79.48,67.59,57.83,78.00,74.64,71.51,100.0,High,2,1,7,7,0,1
+CT0305,Udayagiri,Odisha,23.50,46.71,66.06,81.00,63.95,56.24,86.4,Medium,NA,NA,10,10,0,0
+CT0306,Karaikal,Puducherry,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0307,Mahe,Puducherry,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0308,Puducherry,Puducherry,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0309,Yanam,Puducherry,21.64,43.90,17.75,27.00,47.04,31.47,77.3,Low,NA,NA,NA,0,0,0
+CT0310,Amritsar,Punjab,55.82,75.92,71.46,93.00,76.67,74.57,100.0,High,1,3,10,10,0,1
+CT0311,Batala,Punjab,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0312,Chandigarh,Punjab,21.64,46.71,30.89,93.00,63.73,51.19,77.3,Medium,NA,NA,NA,0,1,0
+CT0313,Faridkot,Punjab,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0314,Firozpur,Punjab,55.96,46.71,17.75,78.00,67.04,53.09,81.8,Medium,1,NA,NA,0,0,1
+CT0315,Gurdaspur,Punjab,54.39,46.71,17.75,78.00,67.04,52.78,81.8,Medium,1,NA,NA,0,0,1
+CT0316,Hoshiarpur,Punjab,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0317,Jalandhar,Punjab,21.64,72.47,17.75,59.00,56.14,45.40,86.4,Medium,NA,2,NA,0,0,0
+CT0318,Kapurthala,Punjab,54.09,46.71,58.89,78.00,70.14,61.57,90.9,High,1,NA,8,8,0,1
+CT0319,Ludhiana,Punjab,21.64,72.47,17.75,59.00,56.14,45.40,86.4,Medium,NA,2,NA,0,0,0
+CT0320,Nabha,Punjab,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0321,Patiala,Punjab,21.64,72.47,60.21,81.00,64.23,59.91,95.5,High,NA,2,9,9,0,0
+CT0322,Rupnagar,Punjab,58.26,46.71,17.75,79.00,67.04,53.75,81.8,Medium,1,NA,NA,0,0,2
+CT0323,Sangrur,Punjab,21.64,46.71,17.75,27.00,48.73,32.37,77.3,Low,NA,NA,NA,0,0,0
+CT0324,Abu,Rajasthan,60.69,46.71,57.83,78.00,72.10,63.07,90.9,High,1,NA,7,7,0,0
+CT0325,Ajmer,Rajasthan,22.57,46.71,69.72,81.00,63.95,56.79,86.4,Medium,NA,NA,14,14,0,0
+CT0326,Alwar,Rajasthan,72.15,67.59,68.18,79.00,75.76,72.54,100.0,High,2,1,12,12,0,0
+CT0327,Amer,Rajasthan,22.57,71.47,85.42,93.00,69.35,68.36,95.5,High,NA,2,18,18,1,0
+CT0328,Barmer,Rajasthan,64.62,71.47,58.89,78.00,74.64,69.52,100.0,High,1,2,8,8,0,0
+CT0329,Beawar,Rajasthan,22.57,46.71,17.75,27.00,48.73,32.55,77.3,Low,NA,NA,NA,0,0,0
+CT0330,Bharatpur,Rajasthan,88.70,46.71,82.86,93.00,79.48,78.15,90.9,High,3,NA,14,14,1,1
+CT0331,Bhilwara,Rajasthan,22.57,46.71,57.83,81.00,62.82,54.19,86.4,Medium,NA,NA,7,7,0,0
+CT0332,Bikaner,Rajasthan,22.57,74.92,68.18,81.00,65.35,62.40,95.5,High,NA,3,12,12,0,0
+CT0333,Bundi,Rajasthan,61.60,46.71,70.30,78.00,73.23,65.97,90.9,High,1,NA,15,15,0,0
+CT0334,Chittaurgarh,Rajasthan,54.53,81.79,86.76,96.00,78.77,79.57,100.0,High,3,10,18,24,1,0
+CT0335,Churu,Rajasthan,22.57,46.71,17.75,27.00,48.73,32.55,77.3,Low,NA,NA,NA,0,0,0
+CT0336,Dhaulpur,Rajasthan,22.57,46.71,60.21,81.00,62.82,54.66,86.4,Medium,NA,NA,9,9,0,0
+CT0337,Dungarpur,Rajasthan,22.57,46.71,58.89,81.00,62.82,54.40,86.4,Medium,NA,NA,8,8,0,0
+CT0338,Ganganagar,Rajasthan,22.57,46.71,17.75,27.00,48.73,32.55,77.3,Low,NA,NA,NA,0,0,0
+CT0339,Hanumangarh,Rajasthan,22.57,46.71,17.75,27.00,48.73,32.55,77.3,Low,NA,NA,NA,0,0,0
+CT0340,Jaipur,Rajasthan,70.25,88.51,90.35,96.00,82.13,85.45,100.0,High,4,14,22,32,3,1
+CT0341,Jaisalmer,Rajasthan,66.42,80.07,82.89,96.00,83.26,81.73,100.0,High,4,9,12,18,1,0
+CT0342,Jalor,Rajasthan,22.57,46.71,56.19,81.00,62.82,53.86,86.4,Medium,NA,NA,6,6,0,0
+CT0343,Jhalawar,Rajasthan,60.48,46.71,80.31,93.00,77.23,71.55,90.9,High,1,NA,11,11,1,0
+CT0344,Jhunjhunu,Rajasthan,22.57,46.71,67.17,81.00,63.95,56.28,86.4,Medium,NA,NA,11,11,0,0
+CT0345,Jodhpur,Rajasthan,48.69,86.15,71.95,96.00,78.77,76.31,100.0,High,3,10,16,20,0,0
+CT0346,Kishangarh,Rajasthan,22.57,46.71,56.19,81.00,62.82,53.86,86.4,Medium,NA,NA,6,6,0,0
+CT0347,Kota,Rajasthan,74.17,71.47,66.06,81.00,75.76,73.69,100.0,High,3,2,10,10,0,0
+CT0348,Merta,Rajasthan,22.57,46.71,54.26,81.00,62.82,53.47,86.4,Medium,NA,NA,5,5,0,0
+CT0349,Nagaur,Rajasthan,58.32,71.47,66.06,78.00,72.67,69.30,100.0,High,1,2,10,10,0,1
+CT0350,Nathdwara,Rajasthan,22.57,71.47,17.75,59.00,56.14,45.39,86.4,Medium,NA,2,NA,0,0,0
+CT0351,Pali,Rajasthan,22.57,46.71,57.83,81.00,62.82,54.19,86.4,Medium,NA,NA,7,7,0,0
+CT0352,Phalodi,Rajasthan,22.57,67.59,17.75,58.00,56.14,44.41,86.4,Medium,NA,1,NA,0,0,0
+CT0353,Pushkar,Rajasthan,22.57,46.71,58.89,81.00,62.82,54.40,86.4,Medium,NA,NA,8,8,0,0
+CT0354,Sawai Madhopur,Rajasthan,72.38,46.71,79.20,93.00,78.35,73.93,90.9,High,2,NA,10,10,1,0
+CT0355,Shahpura,Rajasthan,22.57,46.71,17.75,27.00,48.73,32.55,77.3,Low,NA,NA,NA,0,0,0
+CT0356,Sikar,Rajasthan,22.57,46.71,60.21,81.00,62.82,54.66,86.4,Medium,NA,NA,9,9,0,0
+CT0357,Sirohi,Rajasthan,60.69,46.71,60.21,78.00,72.10,63.54,90.9,High,1,NA,9,9,0,0
+CT0358,Tonk,Rajasthan,22.57,46.71,58.89,81.00,62.82,54.40,86.4,Medium,NA,NA,8,8,0,0
+CT0359,Udaipur,Rajasthan,70.91,82.79,69.08,96.00,79.20,79.60,100.0,High,5,12,16,16,0,0
+CT0360,Gangtok,Sikkim,60.68,42.90,30.89,93.00,73.01,60.10,81.8,High,1,NA,NA,0,1,0
+CT0361,Gyalshing,Sikkim,23.50,42.90,30.89,93.00,63.73,50.80,77.3,Medium,NA,NA,NA,0,1,0
+CT0362,Lachung,Sikkim,23.50,42.90,17.75,27.00,48.73,31.98,77.3,Low,NA,NA,NA,0,0,0
+CT0363,Mangan,Sikkim,65.77,42.90,30.89,93.00,74.14,61.34,81.8,High,1,NA,NA,0,1,0
+CT0364,Arcot,Tamil Nadu,23.50,43.90,54.26,81.00,62.82,53.10,86.4,Medium,NA,NA,5,5,0,0
+CT0365,Chengalpattu,Tamil Nadu,59.74,43.90,70.30,79.00,71.26,64.84,90.9,High,1,NA,15,15,0,2
+CT0366,Chennai,Tamil Nadu,57.82,43.90,69.72,78.00,71.26,64.14,90.9,High,1,NA,14,14,0,1
+CT0367,Chidambaram,Tamil Nadu,23.50,43.90,58.89,81.00,62.82,54.02,86.4,Medium,NA,NA,8,8,0,0
+CT0368,Coimbatore,Tamil Nadu,73.13,68.66,17.75,79.00,71.54,62.02,90.9,High,2,2,NA,0,0,0
+CT0369,Cuddalore,Tamil Nadu,57.90,43.90,17.75,78.00,67.04,52.92,81.8,Medium,1,NA,NA,0,0,1
+CT0370,Dharmapuri,Tamil Nadu,23.50,43.90,17.75,27.00,48.73,32.18,77.3,Low,NA,NA,NA,0,0,0
+CT0371,Dindigul,Tamil Nadu,23.50,64.78,17.75,58.00,56.14,44.03,86.4,Medium,NA,1,NA,0,0,0
+CT0372,Erode,Tamil Nadu,56.48,68.66,17.75,78.00,68.45,57.87,90.9,High,1,2,NA,0,0,1
+CT0373,Kanchipuram,Tamil Nadu,23.50,64.78,81.20,93.00,69.35,66.37,95.5,High,NA,1,26,26,0,0
+CT0374,Kanniyakumari,Tamil Nadu,79.75,68.66,58.89,79.00,74.64,72.19,100.0,High,2,2,8,8,0,2
+CT0375,Kodaikanal,Tamil Nadu,23.50,64.78,30.89,93.00,65.14,55.46,86.4,High,NA,1,NA,0,1,0
+CT0376,Kumbakonam,Tamil Nadu,23.50,68.66,85.42,93.00,69.35,67.99,95.5,High,NA,2,18,18,1,0
+CT0377,Madurai,Tamil Nadu,23.50,68.66,71.07,81.00,65.35,61.92,95.5,High,NA,2,16,16,0,0
+CT0378,Mamallapuram,Tamil Nadu,23.50,43.90,88.94,93.00,67.95,63.46,86.4,High,NA,NA,32,32,1,0
+CT0379,Nagappattinam,Tamil Nadu,59.49,43.90,17.75,78.00,67.04,53.24,81.8,Medium,1,NA,NA,0,0,1
+CT0380,Nagercoil,Tamil Nadu,56.57,68.66,56.19,78.00,71.54,66.19,100.0,High,1,2,6,6,0,1
+CT0381,Palayamkottai,Tamil Nadu,23.50,43.90,17.75,27.00,48.73,32.18,77.3,Low,NA,NA,NA,0,0,0
+CT0382,Pudukkottai,Tamil Nadu,23.50,64.78,78.34,93.00,69.35,65.79,95.5,High,NA,1,19,19,0,0
+CT0383,Rajapalayam,Tamil Nadu,23.50,43.90,17.75,27.00,48.73,32.18,77.3,Low,NA,NA,NA,0,0,0
+CT0384,Ramanathapuram,Tamil Nadu,93.73,64.78,66.06,81.00,76.89,76.49,100.0,High,3,1,10,10,0,3
+CT0385,Salem,Tamil Nadu,23.50,68.66,17.75,59.00,56.14,45.01,86.4,Medium,NA,2,NA,0,0,0
+CT0386,Thanjavur,Tamil Nadu,23.50,75.30,87.68,93.00,69.35,69.77,95.5,High,NA,4,22,22,1,0
+CT0387,Tiruchchirappalli,Tamil Nadu,23.50,43.90,70.30,81.00,63.95,56.53,86.4,Medium,NA,NA,15,15,0,0
+CT0388,Tirunelveli,Tamil Nadu,87.68,68.66,67.17,78.00,76.89,75.68,100.0,High,3,2,11,11,0,1
+CT0389,Tiruppur,Tamil Nadu,23.50,64.78,17.75,58.00,56.14,44.03,86.4,Medium,NA,1,NA,0,0,0
+CT0390,Thoothukudi,Tamil Nadu,82.32,64.78,17.75,78.00,72.67,63.10,90.9,High,2,1,NA,0,0,1
+CT0391,Udhagamandalam,Tamil Nadu,74.75,68.66,32.15,94.00,75.54,69.02,90.9,High,3,2,NA,0,2,0
+CT0392,Vellore,Tamil Nadu,23.50,43.90,60.21,81.00,62.82,54.29,86.4,Medium,NA,NA,9,9,0,0
+CT0393,Hyderabad,Telangana,22.57,69.66,23.15,93.00,65.14,54.70,86.4,High,NA,2,NA,0,0,0
+CT0394,Karimnagar,Telangana,22.57,65.78,17.75,58.00,56.14,44.05,86.4,Medium,NA,1,NA,0,0,0
+CT0395,Khammam,Telangana,22.57,43.90,17.75,27.00,48.73,31.99,77.3,Low,NA,NA,NA,0,0,0
+CT0396,Mahbubnagar,Telangana,22.57,43.90,17.75,27.00,48.73,31.99,77.3,Low,NA,NA,NA,0,0,0
+CT0397,Nizamabad,Telangana,22.57,65.78,17.75,58.00,56.14,44.05,86.4,Medium,NA,1,NA,0,0,0
+CT0398,Sangareddi,Telangana,22.57,43.90,17.75,27.00,48.73,31.99,77.3,Low,NA,NA,NA,0,0,0
+CT0399,Warangal,Telangana,22.57,65.78,30.89,93.00,65.14,55.48,86.4,High,NA,1,NA,0,1,0
+CT0400,Agartala,Tripura,56.09,43.90,23.15,93.00,69.08,57.04,81.8,High,1,NA,NA,0,0,1
+CT0401,Agra,Uttar Pradesh,70.25,87.96,90.01,96.00,78.63,84.57,100.0,High,3,12,24,58,2,1
+CT0402,Aligarh,Uttar Pradesh,22.57,71.40,54.26,81.00,64.23,58.69,95.5,High,NA,1,5,5,0,0
+CT0403,Amroha,Uttar Pradesh,22.57,71.40,17.75,58.00,56.14,45.17,86.4,Medium,NA,1,NA,0,0,0
+CT0404,Ayodhya,Uttar Pradesh,41.16,77.41,64.75,96.00,76.10,71.08,100.0,High,3,12,10,7,0,0
+CT0405,Azamgarh,Uttar Pradesh,22.57,50.53,17.75,27.00,48.73,33.32,77.3,Low,NA,NA,NA,0,0,0
+CT0406,Bahraich,Uttar Pradesh,60.87,50.53,54.26,78.00,72.10,63.15,90.9,High,1,NA,5,5,0,0
+CT0407,Ballia,Uttar Pradesh,22.57,50.53,17.75,27.00,48.73,33.32,77.3,Low,NA,NA,NA,0,0,0
+CT0408,Banda,Uttar Pradesh,22.57,71.40,58.89,81.00,64.23,59.62,95.5,High,NA,1,8,8,0,0
+CT0409,Bara Banki,Uttar Pradesh,22.57,50.53,17.75,27.00,48.73,33.32,77.3,Low,NA,NA,NA,0,0,0
+CT0410,Bareilly,Uttar Pradesh,22.57,71.40,17.75,58.00,56.14,45.17,86.4,Medium,NA,1,NA,0,0,0
+CT0411,Basti,Uttar Pradesh,56.36,50.53,17.75,78.00,67.04,53.94,81.8,Medium,1,NA,NA,0,0,1
+CT0412,Bijnor,Uttar Pradesh,89.39,71.40,17.75,78.00,72.67,65.84,90.9,High,3,1,NA,0,0,1
+CT0413,Bithur,Uttar Pradesh,22.57,50.53,52.62,81.00,62.82,53.91,86.4,Medium,NA,NA,4,4,0,0
+CT0414,Budaun,Uttar Pradesh,57.44,50.53,54.26,78.00,70.14,62.07,90.9,High,1,NA,5,5,0,1
+CT0415,Bulandshahr,Uttar Pradesh,57.44,71.40,17.75,78.00,68.45,58.61,90.9,High,1,1,NA,0,0,1
+CT0416,Deoria,Uttar Pradesh,22.57,50.53,17.75,27.00,48.73,33.32,77.3,Low,NA,NA,NA,0,0,0
+CT0417,Etah,Uttar Pradesh,22.57,50.53,52.62,79.00,62.82,53.51,86.4,Medium,NA,NA,4,4,0,0
+CT0418,Etawah,Uttar Pradesh,86.94,50.53,54.26,78.00,74.35,68.82,90.9,High,3,NA,5,5,0,1
+CT0419,Faizabad,Uttar Pradesh,22.57,50.53,56.19,81.00,62.82,54.62,86.4,Medium,NA,NA,6,6,0,0
+CT0420,Farrukhabad-cum-Fatehgarh,Uttar Pradesh,22.57,50.53,17.75,27.00,48.73,33.32,77.3,Low,NA,NA,NA,0,0,0
+CT0421,Fatehpur,Uttar Pradesh,22.57,50.53,56.19,81.00,62.82,54.62,86.4,Medium,NA,NA,6,6,0,0
+CT0422,Fatehpur Sikri,Uttar Pradesh,33.75,72.91,84.38,96.00,75.67,72.54,100.0,High,2,8,15,18,1,0
+CT0423,Ghaziabad,Uttar Pradesh,22.57,50.53,17.75,27.00,48.73,33.32,77.3,Low,NA,NA,NA,0,0,0
+CT0424,Ghazipur,Uttar Pradesh,22.57,71.40,17.75,58.00,56.14,45.17,86.4,Medium,NA,1,NA,0,0,0
+CT0425,Gonda,Uttar Pradesh,55.69,50.53,17.75,78.00,67.04,53.80,81.8,Medium,1,NA,NA,0,0,1
+CT0426,Gorakhpur,Uttar Pradesh,56.36,71.40,56.19,78.00,71.54,66.70,100.0,High,1,1,6,6,0,1
+CT0427,Hamirpur,Uttar Pradesh,22.57,50.53,52.62,79.00,62.82,53.51,86.4,Medium,NA,NA,4,4,0,0
+CT0428,Hardoi,Uttar Pradesh,55.28,50.53,17.75,78.00,67.04,53.72,81.8,Medium,1,NA,NA,0,0,1
+CT0429,Hathras,Uttar Pradesh,22.57,50.53,17.75,27.00,48.73,33.32,77.3,Low,NA,NA,NA,0,0,0
+CT0430,Jalaun,Uttar Pradesh,22.57,50.53,17.75,27.00,48.73,33.32,77.3,Low,NA,NA,NA,0,0,0
+CT0431,Jaunpur,Uttar Pradesh,22.57,50.53,68.18,81.00,63.95,57.25,86.4,Medium,NA,NA,12,12,0,0
+CT0432,Jhansi,Uttar Pradesh,22.57,50.53,60.21,81.00,62.82,55.43,86.4,Medium,NA,NA,9,9,0,0
+CT0433,Kannauj,Uttar Pradesh,22.57,71.40,56.19,81.00,64.23,59.08,95.5,High,NA,1,6,6,0,0
+CT0434,Kanpur,Uttar Pradesh,55.13,50.53,56.19,78.00,70.14,62.00,90.9,High,1,NA,6,6,0,1
+CT0435,Lakhimpur,Uttar Pradesh,72.36,50.53,17.75,81.00,70.14,58.36,81.8,Medium,2,NA,NA,0,0,0
+CT0436,Lalitpur,Uttar Pradesh,22.57,50.53,71.07,81.00,63.95,57.82,86.4,Medium,NA,NA,16,16,0,0
+CT0437,Lucknow,Uttar Pradesh,22.57,75.29,74.54,81.00,65.35,63.75,95.5,High,NA,2,22,22,0,0
+CT0438,Mainpuri,Uttar Pradesh,55.54,71.40,17.75,78.00,68.45,58.23,90.9,High,1,1,NA,0,0,1
+CT0439,Mathura,Uttar Pradesh,41.16,77.41,69.04,96.00,76.10,71.94,100.0,High,3,12,12,15,0,0
+CT0440,Meerut,Uttar Pradesh,61.75,71.40,57.83,78.00,73.51,68.50,100.0,High,1,1,7,7,0,0
+CT0441,Mirzapur-Vindhyachal,Uttar Pradesh,22.57,75.29,17.75,59.00,56.14,46.15,86.4,Medium,NA,2,NA,0,0,0
+CT0442,Moradabad,Uttar Pradesh,22.57,71.40,45.86,79.00,64.23,56.61,95.5,High,NA,1,3,3,0,0
+CT0443,Muzaffarnagar,Uttar Pradesh,78.54,71.40,17.75,78.00,71.54,63.45,90.9,High,2,1,NA,0,0,1
+CT0444,Partapgarh,Uttar Pradesh,22.57,71.40,17.75,58.00,56.14,45.17,86.4,Medium,NA,1,NA,0,0,0
+CT0445,Pilibhit,Uttar Pradesh,61.20,50.53,17.75,78.00,69.01,55.30,81.8,Medium,1,NA,NA,0,0,0
+CT0446,Prayagraj,Uttar Pradesh,54.29,77.41,73.94,96.00,78.92,76.11,100.0,High,4,14,14,11,0,0
+CT0447,Rae Bareli,Uttar Pradesh,55.74,50.53,17.75,78.00,67.04,53.81,81.8,Medium,1,NA,NA,0,0,1
+CT0448,Rampur,Uttar Pradesh,22.57,50.53,52.62,79.00,62.82,53.51,86.4,Medium,NA,NA,4,4,0,0
+CT0449,Saharanpur,Uttar Pradesh,22.57,71.40,52.62,81.00,64.23,58.36,95.5,High,NA,1,4,4,0,0
+CT0450,Sambhal,Uttar Pradesh,57.44,71.40,17.75,78.00,68.45,58.61,90.9,High,1,1,NA,0,0,1
+CT0451,Shahjahanpur,Uttar Pradesh,22.57,50.53,17.75,27.00,48.73,33.32,77.3,Low,NA,NA,NA,0,0,0
+CT0452,Sitapur,Uttar Pradesh,22.57,50.53,54.26,79.00,62.82,53.84,86.4,Medium,NA,NA,5,5,0,0
+CT0453,Sultanpur,Uttar Pradesh,22.57,50.53,17.75,27.00,48.73,33.32,77.3,Low,NA,NA,NA,0,0,0
+CT0454,Tehri,Uttar Pradesh,22.57,50.53,17.75,27.00,48.73,33.32,77.3,Low,NA,NA,NA,0,0,0
+CT0455,Varanasi,Uttar Pradesh,51.25,94.08,79.52,96.00,84.94,81.16,100.0,High,3,18,22,14,0,0
+CT0456,Almora,Uttarakhand,60.63,77.73,65.61,93.00,79.47,75.29,100.0,High,1,3,9,9,0,0
+CT0457,Dehra Dun,Uttarakhand,88.50,74.29,57.83,78.00,77.72,75.27,100.0,High,3,2,7,7,0,1
+CT0458,Haridwar,Uttarakhand,65.35,49.53,58.89,78.00,75.19,65.39,90.9,High,1,NA,8,8,0,0
+CT0459,Mussoorie,Uttarakhand,23.50,49.53,17.75,27.00,50.69,33.69,77.3,Low,NA,NA,NA,0,0,0
+CT0460,Nainital,Uttarakhand,73.29,74.29,17.75,79.00,73.50,63.57,90.9,High,2,2,NA,0,0,0
+CT0461,Pithoragarh,Uttarakhand,62.02,49.53,17.75,78.00,70.97,55.65,81.8,Medium,1,NA,NA,0,0,0
+CT0462,Alipore,West Bengal,58.01,51.53,17.75,78.00,71.10,55.28,81.8,Medium,1,NA,NA,0,0,1
+CT0463,Alipur Duar,West Bengal,75.24,51.53,17.75,81.00,74.20,59.94,81.8,Medium,3,NA,NA,0,0,0
+CT0464,Asansol,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0465,Baharampur,West Bengal,23.50,51.53,56.19,81.00,66.88,55.82,86.4,Medium,NA,NA,6,6,0,0
+CT0466,Bally,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0467,Balurghat,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0468,Bankura,West Bengal,23.50,75.29,17.75,59.00,60.20,47.15,86.4,Medium,NA,2,NA,0,0,0
+CT0469,Baranagar,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0470,Barasat,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0471,Barrackpore,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0472,Basirhat,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0473,Bhatpara,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0474,Bishnupur,West Bengal,23.50,75.29,79.94,93.00,73.41,69.03,95.5,High,NA,2,22,22,0,0
+CT0475,Budge Budge,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0476,Burdwan,West Bengal,23.50,75.29,67.17,81.00,69.41,63.27,95.5,High,NA,2,11,11,0,0
+CT0477,Chandernagore,West Bengal,23.50,51.53,57.83,81.00,66.88,56.15,86.4,Medium,NA,NA,7,7,0,0
+CT0478,Darjeeling,West Bengal,71.98,71.40,72.03,93.00,82.70,78.22,100.0,High,2,1,8,8,1,0
+CT0479,Diamond Harbour,West Bengal,91.29,51.53,17.75,78.00,75.32,62.78,81.8,High,3,NA,NA,0,0,1
+CT0480,Dum Dum,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0481,Durgapur,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0482,Halisahar,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0483,Haora,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0484,Hugli,West Bengal,23.50,71.40,68.18,81.00,69.41,62.70,95.5,High,NA,1,12,12,0,0
+CT0485,Ingraj Bazar,West Bengal,23.50,75.29,68.18,81.00,69.41,63.48,95.5,High,NA,2,12,12,0,0
+CT0486,Jalpaiguri,West Bengal,74.72,51.53,17.75,81.00,74.20,59.84,81.8,Medium,3,NA,NA,0,0,0
+CT0487,Kalimpong,West Bengal,64.44,71.40,17.75,78.00,75.60,61.44,90.9,High,1,1,NA,0,0,0
+CT0488,Kamarhati,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0489,Kanchrapara,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0490,Kharagpur,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0491,Cooch Behar,West Bengal,23.50,51.53,57.83,81.00,66.88,56.15,86.4,Medium,NA,NA,7,7,0,0
+CT0492,Kolkata,West Bengal,82.69,75.29,85.42,93.00,84.95,84.27,100.0,High,2,2,18,18,1,1
+CT0493,Krishnanagar,West Bengal,23.50,71.40,17.75,58.00,60.20,46.17,86.4,Medium,NA,1,NA,0,0,0
+CT0494,Malda,West Bengal,23.50,75.29,71.07,81.00,69.41,64.05,95.5,High,NA,2,16,16,0,0
+CT0495,Midnapore,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0496,Murshidabad,West Bengal,23.50,51.53,80.85,93.00,72.01,64.18,86.4,High,NA,NA,24,24,0,0
+CT0497,Nabadwip,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0498,Palashi,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0499,Panihati,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0500,Purulia,West Bengal,23.50,71.40,17.75,58.00,60.20,46.17,86.4,Medium,NA,1,NA,0,0,0
+CT0501,Raiganj,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0502,Santipur,West Bengal,23.50,71.40,17.75,58.00,60.20,46.17,86.4,Medium,NA,1,NA,0,0,0
+CT0503,Shantiniketan,West Bengal,23.50,71.40,79.20,93.00,73.41,68.10,95.5,High,NA,1,10,10,1,0
+CT0504,Shrirampur,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0505,Siliguri,West Bengal,72.14,71.40,17.75,79.00,75.60,63.18,90.9,High,2,1,NA,0,0,0
+CT0506,Siuri,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0
+CT0507,Tamluk,West Bengal,23.50,51.53,56.19,81.00,66.88,55.82,86.4,Medium,NA,NA,6,6,0,0
+CT0508,Titagarh,West Bengal,23.50,51.53,17.75,27.00,52.79,34.51,77.3,Low,NA,NA,NA,0,0,0

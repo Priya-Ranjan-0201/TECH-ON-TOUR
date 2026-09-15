@@ -1011,7 +1011,7 @@ export default function HomeView() {
 
             <div className="pt-4 border-t border-neutral-border dark:border-darkmode-border flex items-center justify-between">
               <button
-                onClick={() => { switchRole('gov'); navigate('/gov/dashboard'); }}
+                onClick={() => { switchRole('dmo'); navigate('/dmo'); }}
                 className="btn-brand !bg-trust hover:!bg-trust-hover !px-4 !py-2.5 !text-xs font-bold"
               >
                 {t('home.launchDmoCenter', 'Launch DMO Intelligence Center')}

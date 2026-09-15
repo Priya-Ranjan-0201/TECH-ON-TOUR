@@ -35,7 +35,16 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
+import Badge from '../components/ui/Badge';
 import { getLocalizedDestinationSummary, getLocalizedHiddenGemReason, getLocalizedCategory } from '../utils/summaryTranslator';
+
+const levelColor = (lvl) => {
+  const l = (lvl || '').toLowerCase();
+  if (l === 'critical') return 'critical';
+  if (l === 'high') return 'high';
+  if (l === 'moderate') return 'moderate';
+  return 'low';
+};
 
 export default function DestinationDetailView() {
   const { t } = useTranslation();
@@ -416,6 +425,16 @@ export default function DestinationDetailView() {
                 <span>•</span>
                 <span>{dest.region}, {dest.state}</span>
               </div>
+
+              {/* TravelSathi Crowd Index — Verbatim Badge & Honestly Labeled Copy */}
+              <div className="pt-2 flex flex-col sm:flex-row sm:items-center gap-2 pointer-events-auto">
+                <Badge color={levelColor(dest.crowd_level || (dest.crowd_density_score > 80 ? 'critical' : dest.crowd_density_score > 60 ? 'high' : dest.crowd_density_score > 30 ? 'moderate' : 'low'))}>
+                  Crowd Index: {dest.crowd_level || (dest.crowd_density_score > 80 ? 'critical' : dest.crowd_density_score > 60 ? 'high' : dest.crowd_density_score > 30 ? 'moderate' : 'low')} ({dest.crowd_index ?? Math.round((dest.crowd_density_score || 50) * 0.9)}/100)
+                </Badge>
+                <p className="text-xs text-neutral-300">
+                  TravelSathi Crowd Index — derived from platform activity + search trend data, refreshed hourly
+                </p>
+              </div>
             </div>
           </div>
 
@@ -530,6 +549,21 @@ export default function DestinationDetailView() {
                     </p>
                   </div>
                 )}
+
+                {/* 📊 TravelSathi Crowd Index Detail Box */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#1C1A17] border border-neutral-200 dark:border-neutral-800 shadow-sm space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Badge color={levelColor(dest.crowd_level || (dest.crowd_density_score > 80 ? 'critical' : dest.crowd_density_score > 60 ? 'high' : dest.crowd_density_score > 30 ? 'moderate' : 'low'))}>
+                      Crowd Index: {dest.crowd_level || (dest.crowd_density_score > 80 ? 'critical' : dest.crowd_density_score > 60 ? 'high' : dest.crowd_density_score > 30 ? 'moderate' : 'low')} ({dest.crowd_index ?? Math.round((dest.crowd_density_score || 50) * 0.9)}/100)
+                    </Badge>
+                    <span className="text-[11px] font-mono text-neutral-500 bg-neutral-100 dark:bg-neutral-800 px-2 py-0.5 rounded">
+                      Refreshed Hourly
+                    </span>
+                  </div>
+                  <p className="text-xs text-neutral-600 dark:text-neutral-400">
+                    TravelSathi Crowd Index — derived from platform activity + search trend data, refreshed hourly
+                  </p>
+                </div>
 
                 {/* 🏛️ Heritage Verification Card */}
                 {dest.heritageVerification && (

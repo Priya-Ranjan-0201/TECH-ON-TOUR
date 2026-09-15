@@ -1,0 +1,49 @@
+# TravelSathi Government Tourism Investment Intelligence Configuration
+model_version: "TS-GOV-1.0"
+feature_version: "TS-FEATURES-1.0"
+mode: "prototype" # "prototype" | "production"
+data_version: "v2026.09"
+
+intended_weights:
+  attraction_strength: 0.30
+  tourism_demand: 0.20
+  cultural_natural_significance: 0.15
+  growth_opportunity: 0.15
+  accessibility_potential: 0.10
+  seasonality: 0.10
+
+prototype_weights_fallback:
+  attraction_strength: 0.375
+  cultural_natural_significance: 0.1875
+  growth_opportunity: 0.1875
+  accessibility_potential: 0.125
+  seasonality: 0.125
+  tourism_demand: 0.0
+
+thresholds:
+  priority_critical: 85.0
+  priority_high: 75.0
+  priority_medium: 62.0
+  potential_high: 65.0
+  opportunity_high: 65.0
+  accessibility_bottleneck: 55.0
+  seasonality_concentration: 72.0
+
+scenario_presets_crore:
+  - 5.0
+  - 10.0
+  - 25.0
+  - 50.0
+  - 100.0
+
+sources:
+  - name: "Ministry of Tourism, Government of India"
+    url: "https://tourism.gov.in/"
+  - name: "Archaeological Survey of India (ASI)"
+    url: "https://asi.nic.in/"
+  - name: "Geographical Indications Registry of India"
+    url: "https://ipindia.gov.in/"
+  - name: "UNESCO World Heritage Centre & ICH"
+    url: "https://whc.unesco.org/"
+  - name: "Airports Authority of India (AAI) & Ministry of Railways"
+    url: "https://www.aai.aero/"

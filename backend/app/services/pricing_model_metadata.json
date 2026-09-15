@@ -1,6 +1,7 @@
 {
   "model_name": "Dynamic Pricing Model",
-  "algorithm": "GradientBoostingRegressor (scikit-learn)",
+  "algorithm": "GradientBoostingRegressor",
+  "framework": "scikit-learn",
   "features": [
     "base_price",
     "days_to_festival",
@@ -10,84 +11,17 @@
     "category_luxury_tier",
     "review_rating"
   ],
-  "target": "recommended_price",
-  "n_samples": 2500,
-  "train_samples": 2000,
-  "test_samples": 500,
-  "split": "80/20 train/test (random_state=42)",
-  "best_hyperparameters": {
-    "max_depth": 3,
-    "n_estimators": 300
-  },
+  "target": "suggested_price",
+  "rows_trained": 1600,
+  "mae_inr": 206.05,
+  "r2_score": 0.9945,
   "metrics": {
-    "test_mae_inr": 185.56,
-    "test_r2_score": 0.9963,
-    "mae_inr": 185.56,
-    "r2_score": 0.9963
+    "test_mae_inr": 206.05,
+    "test_r2_score": 0.9945,
+    "mae_inr": 206.05,
+    "r2_score": 0.9945,
+    "mape_percent": 3.49
   },
-  "feature_importances": {
-    "base_price": 0.9637,
-    "days_to_festival": 0.0059,
-    "is_weekend": 0.0081,
-    "season_demand_index": 0.0146,
-    "occupancy_rate_last_30d": 0.0067,
-    "category_luxury_tier": 0.0,
-    "review_rating": 0.001
-  },
-  "grid_search_evaluations": [
-    {
-      "max_depth": 2,
-      "n_estimators": 100,
-      "test_mae": 326.56,
-      "test_r2": 0.9888
-    },
-    {
-      "max_depth": 2,
-      "n_estimators": 200,
-      "test_mae": 253.82,
-      "test_r2": 0.9935
-    },
-    {
-      "max_depth": 2,
-      "n_estimators": 300,
-      "test_mae": 229.48,
-      "test_r2": 0.9949
-    },
-    {
-      "max_depth": 3,
-      "n_estimators": 100,
-      "test_mae": 238.72,
-      "test_r2": 0.9939
-    },
-    {
-      "max_depth": 3,
-      "n_estimators": 200,
-      "test_mae": 198.51,
-      "test_r2": 0.9958
-    },
-    {
-      "max_depth": 3,
-      "n_estimators": 300,
-      "test_mae": 185.56,
-      "test_r2": 0.9963
-    },
-    {
-      "max_depth": 4,
-      "n_estimators": 100,
-      "test_mae": 226.44,
-      "test_r2": 0.9943
-    },
-    {
-      "max_depth": 4,
-      "n_estimators": 200,
-      "test_mae": 203.78,
-      "test_r2": 0.9952
-    },
-    {
-      "max_depth": 4,
-      "n_estimators": 300,
-      "test_mae": 197.84,
-      "test_r2": 0.9954
-    }
-  ]
+  "last_trained_utc": "2026-09-15T21:30:03.635466+00:00",
+  "version": "1.1.0-autorefresh"
 }

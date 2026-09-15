@@ -547,19 +547,23 @@ async def get_tourist_flow_redistribution(
             "message": f"Destination ID {destination_id} not found."
         }
 
-    # Evaluate crowd status
-    prim_crowd = primary.crowd_density_score or 50
-    if prim_crowd >= 85:
-        crowd_status = "critical"
+    # Evaluate crowd status via real TravelSathi Crowd Index table
+    from app.services.crowd_index_service import get_latest_crowd_index
+    crowd_record = await get_latest_crowd_index(db, destination_id)
+    if crowd_record:
+        prim_crowd = int(crowd_record["crowd_index"])
+        crowd_status = crowd_record["crowd_level"]
+    else:
+        prim_crowd = primary.crowd_density_score or 50
+        crowd_status = "critical" if prim_crowd >= 85 else ("high" if prim_crowd >= 70 else ("moderate" if prim_crowd >= 50 else "low"))
+
+    if crowd_status == "critical":
         excess_pct = round((prim_crowd - 75) * 1.2, 1)
-    elif prim_crowd >= 70:
-        crowd_status = "high"
+    elif crowd_status == "high":
         excess_pct = round((prim_crowd - 65) * 1.0, 1)
-    elif prim_crowd >= 50:
-        crowd_status = "moderate"
+    elif crowd_status == "moderate":
         excess_pct = 15.0
     else:
-        crowd_status = "low"
         excess_pct = 0.0
 
     # Retrieve candidate destinations within same state or nearby bounding box (+/- 1.0 degree lat/lon)
@@ -686,6 +690,9 @@ async def get_tourist_flow_redistribution(
             "longitude": primary.longitude,
             "crowd_density_score": prim_crowd,
             "crowd_status": crowd_status,
+            "crowd_index": prim_crowd,
+            "crowd_level": crowd_status,
+            "crowd_source": "TravelSathi Crowd Index — derived from platform activity + search trend data, refreshed hourly",
             "potential_score": primary.potential_score,
             "current_flow_pct": 100.0,
             "recommended_flow_pct": primary_recommended_flow,

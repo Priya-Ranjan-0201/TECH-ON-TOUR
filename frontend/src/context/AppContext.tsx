@@ -83,10 +83,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // 1. Role-Based Access State
-  // Roles: 'tourist' | 'host' | 'dmo' | 'admin' (with backwards compatibility for 'gov')
+  // Roles: 'tourist' | 'host' | 'dmo' | 'gov' | 'admin'
   const [userRole, setUserRole] = useState(() => {
-    const stored = localStorage.getItem('travelsathi_role') || 'tourist';
-    return stored === 'gov' ? 'dmo' : stored;
+    return localStorage.getItem('travelsathi_role') || 'tourist';
   });
 
   const [currentUser, setCurrentUser] = useState(() => {
@@ -109,8 +108,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   // Sync data-panel attribute on HTML root from first paint
   useEffect(() => {
-    const panel = userRole === 'gov' ? 'dmo' : userRole;
-    document.documentElement.setAttribute('data-panel', panel);
+    document.documentElement.setAttribute('data-panel', userRole);
   }, [userRole]);
 
   // Synchronize authenticated JWT token with backend for RBAC authorization
@@ -130,11 +128,42 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const switchRole = (newRole) => {
-    const role = newRole === 'gov' ? 'dmo' : newRole;
+  const switchRole = (newRole: string) => {
+    const role = newRole;
     setUserRole(role);
     localStorage.setItem('travelsathi_role', role);
     document.documentElement.setAttribute('data-panel', role);
+
+    // Update profile preview
+    if (role === 'gov') {
+      const govUser = {
+        id: 'usr-gov-1',
+        name: 'Smt. Ananya Sen, IAS',
+        email: 'secretary.tourism@nic.in',
+        phone: '+91 11 2371 1995',
+        avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
+        role: 'gov',
+        verifiedDpi: true,
+        badges: ['Ministry of Tourism', 'National Tourism Board', 'Policy Director'],
+        ecoPoints: 9500
+      };
+      setCurrentUser(govUser);
+      localStorage.setItem('travelsathi_user', JSON.stringify(govUser));
+    } else if (role === 'dmo') {
+      const dmoUser = {
+        id: 'usr-dmo-1',
+        name: 'Dr. Rajesh Verma, IAS',
+        email: 'officer.tourism@nic.in',
+        phone: '+91 11 2309 2400',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
+        role: 'dmo',
+        verifiedDpi: true,
+        badges: ['DMO Director', 'Carrying Capacity Officer', 'Eco-Permit Authority'],
+        ecoPoints: 7200
+      };
+      setCurrentUser(dmoUser);
+      localStorage.setItem('travelsathi_user', JSON.stringify(dmoUser));
+    }
 
     // Call backend to issue authentic role-derived JWT & set HTTP-only session cookie
     axios.post('/api/auth/switch-token', { role }, { withCredentials: true })

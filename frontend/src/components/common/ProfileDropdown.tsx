@@ -51,9 +51,18 @@ export const MENUS: Record<string, MenuItem[]> = {
     { label: 'DigiLocker Verification', href: '/host/verification', icon: ShieldCheck },
   ],
   dmo: [
-    { label: 'DMO Intelligence', href: '/dmo', icon: Building2 },
-    { label: 'Footfall & Sentiment', href: '/dmo/analytics', icon: Activity },
-    { label: 'Circuit Management', href: '/dmo/circuits', icon: Compass },
+    { label: 'DMO Command Center', href: '/dmo', icon: Building2 },
+    { label: 'Crowd & Festival AI', href: '/dmo/crowd', icon: Activity },
+    { label: 'Flow Diversion & Overtourism', href: '/dmo/flow', icon: Compass },
+    { label: 'Circuit Management', href: '/dmo/circuits', icon: MapPin },
+    { label: 'Platform Telemetry', href: '/dmo/analytics', icon: Sliders },
+  ],
+  gov: [
+    { label: 'Tourism Investment Intelligence', href: '/gov/tourism-intelligence', icon: Building2 },
+    { label: '508-District Rankings', href: '/gov/tourism-intelligence', icon: Layers },
+    { label: 'Scenario Simulator', href: '/gov/tourism-intelligence', icon: Sliders },
+    { label: 'District Comparison', href: '/gov/tourism-intelligence', icon: Activity },
+    { label: 'Official Briefing & Report', href: '/gov/tourism-intelligence', icon: FileText },
   ],
   admin: [
     { label: 'Admin Center', href: '/admin', icon: ShieldAlert },
@@ -85,7 +94,7 @@ export default function ProfileDropdown({ role = 'tourist', onClose }: ProfileDr
 
   // Normalize role from JWT or props
   const rawRole = role || userRole || 'tourist';
-  const normalizedRole = rawRole === 'gov' ? 'dmo' : rawRole;
+  const normalizedRole = rawRole;
   const items = MENUS[normalizedRole] || MENUS['tourist'];
 
   const languages = [
@@ -108,6 +117,8 @@ export default function ProfileDropdown({ role = 'tourist', onClose }: ProfileDr
         return '🏡 Verified Host Partner';
       case 'dmo':
         return '🏛️ Tourism Officer (DMO)';
+      case 'gov':
+        return '🏛️ Ministry of Tourism (Gov)';
       case 'admin':
         return '🛡️ System Administrator';
       default:
@@ -130,8 +141,14 @@ export default function ProfileDropdown({ role = 'tourist', onClose }: ProfileDr
       case 'AI Price Co-Pilot': return t('nav.aiPricing', label);
       case 'Availability': return t('nav.availability', label);
       case 'DigiLocker Verification': return t('nav.digiLockerVerification', label);
-      case 'DMO Intelligence': return t('nav.dmoIntelligence', label);
-      case 'Footfall & Sentiment': return t('nav.footfallSentiment', label);
+      case 'DMO Command Center': return 'DMO Command Center';
+      case 'Crowd & Festival AI': return 'Crowd & Festival AI';
+      case 'Flow Diversion & Overtourism': return 'Flow Diversion & Overtourism';
+      case 'Tourism Investment Intelligence': return 'Tourism Investment Intelligence';
+      case '508-District Rankings': return '508-District Rankings';
+      case 'Scenario Simulator': return 'Scenario Simulator';
+      case 'District Comparison': return 'District Comparison';
+      case 'Official Briefing & Report': return 'Official Briefing & Report';
       case 'Circuit Management': return t('nav.circuitManagement', label);
       case 'Admin Center': return t('nav.adminCenter', label);
       case 'Users & Hosts': return t('nav.usersHosts', label);
@@ -141,21 +158,21 @@ export default function ProfileDropdown({ role = 'tourist', onClose }: ProfileDr
 
   return (
     <div 
-      className="absolute top-full right-0 mt-2 w-72 bg-white dark:bg-[#1C1A17] border border-neutral-200 dark:border-neutral-800 rounded-2xl shadow-2xl py-2 z-50 animate-fadeIn divide-y divide-neutral-100 dark:divide-neutral-800 max-h-[85vh] overflow-y-auto"
+      className="absolute top-full right-0 mt-2 w-80 bg-white dark:bg-[#1C1A17] border border-neutral-200 dark:border-neutral-800 rounded-2xl shadow-2xl py-2 z-50 animate-fadeIn divide-y divide-neutral-100 dark:divide-neutral-800 max-h-[85vh] overflow-y-auto"
       data-testid="role-scoped-profile-dropdown"
     >
       {/* User Info Header */}
       <div className="px-4 py-2.5">
         <div className="flex items-center justify-between">
           <p className="text-sm font-bold text-neutral-900 dark:text-white truncate">
-            {currentUser?.name || (normalizedRole === 'host' ? 'Sunil Thakur' : normalizedRole === 'dmo' ? 'Dr. Rajesh Verma, IAS' : normalizedRole === 'admin' ? 'Chief Security Officer' : 'Aarav Sharma')}
+            {currentUser?.name || (normalizedRole === 'host' ? 'Sunil Thakur' : normalizedRole === 'dmo' ? 'Dr. Rajesh Verma, IAS' : normalizedRole === 'gov' ? 'Smt. Ananya Sen, IAS' : normalizedRole === 'admin' ? 'Chief Security Officer' : 'Aarav Sharma')}
           </p>
           <span className="px-1.5 py-0.5 rounded text-[10px] font-mono uppercase font-black bg-brand/10 text-brand">
             {normalizedRole}
           </span>
         </div>
         <p className="text-xs text-neutral-500 dark:text-neutral-400 truncate">
-          {currentUser?.email || (normalizedRole === 'host' ? 'sunil.thakur@pineshade.in' : normalizedRole === 'dmo' ? 'officer.tourism@nic.in' : normalizedRole === 'admin' ? 'admin.ops@travelsathi.gov.in' : 'aarav.sharma@travelsathi.in')}
+          {currentUser?.email || (normalizedRole === 'host' ? 'sunil.thakur@pineshade.in' : normalizedRole === 'dmo' ? 'officer.tourism@nic.in' : normalizedRole === 'gov' ? 'secretary.tourism@nic.in' : normalizedRole === 'admin' ? 'admin.ops@travelsathi.gov.in' : 'aarav.sharma@travelsathi.in')}
         </p>
         <div className="mt-1 flex items-center gap-1 text-[11px] font-bold text-secondary-800 dark:text-secondary-400">
           <span>{getRoleBadge(normalizedRole)}</span>
@@ -165,32 +182,38 @@ export default function ProfileDropdown({ role = 'tourist', onClose }: ProfileDr
       {/* Portal & Persona Switcher */}
       <div className="py-2 px-3 bg-neutral-50 dark:bg-neutral-800/40">
         <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-1.5 px-1">
-          {t('nav.roleSwitcher', 'Portal & Role Switcher')}
+          {t('nav.roleSwitcher', '5 Independent Panels & Portals')}
         </div>
         <div className="grid grid-cols-2 gap-1 text-xs">
           <button
             onClick={() => { switchRole('tourist'); navigate('/tourist'); handleClose(); }}
-            className={`px-2 py-1 rounded text-left font-medium ${normalizedRole === 'tourist' ? 'bg-primary-800 text-white font-bold' : 'hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'}`}
+            className={`px-2 py-1.5 rounded text-left font-medium ${normalizedRole === 'tourist' ? 'bg-primary-800 text-white font-bold' : 'hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'}`}
           >
             {t('nav.tourist', 'Tourist')}
           </button>
           <button
             onClick={() => { switchRole('host'); navigate('/host'); handleClose(); }}
-            className={`px-2 py-1 rounded text-left font-medium ${normalizedRole === 'host' ? 'bg-amber-800 text-white font-bold' : 'hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'}`}
+            className={`px-2 py-1.5 rounded text-left font-medium ${normalizedRole === 'host' ? 'bg-amber-800 text-white font-bold' : 'hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'}`}
           >
-            {t('nav.host', 'Host')}
+            {t('nav.host', 'Host Hub')}
           </button>
           <button
             onClick={() => { switchRole('dmo'); navigate('/dmo'); handleClose(); }}
-            className={`px-2 py-1 rounded text-left font-medium ${normalizedRole === 'dmo' ? 'bg-blue-800 text-white font-bold' : 'hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'}`}
+            className={`px-2 py-1.5 rounded text-left font-medium ${normalizedRole === 'dmo' ? 'bg-blue-800 text-white font-bold' : 'hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'}`}
           >
-            {t('nav.dmo', 'DMO')}
+            {t('nav.dmo', 'DMO Center')}
+          </button>
+          <button
+            onClick={() => { switchRole('gov'); navigate('/gov/tourism-intelligence'); handleClose(); }}
+            className={`px-2 py-1.5 rounded text-left font-medium ${normalizedRole === 'gov' ? 'bg-emerald-800 text-white font-bold' : 'hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'}`}
+          >
+            🏛️ Gov Suite
           </button>
           <button
             onClick={() => { switchRole('admin'); navigate('/admin'); handleClose(); }}
-            className={`px-2 py-1 rounded text-left font-medium ${normalizedRole === 'admin' ? 'bg-red-800 text-white font-bold' : 'hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'}`}
+            className={`px-2 py-1.5 rounded text-left font-medium col-span-2 ${normalizedRole === 'admin' ? 'bg-red-800 text-white font-bold' : 'hover:bg-neutral-200 dark:hover:bg-neutral-700 text-neutral-700 dark:text-neutral-300'}`}
           >
-            {t('nav.admin', 'Admin')}
+            {t('nav.admin', 'Admin Center')}
           </button>
         </div>
       </div>
@@ -198,7 +221,7 @@ export default function ProfileDropdown({ role = 'tourist', onClose }: ProfileDr
       {/* Role-Scoped Navigation Items — Zero cross-panel bleeding */}
       <div className="py-1 text-xs font-semibold text-neutral-700 dark:text-neutral-300" data-testid={`menu-items-${normalizedRole}`}>
         <div className="px-4 py-1 text-[10px] font-bold uppercase tracking-wider text-neutral-400 dark:text-neutral-500">
-          {normalizedRole === 'host' ? t('nav.hostOperations', 'Host Operations') : normalizedRole === 'dmo' ? t('nav.dmoIntelligence', 'DMO Intelligence') : normalizedRole === 'admin' ? t('nav.administration', 'Administration') : t('nav.travelerModules', 'Traveler Modules')}
+          {normalizedRole === 'host' ? t('nav.hostOperations', 'Host Operations') : normalizedRole === 'dmo' ? 'DMO Command Operations' : normalizedRole === 'gov' ? 'Government Investment Suite' : normalizedRole === 'admin' ? t('nav.administration', 'Administration') : t('nav.travelerModules', 'Traveler Modules')}
         </div>
         {items.map((item) => {
           const IconComp = item.icon || Compass;

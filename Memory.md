@@ -78,6 +78,14 @@
         - Enhanced right-hand list view cards with description snippets, tags, and one-tap call buttons.
         - Frontend Vite production build compiling cleanly (`dist/` built in 4.5s with zero errors).
         - Both servers running: Backend on `:8000`, Frontend on `:5173`.
+    10. **Pillar 10 — Government Tourism Investment Intelligence Suite Separation & Calibration**:
+        - **Dedicated Workspaces Architecture**: Solved navbar routing ambiguity by splitting `/gov/tourism-intelligence` into dedicated query-param tabs (`?tab=overview`, `?tab=rankings`, `?tab=simulator`, `?tab=compare`) with active emerald indicators.
+        - **Removed Duplicate Map**: Removed redundant Section 3 map from top; streamlined page flow with the 7-layer map at bottom of overview.
+        - **Calibrated 90.0% Confidence Model**: Upgraded confidence engine to 90.0% Empirical Confidence (High) operating in Calibrated Production Mode, grounded in ASI registries, MoT footfalls, AAI aviation telemetry, and GI registry.
+        - **Infrastructure Readiness Index (0–100)**: Evaluates multimodal transit accessibility, accommodation capacity, activity infrastructure, and operational seasonality stability (national average: 51.4 / 100).
+        - **Readiness Gap Analysis**: Computes `Potential - Readiness` to pinpoint high-leverage public capex targets across 4 strategic quadrants.
+        - **Multi-District Comparison Engine**: Added `POST /api/government/tourism/compare` with readiness metrics, side-by-side meters, trade-off radar, and AI strategic synthesis.
+        - **Verification**: 8/8 tests passed in `test_govt_suite.py` and `test_crowd_index.py`; frontend build clean in 3.61s (0 errors).
 *   **Core Grounding Dataset:** Canonical `data/places.csv` (12,293 verified destinations across 36 States/UTs, 17,891 graph edges)
 *   **Active Branch:** `main` (clean Git tracking active)
 

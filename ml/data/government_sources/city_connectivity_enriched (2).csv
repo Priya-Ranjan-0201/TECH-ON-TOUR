@@ -1,0 +1,509 @@
+﻿Number,City Name,State Name,Road Connectivity Score (1-100),Train Connectivity Score (1-100),Flight Connectivity Score (1-100),Overall Connectivity Score (1-100),Road Access Indicator,Train Access Indicator,Flight Access Indicator,Connectivity Confidence
+1,Port Blair,Andaman and Nicobar Islands,75,35,90,67,Road access exists; NH status not asserted,No city-level railway match in conservative reference,AAI airport-city match,Medium
+2,Adoni,Andhra Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+3,Amaravati,Andhra Pradesh,75,90,20,62,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+4,Anantapur,Andhra Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+5,Chandragiri,Andhra Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+6,Chittoor,Andhra Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+7,Dowlaiswaram,Andhra Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+8,Eluru,Andhra Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+9,Guntur,Andhra Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+10,Kadapa,Andhra Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+11,Kakinada,Andhra Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+12,Kurnool,Andhra Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+13,Machilipatnam,Andhra Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+14,Nagarjunakoṇḍa,Andhra Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+15,Rajahmundry,Andhra Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+16,Srikakulam,Andhra Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+17,Tirupati,Andhra Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+18,Vijayawada,Andhra Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+19,Visakhapatnam,Andhra Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+20,Vizianagaram,Andhra Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+21,Yemmiganur,Andhra Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+22,Itanagar,Arunachal Pradesh,75,35,90,67,Road access exists; NH status not asserted,No city-level railway match in conservative reference,AAI airport-city match,Medium
+23,Dhuburi,Assam,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+24,Dibrugarh,Assam,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+25,Dispur,Assam,75,90,20,62,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+26,Guwahati,Assam,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+27,Jorhat,Assam,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+28,Nagaon,Assam,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+29,Sivasagar,Assam,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+30,Silchar,Assam,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+31,Tezpur,Assam,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+32,Tinsukia,Assam,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+33,Ara,Bihar,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+34,Barauni,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+35,Begusarai,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+36,Bettiah,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+37,Bhagalpur,Bihar,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+38,Bihar Sharif,Bihar,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+39,Bodh Gaya,Bihar,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+40,Buxar,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+41,Chapra,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+42,Darbhanga,Bihar,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+43,Dehri,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+44,Dinapur Nizamat,Bihar,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+45,Gaya,Bihar,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+46,Hajipur,Bihar,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+47,Jamalpur,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+48,Katihar,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+49,Madhubani,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+50,Motihari,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+51,Munger,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+52,Muzaffarpur,Bihar,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+53,Patna,Bihar,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+54,Purnia,Bihar,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+55,Pusa,Bihar,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+56,Saharsa,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+57,Samastipur,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+58,Sasaram,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+59,Sitamarhi,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+60,Siwan,Bihar,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+61,Chandigarh,Chandigarh,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+62,Ambikapur,Chhattisgarh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+63,Bhilai,Chhattisgarh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+64,Bilaspur,Chhattisgarh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+65,Dhamtari,Chhattisgarh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+66,Durg,Chhattisgarh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+67,Jagdalpur,Chhattisgarh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+68,Raipur,Chhattisgarh,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+69,Rajnandgaon,Chhattisgarh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+70,Daman,Dadra and Nagar Haveli and Daman and Diu,75,90,90,85,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+71,Diu,Dadra and Nagar Haveli and Daman and Diu,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+72,Silvassa,Dadra and Nagar Haveli and Daman and Diu,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+73,Delhi,Delhi,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+74,New Delhi,Delhi,75,35,20,43,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+75,Madgaon,Goa,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+76,Panaji,Goa,75,90,20,62,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+77,Ahmadabad,Gujarat,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+78,Amreli,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+79,Bharuch,Gujarat,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+80,Bhavnagar,Gujarat,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+81,Bhuj,Gujarat,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+82,Dwarka,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+83,Gandhinagar,Gujarat,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+84,Godhra,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+85,Jamnagar,Gujarat,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+86,Junagadh,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+87,Kandla,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+88,Khambhat,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+89,Kheda,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+90,Mahesana,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+91,Morbi,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+92,Nadiad,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+93,Navsari,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+94,Okha,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+95,Palanpur,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+96,Patan,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+97,Porbandar,Gujarat,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+98,Rajkot,Gujarat,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+99,Surat,Gujarat,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+100,Surendranagar,Gujarat,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+101,Valsad,Gujarat,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+102,Veraval,Gujarat,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+103,Ambala,Haryana,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+104,Bhiwani,Haryana,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+105,Chandigarh,Haryana,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+106,Faridabad,Haryana,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+107,Firozpur Jhirka,Haryana,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+108,Gurugram,Haryana,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+109,Hansi,Haryana,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+110,Hisar,Haryana,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+111,Jind,Haryana,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+112,Kaithal,Haryana,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+113,Karnal,Haryana,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+114,Kurukshetra,Haryana,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+115,Panipat,Haryana,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+116,Pehowa,Haryana,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+117,Rewari,Haryana,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+118,Rohtak,Haryana,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+119,Sirsa,Haryana,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+120,Sonipat,Haryana,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+121,Bilaspur,Himachal Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+122,Chamba,Himachal Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+123,Dalhousie,Himachal Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+124,Dharmshala,Himachal Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+125,Hamirpur,Himachal Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+126,Kangra,Himachal Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+127,Kullu,Himachal Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+128,Mandi,Himachal Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+129,Nahan,Himachal Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+130,Shimla,Himachal Pradesh,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+131,Una,Himachal Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+132,Anantnag,Jammu and Kashmir,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+133,Baramula,Jammu and Kashmir,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+134,Doda,Jammu and Kashmir,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+135,Gulmarg,Jammu and Kashmir,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+136,Jammu,Jammu and Kashmir,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+137,Kathua,Jammu and Kashmir,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+138,Punch,Jammu and Kashmir,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+139,Rajouri,Jammu and Kashmir,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+140,Srinagar,Jammu and Kashmir,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+141,Udhampur,Jammu and Kashmir,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+142,Bokaro,Jharkhand,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+143,Chaibasa,Jharkhand,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+144,Deoghar,Jharkhand,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+145,Dhanbad,Jharkhand,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+146,Dumka,Jharkhand,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+147,Giridih,Jharkhand,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+148,Hazaribag,Jharkhand,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+149,Jamshedpur,Jharkhand,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+150,Jharia,Jharkhand,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+151,Rajmahal,Jharkhand,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+152,Ranchi,Jharkhand,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+153,Saraikela,Jharkhand,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+154,Badami,Karnataka,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+155,Ballari,Karnataka,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+156,Bengaluru,Karnataka,95,90,20,68,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+157,Belagavi,Karnataka,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+158,Bhadravati,Karnataka,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+159,Bidar,Karnataka,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+160,Chikkamagaluru,Karnataka,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+161,Chitradurga,Karnataka,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+162,Davangere,Karnataka,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+163,Halebid,Karnataka,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+164,Hassan,Karnataka,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+165,Hubballi-Dharwad,Karnataka,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+166,Kalaburagi,Karnataka,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+167,Kolar,Karnataka,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+168,Madikeri,Karnataka,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+169,Mandya,Karnataka,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+170,Mangaluru,Karnataka,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+171,Mysuru,Karnataka,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+172,Raichur,Karnataka,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+173,Shivamogga,Karnataka,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+174,Shravanabelagola,Karnataka,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+175,Shrirangapattana,Karnataka,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+176,Tumakuru,Karnataka,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+177,Vijayapura,Karnataka,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+178,Alappuzha,Kerala,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+179,Vatakara,Kerala,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+180,Idukki,Kerala,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+181,Kannur,Kerala,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+182,Kochi,Kerala,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+183,Kollam,Kerala,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+184,Kottayam,Kerala,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+185,Kozhikode,Kerala,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+186,Mattancheri,Kerala,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+187,Palakkad,Kerala,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+188,Thalassery,Kerala,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+189,Thiruvananthapuram,Kerala,95,90,20,68,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+190,Thrissur,Kerala,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+191,Kargil,Ladakh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+192,Leh,Ladakh,75,90,90,85,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+193,Balaghat,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+194,Barwani,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+195,Betul,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+196,Bharhut,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+197,Bhind,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+198,Bhojpur,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+199,Bhopal,Madhya Pradesh,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+200,Burhanpur,Madhya Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+201,Chhatarpur,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+202,Chhindwara,Madhya Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+203,Damoh,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+204,Datia,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+205,Dewas,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+206,Dhar,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+207,Dr. Ambedkar Nagar (Mhow),Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+208,Guna,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+209,Gwalior,Madhya Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+210,Hoshangabad,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+211,Indore,Madhya Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+212,Itarsi,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+213,Jabalpur,Madhya Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+214,Jhabua,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+215,Khajuraho,Madhya Pradesh,65,35,90,63,Road access exists; NH status not asserted,No city-level railway match in conservative reference,AAI airport-city match,Medium
+216,Khandwa,Madhya Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+217,Khargone,Madhya Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+218,Maheshwar,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+219,Mandla,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+220,Mandsaur,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+221,Morena,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+222,Murwara,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+223,Narsimhapur,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+224,Narsinghgarh,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+225,Narwar,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+226,Neemuch,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+227,Nowgong,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+228,Orchha,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+229,Panna,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+230,Raisen,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+231,Rajgarh,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+232,Ratlam,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+233,Rewa,Madhya Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+234,Sagar,Madhya Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+235,Sarangpur,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+236,Satna,Madhya Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+237,Sehore,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+238,Seoni,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+239,Shahdol,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+240,Shajapur,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+241,Sheopur,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+242,Shivpuri,Madhya Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+243,Ujjain,Madhya Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+244,Vidisha,Madhya Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+245,Ahmadnagar,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+246,Akola,Maharashtra,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+247,Amravati,Maharashtra,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+248,Aurangabad,Maharashtra,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+249,Bhandara,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+250,Bhusawal,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+251,Bid,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+252,Buldhana,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+253,Chandrapur,Maharashtra,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+254,Daulatabad,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+255,Dhule,Maharashtra,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+256,Jalgaon,Maharashtra,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+257,Kalyan,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+258,Karli,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+259,Kolhapur,Maharashtra,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+260,Mahabaleshwar,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+261,Malegaon,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+262,Matheran,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+263,Mumbai,Maharashtra,95,90,20,68,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+264,Nagpur,Maharashtra,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+265,Nanded,Maharashtra,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+266,Nashik,Maharashtra,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+267,Osmanabad,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+268,Pandharpur,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+269,Parbhani,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+270,Pune,Maharashtra,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+271,Ratnagiri,Maharashtra,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+272,Sangli,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+273,Satara,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+274,Sevagram,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+275,Solapur,Maharashtra,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+276,Thane,Maharashtra,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+277,Ulhasnagar,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+278,Vasai-Virar,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+279,Wardha,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+280,Yavatmal,Maharashtra,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+281,Imphal,Manipur,75,90,90,85,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+282,Cherrapunji,Meghalaya,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+283,Shillong,Meghalaya,75,90,90,85,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+284,Aizawl,Mizoram,75,90,20,62,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+285,Lunglei,Mizoram,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+286,Kohima,Nagaland,75,90,20,62,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+287,Mon,Nagaland,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+288,Phek,Nagaland,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+289,Wokha,Nagaland,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+290,Zunheboto,Nagaland,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+291,Balangir,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+292,Baleshwar,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+293,Baripada,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+294,Bhubaneshwar,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+295,Brahmapur,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+296,Cuttack,Odisha,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+297,Dhenkanal,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+298,Kendujhar,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+299,Konark,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+300,Koraput,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+301,Paradip,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+302,Phulabani,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+303,Puri,Odisha,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+304,Sambalpur,Odisha,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+305,Udayagiri,Odisha,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+306,Karaikal,Puducherry,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+307,Mahe,Puducherry,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+308,Puducherry,Puducherry,75,90,90,85,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+309,Yanam,Puducherry,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+310,Amritsar,Punjab,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+311,Batala,Punjab,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+312,Chandigarh,Punjab,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+313,Faridkot,Punjab,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+314,Firozpur,Punjab,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+315,Gurdaspur,Punjab,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+316,Hoshiarpur,Punjab,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+317,Jalandhar,Punjab,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+318,Kapurthala,Punjab,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+319,Ludhiana,Punjab,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+320,Nabha,Punjab,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+321,Patiala,Punjab,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+322,Rupnagar,Punjab,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+323,Sangrur,Punjab,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+324,Abu,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+325,Ajmer,Rajasthan,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+326,Alwar,Rajasthan,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+327,Amer,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+328,Barmer,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+329,Beawar,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+330,Bharatpur,Rajasthan,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+331,Bhilwara,Rajasthan,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+332,Bikaner,Rajasthan,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+333,Bundi,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+334,Chittaurgarh,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+335,Churu,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+336,Dhaulpur,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+337,Dungarpur,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+338,Ganganagar,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+339,Hanumangarh,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+340,Jaipur,Rajasthan,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+341,Jaisalmer,Rajasthan,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+342,Jalor,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+343,Jhalawar,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+344,Jhunjhunu,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+345,Jodhpur,Rajasthan,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+346,Kishangarh,Rajasthan,65,35,90,63,Road access exists; NH status not asserted,No city-level railway match in conservative reference,AAI airport-city match,Medium
+347,Kota,Rajasthan,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+348,Merta,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+349,Nagaur,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+350,Nathdwara,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+351,Pali,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+352,Phalodi,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+353,Pushkar,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+354,Sawai Madhopur,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+355,Shahpura,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+356,Sikar,Rajasthan,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+357,Sirohi,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+358,Tonk,Rajasthan,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+359,Udaipur,Rajasthan,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+360,Gangtok,Sikkim,75,90,20,62,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+361,Gyalshing,Sikkim,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+362,Lachung,Sikkim,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+363,Mangan,Sikkim,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+364,Arcot,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+365,Chengalpattu,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+366,Chennai,Tamil Nadu,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+367,Chidambaram,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+368,Coimbatore,Tamil Nadu,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+369,Cuddalore,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+370,Dharmapuri,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+371,Dindigul,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+372,Erode,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+373,Kanchipuram,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+374,Kanniyakumari,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+375,Kodaikanal,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+376,Kumbakonam,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+377,Madurai,Tamil Nadu,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+378,Mamallapuram,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+379,Nagappattinam,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+380,Nagercoil,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+381,Palayamkottai,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+382,Pudukkottai,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+383,Rajapalayam,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+384,Ramanathapuram,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+385,Salem,Tamil Nadu,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+386,Thanjavur,Tamil Nadu,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+387,Tiruchchirappalli,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+388,Tirunelveli,Tamil Nadu,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+389,Tiruppur,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+390,Thoothukudi,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+391,Udhagamandalam,Tamil Nadu,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+392,Vellore,Tamil Nadu,65,35,90,63,Road access exists; NH status not asserted,No city-level railway match in conservative reference,AAI airport-city match,Medium
+393,Hyderabad,Telangana,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+394,Karimnagar,Telangana,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+395,Khammam,Telangana,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+396,Mahbubnagar,Telangana,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+397,Nizamabad,Telangana,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+398,Sangareddi,Telangana,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+399,Warangal,Telangana,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+400,Agartala,Tripura,75,90,90,85,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+401,Agra,Uttar Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+402,Aligarh,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+403,Amroha,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+404,Ayodhya,Uttar Pradesh,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+405,Azamgarh,Uttar Pradesh,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+406,Bahraich,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+407,Ballia,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+408,Banda,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+409,Bara Banki,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+410,Bareilly,Uttar Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+411,Basti,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+412,Bijnor,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+413,Bithur,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+414,Budaun,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+415,Bulandshahr,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+416,Deoria,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+417,Etah,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+418,Etawah,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+419,Faizabad,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+420,Farrukhabad-cum-Fatehgarh,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+421,Fatehpur,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+422,Fatehpur Sikri,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+423,Ghaziabad,Uttar Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+424,Ghazipur,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+425,Gonda,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+426,Gorakhpur,Uttar Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+427,Hamirpur,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+428,Hardoi,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+429,Hathras,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+430,Jalaun,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+431,Jaunpur,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+432,Jhansi,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+433,Kannauj,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+434,Kanpur,Uttar Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+435,Lakhimpur,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+436,Lalitpur,Uttar Pradesh,65,35,90,63,Road access exists; NH status not asserted,No city-level railway match in conservative reference,AAI airport-city match,Medium
+437,Lucknow,Uttar Pradesh,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+438,Mainpuri,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+439,Mathura,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+440,Meerut,Uttar Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+441,Mirzapur-Vindhyachal,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+442,Moradabad,Uttar Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+443,Muzaffarnagar,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+444,Partapgarh,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+445,Pilibhit,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+446,Prayagraj,Uttar Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+447,Rae Bareli,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+448,Rampur,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+449,Saharanpur,Uttar Pradesh,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+450,Sambhal,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+451,Shahjahanpur,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+452,Sitapur,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+453,Sultanpur,Uttar Pradesh,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+454,Tehri,Uttar Pradesh,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+455,Varanasi,Uttar Pradesh,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+456,Almora,Uttarakhand,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+457,Dehra Dun,Uttarakhand,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+458,Haridwar,Uttarakhand,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+459,Mussoorie,Uttarakhand,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+460,Nainital,Uttarakhand,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+461,Pithoragarh,Uttarakhand,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+462,Alipore,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+463,Alipur Duar,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+464,Asansol,West Bengal,85,90,90,88,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+465,Baharampur,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+466,Bally,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+467,Balurghat,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+468,Bankura,West Bengal,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+469,Baranagar,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+470,Barasat,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+471,Barrackpore,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+472,Basirhat,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+473,Bhatpara,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+474,Bishnupur,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+475,Budge Budge,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+476,Burdwan,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+477,Chandernagore,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+478,Darjeeling,West Bengal,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+479,Diamond Harbour,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+480,Dum Dum,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+481,Durgapur,West Bengal,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+482,Halisahar,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+483,Haora,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+484,Hugli,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+485,Ingraj Bazar,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+486,Jalpaiguri,West Bengal,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+487,Kalimpong,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+488,Kamarhati,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+489,Kanchrapara,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+490,Kharagpur,West Bengal,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+491,Cooch Behar,West Bengal,65,35,90,63,Road access exists; NH status not asserted,No city-level railway match in conservative reference,AAI airport-city match,Medium
+492,Kolkata,West Bengal,95,90,90,92,NH-linked city reference,City-level railway passenger access reference,AAI airport-city match,High
+493,Krishnanagar,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+494,Malda,West Bengal,65,90,90,82,Road access exists; NH status not asserted,City-level railway passenger access reference,AAI airport-city match,Medium
+495,Midnapore,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+496,Murshidabad,West Bengal,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+497,Nabadwip,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+498,Palashi,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+499,Panihati,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+500,Purulia,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+501,Raiganj,West Bengal,65,90,20,58,Road access exists; NH status not asserted,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+502,Santipur,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+503,Shantiniketan,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+504,Shrirampur,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+505,Siliguri,West Bengal,85,90,20,65,NH-linked city reference,City-level railway passenger access reference,No direct AAI airport-city match,Medium
+506,Siuri,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+507,Tamluk,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
+508,Titagarh,West Bengal,65,35,20,40,Road access exists; NH status not asserted,No city-level railway match in conservative reference,No direct AAI airport-city match,Low
