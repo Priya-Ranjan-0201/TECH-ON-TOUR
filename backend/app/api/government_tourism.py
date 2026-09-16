@@ -173,6 +173,47 @@ async def get_data_sources(
     return service.get_sources_provenance()
 
 
+@router.get("/activities")
+async def get_government_activities(
+    state: Optional[str] = Query(None, description="Filter by Indian State/UT"),
+    category: Optional[str] = Query(None, description="Filter by activity category (Cultural, Adventure, Water, Wildlife, Spiritual, etc.)"),
+    experience_level: Optional[str] = Query(None, description="Filter by experience level: Beginner | Moderate | Advanced | All Levels"),
+    district: Optional[str] = Query(None, description="Filter by district name"),
+    search: Optional[str] = Query(None, description="Search activity name, location, or authority"),
+    page: int = Query(1, ge=1),
+    limit: int = Query(50, ge=1, le=500),
+    service: GovernmentTourismService = Depends(get_government_tourism_service)
+):
+    """
+    Returns officially recognized government tourism activities, concessions, and regulatory provenance.
+    Source: Ministry of Tourism & State Tourism Boards (Travel_Activity_Dataset.csv).
+    """
+    return service.get_activities(
+        state=state,
+        category=category,
+        experience_level=experience_level,
+        district=district,
+        search=search,
+        page=page,
+        limit=limit
+    )
+
+
+@router.get("/activities/{activity_id}")
+async def get_government_activity_detail(
+    activity_id: str,
+    service: GovernmentTourismService = Depends(get_government_tourism_service)
+):
+    """
+    Returns the comprehensive research-grade statutory dossier for an activity,
+    enriched with multi-modal transit accessibility, co-located monuments, and hourly token.
+    """
+    detail = service.get_activity_detail(activity_id)
+    if not detail:
+        raise HTTPException(status_code=404, detail=f"Activity '{activity_id}' not found in official registry.")
+    return detail
+
+
 @router.post("/advisor", dependencies=[Depends(rate_limit_ai)])
 async def query_ai_advisor(
     payload: AdvisorQueryPayload,
@@ -207,3 +248,38 @@ async def generate_government_report(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(val_err)
         )
+
+
+gov_alias_router = APIRouter(
+    prefix="/gov",
+    tags=["Government Tourism Alias Routes"],
+    dependencies=[Depends(require_role(["government", "dmo", "admin", "gov", "analyst"]))]
+)
+
+
+@gov_alias_router.get("/rankings")
+async def get_district_rankings_alias(
+    state: Optional[str] = Query(None, description="Filter by state name"),
+    priority: Optional[str] = Query(None, description="Filter by priority tier: Critical | High | Medium | Moderate"),
+    classification: Optional[str] = Query(None, description="Filter by 8-class taxonomy"),
+    search: Optional[str] = Query(None, description="Search district, city or state"),
+    limit: int = Query(508, ge=1, le=508),
+    service: GovernmentTourismService = Depends(get_government_tourism_service)
+):
+    """Alias for /api/government/tourism/rankings supporting DMO / Gov widgets."""
+    return service.get_rankings(
+        state=state,
+        priority=priority,
+        classification=classification,
+        search=search,
+        limit=limit
+    )
+
+
+@gov_alias_router.get("/overview", response_model=OverviewKPIResponse)
+async def get_government_overview_alias(
+    service: GovernmentTourismService = Depends(get_government_tourism_service)
+):
+    """Alias for /api/government/tourism/overview."""
+    return service.get_overview()
+

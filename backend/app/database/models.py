@@ -62,6 +62,7 @@ class DestinationMaster(Base):
 
     # Destination Potential Scoring (6 Factors: Attraction, Demand, Significance, Growth, Access, Season)
     potential_score = Column(Float, nullable=True, index=True)
+    readiness_score = Column(Float, nullable=True, index=True)
     score_breakdown = Column(JSON, nullable=True)
     score_confidence = Column(String(20), nullable=True, default="full")
     score_computed_at = Column(DateTime, nullable=True)
@@ -70,6 +71,7 @@ class DestinationMaster(Base):
         Index("idx_dest_state_category", "state", "category"),
         Index("idx_dest_lat_lng", "latitude", "longitude"),
         Index("idx_dest_potential_score", "potential_score"),
+        Index("idx_dest_readiness_score", "readiness_score"),
     )
 
 
@@ -90,6 +92,25 @@ class DestinationMonthlyVisit(Base):
     month = Column(Integer, primary_key=True)
     visit_index = Column(Float, nullable=True)
     source = Column(String(100), nullable=True)
+
+
+class ReadinessInput(Base):
+    """
+    District / Destination Infrastructure Readiness Inputs (Gov / DMO panel).
+    Accommodates 6 core infrastructure/readiness dimensions (0-100 each).
+    """
+    __tablename__ = "readiness_inputs"
+
+    destination_id = Column(Integer, ForeignKey("destinations_master.id"), primary_key=True)
+    accommodation = Column(Float, nullable=False, default=0.0)
+    transport = Column(Float, nullable=False, default=0.0)
+    connectivity = Column(Float, nullable=False, default=0.0)
+    food_hospitality = Column(Float, nullable=False, default=0.0)
+    medical_safety = Column(Float, nullable=False, default=0.0)
+    other_amenities = Column(Float, nullable=False, default=0.0)
+    updated_by = Column(String(100), nullable=True)
+    updated_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
 
 
 class Homestay(Base):

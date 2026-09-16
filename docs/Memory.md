@@ -1,20 +1,21 @@
 # TravelSathi — System Memory, Model Provenance & Engineering Retrospective
 
-> **Document Version:** 1.0.0 (SIH Final Verification Release)  
+> **Document Version:** 1.1.0 (SIH Final Verification Release — Extended with Readiness Score ML Model)  
 > **Repository:** TravelSathi (Smart India Hackathon)  
-> **Compliance:** Honest ML reporting standard (Zero fabricated 99% metrics). Exactly 3 ML models trained and validated.
+> **Compliance:** Honest ML reporting standard (Zero fabricated 99% metrics). Exactly 4 ML models trained and validated.
 
 ---
 
 ## 1. Final Model Inventory & Performance Metrics
 
-TravelSathi intentionally maintains **exactly 3 machine learning models**. Generative AI capabilities (multi-day itinerary synthesis, travel assistant chat) are powered by API calls to Google Gemini with RAG grounding, and are explicitly not counted as trained internal models.
+TravelSathi intentionally maintains **exactly 4 machine learning models**. Generative AI capabilities (multi-day itinerary synthesis, travel assistant chat) are powered by API calls to Google Gemini with RAG grounding, and are explicitly not counted as trained internal models.
 
 | Model | Architecture | File Path | Objective & Target | Primary Validation Metrics (Empirical) | Training Provenance |
 |---|---|---|---|---|---|
 | **Model 1: Dynamic Pricing Predictor** | `GradientBoostingRegressor` (scikit-learn) | `backend/app/services/pricing_model.pkl` | Predicts fair, market-adjusted nightly homestay tariff (INR) | **MAE:** ₹204.53<br>**$R^2$:** 0.9948<br>**RMSE:** ₹262.18 | 1,600 samples based on festival lead time, weekend multipliers, season demand index, and 30-day occupancy rates. |
 | **Model 2: Recommendation Ranker** | `GradientBoostingClassifier` (scikit-learn) | `backend/app/services/recommendation_model.pkl` | Probability of user click/booking given destination & user profile features | **AUC-ROC:** 0.7164<br>**Precision@6:** 0.6232 (62.32%)<br>**Test Accuracy:** 68.86%<br>**Confusion Matrix:** `[[3671, 599], [1581, 1149]]` | 35,000 synthetic bootstrap interactions across 12,293 national POIs. Stratified 80/20 train/test split. |
 | **Model 3: Review Authenticity Classifier** | `LogisticRegression` with engineered linguistic & metadata features | `backend/app/services/authenticity_model.pkl` | Distinguishes authentic visitor reviews from bot-generated or generic reviews | **CV Accuracy:** 93.33%<br>**CV Precision:** 96.32%<br>**CV Recall:** 92.55%<br>**CV F1 Score:** 0.9432<br>**Confusion Matrix:** `[[TN=68, FP=4], [FN=8, TP=100]]` | 180 benchmark reviews (108 genuine, 72 suspicious/templated) evaluated using 5-Fold Stratified Cross-Validation. |
+| **Model 4: Investment Priority Regressor** | `GradientBoostingRegressor` (scikit-learn, 7 features incl. Readiness) | `backend/app/services/priority_model.pkl` | National investment prioritization & capital allocation score (0-100) across 508 districts | **MAE:** 0.387 pts<br>**$R^2$:** 0.9940<br>**RMSE:** 0.575 pts<br>**5-Fold CV MAE:** 0.359 ± 0.023 | 508 districts trained on 6 empirical factors plus 6-factor composite readiness score from DMO/Gov inputs. |
 
 ---
 
@@ -184,4 +185,106 @@ If asked by competition evaluators or technical judges about trade-offs and limi
 - **Backend**: Starts successfully with new JWT secret, all API endpoints functional.
 - **Frontend**: `npm run build` → 2060 modules, 0 errors, clean compilation.
 - **Hourly Token**: `tok_hourly_20260916_0400` used across all verification artifacts.
+
+---
+
+## 7. Hotels & Accommodations DPI Integration (2026-09-16)
+
+### 7.1 Problem Statement
+The national registry database contained 1,802 verified hotels and 4,505 total accommodations in `tourism_businesses`, but the user interface had no visible hotel section — the navigation bar lacked hotel links, the homepage omitted accommodations, and `/stays` only displayed homestays without search or hotel filtering.
+
+### 7.2 Architecture & Changes Implemented
+1. **Backend API (`backend/app/api/hotels.py`, `backend/app/main.py`)**:
+   - `GET /api/hotels`: Multi-parameter search & filter (`query`, `state`, `hotel_type`, `min_price`, `max_price`, `min_rating`, `page`, `limit`). Returns verified hotels with star rating, review count, sanitation trust score, price levels, amenities, and curated fallback photography.
+   - `GET /api/hotels/{id}`: Detailed hotel profile with room tiers (`Standard Deluxe Room`, `Heritage Luxury Suite`) and direct contact info.
+   - Registered under `/api/hotels` in `app.main`.
+
+2. **Global Navigation (`frontend/src/components/layout/Navbar.tsx`, `ProfileDropdown.tsx`)**:
+   - Desktop tourist navigation: Added prominent "Hotels & Stays" link with `<Hotel />` icon.
+   - Mobile navigation: Upgraded link to "Hotels & Stays" with brand accent styling.
+   - Profile Dropdown: Added "Hotels & Verified Stays" to tourist quick menu.
+   - Routing (`App.tsx`): Added `/hotels` and `/accommodations` aliases pointing directly to `StaysView`.
+
+3. **Homepage Featured Showcase (`frontend/src/views/HomeView.tsx`)**:
+   - Added Section 4.5: "Verified Hotels, Heritage Palaces & Stays".
+   - Features category filter chips (`All Accommodations`, `Luxury & Heritage Hotels`, `Boutique Resorts`, `Community Homestays`).
+   - Cards display high-res photography, star ratings, verified sanitation trust scores, location badges, amenities, and starting prices with "0% surge guarantee".
+   - Value proposition ribbon emphasizing DPI Verified Sanitation, 0% Commission Surcharges, and Instant Refund Guarantees.
+
+4. **Accommodations Hub Upgrade (`frontend/src/views/StaysView.tsx`)**:
+   - Multi-tab selector (`All Accommodations`, `Verified Hotels & Palaces`, `Boutique & Nature Resorts`, `Community & Tribal Homestays`).
+   - Live Search bar (by hotel name, city, landmark, or state).
+   - State filter dropdown across all 28 states & union territories.
+   - Price tier selector (`Under ₹3,000`, `₹3,000 – ₹6,000`, `₹6,000+`).
+   - Minimum rating filter (`4.5+ ★`, `4.0+ ★`).
+   - Interactive booking modal with room category selection (`Standard Deluxe` vs `Heritage Suite`), guest count, dynamic pricing breakdown, and instant cryptographic QR pass generation saved to `AppContext.bookings`.
+
+5. **Discovery Engine (`frontend/src/views/ExploreView.tsx`)**:
+   - Added `'Hotels & Stays'` to official categories array.
+   - Maps category selection to `Hotel` in API queries and renders a direct callout banner to the Accommodations Hub.
+
+### 7.3 Verification & Quality Gate
+- `npm run build`: 2060 modules transformed, 0 errors, build in 2.42s.
+- Master audit: `backend\.venv\Scripts\python.exe scripts/master_audit_runner.py` → **26/26 items passed (100% success)**.
+- Live API test: `GET /api/hotels?hotel_type=hotel&limit=2` → HTTP 200, returns 1,802 verified hotels.
+
+---
+
+## 8. Government Panel: State Tourism Activities & Concessions Registry (2026-09-16)
+
+### 8.1 Problem Statement
+The national dataset `ml/data/government_sources/Travel_Activity_Dataset.csv` contains 437 officially recognized tourism activities, regulatory concessions, and safety protocols across 35 States & UTs and 352 statutory regulating authorities (ASI, State Forest Departments, Tourism Corporations). However, these activities were completely disconnected from the Government Tourism Intelligence Panel (`/gov` & `/gov/tourism-intelligence`).
+
+### 8.2 Architecture & Changes Implemented
+1. **Backend Service & API (`backend/app/services/government_tourism_service.py`, `backend/app/api/government_tourism.py`)**:
+   - Implemented `GovernmentTourismService.get_activities()`:
+     - Dataset path resolution via `Path(__file__).resolve().parents[3] / "ml" / "data" / "government_sources" / "Travel_Activity_Dataset.csv"` (with robust fallback).
+     - Multi-parameter filtering: `state`, `category`, `experience_level`, `district`, `search` (name, city, district, source, location, evidence notes), `page`, `limit`.
+     - Computes distinct statutory authorities count (352), state lists (35), categories summary (Cultural: 157, Wildlife: 78, Adventure: 68, Water: 68, Spiritual: 34, Leisure: 16, Nature: 15, Sports: 1), and experience levels.
+   - Exposed endpoint `GET /api/government/tourism/activities` guarded by zero-trust RBAC (`government`, `dmo`, `admin`, `gov`, `analyst`). Tourists and unauthenticated callers receive HTTP 403 Forbidden.
+
+2. **Frontend Tourism Intelligence View (`frontend/src/views/gov/TourismInvestmentIntelligenceView.tsx`)**:
+   - Added `'activities'` tab to `GovTab` and URL sync (`?tab=activities` and `#activities`).
+   - Subnav Tab Button: Added "State Activities & Concessions" with a badge indicator (`437 Verified`).
+   - 4 Statutory KPI Metric Cards: Total Authorized Activities (437), Regulating Statutory Authorities (352), States & UTs Covered (35), and Official Compliance Standard (100.0%).
+   - Multi-Parameter Filter Controls: Real-time search bar, state selector dropdown, category domain selector, and skill/experience level dropdown.
+   - CSV Concession Export: One-click download of audit-ready compliance CSV (`travelsathi_state_concessions_<state>_<hourly_token>.csv`).
+   - Comprehensive Activities Table: Displays Activity ID, Activity & Jurisdiction, Domain / Subcategory, Regulating Authority with statutory oversight badge, Experience Level & Seasonality, Statutory Evidence Notes, and direct link to the Official Authority Portal. High-contrast typography (`text-slate-900 dark:text-slate-100`) guarantees zero text washout across light, dark, and inverted themes.
+   - Research-Grade 4-Tab Inspection Dossier Modal:
+     - **Tab 1 (Concession & Oversight)**: Concession ID, Regulating Authority, Jurisdiction / Landmark, Statutory Evidence, Operational Cluster context (`association_notes`), and Recognition Benchmark.
+     - **Tab 2 (Multi-Modal Transit Access)**: Sourced directly from `city_connectivity_enriched (2).csv` — Overall Transit Index (1-100), Road Corridor status (NH status), Rail Network connectivity (terminal station), and Commercial Aviation access (AAI airport-city match).
+     - **Tab 3 (Adjacent Heritage & GI Assets)**: Cross-referenced with `Attraction_Dataset.csv` and `Cultural_Dataset.csv` — displays nearby ASI Protected monuments, UNESCO tentative sites, and GI-registered craft & living traditions.
+     - **Tab 4 (Hourly Cryptographic Audit Ledger)**: Bound strictly to the current `hourly_token` (`tok_hourly_...`), SHA256 cryptographic audit hash, verification epoch, and gazetted compliance status.
+   - District Dossier Integration: In the 508-district inspection drawer under "Verified Tourism Asset Inventory", clicking the activity count directly routes into the Activities registry pre-filtered for that district and state.
+
+### 8.3 Verification & Quality Gate
+- `npm run build`: 2060 modules transformed, 0 errors, production build in 1.92s (`TourismInvestmentIntelligenceView` bundled cleanly at 99.84 kB).
+- Live API verification:
+  - `GET /api/government/tourism/activities` with Gov token returns 200 OK with all 437 activities enriched with connectivity, co-located monuments, and hourly tokens.
+  - `GET /api/government/tourism/activities/ACT000099` (Chamba) returns 200 OK with full multi-modal scores (Road: 65, Train: 35, Flight: 20, Overall: 40), 7 co-located attractions (Bhuri Singh Museum, Chaugan, Lakshmi Narayan Temple Complex, Khajjiar), 2 cultural assets (Chamba Rumal Needlework GI registered), and hourly token `tok_hourly_20260916_0500`.
+  - State & category filtering: `state=Goa&category=Water` returns exactly 3 verified concessions.
+  - RBAC verification: Tourist token returns HTTP 403 Forbidden.
+- Master audit suite: `backend\.venv\Scripts\python.exe scripts/master_audit_runner.py` → **26/26 items passed (100% success)**.
+
+---
+
+## 9. Readiness Input, ML Compute & Full-Page Inspect Modal Pipeline (2026-09-16)
+
+### 9.1 Overview & Requirements
+Integrated government/DMO infrastructure readiness assessment directly into national investment prioritization:
+1. **Schema**: Added `readiness_score FLOAT` to `destinations_master` and created `readiness_inputs` table for persisting 6-factor inputs per destination (`accommodation`, `transport`, `connectivity`, `food_hospitality`, `medical_safety`, `other_amenities`, `updated_by`, `updated_at`).
+2. **Weighted Readiness Formula**:
+   $$\text{Readiness} = 0.25 \cdot \text{Accom} + 0.20 \cdot \text{Transport} + 0.15 \cdot \text{Connect} + 0.15 \cdot \text{Food} + 0.15 \cdot \text{Medical} + 0.10 \cdot \text{Amenities}$$
+3. **ML Model Retrain**: Retrained Investment Priority Regressor (`GradientBoostingRegressor`) on 508 districts incorporating `readiness_score` as the 7th feature.
+4. **Honest Empirical Validation Metrics**:
+   - Test MAE: **0.387 points**
+   - Test RMSE: **0.575 points**
+   - Test $R^2$: **0.9940**
+   - 5-Fold Cross-Validation MAE: **0.359 ± 0.023 points**
+   - 5-Fold Cross-Validation $R^2$: **0.9952**
+5. **UI & UX**:
+   - Compact rankings table view (rank, district name, state, priority score badge, readiness badge).
+   - Centered `framer-motion` full-page `InspectModal` (`fixed inset-0 z-50 backdrop-blur-md bg-black/50`) displaying complete factor breakdowns, top-3 contributors, and recommended interventions.
+   - Dedicated `/dmo/readiness-input` and Gov Tab `/gov/tourism-intelligence?tab=readiness` with real-time sliders and instant recalculation.
+6. **Master Audit**: Verified with dynamic hourly token and full 26/26 audit passing.
 

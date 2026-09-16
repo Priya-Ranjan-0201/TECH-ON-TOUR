@@ -22,7 +22,13 @@ import {
   TrendingDown,
   Navigation,
   Eye,
-  Award
+  Award,
+  Building2,
+  Hotel,
+  Star,
+  Bed,
+  Wifi,
+  Coffee
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import Hero3DScene from '../components/home/Hero3DScene';
@@ -33,6 +39,99 @@ import GPSTrackerBar from '../components/location/GPSTrackerBar';
 import RecommendationRail from '../components/home/RecommendationRail';
 import OnboardingSpotlight from '../components/common/OnboardingSpotlight';
 import { useTranslation } from 'react-i18next';
+
+const FALLBACK_HOTELS = [
+  {
+    id: "BUS000001",
+    name: "Archaeological Museum Grand Heritage Palace Hotel",
+    type: "hotel",
+    category_badge: "Luxury & Heritage",
+    city: "Tirupati",
+    tourist_place: "Archaeological Museum",
+    state: "Andhra Pradesh",
+    rating: 4.9,
+    review_count: 1200,
+    price_per_night: 6500,
+    sanitation_score: 98,
+    amenities: ["Free Wi-Fi", "Palace Courtyard", "Royal Spa", "Breakfast Included"],
+    image_url: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "BUS000009",
+    name: "Chakra Teertham Grand Heritage Palace Hotel",
+    type: "hotel",
+    category_badge: "5-Star Luxury",
+    city: "Tirupati",
+    tourist_place: "Chakra Teertham",
+    state: "Andhra Pradesh",
+    rating: 4.8,
+    review_count: 850,
+    price_per_night: 5800,
+    sanitation_score: 97,
+    amenities: ["Infinity Pool", "Room Service", "Airport Shuttle", "Air Conditioning"],
+    image_url: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "BUS000021",
+    name: "Tirthan River Pine Boutique Lodge",
+    type: "resort",
+    category_badge: "Eco Mountain Retreat",
+    city: "Kullu",
+    tourist_place: "Great Himalayan National Park",
+    state: "Himachal Pradesh",
+    rating: 4.9,
+    review_count: 640,
+    price_per_night: 4200,
+    sanitation_score: 96,
+    amenities: ["River View Balcony", "Trout Angling", "Fireplace", "Organic Dining"],
+    image_url: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "BUS000035",
+    name: "Fateh Sagar Royal Haveli & Spa",
+    type: "hotel",
+    category_badge: "Heritage Palace",
+    city: "Udaipur",
+    tourist_place: "Lake Pichola",
+    state: "Rajasthan",
+    rating: 4.9,
+    review_count: 1450,
+    price_per_night: 7200,
+    sanitation_score: 99,
+    amenities: ["Lake View Suite", "Rooftop Restaurant", "Cultural Folk Music", "Butler Service"],
+    image_url: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "BUS000042",
+    name: "Munnar Tea Plantation Mist Resort",
+    type: "resort",
+    category_badge: "Wellness Retreat",
+    city: "Munnar",
+    tourist_place: "Eravikulam",
+    state: "Kerala",
+    rating: 4.8,
+    review_count: 920,
+    price_per_night: 4900,
+    sanitation_score: 95,
+    amenities: ["Tea Garden Walks", "Ayurvedic Spa", "Mountain View", "Eco Certified"],
+    image_url: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    id: "BUS000055",
+    name: "Goa Coastal Palms Boutique Villa",
+    type: "hotel",
+    category_badge: "Beachfront Boutique",
+    city: "North Goa",
+    tourist_place: "Anjuna Beach",
+    state: "Goa",
+    rating: 4.7,
+    review_count: 1100,
+    price_per_night: 5400,
+    sanitation_score: 94,
+    amenities: ["Private Beach Access", "Swimming Pool", "Seafood Dining", "High-speed Wi-Fi"],
+    image_url: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80"
+  }
+];
 
 export default function HomeView() {
   const navigate = useNavigate();
@@ -65,6 +164,8 @@ export default function HomeView() {
   const [liveTrending, setLiveTrending] = useState<any[]>([]);
   const [liveGems, setLiveGems] = useState<any[]>([]);
   const [liveExperiences, setLiveExperiences] = useState<any[]>([]);
+  const [featuredHotels, setFeaturedHotels] = useState<any[]>(FALLBACK_HOTELS);
+  const [selectedHotelFilter, setSelectedHotelFilter] = useState<'all' | 'hotel' | 'homestay' | 'resort'>('all');
 
   // Fetch verified destination count, trending, gems, and rails concurrently in parallel
   useEffect(() => {
@@ -82,12 +183,13 @@ export default function HomeView() {
       const queryStr = params.length > 0 ? `?${params.join('&')}` : '';
 
       try {
-        const [statsRes, trendRes, gemsRes, expRes, railsRes] = await Promise.allSettled([
+        const [statsRes, trendRes, gemsRes, expRes, railsRes, hotelsRes] = await Promise.allSettled([
           axios.get('/api/destinations?limit=1', { timeout: 3000 }),
           axios.get('/api/trending?limit=3', { timeout: 3000 }),
           axios.get('/api/destinations?is_hidden_gem=true&limit=2', { timeout: 3000 }),
           axios.get('/api/experiences?limit=3', { timeout: 3000 }),
-          axios.get(`/api/recommendations/rails${queryStr}`, { timeout: 4000 })
+          axios.get(`/api/recommendations/rails${queryStr}`, { timeout: 4000 }),
+          axios.get('/api/hotels?limit=8', { timeout: 3500 })
         ]);
 
         if (!isMounted) return;
@@ -131,6 +233,10 @@ export default function HomeView() {
         if (railsRes.status === 'fulfilled' && railsRes.value.data?.rails) {
           setRecommendationRails(railsRes.value.data.rails);
           if (railsRes.value.data.season) setSeasonName(railsRes.value.data.season);
+        }
+
+        if (hotelsRes.status === 'fulfilled' && hotelsRes.value.data?.hotels?.length) {
+          setFeaturedHotels(hotelsRes.value.data.hotels);
         }
       } catch (err) {
         console.warn('Concurrent fetch error in HomeView:', err);
@@ -445,6 +551,198 @@ export default function HomeView() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+
+      {/* ========================================================
+          SECTION 4.5: VERIFIED HOTELS & STAYS (DPI REGISTRY)
+          ======================================================== */}
+      <section className="py-20 bg-gradient-to-b from-white to-neutral-bg-secondary dark:from-darkmode-bg dark:to-darkmode-surface/40 border-b border-neutral-border dark:border-darkmode-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <div>
+              <div className="flex items-center gap-2 text-brand font-bold text-xs uppercase tracking-wider mb-2">
+                <Hotel className="w-4 h-4 text-brand" />
+                <span>Verified Accommodations • 0% Middleman Surge</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-neutral-text-primary dark:text-darkmode-text-primary">
+                Verified Hotels, Heritage Palaces & Stays
+              </h2>
+              <p className="text-sm text-neutral-text-sec dark:text-darkmode-text-secondary mt-1 max-w-2xl">
+                Explore 1,800+ national registry hotels, 5-star royal palaces, and tranquil mountain retreats with verified sanitation certificates and direct host pricing.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 shrink-0">
+              <Link
+                to="/stays"
+                className="btn-brand px-5 py-2.5 text-xs font-bold shadow-sm inline-flex items-center gap-2"
+              >
+                <span>View All 4,500+ Stays</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </div>
+
+          {/* Category Filter Chips */}
+          <div className="flex flex-wrap items-center gap-2 mb-8">
+            {[
+              { id: 'all', label: 'All Accommodations', icon: Building2 },
+              { id: 'hotel', label: 'Luxury & Heritage Hotels', icon: Hotel },
+              { id: 'resort', label: 'Boutique Resorts', icon: Bed },
+              { id: 'homestay', label: 'Community Homestays', icon: Leaf },
+            ].map(f => (
+              <button
+                key={f.id}
+                onClick={() => setSelectedHotelFilter(f.id as any)}
+                className={`px-4 py-2 rounded-full text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                  selectedHotelFilter === f.id
+                    ? 'bg-brand text-white shadow-sm'
+                    : 'bg-white dark:bg-darkmode-surface border border-neutral-border dark:border-darkmode-border text-neutral-text-sec dark:text-darkmode-text-secondary hover:border-brand/40'
+                }`}
+              >
+                <f.icon className="w-3.5 h-3.5" />
+                <span>{f.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Hotels Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {(featuredHotels.filter(h => {
+              if (selectedHotelFilter === 'all') return true;
+              if (selectedHotelFilter === 'hotel') return h.type === 'hotel' || (h.category_badge && h.category_badge.toLowerCase().includes('hotel')) || (h.category_badge && h.category_badge.toLowerCase().includes('luxury'));
+              if (selectedHotelFilter === 'resort') return h.type === 'resort' || (h.category_badge && h.category_badge.toLowerCase().includes('resort')) || (h.category_badge && h.category_badge.toLowerCase().includes('retreat'));
+              if (selectedHotelFilter === 'homestay') return h.type === 'homestay' || (h.category_badge && h.category_badge.toLowerCase().includes('homestay'));
+              return true;
+            })).slice(0, 6).map((hotel) => (
+              <div
+                key={hotel.id}
+                onClick={() => navigate('/stays', { state: { selectedHotelId: hotel.id } })}
+                className="ts-card overflow-hidden group cursor-pointer flex flex-col justify-between hover:border-brand/50 transition-all hover:shadow-xl duration-300"
+              >
+                <div>
+                  {/* Image Container */}
+                  <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-800">
+                    <img
+                      src={hotel.image_url || hotel.image}
+                      alt={hotel.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+                    {/* Top Badges */}
+                    <div className="absolute top-3 left-3 flex items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/95 dark:bg-darkmode-surface/95 text-brand shadow-sm backdrop-blur-sm flex items-center gap-1">
+                        <ShieldCheck className="w-3 h-3 text-trust" />
+                        <span>{hotel.category_badge || 'Verified Stay'}</span>
+                      </span>
+                    </div>
+
+                    <div className="absolute top-3 right-3">
+                      <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-black/60 text-white backdrop-blur-sm flex items-center gap-1">
+                        <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
+                        <span>{hotel.rating || 4.8}</span>
+                      </span>
+                    </div>
+
+                    {/* Proximity / Location Bottom-left on image */}
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white text-xs">
+                      <span className="flex items-center gap-1 font-medium truncate drop-shadow-sm">
+                        <MapPin className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                        <span>{hotel.tourist_place || hotel.city}, {hotel.state}</span>
+                      </span>
+                      <span className="bg-emerald-600/90 backdrop-blur-xs px-2 py-0.5 rounded text-[10px] font-bold shrink-0">
+                        {hotel.sanitation_score || 95}% Trust
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Body Content */}
+                  <div className="p-5 space-y-3">
+                    <div>
+                      <h3 className="text-lg font-bold text-neutral-text-primary dark:text-darkmode-text-primary group-hover:text-brand transition-colors line-clamp-1">
+                        {hotel.name}
+                      </h3>
+                      <p className="text-xs text-neutral-text-sec dark:text-darkmode-text-secondary line-clamp-2 mt-1">
+                        {hotel.description || `Certified comfortable accommodation property located near ${hotel.tourist_place || hotel.city}. Verified sanitation standards and verified host registration.`}
+                      </p>
+                    </div>
+
+                    {/* Amenities chips */}
+                    <div className="flex flex-wrap gap-1.5 pt-1">
+                      {(hotel.amenities || ['Wifi', 'Air Conditioning', 'Room Service']).slice(0, 3).map((amenity: string, i: number) => (
+                        <span key={i} className="text-[11px] px-2 py-0.5 rounded bg-neutral-100 dark:bg-darkmode-elevated text-neutral-600 dark:text-neutral-300 font-medium">
+                          {amenity}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Footer Pricing & Action */}
+                <div className="p-5 pt-3 border-t border-neutral-border dark:border-darkmode-border flex items-center justify-between">
+                  <div>
+                    <span className="text-[10px] text-neutral-muted block uppercase tracking-wider font-semibold">Starting from</span>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-lg font-extrabold text-brand">
+                        ₹{(hotel.price_per_night || hotel.price_min_inr || 3500).toLocaleString('en-IN')}
+                      </span>
+                      <span className="text-xs text-neutral-muted font-medium">/ night</span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate('/stays', { state: { selectedHotelId: hotel.id } });
+                    }}
+                    className="px-3.5 py-1.5 rounded-lg bg-brand/10 hover:bg-brand text-brand hover:text-white dark:bg-brand/20 text-xs font-bold transition-colors flex items-center gap-1"
+                  >
+                    <span>Book Stay</span>
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Value proposition ribbon */}
+          <div className="mt-12 p-6 rounded-2xl bg-neutral-bg-secondary dark:bg-darkmode-surface/70 border border-neutral-border dark:border-darkmode-border grid grid-cols-1 sm:grid-cols-3 gap-6 text-center sm:text-left">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-trust/10 text-trust flex items-center justify-center shrink-0">
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-neutral-text-primary dark:text-darkmode-text-primary">DPI Verified Sanitation</h4>
+                <p className="text-xs text-neutral-muted mt-0.5">Every property undergoes state hygiene audits and biometric host verification.</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                <Award className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-neutral-text-primary dark:text-darkmode-text-primary">0% Commission Surcharge</h4>
+                <p className="text-xs text-neutral-muted mt-0.5">100% of room tariff goes directly to Indian hoteliers & community hosts.</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-brand/10 text-brand flex items-center justify-center shrink-0">
+                <Leaf className="w-5 h-5" />
+              </div>
+              <div>
+                <h4 className="text-sm font-bold text-neutral-text-primary dark:text-darkmode-text-primary">Free Cancellation Guarantee</h4>
+                <p className="text-xs text-neutral-muted mt-0.5">Flexible cancellation on all verified bookings with instant UPI refunds.</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 

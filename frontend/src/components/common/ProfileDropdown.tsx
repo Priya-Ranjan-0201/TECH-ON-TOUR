@@ -37,6 +37,7 @@ export const MENUS: Record<string, MenuItem[]> = {
     { label: 'Tourist Command Center', href: '/tourist', icon: LayoutDashboard },
     { label: 'Group Travel (Live Map & E2EE)', href: '/trips/group', icon: Users },
     { label: 'Security & Privacy Center', href: '/privacy', icon: ShieldCheck },
+    { label: 'Hotels & Verified Stays', href: '/stays', icon: Building2 },
     { label: 'Explore Catalog', href: '/tourist/explore', icon: Compass },
     { label: 'AI Concierge', href: '/tourist/chat', icon: Bot },
     { label: 'Smart Map', href: '/tourist/map', icon: MapPin },

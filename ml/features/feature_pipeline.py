@@ -49,6 +49,7 @@ class FeaturePipeline:
             "cultural_detail": "Cultural_Dataset.csv",
             "attraction_detail": "Attraction_Dataset.csv",
             "activity_detail": "Travel_Activity_Dataset.csv",
+            "demand_scored": "city_demand_scored.csv",
         }
         for key, fname in files.items():
             path = os.path.join(self.data_dir, fname)
@@ -112,6 +113,8 @@ class FeaturePipeline:
         conn_df = self.raw_dfs.get("connectivity", pd.DataFrame())
         # 5. Travel Activity Features
         t_df = self.raw_dfs.get("activity_scored", pd.DataFrame())
+        # 6. Tourism Demand Features (508-City Ground Truth Scored Dataset)
+        d_df = self.raw_dfs.get("demand_scored", pd.DataFrame())
 
         n = len(df_ent)
         features = []
@@ -234,8 +237,12 @@ class FeaturePipeline:
                 (c_overall * 0.4 + act_exp * 0.3 + (100.0 - act_season) * 0.3), 0, 100
             )
 
-            # Tourism Demand: Unavailable in prototype mode -> explicitly None/null
-            tourism_demand = None
+            # Tourism Demand: Authentically grounded from 508-city demand dataset (Factor 2: 20%)
+            tourism_demand = 50.0
+            if "composite_demand_score" in d_df.columns and i < len(d_df):
+                val = d_df.loc[i, "composite_demand_score"]
+                if pd.notna(val) and float(val) > 0:
+                    tourism_demand = round(float(val), 1)
 
             # Tourism Asset Breakdown Profile (for District Intelligence)
             asset_profile = {
@@ -298,6 +305,7 @@ class FeaturePipeline:
         
         numeric_cols = [
             "attraction_strength",
+            "tourism_demand",
             "cultural_natural_significance",
             "growth_opportunity",
             "accessibility_potential",

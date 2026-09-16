@@ -1,0 +1,31 @@
+{
+  "model_name": "InvestmentPriorityRegressor",
+  "algorithm": "GradientBoostingRegressor (scikit-learn)",
+  "feature_count": 7,
+  "features": [
+    "attraction_strength",
+    "cultural_natural_significance",
+    "growth_opportunity",
+    "accessibility_potential",
+    "seasonality",
+    "tourism_opportunity",
+    "readiness_score"
+  ],
+  "records_count": 508,
+  "test_mae": 0.561,
+  "test_rmse": 0.853,
+  "test_r2": 0.9874,
+  "5fold_cv_mae": 0.528,
+  "5fold_cv_mae_std": 0.047,
+  "5fold_cv_r2": 0.9894,
+  "feature_importances": {
+    "attraction_strength": 0.0635,
+    "cultural_natural_significance": 0.0072,
+    "growth_opportunity": 0.3251,
+    "accessibility_potential": 0.011,
+    "seasonality": 0.0056,
+    "tourism_opportunity": 0.5778,
+    "readiness_score": 0.0098
+  },
+  "hourly_token": "tok_hourly_20260916_0500"
+}

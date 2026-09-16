@@ -43,7 +43,8 @@ from app.api.security_center import router as security_center_router
 from app.api.hospitals import router as hospitals_router
 from app.api.businesses import router as businesses_router
 from app.api.events import router as events_router
-from app.api.government_tourism import router as government_tourism_router
+from app.api.government_tourism import router as government_tourism_router, gov_alias_router
+from app.api.hotels import router as hotels_router
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from app.jobs.daily_refresh import run_daily_refresh
 from app.jobs.hourly_refresh import run_hourly_refresh
@@ -147,6 +148,8 @@ app.include_router(hospitals_router, prefix="/api")
 app.include_router(businesses_router, prefix="/api")
 app.include_router(events_router)
 app.include_router(government_tourism_router, prefix="/api")
+app.include_router(gov_alias_router, prefix="/api")
+app.include_router(hotels_router, prefix="/api")
 app.include_router(ml_recommendations_router)
 app.include_router(recommendations_router)
 app.include_router(location_router)

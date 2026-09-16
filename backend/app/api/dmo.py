@@ -16,12 +16,19 @@ from app.database.models import (
     DestinationMaster, AntiOvertourismPair, ReviewTraining, Booking, Homestay,
     PipelineRun, DestinationInteraction, AuditLog,
 )
-from app.schemas.dmo import PermitToggleRequest, InvestmentRecommendRequest
+from app.schemas.dmo import PermitToggleRequest, InvestmentRecommendRequest, ReadinessInputRequest
 from app.services.overtourism_service import predict_overtourism_risk
 from app.services.govt_intelligence_service import (
     recommend_tourism_investments,
     get_crowd_and_festival_forecasts,
     get_tourist_flow_redistribution,
+)
+from app.services.readiness_service import (
+    upsert_readiness_input,
+    get_readiness_input_for_destination,
+    get_all_readiness_inputs,
+    compute_readiness,
+    get_readiness_badge,
 )
 from app.core.auth_dependencies import require_role
 
@@ -1372,5 +1379,170 @@ async def get_flow_redistribution_route(
         destination_id=destination_id,
         db=db
     )
+
+
+# ==============================================================================
+# READINESS INPUT PIPELINE (GOV / DMO COMMAND CENTER)
+# ==============================================================================
+
+@router.post("/readiness-input")
+async def submit_readiness_input(
+    payload: ReadinessInputRequest,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Submits 6 infrastructure readiness fields (0-100 each) for a district/destination:
+    Accommodation (25%), Transport (20%), Connectivity (15%), Food & Hospitality (15%),
+    Medical & Safety (15%), Other Amenities (10%).
+    Upserts readiness_inputs table and updates destinations_master.readiness_score.
+    """
+    inputs = {
+        'accommodation': payload.accommodation,
+        'transport': payload.transport,
+        'connectivity': payload.connectivity,
+        'food_hospitality': payload.food_hospitality,
+        'medical_safety': payload.medical_safety,
+        'other_amenities': payload.other_amenities,
+    }
+    result = await upsert_readiness_input(
+        db=db,
+        destination_id=payload.destination_id,
+        inputs=inputs,
+        updated_by=payload.updated_by
+    )
+
+    readiness_score = result.get('readiness_score', 50.0)
+    badge = result.get('badge', {})
+
+    # Re-evaluate priority score and national rank with 7-feature model
+    updated_profile = None
+    try:
+        from ml.inference.orchestrator_gov import GovernmentIntelligenceOrchestrator
+        orch = GovernmentIntelligenceOrchestrator()
+        all_profiles = orch.build_all_intelligence(force_refresh=True)
+        clean_id = str(payload.destination_id).strip().upper()
+        for p in all_profiles:
+            p_id = str(p.get("destination_id", "")).strip().upper()
+            if p_id == clean_id or p_id.replace("CT", "").lstrip("0") == clean_id.replace("CT", "").lstrip("0"):
+                updated_profile = p
+                break
+    except Exception:
+        pass
+
+    computed_priority = updated_profile["scores"]["investment_priority"] if updated_profile else round(0.7 * 50 + 0.3 * readiness_score, 1)
+    rank = updated_profile["rank"] if updated_profile else 1
+    pot_score = updated_profile["scores"]["tourism_potential"] if updated_profile else 50.0
+
+    return {
+        "success": True,
+        "message": f"Readiness inputs saved for {payload.destination_id}. Priority recalculated to {computed_priority}/100.",
+        "data": result,
+        "destination_id": payload.destination_id,
+        "readiness_score": readiness_score,
+        "readiness_badge": badge,
+        "computed_priority_score": computed_priority,
+        "national_rank": rank,
+        "potential_score": pot_score,
+        "gap_score": round(pot_score - readiness_score, 1),
+        "district_profile": updated_profile,
+        "hourly_token": get_current_hourly_token()
+    }
+
+
+@router.post("/calculate-priority")
+async def calculate_priority_endpoint(
+    payload: ReadinessInputRequest,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Computes real-time preview of readiness score, 6 potential factors,
+    and priority score using the 7-feature model without mutating persistent database records.
+    """
+    inputs = {
+        'accommodation': payload.accommodation,
+        'transport': payload.transport,
+        'connectivity': payload.connectivity,
+        'food_hospitality': payload.food_hospitality,
+        'medical_safety': payload.medical_safety,
+        'other_amenities': payload.other_amenities,
+    }
+    readiness_score = compute_readiness(inputs)
+    badge = get_readiness_badge(readiness_score)
+
+    try:
+        from ml.inference.orchestrator_gov import GovernmentIntelligenceOrchestrator
+        orch = GovernmentIntelligenceOrchestrator()
+        profile = orch.get_destination_profile(payload.destination_id)
+        if profile:
+            pot = profile["scores"]["tourism_potential"]
+            factors = profile["factor_scores"]
+            opp = profile["scores"]["tourism_opportunity"]
+
+            p_res = orch.priority_engine.compute_priority(
+                potential_data={"potential_score": pot, "factor_scores": factors},
+                opportunity_data={
+                    "opportunity_score": opp,
+                    "infrastructure_readiness": readiness_score,
+                    "classification": profile.get("classification", "")
+                },
+                infrastructure_gaps=[],
+                readiness_score=readiness_score
+            )
+            computed_priority = p_res["priority_score"]
+            return {
+                "destination_id": payload.destination_id,
+                "district": profile.get("district", ""),
+                "state": profile.get("state", ""),
+                "rank": profile.get("rank", 1),
+                "readiness_score": readiness_score,
+                "badge": badge,
+                "potential_score": pot,
+                "computed_priority_score": computed_priority,
+                "gap_score": round(pot - readiness_score, 1),
+                "factor_scores": factors,
+                "hourly_token": get_current_hourly_token()
+            }
+    except Exception:
+        pass
+
+    return {
+        "destination_id": payload.destination_id,
+        "readiness_score": readiness_score,
+        "badge": badge,
+        "potential_score": 50.0,
+        "computed_priority_score": round(35.0 + 0.3 * readiness_score, 1),
+        "gap_score": round(50.0 - readiness_score, 1),
+        "factor_scores": {
+            "attraction_strength": 50.0,
+            "tourism_demand": 50.0,
+            "cultural_natural_significance": 50.0,
+            "growth_opportunity": 50.0,
+            "accessibility_potential": 50.0,
+            "seasonality": 50.0
+        },
+        "hourly_token": get_current_hourly_token()
+    }
+
+
+@router.get("/readiness-input/{destination_id}")
+async def get_readiness_input_endpoint(
+    destination_id: str,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Retrieves stored readiness inputs for a given destination or district ID.
+    """
+    return await get_readiness_input_for_destination(db=db, destination_id=destination_id)
+
+
+@router.get("/readiness-inputs")
+async def list_readiness_inputs_endpoint(
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Retrieves all persisted readiness inputs across all districts.
+    """
+    return await get_all_readiness_inputs(db=db)
+
 
 

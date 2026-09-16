@@ -101,8 +101,38 @@ class GovernmentIntelligenceOrchestrator:
                 "data_year": 2026,
                 "verification_status": "Verified Ground Truth",
                 "records_used": 437
+            },
+            {
+                "dataset_name": "city_demand_scored",
+                "source_name": "Ministry of Tourism / ASI / State Tourism Departments Official Compendium",
+                "source_url": "https://data.tourism.gov.in/",
+                "data_year": 2024,
+                "verification_status": "Verified Ground Truth & Benchmark Telemetry",
+                "records_used": 508
             }
         ]
+
+        # Load any saved readiness_inputs from SQLite database
+        persisted_readiness = {}
+        try:
+            db_path = os.path.join(os.path.dirname(__file__), "..", "..", "backend", "travelsathi_dev.db")
+            if os.path.exists(db_path):
+                import sqlite3
+                conn = sqlite3.connect(db_path)
+                cur = conn.cursor()
+                cur.execute("SELECT destination_id, accommodation, transport, connectivity, food_hospitality, medical_safety, other_amenities FROM readiness_inputs")
+                for r in cur.fetchall():
+                    persisted_readiness[r[0]] = {
+                        'accommodation': float(r[1]),
+                        'transport': float(r[2]),
+                        'connectivity': float(r[3]),
+                        'food_hospitality': float(r[4]),
+                        'medical_safety': float(r[5]),
+                        'other_amenities': float(r[6]),
+                    }
+                conn.close()
+        except Exception as e:
+            logger.warning(f"Could not load persisted readiness inputs: {e}")
 
         temp_profiles = []
 
@@ -160,12 +190,55 @@ class GovernmentIntelligenceOrchestrator:
                 coordinate_status="Verified"
             )
 
-            # 5. Priority Score & Ranked Action Plan
+            # 4.5. 6-Factor Composite Infrastructure Readiness (0-100)
+            num_id = None
+            if str(dest_id).upper().startswith("CT"):
+                digits = ''.join(c for c in str(dest_id) if c.isdigit())
+                num_id = int(digits) if digits else None
+            elif str(dest_id).isdigit():
+                num_id = int(dest_id)
+
+            if num_id and num_id in persisted_readiness:
+                r_inputs = persisted_readiness[num_id]
+            else:
+                road_s = float(asset_prof.get("road_connectivity_score", 60.0))
+                rail_s = float(asset_prof.get("rail_connectivity_score", 50.0))
+                air_s = float(asset_prof.get("air_connectivity_score", 45.0))
+                trans_val = round(0.50 * road_s + 0.30 * rail_s + 0.20 * air_s, 1)
+                r_inputs = {
+                    'accommodation': round(min(100.0, max(20.0, opp_res["opportunity_score"] * 0.85)), 1),
+                    'transport': trans_val,
+                    'connectivity': round(min(100.0, max(25.0, (road_s + air_s) / 2.0)), 1),
+                    'food_hospitality': round(min(100.0, max(20.0, 0.4 * float(row["attraction_strength"]) + 0.6 * road_s)), 1),
+                    'medical_safety': round(min(100.0, max(40.0, 70.0 + 0.2 * road_s)), 1),
+                    'other_amenities': round(min(100.0, max(15.0, 0.5 * float(row["attraction_strength"]) + 0.5 * float(row["accessibility_potential"]))), 1),
+                }
+
+            r_score = round(
+                0.25 * r_inputs['accommodation'] +
+                0.20 * r_inputs['transport'] +
+                0.15 * r_inputs['connectivity'] +
+                0.15 * r_inputs['food_hospitality'] +
+                0.15 * r_inputs['medical_safety'] +
+                0.10 * r_inputs['other_amenities'],
+                1
+            )
+            r_score = max(0.0, min(100.0, r_score))
+
+            if r_score >= 70.0:
+                r_badge = {"tier": "High", "label": "High Readiness", "badge": "High", "color": "emerald", "hex": "#10B981"}
+            elif r_score >= 45.0:
+                r_badge = {"tier": "Medium", "label": "Medium Readiness", "badge": "Medium", "color": "amber", "hex": "#F59E0B"}
+            else:
+                r_badge = {"tier": "Low", "label": "Low Readiness", "badge": "Low", "color": "red", "hex": "#EF4444"}
+
+            # 5. Priority Score & Ranked Action Plan (Incorporating 7th feature readiness)
             prio_res = self.priority_engine.compute_priority(
                 potential_data=pot_res,
                 opportunity_data=opp_res,
                 infrastructure_gaps=gaps,
-                confidence_data=conf_res
+                confidence_data=conf_res,
+                readiness_score=r_score
             )
 
             # 6. Explainable AI
@@ -213,8 +286,11 @@ class GovernmentIntelligenceOrchestrator:
                     "tourism_potential": pot_res["potential_score"],
                     "tourism_opportunity": opp_res["opportunity_score"],
                     "investment_priority": prio_res["investment_priority"],
-                    "infrastructure_readiness": opp_res.get("infrastructure_readiness", 65.0)
+                    "infrastructure_readiness": r_score,
+                    "readiness_score": r_score
                 },
+                "readiness_factors": r_inputs,
+                "readiness_badge": r_badge,
                 "factor_scores": pot_res["factor_scores"],
                 "classification": opp_res["classification"],
                 "classification_description": opp_res["classification_description"],

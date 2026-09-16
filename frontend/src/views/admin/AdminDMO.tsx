@@ -40,12 +40,35 @@ import { DataBadge } from '../../components/common/DataBadge';
 const InvestmentIntelligenceView = React.lazy(() => import('../dmo/InvestmentIntelligenceView'));
 const CrowdIntelligenceView = React.lazy(() => import('../dmo/CrowdIntelligenceView'));
 const FlowRedistributionView = React.lazy(() => import('../dmo/FlowRedistributionView'));
+const ReadinessInputView = React.lazy(() => import('../dmo/ReadinessInputView'));
 
-export type DMOTabType = 'overview' | 'analytics' | 'investment' | 'crowd' | 'flow' | 'potential' | 'circuits' | 'safety' | 'forecasts';
+interface AdminDMOProps {
+  initialTab?: DMOTabType;
+}
 
-export default function AdminDMO() {
+export default function AdminDMO({ initialTab }: AdminDMOProps = {}) {
   const { t, i18n } = useTranslation();
   const { currentLanguage, changeLanguage } = useApp();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const getInitialTab = (): DMOTabType => {
+    if (initialTab) return initialTab;
+    if (location.pathname.includes('readiness-input')) return 'readiness-input';
+    const params = new URLSearchParams(location.search);
+    const tabParam = params.get('tab');
+    if (tabParam === 'readiness-input' || tabParam === 'readiness') return 'readiness-input';
+    return 'overview';
+  };
+
+  const [dmoTab, setDmoTab] = useState<DMOTabType>(getInitialTab);
+
+  useEffect(() => {
+    if (location.pathname.includes('readiness-input')) {
+      setDmoTab('readiness-input');
+    }
+  }, [location.pathname]);
+
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
   const [hourlyToken, setHourlyToken] = useState<string>('');
@@ -68,9 +91,6 @@ export default function AdminDMO() {
   const [testingItinerary, setTestingItinerary] = useState(false);
   const [simulatedItineraryResult, setSimulatedItineraryResult] = useState(null);
   const [showFullAnalytics, setShowFullAnalytics] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [dmoTab, setDmoTab] = useState<DMOTabType>('overview');
   const [potentialFilter, setPotentialFilter] = useState({ state: '', search: '', category: '' });
   const [potentialLoading, setPotentialLoading] = useState(false);
 
@@ -221,6 +241,8 @@ export default function AdminDMO() {
     if (path.includes('/investment')) {
       navigate('/gov/tourism-intelligence', { replace: true });
       return;
+    } else if (path.includes('/readiness-input') || path.includes('/readiness')) {
+      setDmoTab('readiness-input');
     } else if (path.includes('/crowd') || path.includes('/forecasts')) {
       setDmoTab('crowd');
     } else if (path.includes('/flow')) {
@@ -566,6 +588,20 @@ export default function AdminDMO() {
             </select>
           </div>
 
+          {/* Readiness Input Navigation */}
+          <Link
+            to="/dmo/readiness-input"
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-2xs ${
+              dmoTab === 'readiness-input'
+                ? 'bg-teal-700 text-white'
+                : 'bg-teal-50 hover:bg-teal-100 dark:bg-teal-950/50 dark:hover:bg-teal-900/60 text-teal-900 dark:text-teal-200 border border-teal-300 dark:border-teal-700/60'
+            }`}
+            title="Open Infrastructure Readiness Input Form"
+          >
+            <span>⚙️</span>
+            <span>Readiness Inputs</span>
+          </Link>
+
           {/* Fully separated link to dedicated Government Tourism Investment Intelligence Portal */}
           <Link
             to="/gov/tourism-intelligence"
@@ -586,6 +622,16 @@ export default function AdminDMO() {
           </button>
         </div>
       </div>
+
+      {/* ═══ Readiness Input Tab ═══ */}
+      {dmoTab === 'readiness-input' && (
+        <div className="max-w-7xl mx-auto animate-fadeIn">
+          <React.Suspense fallback={<div className="p-8 text-center text-xs text-neutral-400">Loading readiness form...</div>}>
+            <ReadinessInputView />
+          </React.Suspense>
+        </div>
+      )}
+
       {/* 4 Executive KPI Tiles */}
       {dmoTab === 'overview' && (
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 animate-fadeIn">

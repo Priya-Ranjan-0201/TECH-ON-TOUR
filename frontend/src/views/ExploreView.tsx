@@ -18,7 +18,9 @@ import {
   Eye,
   Check,
   CheckCircle2,
-  Loader2
+  Loader2,
+  Hotel,
+  Building2
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { useTranslation } from 'react-i18next';
@@ -72,9 +74,9 @@ export default function ExploreView() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const debounceRef = useRef(null);
 
-  // 13 Official Categories
+  // 14 Official Categories (including Hotels & Stays)
   const categories = [
-    'All', 'Nature', 'Heritage', 'Culture', 'Rural', 'Food', 
+    'All', 'Hotels & Stays', 'Nature', 'Heritage', 'Culture', 'Rural', 'Food', 
     'Spiritual', 'Adventure', 'Wellness', 'Beaches', 'Mountains', 
     'Shopping', 'Festivals', 'Wildlife'
   ];
@@ -105,11 +107,12 @@ export default function ExploreView() {
       setLoading(true);
       try {
         const trimmed = searchQuery.trim();
+        const apiCat = selectedCategory === 'Hotels & Stays' ? 'Hotel' : selectedCategory;
         let url = '';
         if (trimmed) {
           // Use search endpoint with state and category query parameters
           const searchParams = [`q=${encodeURIComponent(trimmed)}`, 'limit=100'];
-          if (selectedCategory !== 'All') searchParams.push(`category=${encodeURIComponent(selectedCategory)}`);
+          if (selectedCategory !== 'All') searchParams.push(`category=${encodeURIComponent(apiCat)}`);
           if (selectedState !== 'All') searchParams.push(`state=${encodeURIComponent(selectedState)}`);
           if (onlyHiddenGems) searchParams.push('is_hidden_gem=true');
 
@@ -130,7 +133,7 @@ export default function ExploreView() {
         } else {
           // Use paginated list endpoint with filters
           const params = [`page=${page}`, 'limit=24'];
-          if (selectedCategory !== 'All') params.push(`category=${encodeURIComponent(selectedCategory)}`);
+          if (selectedCategory !== 'All') params.push(`category=${encodeURIComponent(apiCat)}`);
           if (selectedState !== 'All') params.push(`state=${encodeURIComponent(selectedState)}`);
           if (onlyHiddenGems) params.push('is_hidden_gem=true');
 
@@ -359,6 +362,31 @@ export default function ExploreView() {
               </span>
             )}
           </div>
+
+          {/* Hotels & Stays Dedicated Hub Banner */}
+          {selectedCategory === 'Hotels & Stays' && (
+            <div className="p-5 rounded-2xl bg-gradient-to-r from-amber-500/10 via-brand/10 to-emerald-500/10 border border-brand/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fadeIn">
+              <div className="space-y-1">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-brand uppercase tracking-wider">
+                  <Hotel className="w-4 h-4" />
+                  <span>Verified National Accommodations Hub</span>
+                </div>
+                <h4 className="text-base font-bold text-neutral-900 dark:text-white">
+                  Looking for complete hotel profiles, amenities, & instant booking?
+                </h4>
+                <p className="text-xs text-neutral-600 dark:text-neutral-300 max-w-xl">
+                  Browse all 1,802 verified hotels and 1,800+ PM-JUGA tribal homestays with room tier selection, sanitation trust scores, and 0% middleman surge fees.
+                </p>
+              </div>
+              <button
+                onClick={() => navigate('/stays')}
+                className="btn-brand px-4 py-2 text-xs font-bold shrink-0 flex items-center gap-1.5 shadow-sm cursor-pointer"
+              >
+                <span>Open Hotels Hub</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          )}
 
           {loading && destList.length === 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

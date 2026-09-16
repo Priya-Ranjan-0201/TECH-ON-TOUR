@@ -206,6 +206,16 @@ export default function Navbar() {
                 >
                   Analytics
                 </Link>
+                <Link
+                  to="/dmo/readiness-input"
+                  className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isActive('/dmo/readiness-input')
+                      ? 'text-blue-800 dark:text-blue-400 font-bold bg-blue-50 dark:bg-neutral-800'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-blue-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
+                  }`}
+                >
+                  Readiness Input
+                </Link>
               </>
             ) : (userRole === 'gov' || userRole === 'government') ? (
               <>
@@ -229,6 +239,16 @@ export default function Navbar() {
                   }`}
                 >
                   508 Districts
+                </Link>
+                <Link
+                  to="/gov/tourism-intelligence?tab=readiness"
+                  className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors ${
+                    isGovTabActive('readiness')
+                      ? 'text-emerald-800 dark:text-emerald-400 font-bold bg-emerald-50 dark:bg-neutral-800'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-emerald-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
+                  }`}
+                >
+                  Readiness Input
                 </Link>
                 <Link
                   to="/gov/tourism-intelligence?tab=simulator"
@@ -305,6 +325,17 @@ export default function Navbar() {
                   }`}
                 >
                   {t('nav.planTrip', 'Plan Trip')}
+                </Link>
+                <Link
+                  to="/stays"
+                  className={`px-3.5 py-1.5 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5 ${
+                    isActive('/stays') || isActive('/hotels')
+                      ? 'text-primary-800 dark:text-accent-400 font-bold bg-primary-50/90 dark:bg-neutral-800'
+                      : 'text-neutral-600 dark:text-neutral-300 hover:text-primary-800 dark:hover:text-white hover:bg-neutral-100/70 dark:hover:bg-neutral-800/60'
+                  }`}
+                >
+                  <Hotel className="w-3.5 h-3.5" />
+                  <span>{t('nav.hotelsStays', 'Hotels & Stays')}</span>
                 </Link>
                 <Link
                   to="/trips"
@@ -406,8 +437,11 @@ export default function Navbar() {
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>{t('nav.securityPrivacy', 'Security & Privacy Center')}</span>
               </Link>
+              <Link to="/stays" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 flex items-center gap-2 text-primary-800 dark:text-accent-400 font-semibold">
+                <Hotel className="w-4 h-4 text-brand" />
+                <span>{t('nav.hotelsStays', 'Hotels & Stays')}</span>
+              </Link>
               <Link to="/explore" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500">{t('nav.exploreCatalog', 'Explore Catalog')}</Link>
-              <Link to="/stays" className="block px-3 py-2 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500">{t('nav.homestays', 'Homestays')}</Link>
             </>
           )}
         </div>

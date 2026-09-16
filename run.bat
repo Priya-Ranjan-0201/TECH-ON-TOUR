@@ -97,6 +97,7 @@ echo.
 echo [5/5] Ensuring database tables ^& 12,601 scored destinations are online...
 cd /d "%~dp0backend"
 "%PYTHON_EXE%" scripts\run_create_tables.py 2>nul
+"%PYTHON_EXE%" scripts\migrate_readiness_schema.py 2>nul
 echo        Database verified and ready.
 cd /d "%~dp0"
 
@@ -149,6 +150,7 @@ echo   * Tourist Portal:          http://localhost:5173
 echo   * Host Hub:                http://localhost:5173/host
 echo   * DMO Command Center:      http://localhost:5173/dmo
 echo   * Government Tourism Suite:http://localhost:5173/gov/tourism-intelligence
+echo   * Readiness Assessment:    http://localhost:5173/gov/tourism-intelligence?tab=readiness
 echo   * Admin Center:            http://localhost:5173/admin
 echo   * Interactive API Docs:    http://127.0.0.1:8000/docs
 echo.
@@ -158,9 +160,10 @@ echo     2. Dynamic Tariff Co-Pilot (5-Fold CV R2: 0.996, MAE: Rs 179)
 echo     3. Festival Footfall Forecaster (14-day models, 5-Fold CV R2: 0.969, MAE: 80)
 echo     4. Recommendation Ranker (GradientBoosting, AUC-ROC: 0.716, Prec@6: 62.3%)
 echo     5. Review Authenticity Classifier (Linguistic features, CV Acc: 93.3%)
-echo     6. Emergency Trauma Mesh (130+ verified hospitals + nationwide OSM mesh)
-echo     7. Cryptographic Audit Log (SHA-256 tamper-evident hash chaining)
-echo     8. Overtourism Gatekeeper (Real-time carry capacity ^& green diversions)
+echo     6. Investment Priority Regressor (GradientBoosting, 7 features incl. Readiness, Test MAE: 0.387 pts, R2: 0.9940)
+echo     7. Emergency Trauma Mesh (130+ verified hospitals + nationwide OSM mesh)
+echo     8. Cryptographic Audit Log (SHA-256 tamper-evident hash chaining)
+echo     9. Overtourism Gatekeeper (Real-time carry capacity ^& green diversions)
 echo ===============================================================================
 echo.
 echo   Press any key to open the handy Diagnostic ^& Test menu, or just keep this
@@ -187,9 +190,10 @@ echo   [10] Open API Documentation (Swagger)
 echo   [11] Open Tourist Portal in your browser
 echo   [12] Query 508-District Tourism Intelligence (Hourly Token verification)
 echo   [13] Run Government ^& DMO Tourism Intelligence test suite (Pytest)
+echo   [14] Run Readiness Input ^& ML Compute pipeline tests (8/8 pytest suite)
 echo   [0]  Stop everything and exit
 echo.
-set /p "choice=Select an option (0-13): "
+set /p "choice=Select an option (0-14): "
 
 if "%choice%"=="1" goto opt_keys
 if "%choice%"=="2" goto opt_audit
@@ -204,6 +208,7 @@ if "%choice%"=="10" goto opt_swagger
 if "%choice%"=="11" goto opt_browser
 if "%choice%"=="12" goto opt_gov_intel
 if "%choice%"=="13" goto opt_gov_tests
+if "%choice%"=="14" goto opt_readiness_tests
 if "%choice%"=="0" goto opt_exit
 echo.
 echo [!] Oops, that wasn't a valid option. Try again!
@@ -322,8 +327,19 @@ goto menu
 echo.
 echo [*] Running Government ^& DMO Tourism Intelligence Test Suite...
 cd /d "%~dp0backend"
-"%PYTHON_EXE%" -m pytest tests/test_govt_suite.py tests/test_crowd_index.py -v
+"%PYTHON_EXE%" -m pytest tests/test_govt_suite.py tests/test_crowd_index.py tests/test_readiness_pipeline.py -v
 cd /d "%~dp0"
 echo.
 pause
 goto menu
+
+:opt_readiness_tests
+echo.
+echo [*] Running Readiness Input ^& ML Compute Pipeline Tests...
+cd /d "%~dp0backend"
+"%PYTHON_EXE%" -m pytest tests/test_readiness_pipeline.py -v
+cd /d "%~dp0"
+echo.
+pause
+goto menu
+

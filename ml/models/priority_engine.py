@@ -22,11 +22,30 @@ Formula & Principles:
 """
 
 from typing import Dict, Any, List, Optional
+from pathlib import Path
 import numpy as np
+import joblib
 
 
 class InvestmentPriorityEngine:
-    VERSION = "TS-GOV-PRIORITY-1.0"
+    VERSION = "TS-GOV-PRIORITY-2.0"
+
+    def __init__(self):
+        self.model = None
+        self._load_model()
+
+    def _load_model(self):
+        candidate_paths = [
+            Path(__file__).resolve().parent / "priority_model.pkl",
+            Path(__file__).resolve().parent.parent.parent / "backend" / "app" / "services" / "priority_model.pkl",
+        ]
+        for p in candidate_paths:
+            if p.exists():
+                try:
+                    self.model = joblib.load(p)
+                    break
+                except Exception:
+                    pass
 
     def compute_priority(
         self,
@@ -34,9 +53,11 @@ class InvestmentPriorityEngine:
         opportunity_data: Dict[str, Any],
         infrastructure_gaps: List[Dict[str, Any]],
         confidence_data: Dict[str, Any],
+        readiness_score: Optional[float] = None,
     ) -> Dict[str, Any]:
         """
         Computes the final Investment Priority Score (0-100) and ranked action plan.
+        Accepts readiness_score (0-100) as the 7th critical feature.
         """
         pot_score = potential_data["potential_score"]
         opp_score = opportunity_data["opportunity_score"]
@@ -48,16 +69,29 @@ class InvestmentPriorityEngine:
         access = factors["accessibility_potential"]
         season = factors["seasonality"]
 
-        # Base weighted evidence (summing to 100)
-        # Using intended weights from Section 4C
-        base_priority = (
-            0.30 * attraction
-            + 0.15 * cult
-            + 0.20 * growth
-            + 0.15 * (100.0 - abs(access - 55.0) * 0.5)  # High priority where intervention can fix access
-            + 0.10 * season
-            + 0.10 * opp_score
-        )
+        # 7th Feature: Infrastructure Readiness
+        if readiness_score is not None:
+            readiness = float(readiness_score)
+        else:
+            readiness = float(opportunity_data.get("infrastructure_readiness", 60.0))
+        readiness = max(0.0, min(100.0, readiness))
+
+        # Use trained 7-feature GradientBoostingRegressor if loaded
+        if self.model is not None:
+            feat_vector = np.array([[attraction, cult, growth, access, season, opp_score, readiness]])
+            predicted_priority = float(self.model.predict(feat_vector)[0])
+            base_priority = predicted_priority
+        else:
+            # Base weighted evidence (summing to 100) incorporating 7 factors
+            base_priority = (
+                0.28 * attraction
+                + 0.14 * cult
+                + 0.18 * growth
+                + 0.14 * (100.0 - abs(access - 55.0) * 0.5)  # High priority where intervention can fix access
+                + 0.08 * season
+                + 0.10 * opp_score
+                + 0.08 * (100.0 - readiness)  # Lower readiness increases urgent need for CapEx intervention
+            )
 
         # Gap Urgency Factor: Count and severity of detected bottlenecks
         gap_urgency = 0.0
@@ -82,7 +116,11 @@ class InvestmentPriorityEngine:
         elif classification == "Tourism Leader":
             untapped_boost = 2.0  # Still high baseline, but not solely prioritized over emerging
 
-        raw_priority = base_priority * 0.82 + gap_urgency + untapped_boost
+        # Readiness gap: High potential but low readiness gets extra intervention urgency
+        readiness_gap = max(0.0, pot_score - readiness)
+        readiness_boost = min(6.0, readiness_gap * 0.15)
+
+        raw_priority = base_priority * 0.80 + gap_urgency + untapped_boost + readiness_boost
 
         # Confidence Calibration: Slight conservatism for lower confidence records
         conf_score = confidence_data.get("score", 75.0)

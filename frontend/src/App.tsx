@@ -130,6 +130,8 @@ export default function App() {
                 <Route path="/map" element={<SmartMapView />} />
                 <Route path="/experiences" element={<ExperiencesView />} />
                 <Route path="/stays" element={<StaysView />} />
+                <Route path="/hotels" element={<StaysView />} />
+                <Route path="/accommodations" element={<StaysView />} />
                 <Route path="/safety" element={<SafetyView />} />
                 <Route path="/events" element={<EventsView />} />
                 <Route path="/about" element={<AboutView />} />
@@ -315,6 +317,11 @@ export default function App() {
                   </ProtectedRoute>
                 } />
                 <Route path="/dmo/investment" element={<Navigate to="/gov/tourism-intelligence" replace />} />
+                <Route path="/dmo/readiness-input" element={
+                  <ProtectedRoute allowedRoles={['dmo']}>
+                    <AdminDMO initialTab="readiness-input" />
+                  </ProtectedRoute>
+                } />
                 <Route path="/dmo/*" element={
                   <ProtectedRoute allowedRoles={['dmo']}>
                     <AdminDMO />
@@ -341,6 +348,8 @@ export default function App() {
                     <TourismInvestmentIntelligenceView />
                   </ProtectedRoute>
                 } />
+                <Route path="/gov/readiness-input" element={<Navigate to="/gov/tourism-intelligence?tab=readiness" replace />} />
+                <Route path="/government/readiness-input" element={<Navigate to="/gov/tourism-intelligence?tab=readiness" replace />} />
                 <Route path="/gov/*" element={
                   <ProtectedRoute allowedRoles={['gov', 'government', 'analyst']}>
                     <TourismInvestmentIntelligenceView />

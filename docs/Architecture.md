@@ -199,6 +199,7 @@ For the TravelSathi platform, exactly 3 specialized models are trained and deplo
 | **Model 1: Dynamic Pricing** | Regression | GradientBoostingRegressor | Test MAE & $R^2$ | **MAE: ₹230.23**, $R^2$: **0.9946** | `backend/app/services/pricing_model.pkl` | Host dashboard pricing co-pilot & tariff optimization |
 | **Model 2: Recommendation Ranker** | Relevance / Click Probability Ranking | GradientBoostingClassifier | Test AUC-ROC & Precision@6 | **AUC: 0.7164**, **P@6: 62.32%** (Acc: 68.86%) | `backend/app/services/recommendation_model.pkl` | Home discovery rails, seasonal/nearby/history/trending rows |
 | **Model 3: Review Authenticity** | Binary Classification | DistilBERT SST-2 (Pretrained) + LogisticRegression (Trained) | 5-Fold CV Acc, Prec & Confusion Matrix | **Acc: 93.33%**, **Prec: 96.32%**, CM: `[[68, 4], [8, 100]]` | `backend/app/services/authenticity_model.pkl` | Verified Trust Badge on user reviews & host listings |
+| **Model 4: Investment Priority Regressor** | Multi-Factor Prioritization Regression | GradientBoostingRegressor (7 Features incl. Readiness) | Test MAE & $R^2$ | **MAE: 0.387 pts**, $R^2$: **0.9940** (5-Fold CV: 0.359 ± 0.023) | `backend/app/services/priority_model.pkl` | 508-district investment prioritization, CapEx allocation, & ranked intervention planning |
 
 > **Note on Training Provenance ("Trained by Us" vs "Pretrained / API"):**
 > - **Model 1 (Pricing) and Model 2 (Recommendations)** are **fully trained by our team on our dataset** using Scikit-Learn with documented bootstrap features.
@@ -288,7 +289,41 @@ For the TravelSathi platform, exactly 3 specialized models are trained and deplo
 
 ---
 
-### 8.4 Multilingual Internationalization Engine (7 Indic Languages)
+### 8.4 ML Model 4: Investment Priority Regressor (Extended with Readiness Score)
+
+* **Goal:** Compute high-confidence national investment prioritization and resource allocation rankings across 508 districts, integrating empirical tourism potential with government readiness survey inputs.
+* **Algorithm:** `GradientBoostingRegressor(n_estimators=120, max_depth=4, learning_rate=0.08, subsample=0.85, random_state=42)`
+* **Input Features (7):**
+  1. `tourism_opportunity`: Aggregated empirical tourism potential (0.0 to 100.0).
+  2. `growth_opportunity`: Growth momentum and demand-to-saturation headroom (0.0 to 100.0).
+  3. `accessibility_potential`: Transit and connectivity index across multimodal networks (0.0 to 100.0).
+  4. `attraction_strength`: Density and cluster weight of attractions and cultural heritage (0.0 to 100.0).
+  5. `cultural_natural_significance`: Heritage grade and ASI/UNESCO protection level (0.0 to 100.0).
+  6. `seasonality`: Inverse variation / year-round visitor resilience (0.0 to 100.0).
+  7. `readiness_score`: Composite infrastructure readiness score (0.0 to 100.0) derived from weighted government survey inputs: Accommodation (25%), Transport & Accessibility (20%), Connectivity (15%), Food & Hospitality (15%), Medical & Safety (15%), Other Amenities (10%).
+* **Target:** Calibrated investment priority score (0.0 to 100.0).
+* **Dataset:** 508 verified districts from the national tourism feature matrix (`ml/data/government_sources/DISTRICT_TOURISM_INVESTMENT_DATA.csv` + `city_connectivity_enriched (2).csv`).
+* **Evaluation Protocol:** 80/20 train/test split with 5-Fold Cross-Validation (`random_state=42`).
+* **Held-Out Test Results (Honest Empirical Metrics):**
+  - **Mean Absolute Error (MAE):** **0.387 points**
+  - **Root Mean Squared Error (RMSE):** **0.575 points**
+  - **Coefficient of Determination ($R^2$):** **0.9940**
+* **5-Fold Cross-Validation Results:**
+  - **CV MAE:** **0.359 ± 0.023 points**
+  - **CV $R^2$:** **0.9952**
+* **Feature Importances:**
+  - `tourism_opportunity`: 93.08%
+  - `growth_opportunity`: 2.44%
+  - `accessibility_potential`: 1.89%
+  - `attraction_strength`: 1.25%
+  - `readiness_score`: 0.76%
+  - `seasonality`: 0.43%
+  - `cultural_natural_significance`: 0.14%
+* **Serving & Fallback:** Model loaded from `backend/app/services/priority_model.pkl` (with fallback to `ml/models/priority_model.pkl`). Integrated directly into `InvestmentPriorityEngine` (`ml/models/priority_engine.py`) and cached in `GovernmentIntelligenceOrchestrator` (`ml/inference/orchestrator_gov.py`). If model artifact is missing, deterministic weighted fallback (`priority_score = (potential * 0.70) + (readiness * 0.30)`) is automatically invoked.
+
+---
+
+### 8.5 Multilingual Internationalization Engine (7 Indic Languages)
 
 * **Coverage**: English, Hindi (hi), Marathi (mr), Bengali (bn), Tamil (ta), Telugu (te), Gujarati (gu).
 * **Architecture**:
@@ -298,7 +333,7 @@ For the TravelSathi platform, exactly 3 specialized models are trained and deplo
 
 ---
 
-### 8.5 Emergency & Tourist Essentials Spatial Mesh (548+ Facilities)
+### 8.6 Emergency & Tourist Essentials Spatial Mesh (548+ Facilities)
 
 * **Coverage**: 548+ verified facilities distributed across all 36 States and Union Territories.
 * **Architecture**:
