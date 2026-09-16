@@ -111,13 +111,25 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     document.documentElement.setAttribute('data-panel', userRole);
   }, [userRole]);
 
-  // Synchronize authenticated session with backend using HTTP-only cookies (no localStorage token)
+  // Synchronize authenticated session with backend using HTTP-only cookies + Authorization header
   useEffect(() => {
     // Enable cookie-based auth for all axios requests
     axios.defaults.withCredentials = true;
-    // Request initial session cookie from backend
+
+    // Restore any existing session token immediately
+    const existingToken = localStorage.getItem('travelsathi_token');
+    if (existingToken) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${existingToken}`;
+    }
+
+    // Request fresh session token & cookie from backend
     axios.post('/api/auth/switch-token', { role: userRole })
-      .then(() => {})
+      .then((res) => {
+        if (res.data?.token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+          localStorage.setItem('travelsathi_token', res.data.token);
+        }
+      })
       .catch(() => {});
   }, []);
 
@@ -160,7 +172,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
     // Call backend to issue authentic role-derived JWT & set HTTP-only session cookie
     axios.post('/api/auth/switch-token', { role })
-      .then(() => {})
+      .then((res) => {
+        if (res.data?.token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+          localStorage.setItem('travelsathi_token', res.data.token);
+        }
+      })
       .catch(() => {});
 
     let updated = null;

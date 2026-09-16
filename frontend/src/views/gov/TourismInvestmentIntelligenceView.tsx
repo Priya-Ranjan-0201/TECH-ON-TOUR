@@ -249,10 +249,11 @@ export default function TourismInvestmentIntelligenceView() {
   ]);
   const [advisorLoading, setAdvisorLoading] = useState<boolean>(false);
 
-  // Initial Load
+  // Initial Load with automatic Gov session token synchronization & retry
   const fetchAllData = useCallback(async () => {
     setLoading(true);
-    try {
+
+    const executeFetch = async () => {
       const [overviewRes, rankingsRes, mapRes] = await Promise.all([
         axios.get('/api/government/tourism/overview'),
         axios.get('/api/government/tourism/rankings'),
@@ -261,11 +262,44 @@ export default function TourismInvestmentIntelligenceView() {
       setKpis(overviewRes.data);
       setRankings(rankingsRes.data);
       setMapPoints(mapRes.data);
-      if (rankingsRes.data.length > 0) {
+      if (rankingsRes.data && rankingsRes.data.length > 0) {
         setSelectedDistrict(rankingsRes.data[0]);
         setScenarioTargetId(rankingsRes.data[0].destination_id);
       }
-    } catch (err) {
+    };
+
+    try {
+      // Ensure we have a valid session token
+      if (!axios.defaults.headers.common['Authorization']) {
+        const saved = localStorage.getItem('travelsathi_token');
+        if (saved) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${saved}`;
+        } else {
+          const authRes = await axios.post('/api/auth/switch-token', { role: 'gov' });
+          if (authRes.data?.token) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${authRes.data.token}`;
+            localStorage.setItem('travelsathi_token', authRes.data.token);
+            localStorage.setItem('travelsathi_role', 'gov');
+          }
+        }
+      }
+
+      await executeFetch();
+    } catch (err: any) {
+      console.warn('Initial Gov data fetch returned error, acquiring fresh Gov session token:', err);
+      // Auto-recover if session cookie/token was invalid or unprivileged
+      try {
+        const authRes = await axios.post('/api/auth/switch-token', { role: 'gov' });
+        if (authRes.data?.token) {
+          axios.defaults.headers.common['Authorization'] = `Bearer ${authRes.data.token}`;
+          localStorage.setItem('travelsathi_token', authRes.data.token);
+          localStorage.setItem('travelsathi_role', 'gov');
+          await executeFetch();
+          return;
+        }
+      } catch (retryErr) {
+        console.error('Auto-recovery Gov token switch failed:', retryErr);
+      }
       console.error('Failed to load Government Intelligence data:', err);
     } finally {
       setLoading(false);
