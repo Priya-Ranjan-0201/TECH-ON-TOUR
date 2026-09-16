@@ -10,7 +10,10 @@ Verifies:
 import pytest
 from httpx import AsyncClient, ASGITransport
 from app.main import app
+from app.core.security import create_access_token
 from app.services.govt_intelligence_service import haversine_distance_km, get_current_hourly_token
+
+DMO_HEADERS = {"Authorization": f"Bearer {create_access_token({'sub': 'usr-dmo-1', 'role': 'dmo'})}"}
 
 
 @pytest.mark.asyncio
@@ -18,7 +21,7 @@ async def test_module1_investment_recommendation_budget_scaling():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
         # Test 1: Budget = 10 Crore
-        res1 = await client.post("/api/dmo/investment-recommend", json={"budget_crore": 10.0})
+        res1 = await client.post("/api/dmo/investment-recommend", json={"budget_crore": 10.0}, headers=DMO_HEADERS)
         assert res1.status_code == 200, f"Error: {res1.text}"
         data1 = res1.json()
         assert data1["status"] == "success"
@@ -36,7 +39,7 @@ async def test_module1_investment_recommendation_budget_scaling():
         assert len(first_rec_10["recommended_actions"]) >= 2
 
         # Test 2: Budget = 50 Crore
-        res2 = await client.post("/api/dmo/investment-recommend", json={"budget_crore": 50.0})
+        res2 = await client.post("/api/dmo/investment-recommend", json={"budget_crore": 50.0}, headers=DMO_HEADERS)
         assert res2.status_code == 200
         data2 = res2.json()
         first_rec_50 = data2["top_10_recommendations"][0]
@@ -57,7 +60,7 @@ async def test_module1_investment_recommendation_budget_scaling():
 async def test_module2_crowd_and_festival_forecasts():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
-        res = await client.get("/api/dmo/crowd-forecast?days_ahead=120")
+        res = await client.get("/api/dmo/crowd-forecast?days_ahead=120", headers=DMO_HEADERS)
         assert res.status_code == 200, f"Error: {res.text}"
         data = res.json()
         assert data["status"] == "success"
@@ -100,7 +103,7 @@ async def test_module3_tourist_flow_redistribution():
     transport = ASGITransport(app=app)
     async with AsyncClient(transport=transport, base_url="http://test") as client:
         # Test with destination ID 1 (or any valid destination)
-        res = await client.get("/api/dmo/flow-redistribution/1")
+        res = await client.get("/api/dmo/flow-redistribution/1", headers=DMO_HEADERS)
         assert res.status_code == 200, f"Error: {res.text}"
         data = res.json()
         assert data["status"] == "success"

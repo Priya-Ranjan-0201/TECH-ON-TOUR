@@ -54,9 +54,13 @@ def test_destination_detail_returns_crowd_index():
     assert dest["crowd_level"] in ("low", "moderate", "high", "critical")
 
 
+from app.core.security import create_access_token
+
+
 def test_flow_redistribution_reads_crowd_index():
     """Verify flow-redistribution module reads crowd_index and honest label."""
-    res = client.get("/api/dmo/flow-redistribution/1")
+    dmo_token = create_access_token({"sub": "usr-dmo-1", "role": "dmo"})
+    res = client.get("/api/dmo/flow-redistribution/1", headers={"Authorization": f"Bearer {dmo_token}"})
     assert res.status_code == 200
     data = res.json()
     primary = data["primary_destination"]

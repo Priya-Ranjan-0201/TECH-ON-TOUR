@@ -137,7 +137,7 @@ def verify_user_ownership(resource_user_id: str, current_user: User) -> None:
 
     raise HTTPException(
         status_code=status.HTTP_403_FORBIDDEN,
-        detail="Not authorized to modify this resource."
+        detail="Forbidden: You do not own or are not authorized to access this resource."
     )
 
 
